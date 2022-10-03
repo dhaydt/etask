@@ -1,0 +1,435 @@
+<template>
+    <div class="container mt-5 position-relative">
+        <div class="row pt-4">
+            <AddStaff></AddStaff>
+            <div class="col-3">
+                <div class="p-2 alert alert-secondary card-list w-100 m-0">
+                    <div class="list-header mb-2">
+                        <span class="list-drag-handle">&#x2630;</span>
+                        To - Do
+                    </div>
+                    <!-- Backlog draggable component. Pass arrBackLog to list prop -->
+                    <draggable
+                        v-bind="dragOptions"
+                        class="list-group kanban-column"
+                        id="todo"
+                        :list="newTodos"
+                        group="tasks"
+                        :move="checkMove"
+                    >
+                        <div
+                            class="list-group-item text-capitalize"
+                            v-for="element in newTodos"
+                            :key="element.name"
+                            @click="cardModal(element)"
+                        >
+                            <h6
+                                class="text-capitalize d-flex justify-content-between align-items-center"
+                            >
+                                {{ element.name }}
+                                <button
+                                    @click="removeTask(element.id)"
+                                    class="btn delete-btn btn-sm text-danger"
+                                    data-bs-toggle="tooltip"
+                                    title="Hapus"
+                                >
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </h6>
+                            <draggable
+                                v-bind="dragOptions"
+                                class="list-staff"
+                                :id="element.id"
+                                :list="element.staffs"
+                                group="task-staff"
+                                @move="checkStaff"
+                            >
+                                <div
+                                    class="list-group-staff d-flex card flex-row shadow-sm p-1 mb-1"
+                                    v-for="staf in element.staffs"
+                                    :key="staf.id"
+                                >
+                                    <button
+                                        @click="
+                                            removeStaff(staf.id, element.id)
+                                        "
+                                        class="btn btn-sm btn-danger btn-remove position-absolute text-light"
+                                        data-bs-toggle="tooltip"
+                                        title="Hapus"
+                                    >
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <div
+                                        class="avatar me-2 text-capitalize position-relative"
+                                        data-bs-toggle="tooltip"
+                                        :title="staf.name"
+                                    >
+                                        <img
+                                            height="25"
+                                            src="img/user.png"
+                                            alt=""
+                                        />
+                                    </div>
+                                    <div
+                                        class="staff-name d-flex justify-content-center"
+                                    >
+                                        <div class="staff-label">
+                                            {{ staf.name }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </draggable>
+                        </div>
+                        <div class="input-group input-group-sm mt-auto">
+                            <input
+                                v-model="newTask"
+                                id="input-2"
+                                placeholder="Tambah tugas"
+                                class="form-control"
+                                required
+                                @keyup.enter="add"
+                            />
+                            <span
+                                id="basic-addon2"
+                                class="input-group-text p-0"
+                            >
+                                <button
+                                    type="submit"
+                                    :disabled="newTask.length === 0"
+                                    class="button is-primary btn btn-success btn-sm"
+                                    @click="add"
+                                >
+                                    <span class="icon is-small btn btn-sm p-0">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </span>
+                                </button>
+                            </span>
+                        </div>
+                    </draggable>
+                </div>
+            </div>
+            <div class="col-3">
+                <Doing :doing="newDoing"></Doing>
+            </div>
+            <div class="col-3">
+                <Done :done="newDone"></Done>
+            </div>
+            <div v-if="role == 1" class="col-3">
+                <Staff :staffs="newStaff"></Staff>
+            </div>
+        </div>
+        <Modal :taskData="taskData" :role="role" :status="status"></Modal>
+    </div>
+</template>
+
+<script>
+import AddStaff from '../partials/part/addStaff'
+import Modal from "../partials/modal";
+import Staff from "../partials/staff";
+import Done from "../partials/done";
+import Doing from "../partials/doing";
+import draggable from "vuedraggable";
+import axios from "axios";
+
+export default {
+    name: "e-task",
+    components: {
+    AddStaff,
+        Modal,
+        Staff,
+        Done,
+        Doing,
+        //import draggable as a component
+        draggable,
+    },
+    computed: {
+        dragOptions() {
+            return {
+                animation: 800,
+                disabled: false,
+                ghostClass: "ghost",
+            };
+        },
+        // this.value when input = v-model
+        // this.list  when input != v-model
+        realValue() {
+            return this.value ? this.value : this.list;
+        },
+    },
+    data() {
+        return {
+            newTask: "",
+            status: null,
+            staffSingle: [],
+            newTodos: [],
+            newDoing: [],
+            newDone: [],
+            newStaff: [],
+            taskTitle: null,
+            taskDescription: null,
+            taskStaff: [],
+            taskData: [],
+        };
+    },
+    mounted() {
+        // console.log('staff', this.staffs)
+        this.splitData();
+
+        // console.log('stf', this.newTodos)
+    },
+    props: {
+        todos: Array,
+        doing: Array,
+        done: Array,
+        staffs: Array,
+        role: String,
+    },
+    methods: {
+        removeTask(taskId) {
+            event.stopPropagation();
+            console.log("delete", taskId);
+            const that = this;
+            axios
+                .post("deleteTask", {
+                    task_id: taskId,
+                })
+                .then(function (response) {
+                    // console.log("resp", response);
+                    that.splitAxios(response.data.original);
+                    Vue.$toast.success("Task deleted Successfully");
+                })
+                .catch(function (err) {
+                    console.log("err", err);
+                });
+        },
+        removeStaff(user, taskId) {
+            event.stopPropagation();
+            const that = this;
+            axios
+                .post("updateStaff", {
+                    task: "",
+                    staff: user,
+                    task_id: taskId,
+                })
+                .then(function (response) {
+                    // console.log("resp", response);
+                    that.splitAxios(response.data.original);
+                    Vue.$toast.success("Staff Moved Successfully");
+                })
+                .catch(function (err) {
+                    console.log("err", err);
+                });
+            console.log("staffcheck", user);
+        },
+        splitData() {
+            this.todos.forEach((s) => {
+                var todo = {
+                    id: s.id,
+                    name: s.name,
+                    staffs: JSON.parse(s.staff),
+                    status: s.status,
+                    description: s.description,
+                };
+                this.newTodos.push(todo);
+            });
+
+            this.staffs.forEach((s) => {
+                this.newStaff.push(s);
+            });
+
+            this.doing.forEach((s) => {
+                var todo = {
+                    id: s.id,
+                    name: s.name,
+                    staffs: JSON.parse(s.staff),
+                    status: s.status,
+                    description: s.description,
+                };
+                this.newDoing.push(todo);
+            });
+
+            this.done.forEach((s) => {
+                var todo = {
+                    id: s.id,
+                    name: s.name,
+                    staffs: JSON.parse(s.staff),
+                    status: s.status,
+                    description: s.description,
+                };
+                this.newDone.push(todo);
+            });
+        },
+        resetTask() {
+            this.newTodos = [];
+            this.newDone = [];
+            this.newDoing = [];
+            this.newStaff = [];
+        },
+        splitAxios(data) {
+            console.log("axios", data);
+            this.resetTask();
+            data.todo.forEach((s) => {
+                var todo = {
+                    id: s.id,
+                    name: s.name,
+                    staffs: JSON.parse(s.staff),
+                    status: s.status,
+                    description: s.description,
+                };
+                this.newTodos.push(todo);
+            });
+
+            data.staffs.forEach((s) => {
+                this.newStaff.push(s);
+            });
+
+            data.doing.forEach((s) => {
+                var todo = {
+                    id: s.id,
+                    name: s.name,
+                    staffs: JSON.parse(s.staff),
+                    status: s.status,
+                    description: s.description,
+                };
+                this.newDoing.push(todo);
+            });
+
+            data.done.forEach((s) => {
+                var todo = {
+                    id: s.id,
+                    name: s.name,
+                    staffs: JSON.parse(s.staff),
+                    status: s.status,
+                    description: s.description,
+                };
+                this.newDone.push(todo);
+            });
+        },
+        hideModalTask() {
+            $("#modalTask").modal("hide");
+            console.log("called");
+        },
+        cardModal(data) {
+            var modalTask = new bootstrap.Modal(
+                document.getElementById("modalTask"),
+                {
+                    keyboard: false,
+                }
+            );
+            console.log("data modal", data);
+            this.status = data.status;
+            this.taskData = data;
+            modalTask.show();
+        },
+        //add new tasks method
+        add: function () {
+            if (this.newTask) {
+                let data = this;
+                this.todos.push({ name: this.newTask, staffs: [] });
+                axios
+                    .post("/postTodo", {
+                        title: this.newTask,
+                        status: "todo",
+                        saffs: [],
+                    })
+                    .then(function (response) {
+                        data.splitAxios(response.data.original);
+                        console.log("resp", response);
+                    })
+                    .catch(function (err) {
+                        console.log("err", err);
+                    });
+                this.newTask = "";
+            }
+        },
+        checkMove: function (evt) {
+            var status = evt.to.id;
+            var id = evt.draggedContext.element.id;
+            console.log("moved", id);
+            const that = this;
+
+            axios
+                .post("changeStatus", {
+                    id: id,
+                    status: status,
+                })
+                .then(function (response) {
+                    console.log("resp", response.data);
+                    that.splitAxios(response.data.original);
+                    Vue.$toast.success("Task Moved Successfully");
+                })
+                .catch(function (err) {
+                    console.log("err", err);
+                });
+            this.status = status;
+        },
+        checkStaff: function (evt) {
+            console.log("evt", evt);
+            var taskId = evt.to.id;
+            var from_id = evt.from.id;
+            var user = evt.draggedContext.element.id;
+            console.log(evt);
+            axios
+                .post("updateStaff", {
+                    task: taskId,
+                    staff: user,
+                    task_id: from_id,
+                })
+                .then(function (response) {
+                    console.log("resp", response);
+                    Vue.$toast.success("Staff Moved Successfully");
+                })
+                .catch(function (err) {
+                    console.log("err", err);
+                });
+            console.log("staffcheck", user);
+        },
+    },
+};
+</script>
+
+<style>
+/* light stylings for the kanban columns */
+.staff-name {
+    font-size: 12px;
+    align-items: center;
+    width: 100%;
+    text-transform: capitalize;
+}
+.card-list {
+    margin: 5px;
+    margin-right: 20px;
+    background-color: #efefef9c;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 12%), 0 1px 1px rgb(0 0 0 / 24%);
+}
+.kanban-column {
+    min-height: 100px;
+}
+.list-group-item {
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.avatar {
+    border-radius: 50%;
+    padding: 3px;
+    background: #ddd;
+}
+.btn-remove {
+    border-radius: 50%;
+    padding: 0px 4px;
+    font-size: 10px;
+    right: -7px;
+    top: -7px;
+    z-index: 9;
+}
+h6 .delete-btn {
+    opacity: 0;
+    transition: 0.6s;
+}
+
+.list-group-item:hover h6 .delete-btn {
+    opacity: 1;
+}
+</style>
