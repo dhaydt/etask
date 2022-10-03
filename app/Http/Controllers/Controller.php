@@ -191,7 +191,6 @@ class Controller extends BaseController
                 $data['todo'] = Task::where('status', 'todo')->whereRaw('JSON_CONTAINS(@staff,  '.$user->nip.''.', "$[*].id")')->get();
                 $data['doing'] = Task::where('status', 'doing')->whereRaw('JSON_CONTAINS(@staff,  "'.$user->nip.'"'.', "$[*].id")')->get();
                 $data['done'] = Task::where('status', 'done')->whereRaw('JSON_CONTAINS(@staff,  "'.$user->nip.'"'.', "$[*].id")')->get();
-                dd($data);
             } else {
                 $data['todo'] = Task::where('status', 'todo')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$user->nip.'")')->get();
                 $data['doing'] = Task::where('status', 'doing')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$user->nip.'")')->get();
