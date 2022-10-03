@@ -188,7 +188,7 @@ class Controller extends BaseController
             $data['staffs'] = Staff::where('available', 1)->get();
         } else {
             if (env('APP_ENV') == 'server') {
-                $data['todo'] = Task::where('status', 'todo')->whereRaw('JSON_CONTAINS(@staff,  "'.$user->nip.'"'.', "$[*].id")')->get();
+                $data['todo'] = Task::where('status', 'todo')->whereRaw('JSON_CONTAINS(@staff,  '.$user->nip.''.', "$[*].id")')->get();
                 $data['doing'] = Task::where('status', 'doing')->whereRaw('JSON_CONTAINS(@staff,  "'.$user->nip.'"'.', "$[*].id")')->get();
                 $data['done'] = Task::where('status', 'done')->whereRaw('JSON_CONTAINS(@staff,  "'.$user->nip.'"'.', "$[*].id")')->get();
                 dd($data);
