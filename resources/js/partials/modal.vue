@@ -39,7 +39,7 @@
                             <textarea
                                 class="form-control"
                                 id="description"
-                                rows="3"
+                                rows="5"
                                 name="description"
                                 v-model="taskData.description"
                             ></textarea>
@@ -249,9 +249,10 @@ input.form-control.header {
     border: none;
     display: unset;
     width: auto;
+    font-family: "Acme", sans-serif;
     font-weight: 600;
     padding-bottom: 2px;
-    font-size: 18px;
+    font-size: 20px;
     color: #000;
     text-transform: capitalize;
 }

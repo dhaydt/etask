@@ -30,6 +30,7 @@
     },
     "dependencies": {
         "bootstrap-vue": "^2.22.0",
+        "moment": "^2.29.4",
         "vue-toast-notification": "^0.6.3",
         "vuedraggable": "^2.24.3"
     }

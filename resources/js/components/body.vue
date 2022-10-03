@@ -24,7 +24,7 @@
                             @click="cardModal(element)"
                         >
                             <h6
-                                class="text-capitalize d-flex justify-content-between align-items-center"
+                                class="mb-0 text-capitalize d-flex justify-content-between align-items-center"
                             >
                                 {{ element.name }}
                                 <button
@@ -36,6 +36,14 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </h6>
+                            <div
+                                v-if="element.description"
+                                class="description ps-2 mb-3"
+                            >
+                                <span>
+                                    {{ element.description }}
+                                </span>
+                            </div>
                             <draggable
                                 v-bind="dragOptions"
                                 class="list-staff"
@@ -79,6 +87,13 @@
                                     </div>
                                 </div>
                             </draggable>
+                            <div
+                                class="created-at mt-2 d-flex justify-content-end"
+                            >
+                                <span class="badge rounded-pill bg-secondary">
+                                    {{ element.created_at | moment }}
+                                </span>
+                            </div>
                         </div>
                         <div class="input-group input-group-sm mt-auto">
                             <input
@@ -123,18 +138,19 @@
 </template>
 
 <script>
-import AddStaff from '../partials/part/addStaff'
+import AddStaff from "../partials/part/addStaff";
 import Modal from "../partials/modal";
 import Staff from "../partials/staff";
 import Done from "../partials/done";
 import Doing from "../partials/doing";
 import draggable from "vuedraggable";
 import axios from "axios";
+import moment from "moment";
 
 export default {
     name: "e-task",
     components: {
-    AddStaff,
+        AddStaff,
         Modal,
         Staff,
         Done,
@@ -184,7 +200,15 @@ export default {
         staffs: Array,
         role: String,
     },
+    filters: {
+        moment: function (date) {
+            return moment(date).format("D MMMM YYYY, h:mm");
+        },
+    },
     methods: {
+        moment: function (date) {
+            return moment(date);
+        },
         removeTask(taskId) {
             event.stopPropagation();
             console.log("delete", taskId);
@@ -229,6 +253,8 @@ export default {
                     staffs: JSON.parse(s.staff),
                     status: s.status,
                     description: s.description,
+                    created_at: s.created_at,
+                    updated: s.updated_at,
                 };
                 this.newTodos.push(todo);
             });
@@ -244,6 +270,8 @@ export default {
                     staffs: JSON.parse(s.staff),
                     status: s.status,
                     description: s.description,
+                    created_at: s.created_at,
+                    updated: s.updated_at,
                 };
                 this.newDoing.push(todo);
             });
@@ -388,7 +416,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 /* light stylings for the kanban columns */
 .staff-name {
     font-size: 12px;
@@ -410,6 +438,23 @@ export default {
     margin-bottom: 5px;
     cursor: pointer;
     transition: 0.5s;
+    h6 {
+        font-family: "Acme", sans-serif;
+    }
+    .description {
+        border-radius: 5px;
+        background-color: #efefef;
+        line-height: 1.2;
+        padding: 0 5px 5px 5px;
+        max-height: 45px;
+        overflow: hidden;
+        border-radius: 5px;
+        transition: 1s;
+        span {
+            font-size: 12px;
+            font-family: "Acme", sans-serif;
+        }
+    }
 }
 .avatar {
     border-radius: 50%;
@@ -431,5 +476,15 @@ h6 .delete-btn {
 
 .list-group-item:hover h6 .delete-btn {
     opacity: 1;
+}
+
+.list-group-item:hover .description {
+    height: 85px;
+    max-height: 85px;
+}
+.created-at {
+    span.badge {
+        font-size: 10px;
+    }
 }
 </style>

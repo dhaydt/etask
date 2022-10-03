@@ -21,5 +21,6 @@ export default {
 }
 .label-text{
     font-weight: 600;
+    font-family: "Acme", sans-serif;
 }
 </style>
