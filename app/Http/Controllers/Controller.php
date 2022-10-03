@@ -188,18 +188,40 @@ class Controller extends BaseController
             $data['staffs'] = Staff::where('available', 1)->get();
         } else {
             if (env('APP_ENV') == 'server') {
-                $data['todo'] = Task::where('status', 'todo')->whereRaw('JSON_CONTAINS(@staff,  '.$user->nip.''.', "$[*].id")')->get();
-                $data['doing'] = Task::where('status', 'doing')->whereRaw('JSON_CONTAINS(@staff,  "'.$user->nip.'"'.', "$[*].id")')->get();
-                $data['done'] = Task::where('status', 'done')->whereRaw('JSON_CONTAINS(@staff,  "'.$user->nip.'"'.', "$[*].id")')->get();
+                $data['todo'] = json_encode($this->getTaskMaria($user, 'todo'));
+                $data['doing'] = json_encode($this->getTaskMaria($user, 'doing'));
+                $data['done'] = json_encode($this->getTaskMaria($user, 'done'));
             } else {
                 $data['todo'] = Task::where('status', 'todo')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$user->nip.'")')->get();
                 $data['doing'] = Task::where('status', 'doing')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$user->nip.'")')->get();
                 $data['done'] = Task::where('status', 'done')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$user->nip.'")')->get();
             }
+
             $data['staffs'] = Staff::get();
         }
 
         return view('app', $data);
+    }
+
+    public function getTaskMaria($user, $status)
+    {
+        $todos = Task::where('status', $status)->get();
+        $todoId = [];
+
+        if (count($todos) > 0) {
+            foreach ($todos as $to) {
+                $staffs = json_decode($to['staff']);
+                if (count($staffs) > 0) {
+                    foreach ($staffs as $s) {
+                        if ($s->id == $user->nip) {
+                            array_push($todoId, $to);
+                        }
+                    }
+                }
+            }
+        }
+
+        return $todoId;
     }
 
     public function updateTask(Request $request)
