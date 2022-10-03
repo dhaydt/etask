@@ -253,9 +253,15 @@ class Controller extends BaseController
             $data['done'] = Task::where('status', 'done')->get();
             $data['staffs'] = Staff::where('available', 1)->get();
         } else {
-            $data['todo'] = Task::where('status', 'todo')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$user->nip.'")')->get();
-            $data['doing'] = Task::where('status', 'doing')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$user->nip.'")')->get();
-            $data['done'] = Task::where('status', 'done')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$user->nip.'")')->get();
+            if (env('APP_ENV') == 'server') {
+                $data['todo'] = json_encode($this->getTaskMaria($user, 'todo'));
+                $data['doing'] = json_encode($this->getTaskMaria($user, 'doing'));
+                $data['done'] = json_encode($this->getTaskMaria($user, 'done'));
+            } else {
+                $data['todo'] = Task::where('status', 'todo')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$user->nip.'")')->get();
+                $data['doing'] = Task::where('status', 'doing')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$user->nip.'")')->get();
+                $data['done'] = Task::where('status', 'done')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$user->nip.'")')->get();
+            }
             $data['staffs'] = Staff::get();
         }
 
