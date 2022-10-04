@@ -35,11 +35,19 @@ class Helpers
 
     public static function checkAvailable($id)
     {
-        $task = Task::where('status', 'doing')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$id.'")')->first();
-        if ($task) {
-            $user = Staff::find($id);
-            $user->available = 0;
-            $user->save();
+        $tasks = Task::where('status', 'doing')->get();
+
+        if ($tasks) {
+            foreach ($tasks as $t) {
+                $staffs = json_decode($t->staff);
+                foreach ($staffs as $s) {
+                    if ($s->id == $id) {
+                        $user = Staff::find($id);
+                        $user->available = 0;
+                        $user->save();
+                    }
+                }
+            }
         } else {
             $user = Staff::find($id);
             $user->available = 1;
