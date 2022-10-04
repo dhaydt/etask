@@ -63,7 +63,7 @@
 
     <script src="{{ mix('/js/app.js') }}"></script>
     <script src="{{ asset('bootstrap/js/bootstrap.bundle.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.1.slim.js" integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/jquery-3.6.js') }}"></script>
 
 </body>
 
