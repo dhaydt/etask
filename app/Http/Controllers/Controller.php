@@ -185,7 +185,7 @@ class Controller extends BaseController
             $data['todo'] = Task::where('status', 'todo')->get();
             $data['doing'] = Task::where('status', 'doing')->get();
             $data['done'] = Task::where('status', 'done')->get();
-            $data['staffs'] = Staff::where('available', 1)->get();
+            $data['staffs'] = Staff::get();
         } else {
             if (env('APP_ENV') == 'server') {
                 $data['todo'] = json_encode($this->getTaskMaria($user, 'todo'));

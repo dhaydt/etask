@@ -45,7 +45,6 @@
                                 </span>
                             </div>
                             <draggable
-                                v-bind="dragOptions"
                                 class="list-staff"
                                 :id="element.id"
                                 :list="element.staffs"
@@ -133,7 +132,7 @@
                 <Staff :staffs="newStaff"></Staff>
             </div>
         </div>
-        <Modal :taskData="taskData" :role="role" :status="status"></Modal>
+        <Modal :taskData="taskData" :role="role" :status="status" :staffs="newStaff"></Modal>
     </div>
 </template>
 
@@ -392,25 +391,25 @@ export default {
             this.status = status;
         },
         checkStaff: function (evt) {
-            console.log("evt", evt);
-            var taskId = evt.to.id;
-            var from_id = evt.from.id;
-            var user = evt.draggedContext.element.id;
-            console.log(evt);
-            axios
-                .post("updateStaff", {
-                    task: taskId,
-                    staff: user,
-                    task_id: from_id,
-                })
-                .then(function (response) {
-                    console.log("resp", response);
-                    Vue.$toast.success("Staff Moved Successfully");
-                })
-                .catch(function (err) {
-                    console.log("err", err);
-                });
-            console.log("staffcheck", user);
+            // console.log("evt", evt);
+            // var taskId = evt.to.id;
+            // var from_id = evt.from.id;
+            // var user = evt.draggedContext.element.id;
+            // console.log(evt);
+            // axios
+            //     .post("updateStaff", {
+            //         task: taskId,
+            //         staff: user,
+            //         task_id: from_id,
+            //     })
+            //     .then(function (response) {
+            //         console.log("resp", response);
+            //         Vue.$toast.success("Staff Moved Successfully");
+            //     })
+            //     .catch(function (err) {
+            //         console.log("err", err);
+            //     });
+            // console.log("staffcheck", user);
         },
     },
 };

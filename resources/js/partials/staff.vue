@@ -13,12 +13,22 @@
             :move="checkStaff"
         >
             <div
-                class="list-group-staff d-flex card flex-row shadow-sm list-group-item text-capitalize"
+                class="list-group-staff mb-2 d-flex card flex-row shadow-sm list-group-item text-capitalize position-relative"
                 v-for="element in staffs"
                 :key="element.name"
                 data-bs-toggle="tooltip"
                 :title="element.name"
             >
+                <label
+                    v-if="element.available == 1"
+                    class="badge bg-success rounded-pill staff-status position-absolute"
+                    >Available</label
+                >
+                <label
+                    v-else
+                    class="badge bg-danger rounded-pill staff-status position-absolute"
+                    >OnWorking</label
+                >
                 <div class="avatar me-2 text-capitalize position-relative">
                     <img height="25" src="img/user.png" alt="" />
                 </div>
@@ -41,7 +51,7 @@ export default {
         dragOptions() {
             return {
                 animation: 800,
-                disabled: false,
+                disabled: true,
                 ghostClass: "ghost",
             };
         },
@@ -61,6 +71,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.staff-status {
+    top: -5px;
+    right: 0;
+    font-size: 10px;
+}
 .alert.alert-success {
     background-color: #d1e7ddab;
 }

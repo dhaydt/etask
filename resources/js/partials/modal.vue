@@ -34,7 +34,10 @@
                     <input type="hidden" name="_token" :value="token" />
                     <input type="hidden" name="id" :value="taskData.id" />
                     <div class="modal-body">
-                        <LabelTitle title="Deskripsi" icon="fa-solid fa-align-justify"></LabelTitle>
+                        <LabelTitle
+                            title="Deskripsi"
+                            icon="fa-solid fa-align-justify"
+                        ></LabelTitle>
                         <div class="mb-3 input-text">
                             <textarea
                                 class="form-control"
@@ -44,7 +47,10 @@
                                 v-model="taskData.description"
                             ></textarea>
                         </div>
-                        <LabelTitle title="Staff" icon="fa-solid fa-users"></LabelTitle>
+                        <LabelTitle
+                            title="Staff"
+                            icon="fa-solid fa-users"
+                        ></LabelTitle>
                         <div class="mb-3 input-text">
                             <div
                                 class=""
@@ -72,6 +78,12 @@
                                     }}</label>
                                 </div>
                             </div>
+                            <v-select
+                                multiple
+                                :options="options"
+                                label="name"
+                                :components="{Deselect}"
+                            ></v-select>
                         </div>
                     </div>
                     <div v-if="role == 1" class="modal-footer">
@@ -115,16 +127,19 @@
 </template>
 
 <script>
-import LabelTitle from './part/label-title'
+import LabelTitle from "./part/label-title";
+import vSelect from "vue-select";
 export default {
-  components: { LabelTitle },
+    components: { LabelTitle, vSelect },
     props: {
         taskData: Object & Array,
         role: String,
         status: String,
+        staffs: Array,
     },
     data() {
         return {
+            options: this.staffs,
             newStat: null,
             newTaskData: [],
             token: document
@@ -136,6 +151,9 @@ export default {
                         .querySelector('meta[name="csrf-token"]')
                         .getAttribute("content"),
                 },
+            },
+            Deselect: {
+                render: (createElement) => createElement("span", "❌"),
             },
         };
     },
@@ -240,9 +258,9 @@ export default {
         font-weight: 800;
     }
 
-    i{
-    font-size: 16px;
-    color: #67696f;
+    i {
+        font-size: 16px;
+        color: #67696f;
     }
 }
 input.form-control.header {
@@ -256,17 +274,22 @@ input.form-control.header {
     color: #000;
     text-transform: capitalize;
 }
-.mb-3.input-text{
+.mb-3.input-text {
     padding-left: 32px;
-    .form-control{
+    .form-control {
         border: none;
         background-color: #ededed;
         margin-top: 10px;
+    }
+    #description {
+        font-family: cursive;
+        font-size: 12px;
     }
 }
 .modal-content .modal-header {
     border-bottom: none;
 }
+
 .label-row {
     display: block;
     font-size: 12px;
