@@ -38,6 +38,11 @@
             z-index: 1;
             margin-top: 50px;
         }
+        .vs__selected-options .vs__selected{
+            font-size: 12px;
+            font-family: "Acme", sans-serif;
+            border: none;
+        }
 
     </style>
 </head>

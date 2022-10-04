@@ -233,15 +233,29 @@ class Controller extends BaseController
             'name.required' => 'Mohon isi judul Task!',
             'description.required' => 'Mohon isi Deskripsi Task!',
         ]);
+        $newStaff = $request->staf;
+
         $task = Task::find($request->id);
+        $staffOld = [];
+
+        foreach ($newStaff as $s) {
+            $st = [
+                'id' => $s['id'],
+                'name' => $s['name'],
+            ];
+            array_push($staffOld, $st);
+        }
+
         $task->name = $request->name;
         $task->description = $request->description;
         $task->updated_at = now();
+        $task->staff = $staffOld;
         $task->save();
 
         $this->history('update_task', $request->id, $task->status);
+        $data = $this->refresh();
 
-        return redirect()->back();
+        return response()->json($data);
     }
 
     public function refresh()

@@ -54,7 +54,7 @@
                         <div class="mb-3 input-text">
                             <div
                                 class=""
-                                v-if="JSON.stringify(taskData.staffs) == '[]'"
+                                v-if="newStaff == '[]'"
                             >
                                 <span class="badge rounded-pill bg-danger"
                                     >Belum ada Staff dipilih!</span
@@ -62,7 +62,7 @@
                             </div>
                             <div class="avatar-list flex-row row mt-2" v-else>
                                 <div
-                                    v-for="s in taskData.staffs"
+                                    v-for="s in newStaff"
                                     class="avatar-card d-flex col-12 col-md-6 align-items-center"
                                     :key="s.id"
                                 >
@@ -79,9 +79,12 @@
                                 </div>
                             </div>
                             <v-select
-                                multiple
+                                class="mt-2"
                                 :options="options"
+                                multiple
+                                v-model="newStaff"
                                 label="name"
+                                placeholder="Pilih Staff"
                                 :components="{Deselect}"
                             ></v-select>
                         </div>
@@ -141,7 +144,6 @@ export default {
         return {
             options: this.staffs,
             newStat: null,
-            newTaskData: [],
             token: document
                 .querySelector('meta[name="csrf-token"]')
                 .getAttribute("content"),
@@ -152,6 +154,7 @@ export default {
                         .getAttribute("content"),
                 },
             },
+            newStaff:[],
             Deselect: {
                 render: (createElement) => createElement("span", "❌"),
             },
@@ -164,8 +167,14 @@ export default {
         status() {
             this.checkStatus(this.status);
         },
+        taskData(){
+            this.checkStaff();
+        }
     },
     methods: {
+        checkStaff(){
+                this.newStaff = this.taskData.staffs
+        },
         checkStatus(stat) {
             if (stat == "todo") {
                 this.newStat = "doing";
@@ -215,6 +224,7 @@ export default {
             var id = this.taskData.id;
             var name = this.taskData.name;
             var description = this.taskData.description;
+            var staf = this.newStaff;
             const that = this;
             if (name == "") {
                 Vue.$toast.warning("Judul task tidak boleh kosong!");
@@ -227,12 +237,14 @@ export default {
                         {
                             id: id,
                             name: name,
+                            staf: staf,
                             description: description,
                         },
                         this.config
                     )
                     .then(function (response) {
                         that.sembunyi();
+                        that.$parent.splitAxios(response.data.original);
                         Vue.$toast.success("Task Updated Successfully");
                     })
                     .catch(function (err) {
@@ -295,5 +307,9 @@ input.form-control.header {
     font-size: 12px;
     margin-left: 35px;
     color: #84868a;
+}
+.avatar-card label{
+    font-family: "Acme", sans-serif;
+    font-size: 12px;
 }
 </style>
