@@ -1,7 +1,10 @@
 <template>
-    <div class="container mt-5 position-relative">
-        <div class="row pt-4">
+    <div class="container position-relative" style="margin-top: 50px">
+        <div class="row pt-4 position-relative">
             <AddStaff></AddStaff>
+            <div class="loader d-flex justify-content-center">
+                <beat-loader :loading="loading" color="white" size="30px"></beat-loader>
+            </div>
             <div class="col-3">
                 <div class="p-2 alert alert-secondary card-list w-100 m-0">
                     <div class="list-header mb-2">
@@ -132,7 +135,13 @@
                 <Staff :staffs="newStaff"></Staff>
             </div>
         </div>
-        <Modal :taskData="taskData" :role="role" :status="status" :staffs="newStaff"></Modal>
+        <Modal
+            :taskData="taskData"
+            :role="role"
+            :status="status"
+            :staffs="newStaff"
+            :dasar="dasar"
+        ></Modal>
     </div>
 </template>
 
@@ -145,6 +154,8 @@ import Doing from "../partials/doing";
 import draggable from "vuedraggable";
 import axios from "axios";
 import moment from "moment";
+import BeatLoader from 'vue-spinner/src/BeatLoader.vue'
+
 
 export default {
     name: "e-task",
@@ -154,7 +165,7 @@ export default {
         Staff,
         Done,
         Doing,
-        //import draggable as a component
+        BeatLoader,
         draggable,
     },
     computed: {
@@ -184,6 +195,7 @@ export default {
             taskDescription: null,
             taskStaff: [],
             taskData: [],
+            loading: false,
         };
     },
     mounted() {
@@ -198,6 +210,7 @@ export default {
         done: Array,
         staffs: Array,
         role: String,
+        dasar: Array
     },
     filters: {
         moment: function (date) {
@@ -205,6 +218,9 @@ export default {
         },
     },
     methods: {
+        toggleLoading(val) {
+            this.loading = val;
+        },
         moment: function (date) {
             return moment(date);
         },
@@ -254,6 +270,8 @@ export default {
                     description: s.description,
                     created_at: s.created_at,
                     updated: s.updated_at,
+                    start: s.start,
+                    dasar: JSON.parse(s.spt_id)
                 };
                 this.newTodos.push(todo);
             });
@@ -271,6 +289,8 @@ export default {
                     description: s.description,
                     created_at: s.created_at,
                     updated: s.updated_at,
+                    start: s.start,
+                    dasar: JSON.parse(s.spt_id)
                 };
                 this.newDoing.push(todo);
             });
@@ -282,6 +302,8 @@ export default {
                     staffs: JSON.parse(s.staff),
                     status: s.status,
                     description: s.description,
+                    start: s.start,
+                    dasar: JSON.parse(s.spt_id)
                 };
                 this.newDone.push(todo);
             });
@@ -485,5 +507,10 @@ h6 .delete-btn {
     span.badge {
         font-size: 10px;
     }
+}
+.loader{
+    position: absolute;
+    top: 30vh;
+    z-index: 99;
 }
 </style>

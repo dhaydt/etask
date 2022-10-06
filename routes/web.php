@@ -40,5 +40,6 @@ Route::post('updateTask', [Controller::class, 'updateTask']);
 Route::post('taskStatus', [Controller::class, 'taskStatus']);
 Route::post('deleteTask', [Controller::class, 'deleteTask']);
 Route::post('addStaff', [Controller::class, 'addStaff']);
+Route::post('addSpt', [Controller::class, 'addSpt']);
 
 require __DIR__.'/auth.php';

@@ -48,14 +48,34 @@
                             ></textarea>
                         </div>
                         <LabelTitle
+                            title="Mulai"
+                            icon="fas fa-calendar"
+                        ></LabelTitle>
+                        <div class="mb-3 input-text">
+                            <input type="date" v-model="start" class="form-control" />
+                        </div>
+                        <LabelTitle
+                            title="Dasar Surat Perintah Tugas"
+                            icon="fas fa-tasks"
+                        ></LabelTitle>
+                        <div class="mb-3 input-text">
+                            <v-select
+                                class="mt-2"
+                                :options="dasar"
+                                multiple
+                                v-model="dasarSpt"
+                                label="dasar"
+                                placeholder="Pilih dasar SPT"
+                                :components="{ Deselect }"
+                            ></v-select>
+                        </div>
+
+                        <LabelTitle
                             title="Staff"
                             icon="fa-solid fa-users"
                         ></LabelTitle>
                         <div class="mb-3 input-text">
-                            <div
-                                class=""
-                                v-if="newStaff == '[]'"
-                            >
+                            <div class="" v-if="newStaff == '[]'">
                                 <span class="badge rounded-pill bg-danger"
                                     >Belum ada Staff dipilih!</span
                                 >
@@ -85,7 +105,7 @@
                                 v-model="newStaff"
                                 label="name"
                                 placeholder="Pilih Staff"
-                                :components="{Deselect}"
+                                :components="{ Deselect }"
                             ></v-select>
                         </div>
                     </div>
@@ -139,11 +159,16 @@ export default {
         role: String,
         status: String,
         staffs: Array,
+        dasar: Array
     },
     data() {
         return {
+            dasarSpt: [],
+            start: null,
             options: this.staffs,
             newStat: null,
+            spt: ['SURAT 1', 'SURAT 2', 'SURAT 3'],
+            sptList: ['SURAT 1', 'SURAT 2',],
             token: document
                 .querySelector('meta[name="csrf-token"]')
                 .getAttribute("content"),
@@ -154,7 +179,7 @@ export default {
                         .getAttribute("content"),
                 },
             },
-            newStaff:[],
+            newStaff: [],
             Deselect: {
                 render: (createElement) => createElement("span", "❌"),
             },
@@ -167,13 +192,15 @@ export default {
         status() {
             this.checkStatus(this.status);
         },
-        taskData(){
+        taskData() {
             this.checkStaff();
-        }
+        },
     },
     methods: {
-        checkStaff(){
-                this.newStaff = this.taskData.staffs
+        checkStaff() {
+            this.newStaff = this.taskData.staffs;
+            this.start = this.taskData.start;
+            this.dasarSpt = this.taskData.dasar;
         },
         checkStatus(stat) {
             if (stat == "todo") {
@@ -225,6 +252,8 @@ export default {
             var name = this.taskData.name;
             var description = this.taskData.description;
             var staf = this.newStaff;
+            var dasar = this.dasarSpt;
+            var start = this.start;
             const that = this;
             if (name == "") {
                 Vue.$toast.warning("Judul task tidak boleh kosong!");
@@ -239,6 +268,8 @@ export default {
                             name: name,
                             staf: staf,
                             description: description,
+                            start: start,
+                            dasar: dasar,
                         },
                         this.config
                     )
@@ -308,7 +339,7 @@ input.form-control.header {
     margin-left: 35px;
     color: #84868a;
 }
-.avatar-card label{
+.avatar-card label {
     font-family: "Acme", sans-serif;
     font-size: 12px;
 }

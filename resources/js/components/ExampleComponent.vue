@@ -1,32 +1,43 @@
 <template>
     <div class="container">
         <Header></Header>
-        <div class="nav-menu d-flex justify-content-end">
-            <b-dropdown id="dropdown-1" class="m-md-2 d-flex" size="sm">
-                <div
-                    slot="button-content"
-                    class="d-flex align-items-center text-capitalize img-dropdown"
-                >
-                    <img height="20" src="img/user.png" />Welcome,
-                    {{ user.name }} <i class="fas fa-caret-down ms-2"></i>
+        <div class="nav-menu d-flex justify-content-end align-items-center">
+            <button
+                type="button"
+                class="btn btn-primary rotate user-btn py-0 px-2"
+                data-kt-menu-trigger="hover"
+                data-kt-menu-placement="bottom-start"
+                data-kt-menu-offset="0px, 5px"
+            >
+                <img height="20" src="img/user.png" />Welcome, {{ user.name }}
+                <i class="fas fa-caret-down ms-2"></i>
+            </button>
+
+            <div
+                class="menu menu-user menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px"
+                data-kt-menu="true"
+            >
+                <div class="separator mb-3 opacity-75"></div>
+                <div class="menu-item px-3">
+                    <a href="#" class="menu-link px-3"> New Ticket </a>
                 </div>
-                <b-dropdown-item>First Action</b-dropdown-item>
-                <b-dropdown-item>Second Action</b-dropdown-item>
-                <b-dropdown-item>Third Action</b-dropdown-item>
-                <b-dropdown-divider></b-dropdown-divider>
-                <b-dropdown-item active>Active action</b-dropdown-item>
-                <b-dropdown-item disabled>Disabled action</b-dropdown-item>
-                <form method="POST" action="/logout">
-                    <input type="hidden" name="_token" :value="csrf" />
-                    <button
-                        type="submit"
-                        class="dropdown-item"
-                        data-bs-toggle="tooltip"
-                        title="Keluar">
-                        <i class="fa-solid fa-right-from-bracket"></i> Keluar
-                    </button>
-                </form>
-            </b-dropdown>
+                <div class="menu-item px-3">
+                    <a href="#" class="menu-link px-3"> New Customer </a>
+                </div>
+                <div class="menu-item px-3">
+                    <form method="POST" action="/logout">
+                        <input type="hidden" name="_token" :value="csrf" />
+                        <a
+                            href="javascript:"
+                            type="submit"
+                            class="menu-link px-3"
+                        >
+                            <i class="fa-solid fa-right-from-bracket me-2"></i>
+                            Keluar
+                        </a>
+                    </form>
+                </div>
+            </div>
         </div>
         <Body
             :todos="todos"
@@ -34,6 +45,7 @@
             :done="done"
             :staffs="staffs"
             :role="role"
+            :dasar="dasar"
         ></Body>
     </div>
 </template>
@@ -56,6 +68,7 @@ export default {
         done: Array,
         staffs: Array,
         user: Object,
+        dasar: Array,
     },
     components: {
         Body,
@@ -70,6 +83,13 @@ export default {
 <style lang="scss">
 .dropdown-toggle::after {
     display: none;
+}
+.user-btn {
+    z-index: 1;
+    height: 36px;
+}
+.nav-menu .menu-user {
+    margin-top: -30px !important;
 }
 .nav-menu {
     height: 44px;

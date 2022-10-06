@@ -3,6 +3,15 @@
         <!-- Button trigger modal -->
         <button
             type="button"
+            class="btn btnAdd btnSpt me-3"
+            data-bs-toggle="modal"
+            data-bs-target="#addSptModal"
+        >
+            <i class="fas fa-plus"></i> Dasar SPT
+        </button>
+
+        <button
+            type="button"
             class="btn btnAdd"
             data-bs-toggle="modal"
             data-bs-target="#addStaffModal"
@@ -10,10 +19,11 @@
             <i class="fas fa-plus"></i> Staff
         </button>
 
-        <!-- Modal -->
+        <!-- Modal Staff-->
         <div
             class="modal fade"
             id="addStaffModal"
+            data-bs-backdrop="static"
             data-bs-keyboard="false"
             tabindex="-1"
         >
@@ -68,19 +78,156 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal SPT-->
+        <div
+            class="modal fade"
+            id="addSptModal"
+            data-bs-keyboard="false"
+            data-bs-backdrop="static"
+            tabindex="-1"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">
+                            Dasar Perintah tugas
+                        </h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <LabelTitle
+                            class="mb-2"
+                            title="Dasar"
+                            icon="fa-solid fa-scale-balanced"
+                        ></LabelTitle>
+                        <div class="input-group mb-4 ms-2 input-group-solid">
+                            <textarea
+                                v-model="dasar"
+                                class="form-control"
+                                cols="30"
+                                rows="7"
+                            ></textarea>
+                        </div>
+
+                        <LabelTitle
+                            class="mb-2"
+                            title="Keterangan"
+                            icon="fa-solid fa-note-sticky"
+                        ></LabelTitle>
+                        <div class="input-group mb-4 ms-2 input-group-solid">
+                            <input
+                                type="text"
+                                v-model="keterangan"
+                                class="form-control"
+                                id="basic-url"
+                                aria-describedby="basic-addon3"
+                            />
+                        </div>
+                        <LabelTitle
+                            class="mb-2"
+                            title="Status"
+                            icon="fa-solid fa-power-off"
+                        ></LabelTitle>
+                        <div
+                            class="form-check form-switch form-check-custom form-check-solid ms-2 mb-4"
+                        >
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                v-model="status"
+                                id="flexSwitchDefault"
+                            />
+                            <label
+                                class="form-check-label"
+                                for="flexSwitchDefault"
+                            >
+                                <span
+                                    v-if="status == true"
+                                    class="badge badge-success"
+                                    >Active</span
+                                >
+                                <span v-else class="badge badge-danger"
+                                    >Non Active</span
+                                >
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            :disabled="dasar == null"
+                            class="btn btn-primary"
+                            @click="addSpt()"
+                        >
+                            <div class="loading" v-if="loading">
+                                <span
+                                    class="spinner-border spinner-border-sm"
+                                    role="status"
+                                    aria-hidden="true"
+                                ></span>
+                                Menyimpan...
+                            </div>
+                            <label v-else>Simpan</label>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
+import LabelTitle from "./label-title";
 export default {
+    components: { LabelTitle },
     data() {
         return {
             nip: null,
             loading: false,
+            dasar: null,
+            keterangan: null,
+            status: false,
         };
     },
     methods: {
+        addSpt() {
+            this.$parent.toggleLoading(true);
+            this.loading = true;
+            var that = this;
+            axios
+                .post("addSpt", {
+                    dasar: that.dasar,
+                    keterangan: that.keterangan,
+                    status: that.status,
+                })
+                .then(function (response) {
+                    console.log("resp", response["data"]);
+
+                    if(response["data"].code == 200){
+                        $("#addSptModal").modal("hide");
+                        $(".modal-backdrop").remove();
+                        that.dasar = null;
+                        that.keterangan = null;
+                        that.status = false;
+                        Vue.$toast.success(response["data"].message);
+                    }
+
+                })
+                .catch(function (err) {
+                    console.log("err", err);
+                });
+                that.loading = false;
+                that.$parent.toggleLoading(false);
+        },
+
         addStaff() {
+            this.$parent.toggleLoading(true);
             this.loading = true;
             var that = this;
             axios
@@ -103,7 +250,9 @@ export default {
                     }
                     if (response["data"]["code"] == 200) {
                         Vue.$toast.success(response["data"]["message"]);
-                        that.$parent.splitAxios(response["data"]["data"].original);
+                        that.$parent.splitAxios(
+                            response["data"]["data"].original
+                        );
                         $("#addStaffModal").modal("hide");
                         $(".modal-backdrop").remove();
                         that.loading = false;
@@ -119,6 +268,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h5.modal-title {
+    font-family: "Acme", sans-serif;
+    font-size: 18px;
+}
 .addStaff {
     display: flex;
     justify-content: right;
@@ -129,6 +282,11 @@ export default {
         border-radius: 4px;
         background: rgba(209, 231, 221, 0.6705882353);
         transition: 0.5s;
+    }
+
+    .btnAdd.btnSpt {
+        background: #ffd9da94;
+        color: #fff;
     }
 
     .btnAdd:hover {

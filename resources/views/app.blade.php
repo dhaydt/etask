@@ -5,14 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>E-Task</title>
-    <link href="{{ asset('css/fontawesome/all.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/fontawesome/fontawesome.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="{{ asset('css/vue-select.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>E-Task</title>
+
+    @include('template.header')
     <style>
         @font-face {
             font-family: 'Acme';
@@ -50,7 +47,7 @@
 <body>
 
     <div id="app">
-        <example-component :todos="{{ $todo }}" :doing="{{ $doing }}" :done="{{ $done }}" :staffs="{{ $staffs }}"
+        <example-component :dasar="{{ $dasar }}" :todos="{{ $todo }}" :doing="{{ $doing }}" :done="{{ $done }}" :staffs="{{ $staffs }}"
             :user="{{ auth()->user() }}">
         </example-component>
 
@@ -68,8 +65,8 @@
     </div>
 
     <script src="{{ mix('/js/app.js') }}"></script>
-    <script src="{{ asset('bootstrap/js/bootstrap.bundle.js') }}"></script>
-    <script src="{{ asset('js/jquery-3.6.js') }}"></script>
+
+    @include('template.script')
 
 </body>
 

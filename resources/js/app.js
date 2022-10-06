@@ -10,7 +10,7 @@ Alpine.start();
  */
 
 require("./bootstrap");
-import bootstrapvue from "bootstrap-vue";
+// import bootstrapvue from "bootstrap-vue";
 import Vue from "vue";
 import ToastPlugin from "vue-toast-notification";
 
@@ -32,7 +32,7 @@ Vue.component(
     "example-component",
     require("./components/ExampleComponent.vue").default
 );
-Vue.use(bootstrapvue);
+// Vue.use(bootstrapvue);
 Vue.use(ToastPlugin);
 
 /**

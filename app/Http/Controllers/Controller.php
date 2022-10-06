@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helpers;
+use App\Models\Dasar;
 use App\Models\Staff;
 use App\Models\StaffDetail;
 use App\Models\Task;
@@ -90,6 +91,34 @@ class Controller extends BaseController
         } else {
             return response()->json($data);
         }
+
+        return response()->json($data);
+    }
+
+    public function addSpt(Request $request)
+    {
+        $user = auth()->user()->nip;
+        $status = $request->status;
+        $keterangan = $request->keterangan;
+        $base = $request->dasar;
+
+        if ($status == true) {
+            $status = 1;
+        } else {
+            $status = 0;
+        }
+
+        $dasar = new Dasar();
+        $dasar->dasar = $base;
+        $dasar->keterangan = $keterangan;
+        $dasar->status = $status;
+        $dasar->add_by = $user;
+        $dasar->save();
+
+        $data = [
+            'code' => 200,
+            'message' => 'Berhasil menambahkan Dasar SPT',
+        ];
 
         return response()->json($data);
     }
@@ -185,7 +214,6 @@ class Controller extends BaseController
             $data['todo'] = Task::where('status', 'todo')->get();
             $data['doing'] = Task::where('status', 'doing')->get();
             $data['done'] = Task::where('status', 'done')->get();
-            $data['staffs'] = Staff::get();
         } else {
             if (env('APP_ENV') == 'server') {
                 $data['todo'] = json_encode($this->getTaskMaria($user, 'todo'));
@@ -196,9 +224,9 @@ class Controller extends BaseController
                 $data['doing'] = Task::where('status', 'doing')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$user->nip.'")')->get();
                 $data['done'] = Task::where('status', 'done')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$user->nip.'")')->get();
             }
-
-            $data['staffs'] = Staff::get();
         }
+        $data['staffs'] = Staff::get();
+        $data['dasar'] = Dasar::where('status', 1)->orderBy('created_at', 'desc')->get();
 
         return view('app', $data);
     }
@@ -249,6 +277,8 @@ class Controller extends BaseController
         $task->name = $request->name;
         $task->description = $request->description;
         $task->updated_at = now();
+        $task->spt_id = $request->dasar;
+        $task->start = $request->start;
         $task->staff = $staffOld;
         $task->save();
 

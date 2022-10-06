@@ -539,6 +539,7 @@ class ComposerStaticInit4802bbe3954e2e3fca4642d71c77f0c8
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
+        'App\\Models\\Dasar' => __DIR__ . '/../..' . '/app/Models/Dasar.php',
         'App\\Models\\Jabatan' => __DIR__ . '/../..' . '/app/Models/Jabatan.php',
         'App\\Models\\Role' => __DIR__ . '/../..' . '/app/Models/Role.php',
         'App\\Models\\Staff' => __DIR__ . '/../..' . '/app/Models/Staff.php',
