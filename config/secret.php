@@ -12,5 +12,5 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
-    'e-task' => '29d14df25cf02d6bd797babc194df021',
+    'e-task' => '821b9ca567ec95bdef466799278277af',
 ];

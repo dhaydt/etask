@@ -3,16 +3,15 @@
         <!-- Button trigger modal -->
         <button
             type="button"
-            class="btn btnAdd btnSpt me-3"
+            class="btn btn-light-info btnAdd btn-hover-rotate-end me-2"
             data-bs-toggle="modal"
             data-bs-target="#addSptModal"
         >
             <i class="fas fa-plus"></i> Dasar SPT
         </button>
-
         <button
             type="button"
-            class="btn btnAdd"
+            class="btn btn-light-success btnAdd btn-hover-rotate-start"
             data-bs-toggle="modal"
             data-bs-target="#addStaffModal"
         >
@@ -209,7 +208,7 @@ export default {
                 .then(function (response) {
                     console.log("resp", response["data"]);
 
-                    if(response["data"].code == 200){
+                    if (response["data"].code == 200) {
                         $("#addSptModal").modal("hide");
                         $(".modal-backdrop").remove();
                         that.dasar = null;
@@ -217,13 +216,12 @@ export default {
                         that.status = false;
                         Vue.$toast.success(response["data"].message);
                     }
-
                 })
                 .catch(function (err) {
                     console.log("err", err);
                 });
-                that.loading = false;
-                that.$parent.toggleLoading(false);
+            that.loading = false;
+            that.$parent.toggleLoading(false);
         },
 
         addStaff() {
@@ -262,6 +260,7 @@ export default {
                 .catch(function (err) {
                     console.log("err", err);
                 });
+                that.$parent.toggleLoading(false);
         },
     },
 };
@@ -280,17 +279,6 @@ h5.modal-title {
 
     .btnAdd {
         border-radius: 4px;
-        background: rgba(209, 231, 221, 0.6705882353);
-        transition: 0.5s;
-    }
-
-    .btnAdd.btnSpt {
-        background: #ffd9da94;
-        color: #fff;
-    }
-
-    .btnAdd:hover {
-        scale: 1.2;
     }
 }
 </style>

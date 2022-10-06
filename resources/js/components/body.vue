@@ -63,11 +63,11 @@
                                         @click="
                                             removeStaff(staf.id, element.id)
                                         "
-                                        class="btn btn-sm btn-danger btn-remove position-absolute text-light"
+                                        class="btn btn-sm btn-danger btn-hover-scale p-0 btn-remove position-absolute text-light"
                                         data-bs-toggle="tooltip"
                                         title="Hapus"
                                     >
-                                        <i class="fas fa-times"></i>
+                                        <i class="fas fa-times px-1 py-0"></i>
                                     </button>
                                     <div
                                         class="avatar me-2 text-capitalize position-relative"
@@ -90,10 +90,10 @@
                                 </div>
                             </draggable>
                             <div
-                                class="created-at mt-2 d-flex justify-content-end"
+                                class="created-at mt-3 d-flex justify-content-end"
                             >
-                                <span class="badge rounded-pill bg-secondary">
-                                    {{ element.created_at | moment }}
+                                <span class="badge rounded-pill badge-secondary">
+                                    {{ element.start | moment }}
                                 </span>
                             </div>
                         </div>
@@ -214,7 +214,7 @@ export default {
     },
     filters: {
         moment: function (date) {
-            return moment(date).format("D MMMM YYYY, h:mm");
+            return moment(date).format("D MMMM YYYY");
         },
     },
     methods: {
@@ -483,8 +483,6 @@ export default {
     background: #ddd;
 }
 .btn-remove {
-    border-radius: 50%;
-    padding: 0px 4px;
     font-size: 10px;
     right: -7px;
     top: -7px;
@@ -497,6 +495,9 @@ h6 .delete-btn {
 
 .list-group-item:hover h6 .delete-btn {
     opacity: 1;
+    i{
+        color: red;
+    }
 }
 
 .list-group-item:hover .description {

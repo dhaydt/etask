@@ -1,4 +1,4 @@
-<script src="{{ asset('bootstrap/js/bootstrap.bundle.js') }}"></script>
+{{-- <script src="{{ asset('bootstrap/js/bootstrap.bundle.js') }}"></script> --}}
 <script src="{{ asset('js/jquery-3.6.js') }}"></script>
 <script src="{{ asset('/assets/plugins/global/plugins.bundle.js') }}"></script>
 

@@ -255,11 +255,19 @@ export default {
             var dasar = this.dasarSpt;
             var start = this.start;
             const that = this;
-            if (name == "") {
+            console.log('dasar', dasar);
+            if(dasar == undefined){
+                var dasar = [];
+            }
+            if (name == "" || name == null) {
                 Vue.$toast.warning("Judul task tidak boleh kosong!");
-            } else if (description == "") {
+            } else if (description == "" || description == null) {
                 Vue.$toast.warning("Deskripsi task tidak boleh kosong!");
-            } else {
+
+            } else if(dasar.length == 0){
+                Vue.$toast.warning("Mohon pilih Dasar SPT!");
+            }
+            else {
                 axios
                     .post(
                         "/updateTask",

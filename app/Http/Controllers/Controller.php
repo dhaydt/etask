@@ -24,6 +24,41 @@ class Controller extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
 
+    public function updateDasarStatus(Request $request)
+    {
+        $dasar = Dasar::find($request->id);
+        $status = $request->status;
+        if ($status == true) {
+            $status = 0;
+        } else {
+            $status = 1;
+        }
+        if ($dasar) {
+            $dasar->status = $status;
+            $dasar->save();
+
+            $data = $this->refreshDasar();
+
+            return response()->json([
+                'code' => 200,
+                'message' => 'Status dasar SPT berhasil di Ubah!',
+                'data' => $data,
+            ]);
+        }
+
+        return response()->json([
+            'code' => 404,
+            'message' => 'Dasar tidak ditemukan!',
+        ]);
+    }
+
+    public function refreshDasar()
+    {
+        $dasar = Dasar::get();
+
+        return $dasar;
+    }
+
     public function addStaff(Request $request)
     {
         $data = $this->getStaff($request->nip);
@@ -226,7 +261,7 @@ class Controller extends BaseController
             }
         }
         $data['staffs'] = Staff::get();
-        $data['dasar'] = Dasar::where('status', 1)->orderBy('created_at', 'desc')->get();
+        $data['dasar'] = Dasar::orderBy('created_at', 'desc')->get();
 
         return view('app', $data);
     }
@@ -282,6 +317,10 @@ class Controller extends BaseController
         $task->staff = $staffOld;
         $task->save();
 
+        foreach ($task->staff as $s) {
+            Helpers::checkAvailable($s['id']);
+        }
+
         $this->history('update_task', $request->id, $task->status);
         $data = $this->refresh();
 
@@ -295,7 +334,6 @@ class Controller extends BaseController
             $data['todo'] = Task::where('status', 'todo')->get();
             $data['doing'] = Task::where('status', 'doing')->get();
             $data['done'] = Task::where('status', 'done')->get();
-            $data['staffs'] = Staff::where('available', 1)->get();
         } else {
             if (env('APP_ENV') == 'server') {
                 $data['todo'] = $this->getTaskMaria($user, 'todo');
@@ -306,8 +344,8 @@ class Controller extends BaseController
                 $data['doing'] = Task::where('status', 'doing')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$user->nip.'")')->get();
                 $data['done'] = Task::where('status', 'done')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$user->nip.'")')->get();
             }
-            $data['staffs'] = Staff::get();
         }
+        $data['staffs'] = Staff::get();
 
         return response()->json($data);
     }
@@ -358,7 +396,7 @@ class Controller extends BaseController
     public function updateStaff(Request $request)
     {
         $staff = Staff::find($request->staff);
-        if ($request->task == '') {
+        if ($request->task == '' || $request->task == 'todo') {
             $this->staffRemove($request->staff);
             $staff->available = 1;
             $staff->save();
