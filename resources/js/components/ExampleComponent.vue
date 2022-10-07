@@ -4,7 +4,7 @@
         <div class="nav-menu d-flex justify-content-end align-items-center">
             <button
                 type="button"
-                class="btn btn-secondary rotate user-btn py-0 px-2"
+                class="btn btn-secondary rotate user-btn py-0 px-2 text-capitalize"
                 data-kt-menu-trigger="hover"
                 data-kt-menu-placement="bottom-start"
                 data-kt-menu-offset="0px, 5px"

@@ -60141,7 +60141,8 @@ var render = function () {
           _c(
             "button",
             {
-              staticClass: "btn btn-secondary rotate user-btn py-0 px-2",
+              staticClass:
+                "btn btn-secondary rotate user-btn py-0 px-2 text-capitalize",
               attrs: {
                 type: "button",
                 "data-kt-menu-trigger": "hover",
