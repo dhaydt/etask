@@ -8370,6 +8370,10 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     reloadSpt: function reloadSpt(data) {
       this.dasarSpt = data;
+    },
+    updateDasarStatus: function updateDasarStatus(data) {
+      console.log('dasrupdate', data);
+      this.dasarSpt = data.original.dasar;
     }
   }
 });
@@ -8589,10 +8593,12 @@ __webpack_require__.r(__webpack_exports__);
       newDoing: [],
       newDone: [],
       newStaff: [],
+      newDasarList: [],
       taskTitle: null,
       taskDescription: null,
       taskStaff: [],
       taskData: [],
+      newDasar: [],
       loading: false
     };
   },
@@ -8614,6 +8620,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    updateDasarStatus: function updateDasarStatus(data) {
+      this.$parent.updateDasarStatus(data);
+    },
     toggleLoading: function toggleLoading(val) {
       this.loading = val;
     },
@@ -8653,6 +8662,7 @@ __webpack_require__.r(__webpack_exports__);
     splitData: function splitData() {
       var _this = this;
 
+      console.log('body1', this.todos);
       this.todos.forEach(function (s) {
         var todo = {
           id: s.id,
@@ -8717,7 +8727,9 @@ __webpack_require__.r(__webpack_exports__);
           name: s.name,
           staffs: JSON.parse(s.staff),
           status: s.status,
-          description: s.description
+          description: s.description,
+          start: s.start,
+          dasar: JSON.parse(s.spt_id)
         };
 
         _this2.newTodos.push(todo);
@@ -8731,7 +8743,9 @@ __webpack_require__.r(__webpack_exports__);
           name: s.name,
           staffs: JSON.parse(s.staff),
           status: s.status,
-          description: s.description
+          start: s.start,
+          description: s.description,
+          dasar: JSON.parse(s.spt_id)
         };
 
         _this2.newDoing.push(todo);
@@ -8742,7 +8756,9 @@ __webpack_require__.r(__webpack_exports__);
           name: s.name,
           staffs: JSON.parse(s.staff),
           status: s.status,
-          description: s.description
+          description: s.description,
+          start: s.start,
+          dasar: JSON.parse(s.spt_id)
         };
 
         _this2.newDone.push(todo);
@@ -9223,6 +9239,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       dasarSpt: [],
+      dasarNew: [],
       start: null,
       options: this.staffs,
       newStat: null,
@@ -9243,6 +9260,9 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   watch: {
+    dasar: function dasar() {
+      this.dasarUpdate(this.dasar);
+    },
     role: function role() {
       this.UpdateRole(this.role);
     },
@@ -9254,6 +9274,15 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    dasarUpdate: function dasarUpdate(data) {
+      var valData = [];
+      data.forEach(function (val, i) {
+        if (val.status == 1) {
+          valData.push(val);
+        }
+      });
+      this.dasarNew = valData;
+    },
     checkStaff: function checkStaff() {
       this.newStaff = this.taskData.staffs;
       this.start = this.taskData.start;
@@ -9269,7 +9298,6 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     mulaiTask: function mulaiTask(id, status) {
-      console.log(id, status);
       var that = this;
       axios.post("/taskStatus", {
         id: id,
@@ -9283,15 +9311,12 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     UpdateRole: function UpdateRole(role) {
-      console.log("watch", role);
-
       if (role == 2) {
         document.getElementById("name").setAttribute("disabled", "disabled");
         document.getElementById("description").setAttribute("disabled", "disabled");
       }
     },
     sembunyi: function sembunyi() {
-      console.log("callde");
       this.$parent.hideModalTask();
     },
     saveTask: function saveTask(e) {
@@ -9302,7 +9327,6 @@ __webpack_require__.r(__webpack_exports__);
       var dasar = this.dasarSpt;
       var start = this.start;
       var that = this;
-      console.log('dasar', dasar);
 
       if (dasar == undefined) {
         var dasar = [];
@@ -9327,7 +9351,6 @@ __webpack_require__.r(__webpack_exports__);
           that.$parent.splitAxios(response.data.original);
           Vue.$toast.success("Task Updated Successfully");
         })["catch"](function (err) {
-          console.log("respModal", err.message);
           Vue.$toast.error(err);
         });
       }
@@ -9679,6 +9702,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     dasar: Object
@@ -9713,6 +9737,7 @@ __webpack_require__.r(__webpack_exports__);
         var data = resp.data;
 
         if (data.code == 200) {
+          that.updateDasarStatus(data.data);
           Vue.$toast.success(data.message);
         }
 
@@ -9727,6 +9752,9 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.active = false;
       }
+    },
+    updateDasarStatus: function updateDasarStatus(data) {
+      this.$parent.updateDasarStatus(data);
     }
   }
 });
@@ -9833,7 +9861,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     updateDasar: function updateDasar() {
       this.dasarSpt = this.dasar;
-      console.log("dasar", this.dasarSpt);
+    },
+    updateDasarStatus: function updateDasarStatus(data) {
+      this.$parent.updateDasarStatus(data);
     }
   }
 });
@@ -15301,7 +15331,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".dropdown-toggle::after {\n  display: none;\n}\n.user-btn {\n  z-index: 1;\n  height: 36px;\n}\n.nav-menu {\n  height: 44px;\n  margin-right: -6vw;\n}\n.img-dropdown img {\n  border-radius: 50%;\n  background: #fff;\n  padding: 2px;\n  margin-right: 5px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".dropdown-toggle::after {\n  display: none;\n}\n.user-btn {\n  z-index: 1;\n  height: 30px;\n  border-radius: 4px;\n}\n.nav-menu {\n  height: 44px;\n  margin-right: -6vw;\n}\n.img-dropdown img {\n  border-radius: 50%;\n  background: #fff;\n  padding: 2px;\n  margin-right: 5px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -60686,7 +60716,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "p-2 alert alert-primary" },
+    { staticClass: "p-2 alert alert-primary card-list" },
     [
       _vm._m(0),
       _vm._v(" "),
@@ -60812,7 +60842,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "p-2 alert alert-warning" },
+    { staticClass: "p-2 alert alert-warning card-list" },
     [
       _vm._m(0),
       _vm._v(" "),
@@ -61103,7 +61133,7 @@ var render = function () {
                       _c("v-select", {
                         staticClass: "mt-2",
                         attrs: {
-                          options: _vm.dasar,
+                          options: _vm.dasarNew,
                           multiple: "",
                           label: "dasar",
                           placeholder: "Pilih dasar SPT",
@@ -61813,9 +61843,9 @@ var staticRenderFns = [
     return _c("td", [
       _c("div", { staticClass: "symbol symbol-45px me-2" }, [
         _c("span", { staticClass: "symbol-label" }, [
-          _c("img", {
-            staticClass: "h-50 align-self-center",
-            attrs: { src: "assets/media/svg/brand-logos/plurk.svg", alt: "" },
+          _c("i", {
+            staticClass: "fa-solid fa-book",
+            staticStyle: { "font-size": "2rem" },
           }),
         ]),
       ]),
@@ -61864,7 +61894,15 @@ var render = function () {
   return _c("div", { staticClass: "dasarSpt" }, [
     _c(
       "div",
-      { staticClass: "modal fade", attrs: { tabindex: "-1", id: "dasarSpt" } },
+      {
+        staticClass: "modal fade",
+        attrs: {
+          tabindex: "-1",
+          id: "dasarSpt",
+          "data-bs-backdrop": "static",
+          "data-bs-keyboard": "false",
+        },
+      },
       [
         _c("div", { staticClass: "modal-dialog modal-lg" }, [
           _c("div", { staticClass: "modal-content" }, [
@@ -62011,7 +62049,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "p-2 alert alert-success" },
+    { staticClass: "p-2 alert alert-success card-list" },
     [
       _vm._m(0),
       _vm._v(" "),

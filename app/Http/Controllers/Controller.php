@@ -37,7 +37,7 @@ class Controller extends BaseController
             $dasar->status = $status;
             $dasar->save();
 
-            $data = $this->refreshDasar();
+            $data = $this->refresh();
 
             return response()->json([
                 'code' => 200,
@@ -50,13 +50,6 @@ class Controller extends BaseController
             'code' => 404,
             'message' => 'Dasar tidak ditemukan!',
         ]);
-    }
-
-    public function refreshDasar()
-    {
-        $dasar = Dasar::get();
-
-        return $dasar;
     }
 
     public function addStaff(Request $request)
@@ -346,6 +339,7 @@ class Controller extends BaseController
             }
         }
         $data['staffs'] = Staff::get();
+        $data['dasar'] = Dasar::get();
 
         return response()->json($data);
     }

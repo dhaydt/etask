@@ -1,5 +1,5 @@
 <template>
-    <div class="p-2 alert alert-warning">
+    <div class="p-2 alert alert-warning card-list">
         <div class="list-header mb-2">
             <span class="list-drag-handle">&#x2630;</span>
             Done

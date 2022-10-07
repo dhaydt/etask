@@ -3,11 +3,12 @@
         <td>
             <div class="symbol symbol-45px me-2">
                 <span class="symbol-label">
-                    <img
+                    <!-- <img
                         src="assets/media/svg/brand-logos/plurk.svg"
                         class="h-50 align-self-center"
                         alt=""
-                    />
+                    /> -->
+                    <i class="fa-solid fa-book" style="font-size:2rem;"></i>
                 </span>
             </div>
         </td>
@@ -88,6 +89,7 @@ export default {
             }, this.config).then(function(resp){
                 var data = resp.data;
                 if(data.code == 200){
+                    that.updateDasarStatus(data.data);
                     Vue.$toast.success(data.message);
                 }
                 console.log('respon',data);
@@ -101,6 +103,9 @@ export default {
             }else{
                 this.active = false
             }
+        },
+        updateDasarStatus(data){
+            this.$parent.updateDasarStatus(data);
         }
     }
 };

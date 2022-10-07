@@ -1,6 +1,6 @@
 <template>
     <div class="dasarSpt">
-        <div class="modal fade" tabindex="-1" id="dasarSpt">
+        <div class="modal fade" tabindex="-1" id="dasarSpt" data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -85,8 +85,10 @@ export default {
     methods: {
         updateDasar() {
             this.dasarSpt = this.dasar;
-            console.log("dasar", this.dasarSpt);
         },
+        updateDasarStatus(data){
+            this.$parent.updateDasarStatus(data);
+        }
     },
 };
 </script>

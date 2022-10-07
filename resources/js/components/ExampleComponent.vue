@@ -86,7 +86,11 @@ export default {
     methods:{
         reloadSpt(data){
             this.dasarSpt = data;
-        }
+        },
+        updateDasarStatus(data){
+            console.log('dasrupdate', data);
+            this.dasarSpt = data.original.dasar;
+        },
     }
 };
 </script>
@@ -96,7 +100,8 @@ export default {
 }
 .user-btn {
     z-index: 1;
-    height: 36px;
+    height: 30px;
+    border-radius: 4px;
 }
 
 .nav-menu {

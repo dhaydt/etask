@@ -61,7 +61,7 @@
                         <div class="mb-3 input-text">
                             <v-select
                                 class="mt-2"
-                                :options="dasar"
+                                :options="dasarNew"
                                 multiple
                                 v-model="dasarSpt"
                                 label="dasar"
@@ -164,6 +164,7 @@ export default {
     data() {
         return {
             dasarSpt: [],
+            dasarNew:[],
             start: null,
             options: this.staffs,
             newStat: null,
@@ -186,6 +187,9 @@ export default {
         };
     },
     watch: {
+        dasar(){
+            this.dasarUpdate(this.dasar);
+        },
         role() {
             this.UpdateRole(this.role);
         },
@@ -197,10 +201,19 @@ export default {
         },
     },
     methods: {
+        dasarUpdate(data){
+            var valData = [];
+            data.forEach(function(val, i){
+                if(val.status == 1){
+                    valData.push(val);
+                }
+            });
+            this.dasarNew = valData;
+        },
         checkStaff() {
             this.newStaff = this.taskData.staffs;
             this.start = this.taskData.start;
-            this.dasarSpt = this.taskData.dasar;
+            this.dasarSpt = this.taskData.dasar
         },
         checkStatus(stat) {
             if (stat == "todo") {
@@ -212,7 +225,6 @@ export default {
             }
         },
         mulaiTask(id, status) {
-            console.log(id, status);
             const that = this;
             axios
                 .post(
@@ -233,7 +245,6 @@ export default {
                 });
         },
         UpdateRole(role) {
-            console.log("watch", role);
             if (role == 2) {
                 document
                     .getElementById("name")
@@ -244,7 +255,6 @@ export default {
             }
         },
         sembunyi() {
-            console.log("callde");
             this.$parent.hideModalTask();
         },
         saveTask(e) {
@@ -255,7 +265,6 @@ export default {
             var dasar = this.dasarSpt;
             var start = this.start;
             const that = this;
-            console.log('dasar', dasar);
             if(dasar == undefined){
                 var dasar = [];
             }
@@ -287,7 +296,6 @@ export default {
                         Vue.$toast.success("Task Updated Successfully");
                     })
                     .catch(function (err) {
-                        console.log("respModal", err.message);
                         Vue.$toast.error(err);
                     });
             }

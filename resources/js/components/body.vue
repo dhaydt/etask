@@ -191,10 +191,12 @@ export default {
             newDoing: [],
             newDone: [],
             newStaff: [],
+            newDasarList: [],
             taskTitle: null,
             taskDescription: null,
             taskStaff: [],
             taskData: [],
+            newDasar: [],
             loading: false,
         };
     },
@@ -218,6 +220,9 @@ export default {
         },
     },
     methods: {
+        updateDasarStatus(data){
+            this.$parent.updateDasarStatus(data);
+        },
         toggleLoading(val) {
             this.loading = val;
         },
@@ -261,6 +266,7 @@ export default {
             console.log("staffcheck", user);
         },
         splitData() {
+            console.log('body1', this.todos);
             this.todos.forEach((s) => {
                 var todo = {
                     id: s.id,
@@ -324,6 +330,8 @@ export default {
                     staffs: JSON.parse(s.staff),
                     status: s.status,
                     description: s.description,
+                    start: s.start,
+                    dasar: JSON.parse(s.spt_id)
                 };
                 this.newTodos.push(todo);
             });
@@ -338,7 +346,9 @@ export default {
                     name: s.name,
                     staffs: JSON.parse(s.staff),
                     status: s.status,
+                    start: s.start,
                     description: s.description,
+                    dasar: JSON.parse(s.spt_id)
                 };
                 this.newDoing.push(todo);
             });
@@ -350,6 +360,8 @@ export default {
                     staffs: JSON.parse(s.staff),
                     status: s.status,
                     description: s.description,
+                    start: s.start,
+                    dasar: JSON.parse(s.spt_id)
                 };
                 this.newDone.push(todo);
             });
