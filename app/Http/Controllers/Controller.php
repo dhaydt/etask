@@ -24,6 +24,58 @@ class Controller extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
 
+    public function getSkpd()
+    {
+        $token = Helpers::getToken();
+
+        $key = $token;
+
+        $main_api = 'https://apidoc.bukittinggikota.go.id/simpeg/public/api';
+
+        $api = $main_api.'/data_pegawai_skpd';
+
+        $header = [
+            'Authorization' => 'Bearer'.$key,
+        ];
+
+        try {
+            $client = new Client();
+
+            $response = $client->request('POST', $api, [
+                'headers' => $header,
+            ]);
+
+            $status = $response->getStatusCode();
+
+            session()->put('token', $key);
+
+            if ($status == 200) {
+                $resp = json_decode($response->getBody()->getContents())->api_status;
+
+                // dd($resp == 0);
+                if ($resp == 0) {
+                    $data = [
+                        'code' => 404,
+                        'message' => 'SKPD tidak ditemukan',
+                    ];
+
+                    return $data;
+                } else {
+                    $user = User::get();
+                    $data = [
+                        'code' => 200,
+                        'data' => json_decode($response->getBody())->data,
+                        'user' => $user,
+                    ];
+
+                    return $data;
+                }
+            }
+        } catch (ClientException $e) {
+            $this->getSkpd();
+        }
+    }
+
     public function updateDasarStatus(Request $request)
     {
         $dasar = Dasar::find($request->id);
@@ -54,73 +106,73 @@ class Controller extends BaseController
 
     public function addStaff(Request $request)
     {
-        $data = $this->getStaff($request->nip);
-        if ($data['code'] == 404) {
-            return response()->json($data);
-        } elseif ($data['code'] == 200) {
-            $data = $data['data'];
-            $nip = $data->nip;
-            $user = User::where('nip', $nip)->first();
+        $data = $request['user'];
+        if ($request['status'] == false) {
+            $user = new User();
+            $user->nip = $data['nip'];
+            $user->name = $data['nama_pegawai'];
+            $user->password = Hash::make($data['nip']);
+            $user->created_at = now();
+            $user->updated_at = now();
 
-            if ($user) {
-                $resp = [
-                    'code' => 403,
-                    'message' => 'User Sudah Tersedia',
-                ];
+            $staff = new Staff();
+            $staff->id = $data['nip'];
+            $staff->name = $data['nama_pegawai'];
+            $staff->available = 1;
 
-                return response()->json($resp);
-            } else {
-                $user = new User();
-                $user->nip = $nip;
-                $user->name = $data->nama;
-                $user->password = Hash::make($nip);
-                $user->created_at = now();
-                $user->updated_at = now();
+            $detail = new StaffDetail();
+            $detail->id_staff = $data['nip'];
+            $detail->nip = $data['nip'];
+            $detail->nama = $data['nama_pegawai'];
+            $detail->gelar_depan = '';
+            $detail->gelar_belakang = '';
+            $detail->id_jenis_asn = $data['id_jns_asn'];
+            $detail->tempat_lahir = null;
+            $detail->tanggal_lahir = null;
+            $detail->foto = $data['foto'];
+            $detail->jenis_kelamin = null;
+            $detail->id_agama = null;
+            $detail->alamat = null;
+            $detail->active = $data['aktif_jab'];
+            $detail->no_hp = $data['no_hp'];
+            $detail->nik = null;
+            $detail->nama_jabatan = $data['nama_jabatan'];
+            $detail->id_sotk = $data['id_sotk'];
+            $detail->id_skpd = $data['id_skpd'];
 
-                $staff = new Staff();
-                $staff->id = $nip;
-                $staff->name = $data->nama;
-                $staff->available = 1;
+            $user->save();
+            $staff->save();
+            $detail->save();
 
-                $detail = new StaffDetail();
-                $detail->id_staff = $nip;
-                $detail->nip = $nip;
-                $detail->nama = $data->nama;
-                $detail->gelar_depan = $data->gelardpn;
-                $detail->gelar_belakang = $data->gelarblk;
-                $detail->id_jenis_asn = $data->id_jns_asn;
-                $detail->tempat_lahir = $data->tmplhr;
-                $detail->tanggal_lahir = $data->tgllhr;
-                $detail->foto = $data->foto;
-                $detail->jenis_kelamin = $data->jenkel;
-                $detail->id_agama = $data->id_agama;
-                $detail->alamat = $data->alamat;
-                $detail->active = $data->active;
-                $detail->no_hp = $data->nohp;
-                $detail->nik = $data->nik;
-                $detail->id_jabatan = $data->id_jab;
-                $detail->id_jenis_jabatan = $data->id_jnsjab;
-                $detail->id_skpd = $data->id_skpd;
+            $refresh = $this->refresh();
 
-                $user->save();
-                $staff->save();
-                $detail->save();
-
-                $refresh = $this->refresh();
-
-                return response()->json([
+            return response()->json([
                     'code' => 200,
-                    'message' => 'Berhasil menambahkan '.$data->nama,
+                    'message' => 'Berhasil menyimpan Staff',
                     'data' => $refresh,
                 ]);
+        } else {
+            $staff = Staff::where('id', $data['nip'])->first();
+            $staffDetail = StaffDetail::where('nip', $data['nip'])->first();
+            $user = User::where('nip', $data['nip'])->first();
+            if ($staff) {
+                $staff->delete();
+            }
+            if ($staffDetail) {
+                $staffDetail->delete();
+            }
+            if ($user) {
+                $user->delete();
             }
 
-            return response()->json($user);
-        } else {
-            return response()->json($data);
-        }
+            $refresh = $this->refresh();
 
-        return response()->json($data);
+            return response()->json([
+                'code' => 200,
+                'message' => 'Staff berhasil dihilangkan.',
+                'data' => $refresh,
+            ]);
+        }
     }
 
     public function addSpt(Request $request)
@@ -253,7 +305,7 @@ class Controller extends BaseController
                 $data['done'] = Task::where('status', 'done')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$user->nip.'")')->get();
             }
         }
-        $data['staffs'] = Staff::get();
+        $data['staffs'] = Staff::with('detail')->get();
         $data['dasar'] = Dasar::orderBy('created_at', 'desc')->get();
 
         return view('app', $data);

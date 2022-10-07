@@ -1,6 +1,12 @@
 <template>
     <div class="dasarSpt">
-        <div class="modal fade" tabindex="-1" id="dasarSpt" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div
+            class="modal fade"
+            tabindex="-1"
+            id="dasarSpt"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+        >
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -47,7 +53,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <ContentDasar v-for="dasar in dasarSpt" :key="dasar.id" :dasar="dasar"></ContentDasar>
+                                                <ContentDasar
+                                                    v-for="dasar in dasarSpt"
+                                                    :key="dasar.id"
+                                                    :dasar="dasar"
+                                                ></ContentDasar>
                                             </tbody>
                                             <!--end::Table body-->
                                         </table>
@@ -55,7 +65,6 @@
                                     <!--end::Table-->
                                 </div>
                                 <!--end::Tap pane-->
-
                             </div>
                         </div>
                     </div>
@@ -66,9 +75,9 @@
 </template>
 
 <script>
-import ContentDasar from './contentDasar'
+import ContentDasar from "./contentDasar";
 export default {
-  components: { ContentDasar },
+    components: { ContentDasar },
     props: {
         dasar: Array,
     },
@@ -86,9 +95,9 @@ export default {
         updateDasar() {
             this.dasarSpt = this.dasar;
         },
-        updateDasarStatus(data){
+        updateDasarStatus(data) {
             this.$parent.updateDasarStatus(data);
-        }
+        },
     },
 };
 </script>

@@ -45,9 +45,22 @@
 </head>
 
 <body>
+    @php
+        $id = auth()->user()->nip;
+        if($id){
+            $user = App\Helpers\Helpers::getUserDetail($id);
+            if($user){
+                $skpd = $user['detail']['id_skpd'];
+            }else{
+                $skpd = 0;
+            }
+        }else{
+            $skpd = 0;
+        }
 
+    @endphp
     <div id="app">
-        <example-component :dasar="{{ $dasar }}" :todos="{{ $todo }}" :doing="{{ $doing }}" :done="{{ $done }}" :staffs="{{ $staffs }}"
+        <example-component :id_skpd="{{ $skpd }}" :dasar="{{ $dasar }}" :todos="{{ $todo }}" :doing="{{ $doing }}" :done="{{ $done }}" :staffs="{{ $staffs }}"
             :user="{{ auth()->user() }}">
         </example-component>
 

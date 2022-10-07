@@ -8,6 +8,13 @@ use GuzzleHttp\Client;
 
 class Helpers
 {
+    public static function getUserDetail($id)
+    {
+        $user = Staff::with('detail')->find($id);
+
+        return $user;
+    }
+
     public static function getToken()
     {
         $secret = config('secret.e-task');

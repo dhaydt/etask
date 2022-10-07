@@ -27,14 +27,13 @@
                 <div class="menu-item px-3">
                     <form method="POST" action="/logout">
                         <input type="hidden" name="_token" :value="csrf" />
-                        <a
-                            href="javascript:"
+                        <button
                             type="submit"
-                            class="menu-link px-3 text-danger"
+                            class="menu-link px-3 text-danger logout-btn"
                         >
                             <i class="fa-solid fa-right-from-bracket me-2 text-danger"></i>
                             Keluar
-                        </a>
+                        </button>
                     </form>
                 </div>
             </div>
@@ -72,6 +71,7 @@ export default {
         staffs: Array,
         user: Object,
         dasar: Array,
+        id_skpd: String | Number
     },
     components: {
     DasarSpt,
@@ -81,6 +81,8 @@ export default {
     mounted() {
         this.role = this.user.role;
         this.dasarSpt = this.dasar;
+        localStorage.setItem('id_skpd', this.id_skpd);
+        console.log('exam1', this.user);
         console.log("Component mounted.", this.user);
     },
     methods:{
@@ -97,6 +99,10 @@ export default {
 <style lang="scss">
 .dropdown-toggle::after {
     display: none;
+}
+.logout-btn{
+    border: none;
+    background-color: transparent;
 }
 .user-btn {
     z-index: 1;

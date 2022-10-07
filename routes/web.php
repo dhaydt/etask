@@ -39,8 +39,10 @@ Route::post('updateStaff', [Controller::class, 'updateStaff']);
 Route::post('updateTask', [Controller::class, 'updateTask']);
 Route::post('taskStatus', [Controller::class, 'taskStatus']);
 Route::post('deleteTask', [Controller::class, 'deleteTask']);
-Route::post('addStaff', [Controller::class, 'addStaff']);
 Route::post('addSpt', [Controller::class, 'addSpt']);
 Route::post('updateDasarStatus', [Controller::class, 'updateDasarStatus']);
+
+Route::get('pegawaiSkpd', [Controller::class, 'getSkpd']);
+Route::post('addStaff', [Controller::class, 'addStaff']);
 
 require __DIR__.'/auth.php';

@@ -12,8 +12,7 @@
         <button
             type="button"
             class="btn btn-light-success btnAdd btn-hover-rotate-start"
-            data-bs-toggle="modal"
-            data-bs-target="#addStaffModal"
+            @click="getSkpd()"
         >
             <i class="fas fa-plus"></i> Staff
         </button>
@@ -26,11 +25,11 @@
             data-bs-keyboard="false"
             tabindex="-1"
         >
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">
-                            Tambah Staff Baru
+                            STAFF {{ namaSkpd }}
                         </h5>
                         <button
                             type="button"
@@ -40,39 +39,46 @@
                         ></button>
                     </div>
                     <div class="modal-body">
-                        <label for="basic-url" class="form-label"
-                            >Masukan NIP Staff</label
-                        >
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon3"
-                                ><i class="fas fa-user"></i
-                            ></span>
-                            <input
-                                type="text"
-                                v-model="nip"
-                                class="form-control"
-                                id="basic-url"
-                                aria-describedby="basic-addon3"
-                            />
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button
-                            type="button"
-                            :disabled="nip == null"
-                            class="btn btn-primary"
-                            @click="addStaff()"
-                        >
-                            <div class="loading" v-if="loading">
-                                <span
-                                    class="spinner-border spinner-border-sm"
-                                    role="status"
-                                    aria-hidden="true"
-                                ></span>
-                                Menyimpan...
+                        <div class="card-body py-3">
+                            <div class="tab-content">
+                                <div
+                                    class="tab-pane fade show active"
+                                    id="kt_table_widget_5_tab_1"
+                                    role="tabpanel"
+                                >
+                                    <div class="table-responsive">
+                                        <table
+                                            class="table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4"
+                                        >
+                                            <thead>
+                                                <tr class="border-0">
+                                                    <th class="p-0 w-50px"></th>
+                                                    <th
+                                                        class="p-0 min-w-150px"
+                                                    ></th>
+                                                    <th
+                                                        class="p-0 min-w-140px"
+                                                    ></th>
+                                                    <th
+                                                        class="p-0 min-w-110px"
+                                                    ></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <Pegawai
+                                                    v-for="dasar in dataPegawai"
+                                                    :key="dasar.id"
+                                                    :dasar="dasar"
+                                                ></Pegawai>
+                                            </tbody>
+                                            <!--end::Table body-->
+                                        </table>
+                                    </div>
+                                    <!--end::Table-->
+                                </div>
+                                <!--end::Tap pane-->
                             </div>
-                            <label v-else>Simpan</label>
-                        </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -183,8 +189,9 @@
 
 <script>
 import LabelTitle from "./label-title";
+import Pegawai from "./pegawai.vue";
 export default {
-    components: { LabelTitle },
+    components: { LabelTitle, Pegawai },
     data() {
         return {
             nip: null,
@@ -192,9 +199,48 @@ export default {
             dasar: null,
             keterangan: null,
             status: false,
+            dataPegawai: [],
+            namaSkpd: null,
         };
     },
     methods: {
+        getSkpd() {
+            this.$parent.toggleLoading(true);
+            var id_skpd = localStorage.getItem("id_skpd");
+            var that = this;
+
+            axios.get("pegawaiSkpd").then(function (resp) {
+                if (resp.data.code == 200) {
+                    var dataSkpd = resp.data.data;
+                    var user = resp.data.user;
+                    var selected = [];
+                    dataSkpd.forEach(function (item, i) {
+                        if (item.id_skpd == id_skpd) {
+                            var newItem = {};
+                            user.forEach(function (u, i) {
+                                if (item.nip == u.nip) {
+                                    var status = {
+                                        status: true,
+                                    };
+                                    newItem = {...item, ...status}
+                                } else {
+                                    var status = {
+                                        status: false,
+                                    };
+                                    newItem = {...item, ...status}
+                                }
+                            });
+                            selected.push(newItem);
+                        }
+                    });
+                    that.namaSkpd = selected[0].nama_skpd;
+                    console.log("selected", selected);
+                    that.dataPegawai = selected;
+                    $("#addStaffModal").modal("show");
+                    that.$parent.toggleLoading(false);
+                }
+            });
+        },
         addSpt() {
             this.$parent.toggleLoading(true);
             this.loading = true;
@@ -222,6 +268,9 @@ export default {
                 });
             that.loading = false;
             that.$parent.toggleLoading(false);
+        },
+        splitAxios(data){
+            this.$parent.splitAxios(data);
         },
 
         addStaff() {
@@ -260,7 +309,7 @@ export default {
                 .catch(function (err) {
                     console.log("err", err);
                 });
-                that.$parent.toggleLoading(false);
+            that.$parent.toggleLoading(false);
         },
     },
 };
