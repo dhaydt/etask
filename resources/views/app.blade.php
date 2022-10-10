@@ -58,12 +58,25 @@
             $skpd = 0;
         }
 
+        $newStaffs = [];
+        foreach($staffs as $s){
+            $staf = [
+                'id' => (string)$s['id'],
+                'available' => $s['available'],
+                'name' => $s['name'],
+                'jabatan_id' => $s['jabatan_id'],
+                'created_at' => $s['created_at'],
+                'updated_at' => $s['updated_at'],
+        ];
+
+            array_push($newStaffs, $staf);
+        }
+
     @endphp
     <div id="app">
-        <example-component :id_skpd="{{ $skpd }}" :dasar="{{ $dasar }}" :todos="{{ $todo }}" :doing="{{ $doing }}" :done="{{ $done }}" :staffs="{{ $staffs }}"
+        <example-component :id_skpd="{{ $skpd }}" :dasar="{{ $dasar }}" :todos="{{ $todo }}" :doing="{{ $doing }}" :done="{{ $done }}" :staffs="{{ collect($newStaffs) }}"
             :user="{{ auth()->user() }}">
         </example-component>
-
     </div>
     <div class="container">
         @if ($errors->any())

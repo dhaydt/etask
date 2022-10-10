@@ -195,6 +195,7 @@ export default {
         },
         status() {
             this.checkStatus(this.status);
+            console.log('staff', this.staffs);
         },
         taskData() {
             this.checkStaff();

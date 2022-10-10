@@ -1,5 +1,5 @@
 <template>
-    <div class="p-2 alert alert-primary card-list">
+    <div class="p-2 bg-light-primary text-info fw-bold bg-hover-primary card-list">
         <div class="list-header mb-2">
             <span class="list-drag-handle">&#x2630;</span>
             Doing

@@ -399,6 +399,7 @@ class Controller extends BaseController
     public function post(Request $request)
     {
         $staff = [];
+        $spt = [];
         if (auth()->user()->role == 2) {
             $staff = [
                 [
@@ -412,6 +413,7 @@ class Controller extends BaseController
         $task->name = $request->title;
         $task->status = $request->status;
         $task->staff = json_encode($staff);
+        $task->spt_id = json_encode($spt);
         $task->save();
 
         $this->history('add', $task->id, 'todo');

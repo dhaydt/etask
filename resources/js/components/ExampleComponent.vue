@@ -68,7 +68,7 @@ export default {
         todos: Array,
         doing: Array,
         done: Array,
-        staffs: Array,
+        staffs: Array | Object,
         user: Object,
         dasar: Array,
         id_skpd: String | Number
@@ -79,18 +79,16 @@ export default {
         Header,
     },
     mounted() {
+        console.log('staffExample', this.staffs);
         this.role = this.user.role;
         this.dasarSpt = this.dasar;
         localStorage.setItem('id_skpd', this.id_skpd);
-        console.log('exam1', this.user);
-        console.log("Component mounted.", this.user);
     },
     methods:{
         reloadSpt(data){
             this.dasarSpt = data;
         },
         updateDasarStatus(data){
-            console.log('dasrupdate', data);
             this.dasarSpt = data.original.dasar;
         },
     }

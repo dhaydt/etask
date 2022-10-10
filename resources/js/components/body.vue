@@ -6,7 +6,7 @@
                 <beat-loader :loading="loading" color="white" size="30px"></beat-loader>
             </div>
             <div class="col-3">
-                <div class="p-2 alert alert-secondary card-list w-100 m-0">
+                <div class="p-2 bg-secondary text-dark fw-bold bg-hover-light-secondary card-list w-100 m-0">
                     <div class="list-header mb-2">
                         <span class="list-drag-handle">&#x2630;</span>
                         To - Do
@@ -92,9 +92,14 @@
                             <div
                                 class="created-at mt-3 d-flex justify-content-end"
                             >
-                                <span class="badge rounded-pill badge-secondary">
+                                <span v-if="element.start" class="badge rounded-pill badge-secondary">
                                     {{ element.start | moment }}
                                 </span>
+
+                                <span v-else class="badge rounded-pill badge-warning">
+                                    Pengerjaan belum diatur
+                                </span>
+
                             </div>
                         </div>
                         <div class="input-group input-group-sm mt-auto">
@@ -201,10 +206,8 @@ export default {
         };
     },
     mounted() {
-        // console.log('staff', this.staffs)
+        console.log('staffBody', this.staffs)
         this.splitData();
-
-        // console.log('stf', this.newTodos)
     },
     props: {
         todos: Array,
@@ -462,6 +465,7 @@ export default {
     margin-right: 20px;
     background-color: #efefef9c;
     border-radius: 4px;
+    transition: .5s;
     box-shadow: 0 1px 1px rgb(0 0 0 / 12%), 0 1px 1px rgb(0 0 0 / 24%);
 }
 .kanban-column {

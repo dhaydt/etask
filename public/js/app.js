@@ -8352,7 +8352,7 @@ __webpack_require__.r(__webpack_exports__);
     todos: Array,
     doing: Array,
     done: Array,
-    staffs: Array,
+    staffs: Array | Object,
     user: Object,
     dasar: Array,
     id_skpd: String | Number
@@ -8363,18 +8363,16 @@ __webpack_require__.r(__webpack_exports__);
     Header: _headers__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   mounted: function mounted() {
+    console.log('staffExample', this.staffs);
     this.role = this.user.role;
     this.dasarSpt = this.dasar;
     localStorage.setItem('id_skpd', this.id_skpd);
-    console.log('exam1', this.user);
-    console.log("Component mounted.", this.user);
   },
   methods: {
     reloadSpt: function reloadSpt(data) {
       this.dasarSpt = data;
     },
     updateDasarStatus: function updateDasarStatus(data) {
-      console.log('dasrupdate', data);
       this.dasarSpt = data.original.dasar;
     }
   }
@@ -8405,6 +8403,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var vue_spinner_src_BeatLoader_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-spinner/src/BeatLoader.vue */ "./node_modules/vue-spinner/src/BeatLoader.vue");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -8605,8 +8608,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    // console.log('staff', this.staffs)
-    this.splitData(); // console.log('stf', this.newTodos)
+    console.log('staffBody', this.staffs);
+    this.splitData();
   },
   props: {
     todos: Array,
@@ -9270,6 +9273,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     status: function status() {
       this.checkStatus(this.status);
+      console.log('staff', this.staffs);
     },
     taskData: function taskData() {
       this.checkStaff();
@@ -15533,7 +15537,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* light stylings for the kanban columns */\n.staff-name {\n  font-size: 12px;\n  align-items: center;\n  width: 100%;\n  text-transform: capitalize;\n}\n.card-list {\n  margin: 5px;\n  margin-right: 20px;\n  background-color: rgba(239, 239, 239, 0.6117647059);\n  border-radius: 4px;\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);\n}\n.kanban-column {\n  min-height: 100px;\n}\n.list-group-item {\n  margin-bottom: 5px;\n  cursor: pointer;\n  transition: 0.5s;\n}\n.list-group-item h6 {\n  font-family: \"Acme\", sans-serif;\n}\n.list-group-item .description {\n  background-color: #efefef;\n  line-height: 1.2;\n  padding: 0 5px 5px 5px;\n  max-height: 45px;\n  overflow: hidden;\n  border-radius: 5px;\n  transition: 1s;\n}\n.list-group-item .description span {\n  font-size: 12px;\n  font-family: \"Acme\", sans-serif;\n}\n.avatar {\n  border-radius: 50%;\n  padding: 3px;\n  background: #ddd;\n}\n.btn-remove {\n  font-size: 10px;\n  right: -7px;\n  top: -7px;\n  z-index: 9;\n}\nh6 .delete-btn {\n  opacity: 0;\n  transition: 0.6s;\n}\n.list-group-item:hover h6 .delete-btn {\n  opacity: 1;\n}\n.list-group-item:hover h6 .delete-btn i {\n  color: red;\n}\n.list-group-item:hover .description {\n  height: 85px;\n  max-height: 85px;\n}\n.created-at span.badge {\n  font-size: 10px;\n}\n.loader {\n  position: absolute;\n  top: 30vh;\n  z-index: 99;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* light stylings for the kanban columns */\n.staff-name {\n  font-size: 12px;\n  align-items: center;\n  width: 100%;\n  text-transform: capitalize;\n}\n.card-list {\n  margin: 5px;\n  margin-right: 20px;\n  background-color: rgba(239, 239, 239, 0.6117647059);\n  border-radius: 4px;\n  transition: 0.5s;\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);\n}\n.kanban-column {\n  min-height: 100px;\n}\n.list-group-item {\n  margin-bottom: 5px;\n  cursor: pointer;\n  transition: 0.5s;\n}\n.list-group-item h6 {\n  font-family: \"Acme\", sans-serif;\n}\n.list-group-item .description {\n  background-color: #efefef;\n  line-height: 1.2;\n  padding: 0 5px 5px 5px;\n  max-height: 45px;\n  overflow: hidden;\n  border-radius: 5px;\n  transition: 1s;\n}\n.list-group-item .description span {\n  font-size: 12px;\n  font-family: \"Acme\", sans-serif;\n}\n.avatar {\n  border-radius: 50%;\n  padding: 3px;\n  background: #ddd;\n}\n.btn-remove {\n  font-size: 10px;\n  right: -7px;\n  top: -7px;\n  z-index: 9;\n}\nh6 .delete-btn {\n  opacity: 0;\n  transition: 0.6s;\n}\n.list-group-item:hover h6 .delete-btn {\n  opacity: 1;\n}\n.list-group-item:hover h6 .delete-btn i {\n  color: red;\n}\n.list-group-item:hover .description {\n  height: 85px;\n  max-height: 85px;\n}\n.created-at span.badge {\n  font-size: 10px;\n}\n.loader {\n  position: absolute;\n  top: 30vh;\n  z-index: 99;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -60622,7 +60626,10 @@ var render = function () {
           _c("div", { staticClass: "col-3" }, [
             _c(
               "div",
-              { staticClass: "p-2 alert alert-secondary card-list w-100 m-0" },
+              {
+                staticClass:
+                  "p-2 bg-secondary text-dark fw-bold bg-hover-light-secondary card-list w-100 m-0",
+              },
               [
                 _vm._m(0),
                 _vm._v(" "),
@@ -60803,20 +60810,35 @@ var render = function () {
                                 "created-at mt-3 d-flex justify-content-end",
                             },
                             [
-                              _c(
-                                "span",
-                                {
-                                  staticClass:
-                                    "badge rounded-pill badge-secondary",
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                " +
-                                      _vm._s(_vm._f("moment")(element.start)) +
-                                      "\n                            "
+                              element.start
+                                ? _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "badge rounded-pill badge-secondary",
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                " +
+                                          _vm._s(
+                                            _vm._f("moment")(element.start)
+                                          ) +
+                                          "\n                            "
+                                      ),
+                                    ]
+                                  )
+                                : _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "badge rounded-pill badge-warning",
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                Pengerjaan belum diatur\n                            "
+                                      ),
+                                    ]
                                   ),
-                                ]
-                              ),
                             ]
                           ),
                         ],
@@ -61036,7 +61058,10 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "p-2 alert alert-primary card-list" },
+    {
+      staticClass:
+        "p-2 bg-light-primary text-info fw-bold bg-hover-primary card-list",
+    },
     [
       _vm._m(0),
       _vm._v(" "),
@@ -61162,7 +61187,10 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "p-2 alert alert-warning card-list" },
+    {
+      staticClass:
+        "p-2 bg-light-warning text-warning fw-bold bg-hover-warning card-list",
+    },
     [
       _vm._m(0),
       _vm._v(" "),
@@ -62475,7 +62503,10 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "p-2 alert alert-success card-list" },
+    {
+      staticClass:
+        "p-2 bg-light-success text-success bg-hover-success card-list",
+    },
     [
       _vm._m(0),
       _vm._v(" "),
@@ -62561,9 +62592,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "list-header mb-2" }, [
+    return _c("div", { staticClass: "list-header mb-2 fw-bold" }, [
       _c("span", { staticClass: "list-drag-handle" }, [_vm._v("☰")]),
-      _vm._v("\n        Staff\n    "),
+      _vm._v("\n        ASN Terkait\n    "),
     ])
   },
 ]

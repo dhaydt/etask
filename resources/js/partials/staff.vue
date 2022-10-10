@@ -1,8 +1,8 @@
 <template>
-    <div class="p-2 alert alert-success card-list">
-        <div class="list-header mb-2">
+    <div class="p-2 bg-light-success text-success bg-hover-success card-list">
+        <div class="list-header mb-2 fw-bold">
             <span class="list-drag-handle">&#x2630;</span>
-            Staff
+            ASN Terkait
         </div>
         <!-- Done draggable component. Pass staff to list prop -->
         <draggable
