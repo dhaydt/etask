@@ -10234,9 +10234,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     staffs: Array
+  },
+  data: function data() {
+    return {
+      config: {
+        headers: {
+          header: document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+        }
+      }
+    };
   },
   computed: {
     dragOptions: function dragOptions() {
@@ -10255,6 +10272,26 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     checkStaff: function checkStaff(evt) {
       this.$parent.checkStaff(evt);
+    },
+    removeStaff: function removeStaff(id) {
+      var user = {
+        nip: id
+      };
+      var that = this;
+      axios.post("addStaff", {
+        user: user,
+        status: true
+      }, this.config).then(function (resp) {
+        var data = resp.data;
+
+        if (data.code == 200) {
+          that.$parent.splitAxios(data.data.original);
+          Vue.$toast.success(data.message);
+          console.log('respon', data);
+        }
+      })["catch"](function (err) {
+        console.log('err', err); // window.alert(err);
+      });
     }
   }
 });
@@ -63019,6 +63056,21 @@ var render = function () {
                     },
                     [_vm._v("OnWorking")]
                   ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "btn btn-sm btn-danger btn-hover-scale p-0 btn-remove position-absolute text-light",
+                  attrs: { "data-bs-toggle": "tooltip", title: "Hapus" },
+                  on: {
+                    click: function ($event) {
+                      return _vm.removeStaff(element.id)
+                    },
+                  },
+                },
+                [_c("i", { staticClass: "fas fa-times px-1 py-0" })]
+              ),
               _vm._v(" "),
               _c(
                 "div",

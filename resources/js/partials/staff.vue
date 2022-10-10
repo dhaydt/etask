@@ -29,6 +29,14 @@
                     class="badge bg-danger rounded-pill staff-status position-absolute"
                     >OnWorking</label
                 >
+                <button
+                    @click="removeStaff(element.id)"
+                    class="btn btn-sm btn-danger btn-hover-scale p-0 btn-remove position-absolute text-light"
+                    data-bs-toggle="tooltip"
+                    title="Hapus"
+                >
+                    <i class="fas fa-times px-1 py-0"></i>
+                </button>
                 <div class="avatar me-2 text-capitalize position-relative">
                     <img height="25" src="img/user.png" alt="" />
                 </div>
@@ -46,6 +54,17 @@
 export default {
     props: {
         staffs: Array,
+    },
+    data(){
+        return{
+            config: {
+                headers: {
+                    header: document
+                        .querySelector('meta[name="csrf-token"]')
+                        .getAttribute("content"),
+                },
+            },
+        }
     },
     computed: {
         dragOptions() {
@@ -65,6 +84,26 @@ export default {
     methods: {
         checkStaff(evt) {
             this.$parent.checkStaff(evt);
+        },
+        removeStaff(id){
+            var user = {
+                nip: id
+            };
+            var that = this;
+            axios.post("addStaff", {
+                user: user,
+                status: true
+            }, this.config).then(function(resp){
+                var data = resp.data;
+                if(data.code == 200){
+                    that.$parent.splitAxios(data.data.original);
+                    Vue.$toast.success(data.message);
+                    console.log('respon',data);
+                }
+            }).catch(function(err){
+                console.log('err',err);
+                // window.alert(err);
+            })
         },
     },
 };
