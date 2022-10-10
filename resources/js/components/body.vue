@@ -40,7 +40,6 @@
                                     @click="removeTask(element.id)"
                                     class="btn delete-btn btn-sm text-danger"
                                     data-bs-toggle="tooltip"
-                                    title="Hapus"
                                 >
                                     <i class="fas fa-trash"></i>
                                 </button>
@@ -71,14 +70,12 @@
                                         "
                                         class="btn btn-sm btn-danger btn-hover-scale p-0 btn-remove position-absolute text-light"
                                         data-bs-toggle="tooltip"
-                                        title="Hapus"
                                     >
                                         <i class="fas fa-times px-1 py-0"></i>
                                     </button>
                                     <div
                                         class="avatar me-2 text-capitalize position-relative"
                                         data-bs-toggle="tooltip"
-                                        :title="staf.name"
                                     >
                                         <img
                                             height="25"

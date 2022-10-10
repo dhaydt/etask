@@ -17,7 +17,6 @@
                 v-for="element in staffs"
                 :key="element.name"
                 data-bs-toggle="tooltip"
-                :title="element.name"
             >
                 <label
                     v-if="element.available == 1"
@@ -33,7 +32,6 @@
                     @click="removeStaff(element.id)"
                     class="btn btn-sm btn-danger btn-hover-scale p-0 btn-remove position-absolute text-light"
                     data-bs-toggle="tooltip"
-                    title="Hapus"
                 >
                     <i class="fas fa-times px-1 py-0"></i>
                 </button>

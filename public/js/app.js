@@ -8566,9 +8566,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 
@@ -10190,8 +10187,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
-//
 //
 //
 //
@@ -61141,10 +61136,7 @@ var render = function () {
                                 {
                                   staticClass:
                                     "btn delete-btn btn-sm text-danger",
-                                  attrs: {
-                                    "data-bs-toggle": "tooltip",
-                                    title: "Hapus",
-                                  },
+                                  attrs: { "data-bs-toggle": "tooltip" },
                                   on: {
                                     click: function ($event) {
                                       return _vm.removeTask(element.id)
@@ -61197,10 +61189,7 @@ var render = function () {
                                     {
                                       staticClass:
                                         "btn btn-sm btn-danger btn-hover-scale p-0 btn-remove position-absolute text-light",
-                                      attrs: {
-                                        "data-bs-toggle": "tooltip",
-                                        title: "Hapus",
-                                      },
+                                      attrs: { "data-bs-toggle": "tooltip" },
                                       on: {
                                         click: function ($event) {
                                           return _vm.removeStaff(
@@ -61222,10 +61211,7 @@ var render = function () {
                                     {
                                       staticClass:
                                         "avatar me-2 text-capitalize position-relative",
-                                      attrs: {
-                                        "data-bs-toggle": "tooltip",
-                                        title: staf.name,
-                                      },
+                                      attrs: { "data-bs-toggle": "tooltip" },
                                     },
                                     [
                                       _c("img", {
@@ -63038,7 +63024,7 @@ var render = function () {
               key: element.name,
               staticClass:
                 "list-group-staff mb-2 d-flex card flex-row shadow-sm list-group-item text-capitalize position-relative",
-              attrs: { "data-bs-toggle": "tooltip", title: element.name },
+              attrs: { "data-bs-toggle": "tooltip" },
             },
             [
               element.available == 1
@@ -63064,7 +63050,7 @@ var render = function () {
                 {
                   staticClass:
                     "btn btn-sm btn-danger btn-hover-scale p-0 btn-remove position-absolute text-light",
-                  attrs: { "data-bs-toggle": "tooltip", title: "Hapus" },
+                  attrs: { "data-bs-toggle": "tooltip" },
                   on: {
                     click: function ($event) {
                       return _vm.removeStaff(element.id)
