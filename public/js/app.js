@@ -10289,6 +10289,8 @@ __webpack_require__.r(__webpack_exports__);
           Vue.$toast.success(data.message);
           console.log('respon', data);
         }
+
+        that.$parent.mountSkpd();
       })["catch"](function (err) {
         console.log('err', err); // window.alert(err);
       });
