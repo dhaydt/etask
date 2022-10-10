@@ -1,5 +1,5 @@
 <template>
-    <tr>
+    <tr v-if="show">
         <td>
             <div class="symbol symbol-45px me-2">
                 <span class="symbol-label">
@@ -31,14 +31,10 @@
                     @click="simpan(dasar)"
                 />
                 <label
-                    v-if="active == false"
                     class="form-check-label"
                     for="flexSwitchDefault"
                 >
                     <span class="badge badge-light-danger">Tidak Tersimpan</span>
-                </label>
-                <label v-else class="form-check-label" for="flexSwitchDefault">
-                    <span class="badge badge-light-success">Tersimpan</span>
                 </label>
             </div>
         </td>
@@ -49,9 +45,11 @@
 export default {
     props: {
         dasar: Object,
+        selected: Object | Array,
     },
     data() {
         return {
+            show : true,
             active: false,
             config: {
                 headers: {
@@ -64,6 +62,7 @@ export default {
     },
     mounted(){
         this.updateActive();
+        this.checkStatus(this.dasar.nip);
     },
     watch:{
         dasar(){
@@ -71,10 +70,16 @@ export default {
         }
     },
     methods:{
+        checkStatus(nip){
+            var checkId = obj => obj.nip === nip;
+            if(this.selected.some(checkId) == true){
+                this.show = false;
+            }
+        },
         simpan(user){
             var active = this.active;
             var that = this;
-            console.log('status', active)
+            this.show = false;
             axios.post('addStaff',{
                 user: user,
                 status: active
@@ -89,6 +94,7 @@ export default {
                 console.log('err',err);
                 // window.alert(err);
             })
+
         },
         updateActive(){
             this.active = this.dasar.status;

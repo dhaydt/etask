@@ -3,10 +3,16 @@
         <div class="row pt-4 position-relative">
             <AddStaff></AddStaff>
             <div class="loader d-flex justify-content-center">
-                <beat-loader :loading="loading" color="white" size="30px"></beat-loader>
+                <beat-loader
+                    :loading="loading"
+                    color="white"
+                    size="30px"
+                ></beat-loader>
             </div>
             <div class="col-3">
-                <div class="p-2 bg-secondary text-dark fw-bold bg-hover-light-secondary card-list w-100 m-0">
+                <div
+                    class="p-2 bg-secondary text-dark fw-bold bg-hover-light-secondary card-list w-100 m-0"
+                >
                     <div class="list-header mb-2">
                         <span class="list-drag-handle">&#x2630;</span>
                         To - Do
@@ -92,14 +98,19 @@
                             <div
                                 class="created-at mt-3 d-flex justify-content-end"
                             >
-                                <span v-if="element.start" class="badge rounded-pill badge-secondary">
+                                <span
+                                    v-if="element.start"
+                                    class="badge rounded-pill badge-secondary"
+                                >
                                     {{ element.start | moment }}
                                 </span>
 
-                                <span v-else class="badge rounded-pill badge-warning">
+                                <span
+                                    v-else
+                                    class="badge rounded-pill badge-warning"
+                                >
                                     Pengerjaan belum diatur
                                 </span>
-
                             </div>
                         </div>
                         <div class="input-group input-group-sm mt-auto">
@@ -147,10 +158,12 @@
             :staffs="newStaff"
             :dasar="dasar"
         ></Modal>
+        <Loading v-if="loadingAsn"></Loading>
     </div>
 </template>
 
 <script>
+import Loading from "../partials/part/loading";
 import AddStaff from "../partials/part/addStaff";
 import Modal from "../partials/modal";
 import Staff from "../partials/staff";
@@ -159,12 +172,12 @@ import Doing from "../partials/doing";
 import draggable from "vuedraggable";
 import axios from "axios";
 import moment from "moment";
-import BeatLoader from 'vue-spinner/src/BeatLoader.vue'
-
+import BeatLoader from "vue-spinner/src/BeatLoader.vue";
 
 export default {
     name: "e-task",
     components: {
+        Loading,
         AddStaff,
         Modal,
         Staff,
@@ -191,6 +204,7 @@ export default {
         return {
             newTask: "",
             status: null,
+            loadingAsn: false,
             staffSingle: [],
             newTodos: [],
             newDoing: [],
@@ -206,8 +220,9 @@ export default {
         };
     },
     mounted() {
-        console.log('staffBody', this.staffs)
+        console.log("staffBody", this.staffs);
         this.splitData();
+        this.mountSkpd();
     },
     props: {
         todos: Array,
@@ -215,7 +230,7 @@ export default {
         done: Array,
         staffs: Array,
         role: String,
-        dasar: Array
+        dasar: Array,
     },
     filters: {
         moment: function (date) {
@@ -223,7 +238,54 @@ export default {
         },
     },
     methods: {
-        updateDasarStatus(data){
+        mountSkpd() {
+            this.loadingAsn = true;
+            var id_skpd = localStorage.getItem("id_skpd");
+            var that = this;
+
+            console.log("skpd", id_skpd);
+
+            axios
+                .get("pegawaiSkpd")
+                .then(function (resp) {
+                    if (resp.data.code == 200) {
+                        var dataSkpd = resp.data.data;
+                        var user = resp.data.user;
+                        var selected = [];
+                        var allStaff = [];
+                        dataSkpd.forEach(function (item, i) {
+                            if (item.id_skpd == id_skpd) {
+                                user.filter((u) => {
+                                    // return u.id.toString() === item.nip.toString();
+                                    if(u.id.toString() === item.nip.toString()){
+                                        selected.push(item);
+                                    }
+                                });
+                                allStaff.push(item);
+                            }
+                        });
+                        that.loadingAsn = false;
+                        Vue.$toast.success(
+                            "Data ASN Terkait berhasil di update.."
+                        );
+                        // that.namaSkpd = selected[0].nama_skpd;
+                        localStorage.setItem(
+                            "asn_skpd",
+                            JSON.stringify(allStaff)
+                        );
+
+                        localStorage.setItem(
+                            "saved",
+                            JSON.stringify(selected)
+                        );
+                        // that.dataPegawai = selected;
+                    }
+                })
+                .catch(function (err) {
+                    console.log("err skpd", err);
+                });
+        },
+        updateDasarStatus(data) {
             this.$parent.updateDasarStatus(data);
         },
         toggleLoading(val) {
@@ -269,7 +331,7 @@ export default {
             console.log("staffcheck", user);
         },
         splitData() {
-            console.log('body1', this.todos);
+            console.log("body1", this.todos);
             this.todos.forEach((s) => {
                 var todo = {
                     id: s.id,
@@ -280,7 +342,7 @@ export default {
                     created_at: s.created_at,
                     updated: s.updated_at,
                     start: s.start,
-                    dasar: JSON.parse(s.spt_id)
+                    dasar: JSON.parse(s.spt_id),
                 };
                 this.newTodos.push(todo);
             });
@@ -299,7 +361,7 @@ export default {
                     created_at: s.created_at,
                     updated: s.updated_at,
                     start: s.start,
-                    dasar: JSON.parse(s.spt_id)
+                    dasar: JSON.parse(s.spt_id),
                 };
                 this.newDoing.push(todo);
             });
@@ -312,7 +374,7 @@ export default {
                     status: s.status,
                     description: s.description,
                     start: s.start,
-                    dasar: JSON.parse(s.spt_id)
+                    dasar: JSON.parse(s.spt_id),
                 };
                 this.newDone.push(todo);
             });
@@ -334,7 +396,7 @@ export default {
                     status: s.status,
                     description: s.description,
                     start: s.start,
-                    dasar: JSON.parse(s.spt_id)
+                    dasar: JSON.parse(s.spt_id),
                 };
                 this.newTodos.push(todo);
             });
@@ -351,7 +413,7 @@ export default {
                     status: s.status,
                     start: s.start,
                     description: s.description,
-                    dasar: JSON.parse(s.spt_id)
+                    dasar: JSON.parse(s.spt_id),
                 };
                 this.newDoing.push(todo);
             });
@@ -364,7 +426,7 @@ export default {
                     status: s.status,
                     description: s.description,
                     start: s.start,
-                    dasar: JSON.parse(s.spt_id)
+                    dasar: JSON.parse(s.spt_id),
                 };
                 this.newDone.push(todo);
             });
@@ -466,7 +528,7 @@ export default {
     margin-right: 20px;
     background-color: #efefef9c;
     border-radius: 4px;
-    transition: .5s;
+    transition: 0.5s;
     box-shadow: 0 1px 1px rgb(0 0 0 / 12%), 0 1px 1px rgb(0 0 0 / 24%);
 }
 .kanban-column {
@@ -512,7 +574,7 @@ h6 .delete-btn {
 
 .list-group-item:hover h6 .delete-btn {
     opacity: 1;
-    i{
+    i {
         color: red;
     }
 }
@@ -526,7 +588,7 @@ h6 .delete-btn {
         font-size: 10px;
     }
 }
-.loader{
+.loader {
     position: absolute;
     top: 30vh;
     z-index: 99;

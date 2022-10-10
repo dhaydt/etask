@@ -61,7 +61,7 @@ class Controller extends BaseController
 
                     return $data;
                 } else {
-                    $user = User::get();
+                    $user = $this->staffIdString(Staff::get());
                     $data = [
                         'code' => 200,
                         'data' => json_decode($response->getBody())->data,

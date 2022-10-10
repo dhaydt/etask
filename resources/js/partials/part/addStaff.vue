@@ -12,7 +12,7 @@
         <button
             type="button"
             class="btn btn-light-success btnAdd btn-hover-rotate-start"
-            @click="getSkpd()"
+            @click="addStaffModal()"
         >
             <i class="fas fa-plus"></i> Staff
         </button>
@@ -69,6 +69,7 @@
                                                     v-for="dasar in dataPegawai"
                                                     :key="dasar.id"
                                                     :dasar="dasar"
+                                                    :selected="selected"
                                                 ></Pegawai>
                                             </tbody>
                                             <!--end::Table body-->
@@ -188,6 +189,7 @@
 </template>
 
 <script>
+import { stringify } from "querystring";
 import LabelTitle from "./label-title";
 import Pegawai from "./pegawai.vue";
 export default {
@@ -201,9 +203,19 @@ export default {
             status: false,
             dataPegawai: [],
             namaSkpd: null,
+            selected: [],
         };
     },
     methods: {
+        addStaffModal() {
+            var selected = JSON.parse(localStorage.getItem("saved"));
+            var allStaff = JSON.parse(localStorage.getItem("asn_skpd"));
+
+            this.dataPegawai = allStaff;
+            this.selected = selected;
+            this.namaSkpd = allStaff[0].nama_skpd;
+            $("#addStaffModal").modal("show");
+        },
         getSkpd() {
             this.$parent.toggleLoading(true);
             var id_skpd = localStorage.getItem("id_skpd");
@@ -218,16 +230,21 @@ export default {
                         if (item.id_skpd == id_skpd) {
                             var newItem = {};
                             user.forEach(function (u, i) {
-                                if (item.nip == u.nip) {
-                                    var status = {
-                                        status: true,
-                                    };
-                                    newItem = {...item, ...status}
-                                } else {
+                                if (u.id.toString() !== item.nip) {
+                                    console.log(
+                                        "compare",
+                                        u.id.toString(),
+                                        item.nip
+                                    );
                                     var status = {
                                         status: false,
                                     };
-                                    newItem = {...item, ...status}
+                                    newItem = { ...item, ...status };
+                                } else {
+                                    var status = {
+                                        status: true,
+                                    };
+                                    newItem = { ...item, ...status };
                                 }
                             });
                             selected.push(newItem);
@@ -269,7 +286,7 @@ export default {
             that.loading = false;
             that.$parent.toggleLoading(false);
         },
-        splitAxios(data){
+        splitAxios(data) {
             this.$parent.splitAxios(data);
         },
 
