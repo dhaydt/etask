@@ -83,6 +83,7 @@ export default {
         this.role = this.user.role;
         this.dasarSpt = this.dasar;
         localStorage.setItem('id_skpd', this.id_skpd);
+        localStorage.setItem('role', this.user.role);
     },
     methods:{
         reloadSpt(data){
