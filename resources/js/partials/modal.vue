@@ -200,6 +200,9 @@ export default {
         taskData() {
             this.checkStaff();
         },
+        staffs(){
+            this.options = this.staffs;
+        }
     },
     methods: {
         dasarUpdate(data){

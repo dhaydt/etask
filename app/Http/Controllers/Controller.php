@@ -390,10 +390,29 @@ class Controller extends BaseController
                 $data['done'] = Task::where('status', 'done')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$user->nip.'")')->get();
             }
         }
-        $data['staffs'] = Staff::get();
+        $data['staffs'] = $this->staffIdString(Staff::get());
         $data['dasar'] = Dasar::get();
 
         return response()->json($data);
+    }
+
+    public function staffIdString($data)
+    {
+        $newStaffs = [];
+        foreach ($data as $s) {
+            $staf = [
+                'id' => (string) $s['id'],
+                'available' => $s['available'],
+                'name' => $s['name'],
+                'jabatan_id' => $s['jabatan_id'],
+                'created_at' => $s['created_at'],
+                'updated_at' => $s['updated_at'],
+        ];
+
+            array_push($newStaffs, $staf);
+        }
+
+        return collect($newStaffs);
     }
 
     public function post(Request $request)

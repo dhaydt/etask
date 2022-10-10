@@ -383,6 +383,7 @@ export default {
             console.log("data modal", data);
             this.status = data.status;
             this.taskData = data;
+            this.newStaff = this.newStaff;
             modalTask.show();
         },
         //add new tasks method

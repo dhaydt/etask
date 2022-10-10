@@ -8781,6 +8781,7 @@ __webpack_require__.r(__webpack_exports__);
       console.log("data modal", data);
       this.status = data.status;
       this.taskData = data;
+      this.newStaff = this.newStaff;
       modalTask.show();
     },
     //add new tasks method
@@ -9278,6 +9279,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     taskData: function taskData() {
       this.checkStaff();
+    },
+    staffs: function staffs() {
+      this.options = this.staffs;
     }
   },
   methods: {
