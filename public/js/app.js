@@ -8707,16 +8707,29 @@ __webpack_require__.r(__webpack_exports__);
         showCancelButton: true,
         reverseButtons: true,
         cancelButtonText: "Ga jadi deh !"
-      }).then(function () {
-        axios__WEBPACK_IMPORTED_MODULE_7___default().post("deleteTask", {
-          task_id: taskId
-        }).then(function (response) {
-          console.log("resp", response);
-          that.splitAxios(response.data.original);
-          Vue.$toast.success("Task berhasil dihapus");
-        })["catch"](function (err) {
-          console.log("err", err);
-        });
+      }).then(function (result) {
+        // console.log(result);
+        if (result.isConfirmed == true) {
+          axios__WEBPACK_IMPORTED_MODULE_7___default().post("deleteTask", {
+            task_id: taskId
+          }).then(function (response) {
+            console.log("resp", response);
+            that.splitAxios(response.data.original); // Vue.$toast.success("Task berhasil dihapus");
+
+            sweetalert2__WEBPACK_IMPORTED_MODULE_10___default().fire({
+              icon: "success",
+              title: "Successfully",
+              text: "Task berhasil dihapus!"
+            });
+          })["catch"](function (err) {
+            console.log("err", err);
+          });
+        } else {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_10___default().fire({
+            icon: "error",
+            title: "Dibatalkan"
+          });
+        }
       });
     },
     removeStaff: function removeStaff(user, taskId) {

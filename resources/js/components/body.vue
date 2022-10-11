@@ -314,19 +314,32 @@ export default {
                 showCancelButton: true,
                 reverseButtons: true,
                 cancelButtonText: "Ga jadi deh !",
-            }).then(function () {
-                axios
-                    .post("deleteTask", {
-                        task_id: taskId,
-                    })
-                    .then(function (response) {
-                        console.log("resp", response);
-                        that.splitAxios(response.data.original);
-                        Vue.$toast.success("Task berhasil dihapus");
-                    })
-                    .catch(function (err) {
-                        console.log("err", err);
-                    });
+            }).then(function (result) {
+                // console.log(result);
+                if (result.isConfirmed == true) {
+                    axios
+                        .post("deleteTask", {
+                            task_id: taskId,
+                        })
+                        .then(function (response) {
+                            console.log("resp", response);
+                            that.splitAxios(response.data.original);
+                            // Vue.$toast.success("Task berhasil dihapus");
+                            Swal.fire({
+                                icon: "success",
+                                title: "Successfully",
+                                text: "Task berhasil dihapus!",
+                            });
+                        })
+                        .catch(function (err) {
+                            console.log("err", err);
+                        });
+                } else {
+                    Swal.fire({
+                                icon: "error",
+                                title: "Dibatalkan",
+                            });
+                }
             });
         },
         removeStaff(user, taskId) {
@@ -552,11 +565,11 @@ export default {
 .kanban-column {
     min-height: 100px;
 }
-.overflow-hidden{
+.overflow-hidden {
     overflow: hidden;
 }
-.list-group-staff{
-    transition: .5s;
+.list-group-staff {
+    transition: 0.5s;
 }
 .list-group-staff:hover {
     transform: translate(-5px, 0);
@@ -636,7 +649,7 @@ h6 .delete-btn {
     #input-2 {
         border-right: none;
     }
-    span button{
+    span button {
         border-radius: 0 10px 10px 0;
     }
 }
