@@ -25,6 +25,13 @@
             src: url({{ asset('css/font/Courgette-Regular.ttf') }});
         }
 
+        @font-face {
+            font-family: 'Noto Serif Gujarati';
+            font-style: normal;
+            font-weight: normal;
+            src: url({{ asset('css/font/NotoSerifGujarati-Light.ttf') }});
+        }
+
         body {
             background: rgb(68, 68, 68);
             background: linear-gradient(183deg, rgba(68, 68, 68, 1) 45%, rgba(3, 204, 250, 1) 100%);

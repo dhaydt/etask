@@ -11,9 +11,9 @@
             </div>
             <div class="col-3">
                 <div
-                    class="p-2 bg-secondary text-dark fw-bold bg-hover-light-secondary card-list w-100 m-0"
+                    class="p-2 task-repo text-dark fw-bold card-list w-100 m-0"
                 >
-                    <div class="list-header mb-2">
+                    <div class="list-header mb-4">
                         <span class="list-drag-handle">&#x2630;</span>
                         To - Do
                     </div>
@@ -27,26 +27,28 @@
                         :move="checkMove"
                     >
                         <div
-                            class="list-group-item text-capitalize"
+                            class="list-group-item overflow-hidden text-capitalize mb-4"
                             v-for="element in newTodos"
                             :key="element.name"
                             @click="cardModal(element)"
                         >
-                            <h6
-                                class="mb-0 text-capitalize d-flex justify-content-between align-items-center"
-                            >
-                                {{ element.name }}
-                                <button
-                                    @click="removeTask(element.id)"
-                                    class="btn delete-btn btn-sm text-danger"
-                                    data-bs-toggle="tooltip"
+                            <div class="card-headers">
+                                <h6
+                                    class="mb-0 text-capitalize d-flex justify-content-between align-items-center"
                                 >
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </h6>
+                                    {{ element.name }}
+                                    <button
+                                        @click="removeTask(element.id)"
+                                        class="btn delete-btn btn-sm text-danger"
+                                        data-bs-toggle="tooltip"
+                                    >
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </h6>
+                            </div>
                             <div
                                 v-if="element.description"
-                                class="description ps-2 mb-3"
+                                class="description ps-2 mb-4"
                             >
                                 <span>
                                     {{ element.description }}
@@ -60,7 +62,7 @@
                                 @move="checkStaff"
                             >
                                 <div
-                                    class="list-group-staff d-flex card flex-row shadow-sm p-1 mb-1"
+                                    class="list-group-staff bg-light-success d-flex card flex-row shadow-sm p-1 mb-1"
                                     v-for="staf in element.staffs"
                                     :key="staf.id"
                                 >
@@ -94,12 +96,19 @@
                             </draggable>
                             <div
                                 class="created-at mt-3 d-flex justify-content-end"
+                                data-bs-toggle="tooltip"
+                                title="Tanggal mulai pengerjaan"
                             >
                                 <span
                                     v-if="element.start"
-                                    class="badge rounded-pill badge-secondary"
+                                    class="badge rounded-pill badge-secondary text-danger d-flex align-items-center"
                                 >
-                                    {{ element.start | moment }}
+                                    <i
+                                        class="fa-solid fa-calendar me-2 text-danger"
+                                    ></i>
+                                    <span class="pt-1">
+                                        {{ element.start | moment }}
+                                    </span>
                                 </span>
 
                                 <span
@@ -130,7 +139,7 @@
                                     @click="add"
                                 >
                                     <span class="icon is-small btn btn-sm p-0">
-                                        <i class="fas fa-ellipsis-h"></i>
+                                        <i class="fa-solid fa-save"></i>
                                     </span>
                                 </button>
                             </span>
@@ -170,12 +179,14 @@ import draggable from "vuedraggable";
 import axios from "axios";
 import moment from "moment";
 import BeatLoader from "vue-spinner/src/BeatLoader.vue";
+import Swal from "sweetalert2";
 
 export default {
     name: "e-task",
     components: {
         Loading,
         AddStaff,
+        Swal,
         Modal,
         Staff,
         Done,
@@ -254,7 +265,9 @@ export default {
                             if (item.id_skpd == id_skpd) {
                                 user.filter((u) => {
                                     // return u.id.toString() === item.nip.toString();
-                                    if(u.id.toString() === item.nip.toString()){
+                                    if (
+                                        u.id.toString() === item.nip.toString()
+                                    ) {
                                         selected.push(item);
                                     }
                                 });
@@ -271,10 +284,7 @@ export default {
                             JSON.stringify(allStaff)
                         );
 
-                        localStorage.setItem(
-                            "saved",
-                            JSON.stringify(selected)
-                        );
+                        localStorage.setItem("saved", JSON.stringify(selected));
                         // that.dataPegawai = selected;
                     }
                 })
@@ -293,20 +303,31 @@ export default {
         },
         removeTask(taskId) {
             event.stopPropagation();
-            console.log("delete", taskId);
             const that = this;
-            axios
-                .post("deleteTask", {
-                    task_id: taskId,
-                })
-                .then(function (response) {
-                    // console.log("resp", response);
-                    that.splitAxios(response.data.original);
-                    Vue.$toast.success("Task deleted Successfully");
-                })
-                .catch(function (err) {
-                    console.log("err", err);
-                });
+            Swal.fire({
+                title: "Attention!",
+                text: "Yakin ingin menghapus task ini?",
+                icon: "warning",
+                confirmButtonText: "Ya hapus aja !",
+                confirmButtonColor: "#14bb6e",
+                cancelButtonColor: "#ff0033",
+                showCancelButton: true,
+                reverseButtons: true,
+                cancelButtonText: "Ga jadi deh !",
+            }).then(function () {
+                axios
+                    .post("deleteTask", {
+                        task_id: taskId,
+                    })
+                    .then(function (response) {
+                        console.log("resp", response);
+                        that.splitAxios(response.data.original);
+                        Vue.$toast.success("Task berhasil dihapus");
+                    })
+                    .catch(function (err) {
+                        console.log("err", err);
+                    });
+            });
         },
         removeStaff(user, taskId) {
             event.stopPropagation();
@@ -531,12 +552,22 @@ export default {
 .kanban-column {
     min-height: 100px;
 }
+.overflow-hidden{
+    overflow: hidden;
+}
 .list-group-item {
     margin-bottom: 5px;
     cursor: pointer;
     transition: 0.5s;
+    border-radius: 4px;
     h6 {
         font-family: "Acme", sans-serif;
+    }
+    .card-headers {
+        margin: -6px 0 10px -13px;
+        background: #dedede;
+        width: 111%;
+        padding-left: 10px;
     }
     .description {
         border-radius: 5px;
@@ -548,8 +579,8 @@ export default {
         border-radius: 5px;
         transition: 1s;
         span {
-            font-size: 12px;
-            font-family: "Acme", sans-serif;
+            font-size: 10px;
+            font-family: "Noto Serif Gujarati", serif;
         }
     }
 }
@@ -576,7 +607,7 @@ h6 .delete-btn {
     }
 }
 
-.list-group-item:hover .description {
+.description:hover {
     height: 85px;
     max-height: 85px;
 }
@@ -589,5 +620,18 @@ h6 .delete-btn {
     position: absolute;
     top: 30vh;
     z-index: 99;
+}
+
+.task-repo {
+    background: #d4d4d491;
+}
+
+.input-group {
+    #input-2 {
+        border-right: none;
+    }
+    span button{
+        border-radius: 0 10px 10px 0;
+    }
 }
 </style>
