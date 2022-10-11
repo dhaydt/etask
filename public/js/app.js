@@ -9323,6 +9323,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -9342,7 +9343,7 @@ __webpack_require__.r(__webpack_exports__);
       dasarSpt: [],
       dasarNew: [],
       start: null,
-      options: this.staffs,
+      options: [],
       newStat: null,
       spt: ['SURAT 1', 'SURAT 2', 'SURAT 3'],
       sptList: ['SURAT 1', 'SURAT 2'],
@@ -9379,6 +9380,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    getId: function getId(e) {
+      console.log('event', e);
+    },
     dasarUpdate: function dasarUpdate(data) {
       var valData = [];
       data.forEach(function (val, i) {
@@ -15702,7 +15706,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".dropdown-toggle::after {\n  display: none;\n}\n.logout-btn {\n  border: none;\n  background-color: transparent;\n}\n.user-btn {\n  z-index: 1;\n  height: 30px;\n  border-radius: 4px;\n}\n.nav-menu {\n  height: 44px;\n  margin-right: -6vw;\n}\n.img-dropdown img {\n  border-radius: 50%;\n  background: #fff;\n  padding: 2px;\n  margin-right: 5px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".dropdown-toggle::after {\n  display: none;\n}\n.logout-btn {\n  border: none;\n  background-color: transparent;\n}\n.user-btn {\n  z-index: 1;\n  height: 30px;\n  border-radius: 4px;\n}\n.nav-menu {\n  height: 44px;\n  margin-right: -6vw;\n  max-width: 100%;\n}\n.img-dropdown img {\n  border-radius: 50%;\n  background: #fff;\n  padding: 2px;\n  margin-right: 5px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -65176,7 +65180,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "container" },
+    { staticClass: "container-fluid" },
     [
       _c("Header"),
       _vm._v(" "),
@@ -65327,7 +65331,7 @@ var render = function () {
   return _c(
     "div",
     {
-      staticClass: "container position-relative",
+      staticClass: "container-fluid position-relative",
       staticStyle: { "margin-top": "50px" },
     },
     [
@@ -65788,7 +65792,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "p-2 bg-primary-custom fw-bold card-list" },
+    { staticClass: "p-2 bg-primary-custom fw-bold card-list w-100" },
     [
       _vm._m(0),
       _vm._v(" "),
@@ -65914,7 +65918,9 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "p-2 bg-warning-custom text-warning fw-bold card-list" },
+    {
+      staticClass: "p-2 bg-warning-custom text-warning fw-bold card-list w-100",
+    },
     [
       _vm._m(0),
       _vm._v(" "),
@@ -66256,7 +66262,15 @@ var render = function () {
                                     "avatar-card d-flex col-12 col-md-6 align-items-center",
                                 },
                                 [
-                                  _vm._m(0, true),
+                                  _c("div", { staticClass: "avatar me-2" }, [
+                                    _c("img", {
+                                      attrs: {
+                                        src: s.foto,
+                                        height: "25",
+                                        alt: "",
+                                      },
+                                    }),
+                                  ]),
                                   _vm._v(" "),
                                   _c(
                                     "label",
@@ -66280,6 +66294,11 @@ var render = function () {
                           label: "name",
                           placeholder: "Pilih Staff",
                           components: { Deselect: _vm.Deselect },
+                        },
+                        on: {
+                          onclick: function ($event) {
+                            return _vm.getId()
+                          },
                         },
                         model: {
                           value: _vm.newStaff,
@@ -66372,16 +66391,7 @@ var render = function () {
     ]
   )
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "avatar me-2" }, [
-      _c("img", { attrs: { src: "img/user.png", height: "25", alt: "" } }),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -67275,7 +67285,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "p-2 staff-repo card-list" },
+    { staticClass: "p-2 staff-repo card-list w-100" },
     [
       _vm._m(0),
       _vm._v(" "),

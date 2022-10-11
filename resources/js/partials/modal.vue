@@ -88,7 +88,7 @@
                                 >
                                     <div class="avatar me-2">
                                         <img
-                                            src="img/user.png"
+                                            :src="s.foto"
                                             height="25"
                                             alt=""
                                         />
@@ -103,6 +103,7 @@
                                 :options="options"
                                 multiple
                                 v-model="newStaff"
+                                @onclick="getId()"
                                 label="name"
                                 placeholder="Pilih Staff"
                                 :components="{ Deselect }"
@@ -166,7 +167,7 @@ export default {
             dasarSpt: [],
             dasarNew:[],
             start: null,
-            options: this.staffs,
+            options: [],
             newStat: null,
             spt: ['SURAT 1', 'SURAT 2', 'SURAT 3'],
             sptList: ['SURAT 1', 'SURAT 2',],
@@ -205,6 +206,9 @@ export default {
         }
     },
     methods: {
+        getId(e){
+            console.log('event',e);
+        },
         dasarUpdate(data){
             var valData = [];
             data.forEach(function(val, i){

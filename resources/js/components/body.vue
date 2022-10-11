@@ -1,5 +1,5 @@
 <template>
-    <div class="container position-relative" style="margin-top: 50px">
+    <div class="container-fluid position-relative" style="margin-top: 50px">
         <div class="row pt-4 position-relative">
             <AddStaff></AddStaff>
             <div class="loader d-flex justify-content-center">

@@ -1,5 +1,5 @@
 <template>
-    <div class="p-2 staff-repo card-list">
+    <div class="p-2 staff-repo card-list w-100">
         <div class="list-header mb-4 fw-bold">
             <span class="list-drag-handle">&#x2630;</span>
             ASN Terkait

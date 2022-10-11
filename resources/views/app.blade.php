@@ -86,7 +86,7 @@
             :user="{{ auth()->user() }}">
         </example-component>
     </div>
-    <div class="container">
+    <div class="container-fluid">
         @if ($errors->any())
         <div class="alert alert-danger">
             <ul>

@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container-fluid">
         <Header></Header>
         <div class="nav-menu d-flex justify-content-end align-items-center">
             <button
@@ -112,6 +112,7 @@ export default {
 .nav-menu {
     height: 44px;
     margin-right: -6vw;
+    max-width: 100%;
 }
 .img-dropdown img {
     border-radius: 50%;
