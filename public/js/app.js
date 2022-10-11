@@ -15778,7 +15778,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".alert.alert-primary[data-v-a2574990] {\n  background-color: rgba(207, 226, 255, 0.631372549);\n}\n.bg-primary-custom[data-v-a2574990] {\n  background-color: rgba(0, 158, 247, 0.431372549);\n  color: #aae0ff;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".alert.alert-primary[data-v-a2574990] {\n  background-color: rgba(207, 226, 255, 0.631372549);\n}\n.avatar[data-v-a2574990] {\n  border: 2px solid rgb(64, 95, 249);\n}\n.bg-primary-custom[data-v-a2574990] {\n  background-color: rgba(0, 158, 247, 0.431372549);\n  color: #aae0ff;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -65863,7 +65863,12 @@ var render = function () {
                         },
                         [
                           _c("img", {
-                            attrs: { height: "25", src: staf.foto, alt: "" },
+                            attrs: {
+                              height: "25",
+                              width: "25",
+                              src: staf.foto,
+                              alt: "",
+                            },
                             on: { error: _vm.onErrorImg },
                           }),
                         ]

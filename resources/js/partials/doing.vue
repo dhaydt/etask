@@ -38,7 +38,7 @@
                             data-bs-toggle="tooltip"
                             :title="staf.name"
                         >
-                            <img height="25" :src="staf.foto" alt="" @error="onErrorImg"/>
+                            <img height="25" width="25" :src="staf.foto" alt="" @error="onErrorImg"/>
                         </div>
                     </div>
                 </draggable>
@@ -86,6 +86,9 @@ export default {
 <style lang="scss" scoped>
     .alert.alert-primary{
         background-color: #cfe2ffa1;
+    }
+    .avatar{
+        border: 2px solid rgb(64, 95, 249);
     }
     .bg-primary-custom{
         background-color: #009ef76e;
