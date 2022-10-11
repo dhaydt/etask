@@ -1,65 +1,43 @@
 <x-guest-layout>
-    <div class="row w-100 justify-content-center py-4">
-        <div class="col-10 col-md-6">
-            <x-auth-card>
-                <x-slot name="logo">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="w-100" />
-                    </a>
-                </x-slot>
+    <img class="wave" src="{{ asset('img/wave.png') }}">
+    <div class="container">
+        <div class="img">
+            <img src="{{ asset('img/etask2.gif') }}">
+        </div>
+        <div class="login-content">
+            <div class="toast-session">
+                <!-- Session Status -->
+                <x-auth-session-status class="mb-4" :status="session('status')" />
 
-
-                <h5 class="text-center">E-Task Login</h5>
-                <div class="card shadow-sm">
-                    <!-- Session Status -->
-                    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-                    <!-- Validation Errors -->
-                    <x-auth-validation-errors class="mb-4" :errors="$errors"/>
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('login') }}">
-                            @csrf
-
-                            <!-- NIP -->
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">NIP</span>
-                                <input type="number" class="form-control" placeholder="Nomor Induk Pegawai" name="nip"
-                                    required>
-                            </div>
-
-                            <!-- Password -->
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">Password</span>
-                                <input type="password" class="form-control" name="password">
-                            </div>
-
-                            <!-- Remember Me -->
-                            {{-- <div class="block mt-4">
-                                <label for="remember_me" class="inline-flex items-center">
-                                    <input id="remember_me" type="checkbox"
-                                        class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                        name="remember">
-                                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                                </label>
-                            </div> --}}
-
-                            <div class="d-flex items-center justify-content-end mt-4">
-                                {{-- @if (Route::has('password.request'))
-                                <a class="underline text-sm text-gray-600 hover:text-gray-900"
-                                    href="{{ route('password.request') }}">
-                                    {{ __('Forgot your password?') }}
-                                </a>
-                                @endif --}}
-
-                                <x-button class=" ml-auto">
-                                    {{ __('Masuk') }}
-                                </x-button>
-                            </div>
-                        </form>
+                <!-- Validation Errors -->
+                <x-auth-validation-errors class="mb-4" :errors="$errors"/>
+            </div>
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+                <img src="{{ asset('img/etask.png') }}">
+                <h3 class="title mt-3">E-TASK Login</h3>
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="div">
+                        <h5>NIP</h5>
+                        <input type="text" class="input" name="nip">
                     </div>
                 </div>
-
-            </x-auth-card>
+                <div class="input-div pass">
+                    <div class="i">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Password</h5>
+                        <input type="password" name="password" class="input">
+                    </div>
+                </div>
+                <x-button class=" btn">
+                    {{ __('Masuk') }}
+                </x-button>
+            </form>
         </div>
     </div>
 </x-guest-layout>

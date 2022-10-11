@@ -16,16 +16,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
     <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/login.css') }}">
     <!-- Scripts -->
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    <style>.toast-session{
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }</style>
 </head>
 
 <body>
     <div class="font-sans text-gray-900 antialiased">
         {{ $slot }}
     </div>
+    <script type="text/javascript" src="{{ asset('js/login.js') }}"></script>
 </body>
 
 </html>
