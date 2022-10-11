@@ -14,7 +14,7 @@
             class="btn btn-light-success btnAdd btn-hover-rotate-start"
             @click="addStaffModal()"
         >
-            <i class="fas fa-plus"></i> Staff
+            <i class="fas fa-plus"></i> ASN Terkait
         </button>
 
         <!-- Modal Staff-->

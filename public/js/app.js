@@ -66390,7 +66390,7 @@ var render = function () {
           },
         },
       },
-      [_c("i", { staticClass: "fas fa-plus" }), _vm._v(" Staff\n    ")]
+      [_c("i", { staticClass: "fas fa-plus" }), _vm._v(" ASN Terkait\n    ")]
     ),
     _vm._v(" "),
     _c(
