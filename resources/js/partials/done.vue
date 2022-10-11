@@ -1,5 +1,5 @@
 <template>
-    <div class="p-2 bg-light-warning text-warning fw-bold bg-hover-warning card-list">
+    <div class="p-2 bg-warning-custom text-warning fw-bold card-list">
         <div class="list-header mb-2">
             <span class="list-drag-handle">&#x2630;</span>
             Done
@@ -28,7 +28,7 @@
                     :move="checkStaff"
                 >
                     <div
-                        class="list-group-staff"
+                        class="list-group-staff staff-list-stack"
                         v-for="staf in element.staffs"
                         :key="staf.id"
                     >
@@ -37,7 +37,7 @@
                             data-bs-toggle="tooltip"
                             :title="staf.name"
                         >
-                            <img height="25" src="img/user.png" alt="" />
+                            <img height="25" width="25" :src="staf.foto" alt="" @error="onErrorImg"/>
                         </div>
                     </div>
                 </draggable>
@@ -66,6 +66,9 @@ export default {
         },
     },
     methods: {
+        onErrorImg(e){
+            this.$parent.onErrorImg(e);
+        },
         cardModal(data){
             this.$parent.cardModal(data);
         },
@@ -82,5 +85,8 @@ export default {
 <style lang="scss" scoped>
     .alert.alert-warning{
         background-color: #fff3cdb5;
+    }
+    .bg-warning-custom{
+        background-color: #ffc70059;
     }
 </style>

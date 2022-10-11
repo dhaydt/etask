@@ -73,6 +73,7 @@
                 'name' => $s['name'],
                 'jabatan_id' => $s['jabatan_id'],
                 'created_at' => $s['created_at'],
+                'foto' => $s['detail']['foto'],
                 'updated_at' => $s['updated_at'],
         ];
 

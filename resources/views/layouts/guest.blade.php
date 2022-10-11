@@ -22,11 +22,16 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/login.css') }}">
     <!-- Scripts -->
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
-    <style>.toast-session{
+    <style>
+    .toast-session{
         position: absolute;
         top: 15px;
         right: 15px;
-    }</style>
+    }
+    input:-internal-autofill-selected{
+        border-radius: 20px !important;
+    }
+    </style>
 </head>
 
 <body>

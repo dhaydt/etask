@@ -8577,6 +8577,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -8653,6 +8655,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    onErrorImg: function onErrorImg(e) {
+      e.target.src = "img/user.png";
+    },
     mountSkpd: function mountSkpd() {
       this.loadingAsn = true;
       var id_skpd = localStorage.getItem("id_skpd");
@@ -9041,6 +9046,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    onErrorImg: function onErrorImg(e) {
+      this.$parent.onErrorImg(e);
+    },
     cardModal: function cardModal(data) {
       this.$parent.cardModal(data);
     },
@@ -9133,6 +9141,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    onErrorImg: function onErrorImg(e) {
+      this.$parent.onErrorImg(e);
+    },
     cardModal: function cardModal(data) {
       this.$parent.cardModal(data);
     },
@@ -10306,6 +10317,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    onErrorImg: function onErrorImg(e) {
+      this.$parent.onErrorImg(e);
+    },
     checkStaff: function checkStaff(evt) {
       this.$parent.checkStaff(evt);
     },
@@ -15712,7 +15726,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* light stylings for the kanban columns */\n.staff-name {\n  font-size: 12px;\n  align-items: center;\n  width: 100%;\n  text-transform: capitalize;\n}\n.card-list {\n  margin: 5px;\n  margin-right: 20px;\n  background-color: rgba(239, 239, 239, 0.6117647059);\n  border-radius: 4px;\n  transition: 0.5s;\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);\n}\n.kanban-column {\n  min-height: 100px;\n}\n.overflow-hidden {\n  overflow: hidden;\n}\n.list-group-staff {\n  transition: 0.5s;\n}\n.list-group-staff:hover {\n  transform: translate(-5px, 0);\n}\n.list-group-item {\n  margin-bottom: 5px;\n  cursor: pointer;\n  transition: 0.5s;\n  border-radius: 4px;\n}\n.list-group-item h6 {\n  font-family: \"Acme\", sans-serif;\n}\n.list-group-item .card-headers {\n  margin: -6px 0 10px -13px;\n  background: #dedede;\n  width: 111%;\n  padding-left: 10px;\n}\n.list-group-item .description {\n  background-color: #efefef;\n  line-height: 1.2;\n  padding: 0 5px 5px 5px;\n  max-height: 45px;\n  overflow: hidden;\n  border-radius: 5px;\n  transition: 1s;\n}\n.list-group-item .description span {\n  font-size: 10px;\n  font-family: \"Noto Serif Gujarati\", serif;\n}\n.avatar {\n  border-radius: 50%;\n  padding: 3px;\n  background: #ddd;\n}\n.btn-remove {\n  font-size: 10px;\n  right: -7px;\n  top: -7px;\n  z-index: 9;\n}\nh6 .delete-btn {\n  opacity: 0;\n  transition: 0.6s;\n}\n.list-group-item:hover h6 .delete-btn {\n  opacity: 1;\n}\n.list-group-item:hover h6 .delete-btn i {\n  color: red;\n}\n.description:hover {\n  height: 85px;\n  max-height: 85px;\n}\n.created-at span.badge {\n  font-size: 10px;\n}\n.loader {\n  position: absolute;\n  top: 30vh;\n  z-index: 99;\n}\n.task-repo {\n  background: rgba(212, 212, 212, 0.568627451);\n}\n.input-group #input-2 {\n  border-right: none;\n}\n.input-group span button {\n  border-radius: 0 10px 10px 0;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* light stylings for the kanban columns */\n.staff-name {\n  font-size: 12px;\n  align-items: center;\n  width: 100%;\n  text-transform: capitalize;\n}\n.card-list {\n  margin-right: 20px;\n  background-color: rgba(239, 239, 239, 0.6117647059);\n  border-radius: 4px;\n  transition: 0.5s;\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);\n}\n.kanban-column {\n  min-height: 100px;\n}\n.overflow-hidden {\n  overflow: hidden;\n}\n.list-group-staff {\n  transition: 0.5s;\n}\n.list-group-staff:hover {\n  transform: translate(-5px, 0);\n}\n.list-group-item {\n  margin-bottom: 5px;\n  cursor: pointer;\n  transition: 0.5s;\n  border-radius: 4px;\n}\n.list-group-item h6 {\n  font-family: \"Acme\", sans-serif;\n}\n.list-group-item .card-headers {\n  margin: -6px 0 10px -13px;\n  background: #dedede;\n  width: 111%;\n  padding-left: 10px;\n}\n.list-group-item .description {\n  background-color: #efefef;\n  line-height: 1.2;\n  padding: 0 5px 5px 5px;\n  max-height: 45px;\n  overflow: hidden;\n  border-radius: 5px;\n  transition: 1s;\n}\n.list-group-item .description span {\n  font-size: 10px;\n  font-family: \"Noto Serif Gujarati\", serif;\n}\n.avatar {\n  border-radius: 50%;\n  padding: 3px;\n  overflow: hidden;\n  background: #ddd;\n  -o-object-position: 50px 30px;\n     object-position: 50px 30px;\n}\n.btn-remove {\n  font-size: 10px;\n  right: -7px;\n  top: -7px;\n  z-index: 9;\n}\nh6 .delete-btn {\n  opacity: 0;\n  transition: 0.6s;\n}\n.list-group-item:hover h6 .delete-btn {\n  opacity: 1;\n}\n.list-group-item:hover h6 .delete-btn i {\n  color: red;\n}\n.description:hover {\n  height: 85px;\n  max-height: 85px;\n}\n.created-at span.badge {\n  font-size: 10px;\n}\n.loader {\n  position: absolute;\n  top: 30vh;\n  z-index: 99;\n}\n.task-repo {\n  background: rgba(212, 212, 212, 0.568627451);\n}\n.input-group #input-2 {\n  border-right: none;\n}\n.input-group span button {\n  border-radius: 0 10px 10px 0;\n}\n.staff-list-stack {\n  margin-left: -23px;\n}\n.staff-list-stack:first-child {\n  margin-left: 0;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -15760,7 +15774,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".alert.alert-primary[data-v-a2574990] {\n  background-color: rgba(207, 226, 255, 0.631372549);\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".alert.alert-primary[data-v-a2574990] {\n  background-color: rgba(207, 226, 255, 0.631372549);\n}\n.bg-primary-custom[data-v-a2574990] {\n  background-color: rgba(0, 158, 247, 0.431372549);\n  color: #aae0ff;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -15784,7 +15798,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".alert.alert-warning[data-v-26e7e95e] {\n  background-color: rgba(255, 243, 205, 0.7098039216);\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".alert.alert-warning[data-v-26e7e95e] {\n  background-color: rgba(255, 243, 205, 0.7098039216);\n}\n.bg-warning-custom[data-v-26e7e95e] {\n  background-color: rgba(255, 199, 0, 0.3490196078);\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -65475,9 +65489,11 @@ var render = function () {
                                       _c("img", {
                                         attrs: {
                                           height: "25",
-                                          src: "img/user.png",
+                                          width: "25",
+                                          src: staf.foto,
                                           alt: "",
                                         },
+                                        on: { error: _vm.onErrorImg },
                                       }),
                                     ]
                                   ),
@@ -65772,10 +65788,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass:
-        "p-2 bg-light-primary text-info fw-bold bg-hover-primary card-list",
-    },
+    { staticClass: "p-2 bg-primary-custom fw-bold card-list" },
     [
       _vm._m(0),
       _vm._v(" "),
@@ -65830,7 +65843,10 @@ var render = function () {
                 _vm._l(element.staffs, function (staf) {
                   return _c(
                     "div",
-                    { key: staf.id, staticClass: "list-group-staff" },
+                    {
+                      key: staf.id,
+                      staticClass: "list-group-staff staff-list-stack",
+                    },
                     [
                       _c(
                         "div",
@@ -65843,11 +65859,8 @@ var render = function () {
                         },
                         [
                           _c("img", {
-                            attrs: {
-                              height: "25",
-                              src: "img/user.png",
-                              alt: "",
-                            },
+                            attrs: { height: "25", src: staf.foto, alt: "" },
+                            on: { error: _vm.onErrorImg },
                           }),
                         ]
                       ),
@@ -65871,7 +65884,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "list-header mb-2" }, [
+    return _c("div", { staticClass: "list-header mb-4" }, [
       _c("span", { staticClass: "list-drag-handle" }, [_vm._v("☰")]),
       _vm._v("\n        Doing\n    "),
     ])
@@ -65901,10 +65914,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass:
-        "p-2 bg-light-warning text-warning fw-bold bg-hover-warning card-list",
-    },
+    { staticClass: "p-2 bg-warning-custom text-warning fw-bold card-list" },
     [
       _vm._m(0),
       _vm._v(" "),
@@ -65954,7 +65964,10 @@ var render = function () {
                 _vm._l(element.staffs, function (staf) {
                   return _c(
                     "div",
-                    { key: staf.id, staticClass: "list-group-staff" },
+                    {
+                      key: staf.id,
+                      staticClass: "list-group-staff staff-list-stack",
+                    },
                     [
                       _c(
                         "div",
@@ -65969,9 +65982,11 @@ var render = function () {
                           _c("img", {
                             attrs: {
                               height: "25",
-                              src: "img/user.png",
+                              width: "25",
+                              src: staf.foto,
                               alt: "",
                             },
+                            on: { error: _vm.onErrorImg },
                           }),
                         ]
                       ),
@@ -67319,7 +67334,13 @@ var render = function () {
                     },
                     [
                       _c("img", {
-                        attrs: { height: "25", src: "img/user.png", alt: "" },
+                        attrs: {
+                          width: "25",
+                          height: "25",
+                          src: element.foto,
+                          alt: "",
+                        },
+                        on: { error: _vm.onErrorImg },
                       }),
                     ]
                   ),

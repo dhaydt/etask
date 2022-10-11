@@ -27,7 +27,7 @@
                 </button>
                 <div class="align-items-center d-flex justify-content-center">
                     <div class="avatar me-2 text-capitalize position-relative">
-                        <img height="25" src="img/user.png" alt="" />
+                        <img width="25" height="25" :src="element.foto" alt="" @error="onErrorImg" />
                     </div>
                 </div>
                 <div
@@ -84,6 +84,9 @@ export default {
     },
 
     methods: {
+        onErrorImg(e){
+            this.$parent.onErrorImg(e);
+        },
         checkStaff(evt) {
             this.$parent.checkStaff(evt);
         },

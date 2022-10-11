@@ -350,6 +350,7 @@ class Controller extends BaseController
             $st = [
                 'id' => $s['id'],
                 'name' => $s['name'],
+                'foto' => $s['foto'],
             ];
             array_push($staffOld, $st);
         }
@@ -407,6 +408,7 @@ class Controller extends BaseController
                 'jabatan_id' => $s['jabatan_id'],
                 'created_at' => $s['created_at'],
                 'updated_at' => $s['updated_at'],
+                'foto' => $s['detail']['foto'],
         ];
 
             array_push($newStaffs, $staf);

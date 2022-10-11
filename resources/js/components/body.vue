@@ -81,8 +81,10 @@
                                     >
                                         <img
                                             height="25"
-                                            src="img/user.png"
+                                            width="25"
+                                            :src="staf.foto"
                                             alt=""
+                                            @error="onErrorImg"
                                         />
                                     </div>
                                     <div
@@ -246,6 +248,9 @@ export default {
         },
     },
     methods: {
+        onErrorImg(e){
+            e.target.src = "img/user.png"
+        },
         mountSkpd() {
             this.loadingAsn = true;
             var id_skpd = localStorage.getItem("id_skpd");
@@ -555,7 +560,6 @@ export default {
     text-transform: capitalize;
 }
 .card-list {
-    margin: 5px;
     margin-right: 20px;
     background-color: #efefef9c;
     border-radius: 4px;
@@ -606,7 +610,9 @@ export default {
 .avatar {
     border-radius: 50%;
     padding: 3px;
+    overflow: hidden;
     background: #ddd;
+    object-position: 50px 30px;
 }
 .btn-remove {
     font-size: 10px;
@@ -653,4 +659,11 @@ h6 .delete-btn {
         border-radius: 0 10px 10px 0;
     }
 }
+
+.staff-list-stack{
+        margin-left: -23px;
+    }
+    .staff-list-stack:first-child{
+        margin-left: 0;
+    }
 </style>

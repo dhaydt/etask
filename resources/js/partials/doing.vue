@@ -1,6 +1,6 @@
 <template>
-    <div class="p-2 bg-light-primary text-info fw-bold bg-hover-primary card-list">
-        <div class="list-header mb-2">
+    <div class="p-2 bg-primary-custom fw-bold card-list">
+        <div class="list-header mb-4">
             <span class="list-drag-handle">&#x2630;</span>
             Doing
         </div>
@@ -29,7 +29,7 @@
                     :move="checkStaff"
                 >
                     <div
-                        class="list-group-staff"
+                        class="list-group-staff staff-list-stack"
                         v-for="staf in element.staffs"
                         :key="staf.id"
                     >
@@ -38,7 +38,7 @@
                             data-bs-toggle="tooltip"
                             :title="staf.name"
                         >
-                            <img height="25" src="img/user.png" alt="" />
+                            <img height="25" :src="staf.foto" alt="" @error="onErrorImg"/>
                         </div>
                     </div>
                 </draggable>
@@ -67,6 +67,9 @@ export default {
         },
     },
     methods: {
+        onErrorImg(e){
+            this.$parent.onErrorImg(e);
+        },
         cardModal(data){
             this.$parent.cardModal(data);
         },
@@ -83,5 +86,9 @@ export default {
 <style lang="scss" scoped>
     .alert.alert-primary{
         background-color: #cfe2ffa1;
+    }
+    .bg-primary-custom{
+        background-color: #009ef76e;
+        color: #aae0ff;
     }
 </style>
