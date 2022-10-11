@@ -70,10 +70,10 @@
                                         @click="
                                             removeStaff(staf.id, element.id)
                                         "
-                                        class="btn btn-sm btn-danger btn-hover-scale p-0 btn-remove position-absolute text-light"
+                                        class="btn btn-sm btn-danger p-1 btn-hover-scale btn-remove position-absolute text-light"
                                         data-bs-toggle="tooltip"
                                     >
-                                        <i class="fas fa-times px-1 py-0"></i>
+                                        <i class="fas fa-trash px-1 py-0"></i>
                                     </button>
                                     <div
                                         class="avatar me-2 text-capitalize position-relative"
@@ -554,6 +554,12 @@ export default {
 }
 .overflow-hidden{
     overflow: hidden;
+}
+.list-group-staff{
+    transition: .5s;
+}
+.list-group-staff:hover {
+    transform: translate(-5px, 0);
 }
 .list-group-item {
     margin-bottom: 5px;

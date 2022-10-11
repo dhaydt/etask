@@ -1,6 +1,6 @@
 <template>
-    <div class="p-2 bg-light-success text-success bg-hover-success card-list">
-        <div class="list-header mb-2 fw-bold">
+    <div class="p-2 staff-repo card-list">
+        <div class="list-header mb-4 fw-bold">
             <span class="list-drag-handle">&#x2630;</span>
             ASN Terkait
         </div>
@@ -18,30 +18,34 @@
                 :key="element.name"
                 data-bs-toggle="tooltip"
             >
-                <label
-                    v-if="element.available == 1"
-                    class="badge bg-success rounded-pill staff-status position-absolute"
-                    >Available</label
-                >
-                <label
-                    v-else
-                    class="badge bg-danger rounded-pill staff-status position-absolute"
-                    >OnWorking</label
-                >
                 <button
                     @click="removeStaff(element.id)"
-                    class="btn btn-sm btn-danger btn-hover-scale p-0 btn-remove position-absolute text-light"
+                    class="btn btn-sm btn-danger btn-hover-scale p-1 btn-remove position-absolute text-light"
                     data-bs-toggle="tooltip"
                 >
-                    <i class="fas fa-times px-1 py-0"></i>
+                    <i class="fas fa-trash px-1 py-0"></i>
                 </button>
-                <div class="avatar me-2 text-capitalize position-relative">
-                    <img height="25" src="img/user.png" alt="" />
+                <div class="align-items-center d-flex justify-content-center">
+                    <div class="avatar me-2 text-capitalize position-relative">
+                        <img height="25" src="img/user.png" alt="" />
+                    </div>
                 </div>
-                <div class="staff-name d-flex justify-content-center">
+                <div
+                    class="staff-name d-flex justify-content-center align-items-start flex-column"
+                >
                     <div class="staff-label">
                         {{ element.name }}
                     </div>
+                    <label
+                        v-if="element.available == 1"
+                        class="badge bg-success rounded-pill staff-status"
+                        >Available</label
+                    >
+                    <label
+                        v-else
+                        class="badge bg-danger rounded-pill staff-status"
+                        >OnWorking</label
+                    >
                 </div>
             </div>
         </draggable>
@@ -53,8 +57,8 @@ export default {
     props: {
         staffs: Array,
     },
-    data(){
-        return{
+    data() {
+        return {
             config: {
                 headers: {
                     header: document
@@ -62,7 +66,7 @@ export default {
                         .getAttribute("content"),
                 },
             },
-        }
+        };
     },
     computed: {
         dragOptions() {
@@ -83,32 +87,43 @@ export default {
         checkStaff(evt) {
             this.$parent.checkStaff(evt);
         },
-        removeStaff(id){
+        removeStaff(id) {
             var user = {
-                nip: id
+                nip: id,
             };
             var that = this;
-            axios.post("addStaff", {
-                user: user,
-                status: true
-            }, this.config).then(function(resp){
-                var data = resp.data;
-                if(data.code == 200){
-                    that.$parent.splitAxios(data.data.original);
-                    Vue.$toast.success(data.message);
-                    console.log('respon',data);
-                }
-                that.$parent.mountSkpd();
-            }).catch(function(err){
-                console.log('err',err);
-                // window.alert(err);
-            })
+            axios
+                .post(
+                    "addStaff",
+                    {
+                        user: user,
+                        status: true,
+                    },
+                    this.config
+                )
+                .then(function (resp) {
+                    var data = resp.data;
+                    if (data.code == 200) {
+                        that.$parent.splitAxios(data.data.original);
+                        Vue.$toast.success(data.message);
+                        console.log("respon", data);
+                    }
+                    that.$parent.mountSkpd();
+                })
+                .catch(function (err) {
+                    console.log("err", err);
+                    // window.alert(err);
+                });
         },
     },
 };
 </script>
 
 <style lang="scss" scoped>
+.staff-repo {
+    background: #c9f7f59c;
+    color: #00fff3;
+}
 .staff-status {
     top: -5px;
     right: 0;

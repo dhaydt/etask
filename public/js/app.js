@@ -10261,6 +10261,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     staffs: Array
@@ -10306,12 +10310,12 @@ __webpack_require__.r(__webpack_exports__);
         if (data.code == 200) {
           that.$parent.splitAxios(data.data.original);
           Vue.$toast.success(data.message);
-          console.log('respon', data);
+          console.log("respon", data);
         }
 
         that.$parent.mountSkpd();
       })["catch"](function (err) {
-        console.log('err', err); // window.alert(err);
+        console.log("err", err); // window.alert(err);
       });
     }
   }
@@ -15695,7 +15699,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* light stylings for the kanban columns */\n.staff-name {\n  font-size: 12px;\n  align-items: center;\n  width: 100%;\n  text-transform: capitalize;\n}\n.card-list {\n  margin: 5px;\n  margin-right: 20px;\n  background-color: rgba(239, 239, 239, 0.6117647059);\n  border-radius: 4px;\n  transition: 0.5s;\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);\n}\n.kanban-column {\n  min-height: 100px;\n}\n.overflow-hidden {\n  overflow: hidden;\n}\n.list-group-item {\n  margin-bottom: 5px;\n  cursor: pointer;\n  transition: 0.5s;\n  border-radius: 4px;\n}\n.list-group-item h6 {\n  font-family: \"Acme\", sans-serif;\n}\n.list-group-item .card-headers {\n  margin: -6px 0 10px -13px;\n  background: #dedede;\n  width: 111%;\n  padding-left: 10px;\n}\n.list-group-item .description {\n  background-color: #efefef;\n  line-height: 1.2;\n  padding: 0 5px 5px 5px;\n  max-height: 45px;\n  overflow: hidden;\n  border-radius: 5px;\n  transition: 1s;\n}\n.list-group-item .description span {\n  font-size: 10px;\n  font-family: \"Noto Serif Gujarati\", serif;\n}\n.avatar {\n  border-radius: 50%;\n  padding: 3px;\n  background: #ddd;\n}\n.btn-remove {\n  font-size: 10px;\n  right: -7px;\n  top: -7px;\n  z-index: 9;\n}\nh6 .delete-btn {\n  opacity: 0;\n  transition: 0.6s;\n}\n.list-group-item:hover h6 .delete-btn {\n  opacity: 1;\n}\n.list-group-item:hover h6 .delete-btn i {\n  color: red;\n}\n.description:hover {\n  height: 85px;\n  max-height: 85px;\n}\n.created-at span.badge {\n  font-size: 10px;\n}\n.loader {\n  position: absolute;\n  top: 30vh;\n  z-index: 99;\n}\n.task-repo {\n  background: rgba(212, 212, 212, 0.568627451);\n}\n.input-group #input-2 {\n  border-right: none;\n}\n.input-group span button {\n  border-radius: 0 10px 10px 0;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* light stylings for the kanban columns */\n.staff-name {\n  font-size: 12px;\n  align-items: center;\n  width: 100%;\n  text-transform: capitalize;\n}\n.card-list {\n  margin: 5px;\n  margin-right: 20px;\n  background-color: rgba(239, 239, 239, 0.6117647059);\n  border-radius: 4px;\n  transition: 0.5s;\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);\n}\n.kanban-column {\n  min-height: 100px;\n}\n.overflow-hidden {\n  overflow: hidden;\n}\n.list-group-staff {\n  transition: 0.5s;\n}\n.list-group-staff:hover {\n  transform: translate(-5px, 0);\n}\n.list-group-item {\n  margin-bottom: 5px;\n  cursor: pointer;\n  transition: 0.5s;\n  border-radius: 4px;\n}\n.list-group-item h6 {\n  font-family: \"Acme\", sans-serif;\n}\n.list-group-item .card-headers {\n  margin: -6px 0 10px -13px;\n  background: #dedede;\n  width: 111%;\n  padding-left: 10px;\n}\n.list-group-item .description {\n  background-color: #efefef;\n  line-height: 1.2;\n  padding: 0 5px 5px 5px;\n  max-height: 45px;\n  overflow: hidden;\n  border-radius: 5px;\n  transition: 1s;\n}\n.list-group-item .description span {\n  font-size: 10px;\n  font-family: \"Noto Serif Gujarati\", serif;\n}\n.avatar {\n  border-radius: 50%;\n  padding: 3px;\n  background: #ddd;\n}\n.btn-remove {\n  font-size: 10px;\n  right: -7px;\n  top: -7px;\n  z-index: 9;\n}\nh6 .delete-btn {\n  opacity: 0;\n  transition: 0.6s;\n}\n.list-group-item:hover h6 .delete-btn {\n  opacity: 1;\n}\n.list-group-item:hover h6 .delete-btn i {\n  color: red;\n}\n.description:hover {\n  height: 85px;\n  max-height: 85px;\n}\n.created-at span.badge {\n  font-size: 10px;\n}\n.loader {\n  position: absolute;\n  top: 30vh;\n  z-index: 99;\n}\n.task-repo {\n  background: rgba(212, 212, 212, 0.568627451);\n}\n.input-group #input-2 {\n  border-right: none;\n}\n.input-group span button {\n  border-radius: 0 10px 10px 0;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -15911,7 +15915,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".staff-status[data-v-9d53f3be] {\n  top: -5px;\n  right: 0;\n  font-size: 10px;\n}\n.alert.alert-success[data-v-9d53f3be] {\n  background-color: rgba(209, 231, 221, 0.6705882353);\n}\n.staff-name[data-v-9d53f3be] {\n  overflow: hidden;\n}\n.staff-label[data-v-9d53f3be] {\n  font-size: 12px;\n  font-weight: 600;\n  width: 100%;\n  overflow: hidden;\n  white-space: nowrap;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".staff-repo[data-v-9d53f3be] {\n  background: rgba(201, 247, 245, 0.6117647059);\n  color: #00fff3;\n}\n.staff-status[data-v-9d53f3be] {\n  top: -5px;\n  right: 0;\n  font-size: 10px;\n}\n.alert.alert-success[data-v-9d53f3be] {\n  background-color: rgba(209, 231, 221, 0.6705882353);\n}\n.staff-name[data-v-9d53f3be] {\n  overflow: hidden;\n}\n.staff-label[data-v-9d53f3be] {\n  font-size: 12px;\n  font-weight: 600;\n  width: 100%;\n  overflow: hidden;\n  white-space: nowrap;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -65429,7 +65433,7 @@ var render = function () {
                                     "button",
                                     {
                                       staticClass:
-                                        "btn btn-sm btn-danger btn-hover-scale p-0 btn-remove position-absolute text-light",
+                                        "btn btn-sm btn-danger p-1 btn-hover-scale btn-remove position-absolute text-light",
                                       attrs: { "data-bs-toggle": "tooltip" },
                                       on: {
                                         click: function ($event) {
@@ -65442,7 +65446,7 @@ var render = function () {
                                     },
                                     [
                                       _c("i", {
-                                        staticClass: "fas fa-times px-1 py-0",
+                                        staticClass: "fas fa-trash px-1 py-0",
                                       }),
                                     ]
                                   ),
@@ -67243,10 +67247,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass:
-        "p-2 bg-light-success text-success bg-hover-success card-list",
-    },
+    { staticClass: "p-2 staff-repo card-list" },
     [
       _vm._m(0),
       _vm._v(" "),
@@ -67275,29 +67276,11 @@ var render = function () {
               attrs: { "data-bs-toggle": "tooltip" },
             },
             [
-              element.available == 1
-                ? _c(
-                    "label",
-                    {
-                      staticClass:
-                        "badge bg-success rounded-pill staff-status position-absolute",
-                    },
-                    [_vm._v("Available")]
-                  )
-                : _c(
-                    "label",
-                    {
-                      staticClass:
-                        "badge bg-danger rounded-pill staff-status position-absolute",
-                    },
-                    [_vm._v("OnWorking")]
-                  ),
-              _vm._v(" "),
               _c(
                 "button",
                 {
                   staticClass:
-                    "btn btn-sm btn-danger btn-hover-scale p-0 btn-remove position-absolute text-light",
+                    "btn btn-sm btn-danger btn-hover-scale p-1 btn-remove position-absolute text-light",
                   attrs: { "data-bs-toggle": "tooltip" },
                   on: {
                     click: function ($event) {
@@ -67305,24 +67288,37 @@ var render = function () {
                     },
                   },
                 },
-                [_c("i", { staticClass: "fas fa-times px-1 py-0" })]
+                [_c("i", { staticClass: "fas fa-trash px-1 py-0" })]
               ),
               _vm._v(" "),
               _c(
                 "div",
                 {
-                  staticClass: "avatar me-2 text-capitalize position-relative",
+                  staticClass:
+                    "align-items-center d-flex justify-content-center",
                 },
                 [
-                  _c("img", {
-                    attrs: { height: "25", src: "img/user.png", alt: "" },
-                  }),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "avatar me-2 text-capitalize position-relative",
+                    },
+                    [
+                      _c("img", {
+                        attrs: { height: "25", src: "img/user.png", alt: "" },
+                      }),
+                    ]
+                  ),
                 ]
               ),
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "staff-name d-flex justify-content-center" },
+                {
+                  staticClass:
+                    "staff-name d-flex justify-content-center align-items-start flex-column",
+                },
                 [
                   _c("div", { staticClass: "staff-label" }, [
                     _vm._v(
@@ -67331,6 +67327,24 @@ var render = function () {
                         "\n                "
                     ),
                   ]),
+                  _vm._v(" "),
+                  element.available == 1
+                    ? _c(
+                        "label",
+                        {
+                          staticClass:
+                            "badge bg-success rounded-pill staff-status",
+                        },
+                        [_vm._v("Available")]
+                      )
+                    : _c(
+                        "label",
+                        {
+                          staticClass:
+                            "badge bg-danger rounded-pill staff-status",
+                        },
+                        [_vm._v("OnWorking")]
+                      ),
                 ]
               ),
             ]
@@ -67347,7 +67361,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "list-header mb-2 fw-bold" }, [
+    return _c("div", { staticClass: "list-header mb-4 fw-bold" }, [
       _c("span", { staticClass: "list-drag-handle" }, [_vm._v("☰")]),
       _vm._v("\n        ASN Terkait\n    "),
     ])
