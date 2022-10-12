@@ -65,6 +65,8 @@
             $skpd = 0;
         }
 
+        $role = auth()->user()->role;
+
         $newStaffs = [];
         foreach($staffs as $s){
             $staf = [
@@ -80,10 +82,21 @@
             array_push($newStaffs, $staf);
         }
 
+        $u = $user;
+            $format = [
+                'id' => $u['id'],
+                'name' => $u['name'],
+                'created_at' => $u['created_at'],
+                'updated_at' => $u['updated_at'],
+                'available' => $u['available'],
+                'foto' => $u['detail']['foto'],
+                'id_skpd' => $u['detail']['id_skpd'],
+            ];
+
     @endphp
     <div id="app">
-        <example-component :id_skpd="{{ $skpd }}" :dasar="{{ $dasar }}" :todos="{{ $todo }}" :doing="{{ $doing }}" :done="{{ $done }}" :staffs="{{ collect($newStaffs) }}"
-            :user="{{ auth()->user() }}">
+        <example-component :roles="{{ $role }}" :id_skpd="{{ $skpd }}" :dasar="{{ $dasar }}" :todos="{{ $todo }}" :doing="{{ $doing }}" :done="{{ $done }}" :staffs="{{ collect($newStaffs) }}"
+            :user="{{ collect($format) }}">
         </example-component>
     </div>
     <div class="container-fluid">

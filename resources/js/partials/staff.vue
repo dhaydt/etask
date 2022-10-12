@@ -127,6 +127,12 @@ export default {
     background: #c9f7f59c;
     color: #00fff3;
 }
+
+.list-group-staff{
+    button{
+        z-index: 1;
+    }
+}
 .staff-status {
     top: -5px;
     right: 0;

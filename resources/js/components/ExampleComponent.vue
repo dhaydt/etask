@@ -1,7 +1,7 @@
 <template>
-    <div class="container-fluid">
+    <div class="main-body">
         <Header></Header>
-        <div class="nav-menu d-flex justify-content-end align-items-center">
+        <!-- <div class="nav-menu d-flex justify-content-end align-items-center">
             <button
                 type="button"
                 class="btn btn-secondary rotate user-btn py-0 px-2 text-capitalize"
@@ -37,7 +37,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div> -->
         <Body
             :todos="todos"
             :doing="doing"
@@ -71,6 +71,7 @@ export default {
         staffs: Array | Object,
         user: Object,
         dasar: Array,
+        roles: Number,
         id_skpd: String | Number
     },
     components: {
@@ -79,11 +80,12 @@ export default {
         Header,
     },
     mounted() {
-        console.log('staffExample', this.staffs);
-        this.role = this.user.role;
+        console.log('user', this.user);
+        this.role = String(this.roles);
         this.dasarSpt = this.dasar;
         localStorage.setItem('id_skpd', this.id_skpd);
-        localStorage.setItem('role', this.user.role);
+        localStorage.setItem('role', this.role);
+        localStorage.setItem('user', JSON.stringify(this.user));
     },
     methods:{
         reloadSpt(data){
@@ -99,12 +101,16 @@ export default {
 .dropdown-toggle::after {
     display: none;
 }
+nav{
+    position: relative;
+    z-index: 2;
+}
 .logout-btn{
     border: none;
     background-color: transparent;
 }
 .user-btn {
-    z-index: 1;
+    z-index: 0;
     height: 30px;
     border-radius: 4px;
 }

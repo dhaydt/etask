@@ -86,6 +86,9 @@ export default {
     .alert.alert-warning{
         background-color: #fff3cdb5;
     }
+    .avatar{
+        border: 2px solid rgb(202, 202, 0);
+    }
     .bg-warning-custom{
         background-color: #ffc70059;
     }
