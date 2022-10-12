@@ -103,7 +103,7 @@
                                 :options="options"
                                 multiple
                                 v-model="newStaff"
-                                @onclick="getId()"
+                                v-on:input="getId"
                                 label="name"
                                 placeholder="Pilih Staff"
                                 :components="{ Deselect }"
@@ -198,16 +198,17 @@ export default {
             this.checkStatus(this.status);
             console.log('staff', this.staffs);
         },
+        staffs(){
+            this.options = this.staffs;
+        },
         taskData() {
             this.checkStaff();
         },
-        staffs(){
-            this.options = this.staffs;
-        }
     },
     methods: {
         getId(e){
             console.log('event',e);
+            this.updateSelectStaff(this.staffs, e);
         },
         dasarUpdate(data){
             var valData = [];
@@ -220,8 +221,29 @@ export default {
         },
         checkStaff() {
             this.newStaff = this.taskData.staffs;
+            this.updateSelectStaff(this.options, this.newStaff);
+
             this.start = this.taskData.start;
             this.dasarSpt = this.taskData.dasar
+        },
+        updateSelectStaff(options, selected){
+            for (let i = 0; i < selected.length; i++) {
+                var filtered;
+                if(i == 0){
+                    var data = options;
+                    const filter = data.reduce( (acc, el) =>
+                                        el.id === selected[i].id && acc || [...acc, el], [] );
+                    filtered = filter;
+                    console.log('filtered'+ i, filtered);
+                }else{
+                    const filter = filtered.reduce( (acc, el) =>
+                    el.id === selected[i].id && acc || [...acc, el], [] );
+                    filtered = filter;
+                    console.log('filtered'+ i, filtered);
+                }
+            }
+
+            this.options = filtered;
         },
         checkStatus(stat) {
             if (stat == "todo") {

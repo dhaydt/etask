@@ -9366,6 +9366,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _part_label_title__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./part/label-title */ "./resources/js/partials/part/label-title.vue");
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_1__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 //
 //
 //
@@ -9566,16 +9578,17 @@ __webpack_require__.r(__webpack_exports__);
       this.checkStatus(this.status);
       console.log('staff', this.staffs);
     },
-    taskData: function taskData() {
-      this.checkStaff();
-    },
     staffs: function staffs() {
       this.options = this.staffs;
+    },
+    taskData: function taskData() {
+      this.checkStaff();
     }
   },
   methods: {
     getId: function getId(e) {
       console.log('event', e);
+      this.updateSelectStaff(this.staffs, e);
     },
     dasarUpdate: function dasarUpdate(data) {
       var valData = [];
@@ -9588,8 +9601,37 @@ __webpack_require__.r(__webpack_exports__);
     },
     checkStaff: function checkStaff() {
       this.newStaff = this.taskData.staffs;
+      this.updateSelectStaff(this.options, this.newStaff);
       this.start = this.taskData.start;
       this.dasarSpt = this.taskData.dasar;
+    },
+    updateSelectStaff: function updateSelectStaff(options, selected) {
+      var _loop = function _loop(i) {
+        if (i == 0) {
+          data = options;
+          var filter = data.reduce(function (acc, el) {
+            return el.id === selected[i].id && acc || [].concat(_toConsumableArray(acc), [el]);
+          }, []);
+          filtered = filter;
+          console.log('filtered' + i, filtered);
+        } else {
+          var _filter = filtered.reduce(function (acc, el) {
+            return el.id === selected[i].id && acc || [].concat(_toConsumableArray(acc), [el]);
+          }, []);
+
+          filtered = _filter;
+          console.log('filtered' + i, filtered);
+        }
+      };
+
+      for (var i = 0; i < selected.length; i++) {
+        var filtered;
+        var data;
+
+        _loop(i);
+      }
+
+      this.options = filtered;
     },
     checkStatus: function checkStatus(stat) {
       if (stat == "todo") {
@@ -66678,11 +66720,7 @@ var render = function () {
                           placeholder: "Pilih Staff",
                           components: { Deselect: _vm.Deselect },
                         },
-                        on: {
-                          onclick: function ($event) {
-                            return _vm.getId()
-                          },
-                        },
+                        on: { input: _vm.getId },
                         model: {
                           value: _vm.newStaff,
                           callback: function ($$v) {
