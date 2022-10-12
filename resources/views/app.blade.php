@@ -35,8 +35,15 @@
         body {
             background: rgb(68, 68, 68);
             background: linear-gradient(183deg, rgba(68, 68, 68, 1) 45%, rgba(3, 204, 250, 1) 100%);
-            background-image: url('img/bg.jpg');
             min-height: 100vh;
+        }
+        .bg-img{
+            background-image: url('img/bg.jpg');
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
         }
         .alert.alert-danger{
             z-index: 1;
@@ -52,6 +59,7 @@
 </head>
 
 <body>
+    <div class="bg-img"></div>
     @php
         $id = auth()->user()->nip;
         if($id){
