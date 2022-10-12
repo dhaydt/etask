@@ -514,6 +514,13 @@ class ComposerStaticInit4802bbe3954e2e3fca4642d71c77f0c8
                 0 => __DIR__ . '/..' . '/mockery/mockery/library',
             ),
         ),
+        'J' => 
+        array (
+            'JasperPHP' => 
+            array (
+                0 => __DIR__ . '/..' . '/cossou/jasperphp/src',
+            ),
+        ),
     );
 
     public static $classMap = array (
@@ -2706,6 +2713,9 @@ class ComposerStaticInit4802bbe3954e2e3fca4642d71c77f0c8
         'Illuminate\\View\\ViewFinderInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewFinderInterface.php',
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
+        'JasperPHP\\Facades\\JasperPHP' => __DIR__ . '/..' . '/cossou/jasperphp/src/JasperPHP/Facades/JasperPHP.php',
+        'JasperPHP\\JasperPHP' => __DIR__ . '/..' . '/cossou/jasperphp/src/JasperPHP/JasperPHP.php',
+        'JasperPHP\\JasperPHPServiceProvider' => __DIR__ . '/..' . '/cossou/jasperphp/src/JasperPHP/JasperPHPServiceProvider.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Laravel\\Breeze\\BreezeServiceProvider' => __DIR__ . '/..' . '/laravel/breeze/src/BreezeServiceProvider.php',
         'Laravel\\Breeze\\Console\\InstallCommand' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallCommand.php',

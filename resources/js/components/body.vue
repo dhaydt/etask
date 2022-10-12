@@ -481,6 +481,8 @@ export default {
             console.log("data modal", data);
             this.status = data.status;
             this.taskData = data;
+            var staffSelected = data.staffs;
+            console.log('body',staffSelected);
             this.newStaff = this.newStaff;
             modalTask.show();
         },

@@ -1,5 +1,5 @@
 <template>
-    <div class="main-body">
+    <div class="main-body mb-4">
         <Header></Header>
         <!-- <div class="nav-menu d-flex justify-content-end align-items-center">
             <button

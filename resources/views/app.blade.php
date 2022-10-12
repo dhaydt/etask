@@ -102,7 +102,7 @@
             ];
 
     @endphp
-    <div id="app">
+    <div id="app" class="mb-3">
         <example-component :roles="{{ $role }}" :id_skpd="{{ $skpd }}" :dasar="{{ $dasar }}" :todos="{{ $todo }}" :doing="{{ $doing }}" :done="{{ $done }}" :staffs="{{ collect($newStaffs) }}"
             :user="{{ collect($format) }}">
         </example-component>

@@ -8871,6 +8871,8 @@ __webpack_require__.r(__webpack_exports__);
       console.log("data modal", data);
       this.status = data.status;
       this.taskData = data;
+      var staffSelected = data.staffs;
+      console.log('body', staffSelected);
       this.newStaff = this.newStaff;
       modalTask.show();
     },
@@ -65372,7 +65374,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "main-body" },
+    { staticClass: "main-body mb-4" },
     [
       _c("Header"),
       _vm._v(" "),
