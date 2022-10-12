@@ -7,6 +7,7 @@
         <!-- Testing draggable component. Pass done to list prop -->
         <draggable
             id="done"
+            v-bind="dragOptions"
             class="done list-group kanban-column"
             :list="done"
             group="tasks"
@@ -55,7 +56,7 @@ export default {
         dragOptions() {
             return {
                 animation: 800,
-                disabled: false,
+                disabled:   true,
                 ghostClass: "ghost",
             };
         },

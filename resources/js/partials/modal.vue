@@ -52,7 +52,11 @@
                             icon="fas fa-calendar"
                         ></LabelTitle>
                         <div class="mb-3 input-text">
-                            <input type="date" v-model="start" class="form-control" />
+                            <input
+                                type="date"
+                                v-model="start"
+                                class="form-control"
+                            />
                         </div>
                         <LabelTitle
                             title="Dasar Surat Perintah Tugas"
@@ -87,11 +91,7 @@
                                     :key="s.id"
                                 >
                                     <div class="avatar me-2">
-                                        <img
-                                            :src="s.foto"
-                                            height="25"
-                                            alt=""
-                                        />
+                                        <img :src="s.foto" @error="onErrorImg" height="25" alt="" />
                                     </div>
                                     <label for="" class="text-capitalize">{{
                                         s.name
@@ -160,17 +160,18 @@ export default {
         role: String,
         status: String,
         staffs: Array,
-        dasar: Array
+        dasar: Array,
+        selected: Array
     },
     data() {
         return {
             dasarSpt: [],
-            dasarNew:[],
+            dasarNew: [],
             start: null,
             options: [],
             newStat: null,
-            spt: ['SURAT 1', 'SURAT 2', 'SURAT 3'],
-            sptList: ['SURAT 1', 'SURAT 2',],
+            spt: ["SURAT 1", "SURAT 2", "SURAT 3"],
+            sptList: ["SURAT 1", "SURAT 2"],
             token: document
                 .querySelector('meta[name="csrf-token"]')
                 .getAttribute("content"),
@@ -188,7 +189,7 @@ export default {
         };
     },
     watch: {
-        dasar(){
+        dasar() {
             this.dasarUpdate(this.dasar);
         },
         role() {
@@ -196,54 +197,84 @@ export default {
         },
         status() {
             this.checkStatus(this.status);
-            console.log('staff', this.staffs);
-        },
-        staffs(){
-            this.options = this.staffs;
+            console.log("watch status", this.taskData.staffs);
         },
         taskData() {
             this.checkStaff();
         },
+        staffs() {
+            console.log('wacth staff', this.selected)
+            this.options = this.staffs;
+            this.newStaff = this.selected;
+            if(this.selected.length > 0){
+                this.updateSelectStaff(this.options, this.selected);
+            }
+        },
+        selected(){
+            this.options = this.staffs;
+            this.newStaff = this.selected;
+            console.log('watch selected', this.options)
+            if(this.selected.length > 0){
+                this.updateSelectStaff(this.options, this.selected);
+            }
+        }
     },
     methods: {
-        getId(e){
-            console.log('event',e);
+        onErrorImg(e){
+            this.$parent.onErrorImg(e);
+        },
+        getId(e) {
+            console.log("event", e);
             this.updateSelectStaff(this.staffs, e);
         },
-        dasarUpdate(data){
+        dasarUpdate(data) {
             var valData = [];
-            data.forEach(function(val, i){
-                if(val.status == 1){
+            data.forEach(function (val, i) {
+                if (val.status == 1) {
                     valData.push(val);
                 }
             });
             this.dasarNew = valData;
         },
         checkStaff() {
-            this.newStaff = this.taskData.staffs;
-            this.updateSelectStaff(this.options, this.newStaff);
-
+            // this.newStaff = this.taskData.staffs;
             this.start = this.taskData.start;
-            this.dasarSpt = this.taskData.dasar
+            this.dasarSpt = this.taskData.dasar;
         },
-        updateSelectStaff(options, selected){
-            for (let i = 0; i < selected.length; i++) {
+        updateSelectStaff(options, selected) {
+            console.log('sel', selected);
+            if (selected.length > 0) {
                 var filtered;
-                if(i == 0){
-                    var data = options;
-                    const filter = data.reduce( (acc, el) =>
-                                        el.id === selected[i].id && acc || [...acc, el], [] );
-                    filtered = filter;
-                    console.log('filtered'+ i, filtered);
-                }else{
-                    const filter = filtered.reduce( (acc, el) =>
-                    el.id === selected[i].id && acc || [...acc, el], [] );
-                    filtered = filter;
-                    console.log('filtered'+ i, filtered);
+                for (let i = 0; i < selected.length; i++) {
+                    if (i == 0) {
+                        var data = options;
+                        const filter = data.reduce(
+                            (acc, el) =>
+                                (el.id === selected[i].id && acc) || [
+                                    ...acc,
+                                    el,
+                                ],
+                            []
+                        );
+                        filtered = filter;
+                        console.log("filtered" + i, filtered);
+                    } else {
+                        const filter = filtered.reduce(
+                            (acc, el) =>
+                                (el.id === selected[i].id && acc) || [
+                                    ...acc,
+                                    el,
+                                ],
+                            []
+                        );
+                        filtered = filter;
+                        console.log("filtered" + i, filtered);
+                    }
                 }
+                this.options = filtered;
+            } else {
+                this.options = options;
             }
-
-            this.options = filtered;
         },
         checkStatus(stat) {
             if (stat == "todo") {
@@ -295,18 +326,16 @@ export default {
             var dasar = this.dasarSpt;
             var start = this.start;
             const that = this;
-            if(dasar == undefined){
+            if (dasar == undefined) {
                 var dasar = [];
             }
             if (name == "" || name == null) {
                 Vue.$toast.warning("Judul task tidak boleh kosong!");
             } else if (description == "" || description == null) {
                 Vue.$toast.warning("Deskripsi task tidak boleh kosong!");
-
-            } else if(dasar.length == 0){
+            } else if (dasar.length == 0) {
                 Vue.$toast.warning("Mohon pilih Dasar SPT!");
-            }
-            else {
+            } else {
                 axios
                     .post(
                         "/updateTask",

@@ -8581,6 +8581,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -8625,6 +8626,7 @@ __webpack_require__.r(__webpack_exports__);
       status: null,
       loadingAsn: false,
       staffSingle: [],
+      selected: [],
       newTodos: [],
       newDoing: [],
       newDone: [],
@@ -8657,6 +8659,25 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    cardModal: function cardModal(data) {
+      var modalTask = new bootstrap.Modal(document.getElementById("modalTask"), {
+        keyboard: false
+      });
+      this.taskData = data;
+      this.status = data.status;
+      this.selected = data.staffs;
+      this.refreshStaff();
+      console.log('body', this.newStaff);
+      modalTask.show();
+    },
+    refreshStaff: function refreshStaff() {
+      var _this = this;
+
+      this.newStaff = [];
+      this.staffs.forEach(function (s) {
+        _this.newStaff.push(s);
+      });
+    },
     onErrorImg: function onErrorImg(e) {
       e.target.src = "img/user.png";
     },
@@ -8756,7 +8777,7 @@ __webpack_require__.r(__webpack_exports__);
       console.log("staffcheck", user);
     },
     splitData: function splitData() {
-      var _this = this;
+      var _this2 = this;
 
       console.log("body1", this.todos);
       this.todos.forEach(function (s) {
@@ -8772,10 +8793,10 @@ __webpack_require__.r(__webpack_exports__);
           dasar: JSON.parse(s.spt_id)
         };
 
-        _this.newTodos.push(todo);
+        _this2.newTodos.push(todo);
       });
       this.staffs.forEach(function (s) {
-        _this.newStaff.push(s);
+        _this2.newStaff.push(s);
       });
       this.doing.forEach(function (s) {
         var todo = {
@@ -8790,7 +8811,7 @@ __webpack_require__.r(__webpack_exports__);
           dasar: JSON.parse(s.spt_id)
         };
 
-        _this.newDoing.push(todo);
+        _this2.newDoing.push(todo);
       });
       this.done.forEach(function (s) {
         var todo = {
@@ -8803,7 +8824,7 @@ __webpack_require__.r(__webpack_exports__);
           dasar: JSON.parse(s.spt_id)
         };
 
-        _this.newDone.push(todo);
+        _this2.newDone.push(todo);
       });
     },
     resetTask: function resetTask() {
@@ -8813,7 +8834,7 @@ __webpack_require__.r(__webpack_exports__);
       this.newStaff = [];
     },
     splitAxios: function splitAxios(data) {
-      var _this2 = this;
+      var _this3 = this;
 
       console.log("axios", data);
       this.resetTask();
@@ -8828,10 +8849,10 @@ __webpack_require__.r(__webpack_exports__);
           dasar: JSON.parse(s.spt_id)
         };
 
-        _this2.newTodos.push(todo);
+        _this3.newTodos.push(todo);
       });
       data.staffs.forEach(function (s) {
-        _this2.newStaff.push(s);
+        _this3.newStaff.push(s);
       });
       data.doing.forEach(function (s) {
         var todo = {
@@ -8844,7 +8865,7 @@ __webpack_require__.r(__webpack_exports__);
           dasar: JSON.parse(s.spt_id)
         };
 
-        _this2.newDoing.push(todo);
+        _this3.newDoing.push(todo);
       });
       data.done.forEach(function (s) {
         var todo = {
@@ -8857,24 +8878,12 @@ __webpack_require__.r(__webpack_exports__);
           dasar: JSON.parse(s.spt_id)
         };
 
-        _this2.newDone.push(todo);
+        _this3.newDone.push(todo);
       });
     },
     hideModalTask: function hideModalTask() {
       $("#modalTask").modal("hide");
       console.log("called");
-    },
-    cardModal: function cardModal(data) {
-      var modalTask = new bootstrap.Modal(document.getElementById("modalTask"), {
-        keyboard: false
-      });
-      console.log("data modal", data);
-      this.status = data.status;
-      this.taskData = data;
-      var staffSelected = data.staffs;
-      console.log('body', staffSelected);
-      this.newStaff = this.newStaff;
-      modalTask.show();
     },
     //add new tasks method
     add: function add() {
@@ -8900,7 +8909,10 @@ __webpack_require__.r(__webpack_exports__);
     checkMove: function checkMove(evt) {
       var status = evt.to.id;
       var id = evt.draggedContext.element.id;
-      console.log("moved", id);
+      console.log("moved", evt);
+
+      if (status == done) {}
+
       var that = this;
       axios__WEBPACK_IMPORTED_MODULE_7___default().post("changeStatus", {
         id: id,
@@ -8908,7 +8920,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         console.log("resp", response.data);
         that.splitAxios(response.data.original);
-        Vue.$toast.success("Task Moved Successfully");
+        Vue.$toast.success("Task Berhasil dipindahkan!");
       })["catch"](function (err) {
         console.log("err", err);
       });
@@ -9316,6 +9328,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     done: Array
@@ -9324,7 +9337,7 @@ __webpack_require__.r(__webpack_exports__);
     dragOptions: function dragOptions() {
       return {
         animation: 800,
-        disabled: false,
+        disabled: true,
         ghostClass: "ghost"
       };
     },
@@ -9542,7 +9555,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     role: String,
     status: String,
     staffs: Array,
-    dasar: Array
+    dasar: Array,
+    selected: Array
   },
   data: function data() {
     return {
@@ -9551,8 +9565,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       start: null,
       options: [],
       newStat: null,
-      spt: ['SURAT 1', 'SURAT 2', 'SURAT 3'],
-      sptList: ['SURAT 1', 'SURAT 2'],
+      spt: ["SURAT 1", "SURAT 2", "SURAT 3"],
+      sptList: ["SURAT 1", "SURAT 2"],
       token: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
       config: {
         headers: {
@@ -9576,18 +9590,36 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     status: function status() {
       this.checkStatus(this.status);
-      console.log('staff', this.staffs);
-    },
-    staffs: function staffs() {
-      this.options = this.staffs;
+      console.log("watch status", this.taskData.staffs);
     },
     taskData: function taskData() {
       this.checkStaff();
+    },
+    staffs: function staffs() {
+      console.log('wacth staff', this.selected);
+      this.options = this.staffs;
+      this.newStaff = this.selected;
+
+      if (this.selected.length > 0) {
+        this.updateSelectStaff(this.options, this.selected);
+      }
+    },
+    selected: function selected() {
+      this.options = this.staffs;
+      this.newStaff = this.selected;
+      console.log('watch selected', this.options);
+
+      if (this.selected.length > 0) {
+        this.updateSelectStaff(this.options, this.selected);
+      }
     }
   },
   methods: {
+    onErrorImg: function onErrorImg(e) {
+      this.$parent.onErrorImg(e);
+    },
     getId: function getId(e) {
-      console.log('event', e);
+      console.log("event", e);
       this.updateSelectStaff(this.staffs, e);
     },
     dasarUpdate: function dasarUpdate(data) {
@@ -9600,38 +9632,44 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.dasarNew = valData;
     },
     checkStaff: function checkStaff() {
-      this.newStaff = this.taskData.staffs;
-      this.updateSelectStaff(this.options, this.newStaff);
+      // this.newStaff = this.taskData.staffs;
       this.start = this.taskData.start;
       this.dasarSpt = this.taskData.dasar;
     },
     updateSelectStaff: function updateSelectStaff(options, selected) {
-      var _loop = function _loop(i) {
-        if (i == 0) {
-          data = options;
-          var filter = data.reduce(function (acc, el) {
-            return el.id === selected[i].id && acc || [].concat(_toConsumableArray(acc), [el]);
-          }, []);
-          filtered = filter;
-          console.log('filtered' + i, filtered);
-        } else {
-          var _filter = filtered.reduce(function (acc, el) {
-            return el.id === selected[i].id && acc || [].concat(_toConsumableArray(acc), [el]);
-          }, []);
+      console.log('sel', selected);
 
-          filtered = _filter;
-          console.log('filtered' + i, filtered);
-        }
-      };
-
-      for (var i = 0; i < selected.length; i++) {
+      if (selected.length > 0) {
         var filtered;
-        var data;
 
-        _loop(i);
+        var _loop = function _loop(i) {
+          if (i == 0) {
+            data = options;
+            var filter = data.reduce(function (acc, el) {
+              return el.id === selected[i].id && acc || [].concat(_toConsumableArray(acc), [el]);
+            }, []);
+            filtered = filter;
+            console.log("filtered" + i, filtered);
+          } else {
+            var _filter = filtered.reduce(function (acc, el) {
+              return el.id === selected[i].id && acc || [].concat(_toConsumableArray(acc), [el]);
+            }, []);
+
+            filtered = _filter;
+            console.log("filtered" + i, filtered);
+          }
+        };
+
+        for (var i = 0; i < selected.length; i++) {
+          var data;
+
+          _loop(i);
+        }
+
+        this.options = filtered;
+      } else {
+        this.options = options;
       }
-
-      this.options = filtered;
     },
     checkStatus: function checkStatus(stat) {
       if (stat == "todo") {
@@ -16014,7 +16052,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".alert.alert-primary[data-v-a2574990] {\n  background-color: rgba(207, 226, 255, 0.631372549);\n}\n.avatar[data-v-a2574990] {\n  border: 2px solid rgb(64, 95, 249);\n}\n.bg-primary-custom[data-v-a2574990] {\n  background-color: rgba(0, 158, 247, 0.431372549);\n  color: #aae0ff;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".disable_pointer[data-v-a2574990] {\n  pointer-events: none;\n}\n.alert.alert-primary[data-v-a2574990] {\n  background-color: rgba(207, 226, 255, 0.631372549);\n}\n.avatar[data-v-a2574990] {\n  border: 2px solid rgb(64, 95, 249);\n}\n.bg-primary-custom[data-v-a2574990] {\n  background-color: rgba(0, 158, 247, 0.431372549);\n  color: #aae0ff;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -65831,6 +65869,7 @@ var render = function () {
           status: _vm.status,
           staffs: _vm.newStaff,
           dasar: _vm.dasar,
+          selected: _vm.selected,
         },
       }),
       _vm._v(" "),
@@ -66351,15 +66390,20 @@ var render = function () {
       _vm._v(" "),
       _c(
         "draggable",
-        {
-          staticClass: "done list-group kanban-column",
-          attrs: {
-            id: "done",
-            list: _vm.done,
-            group: "tasks",
-            move: _vm.checkMove,
+        _vm._b(
+          {
+            staticClass: "done list-group kanban-column",
+            attrs: {
+              id: "done",
+              list: _vm.done,
+              group: "tasks",
+              move: _vm.checkMove,
+            },
           },
-        },
+          "draggable",
+          _vm.dragOptions,
+          false
+        ),
         _vm._l(_vm.done, function (element) {
           return _c(
             "div",
@@ -66694,6 +66738,7 @@ var render = function () {
                                         height: "25",
                                         alt: "",
                                       },
+                                      on: { error: _vm.onErrorImg },
                                     }),
                                   ]),
                                   _vm._v(" "),

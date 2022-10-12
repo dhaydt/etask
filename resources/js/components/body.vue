@@ -165,6 +165,7 @@
             :status="status"
             :staffs="newStaff"
             :dasar="dasar"
+            :selected="selected"
         ></Modal>
         <Loading v-if="loadingAsn"></Loading>
     </div>
@@ -216,6 +217,7 @@ export default {
             status: null,
             loadingAsn: false,
             staffSingle: [],
+            selected: [],
             newTodos: [],
             newDoing: [],
             newDone: [],
@@ -248,6 +250,26 @@ export default {
         },
     },
     methods: {
+        cardModal(data) {
+            var modalTask = new bootstrap.Modal(
+                document.getElementById("modalTask"),
+                {
+                    keyboard: false,
+                }
+            );
+            this.taskData = data;
+            this.status = data.status;
+            this.selected = data.staffs;
+            this.refreshStaff();
+            console.log('body',this.newStaff);
+            modalTask.show();
+        },
+        refreshStaff(){
+            this.newStaff = [];
+            this.staffs.forEach((s) => {
+                this.newStaff.push(s);
+            });
+        },
         onErrorImg(e){
             e.target.src = "img/user.png"
         },
@@ -471,21 +493,6 @@ export default {
             $("#modalTask").modal("hide");
             console.log("called");
         },
-        cardModal(data) {
-            var modalTask = new bootstrap.Modal(
-                document.getElementById("modalTask"),
-                {
-                    keyboard: false,
-                }
-            );
-            console.log("data modal", data);
-            this.status = data.status;
-            this.taskData = data;
-            var staffSelected = data.staffs;
-            console.log('body',staffSelected);
-            this.newStaff = this.newStaff;
-            modalTask.show();
-        },
         //add new tasks method
         add: function () {
             if (this.newTask) {
@@ -510,7 +517,10 @@ export default {
         checkMove: function (evt) {
             var status = evt.to.id;
             var id = evt.draggedContext.element.id;
-            console.log("moved", id);
+            console.log("moved", evt);
+            if(status == done){
+
+            }
             const that = this;
 
             axios
@@ -521,7 +531,7 @@ export default {
                 .then(function (response) {
                     console.log("resp", response.data);
                     that.splitAxios(response.data.original);
-                    Vue.$toast.success("Task Moved Successfully");
+                    Vue.$toast.success("Task Berhasil dipindahkan!");
                 })
                 .catch(function (err) {
                     console.log("err", err);

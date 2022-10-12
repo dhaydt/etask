@@ -19,7 +19,7 @@
                 :key="element.name"
                 @click="cardModal(element)"
             >
-                {{ element.name }}
+                {{ element.name  }}
                 <draggable
                     v-bind="dragOptions"
                     class="list-staff d-flex"
@@ -84,6 +84,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    .disable_pointer{
+        pointer-events: none;
+    }
     .alert.alert-primary{
         background-color: #cfe2ffa1;
     }
