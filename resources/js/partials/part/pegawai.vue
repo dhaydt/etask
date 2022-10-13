@@ -21,12 +21,15 @@
         <td class="text-center text-muted fw-bold">{{ dasar.nama_jabatan }}</td>
         <td class="text-center">
             <div
-                class="form-check form-switch form-check-custom form-check-solid"
+                class="form-check form-switch form-check-custom form-check-solid position-relative"
             >
+                <i class="fa-solid fa-save"></i>
                 <input
                     class="form-check-input"
                     v-model="active"
                     type="checkbox"
+                    data-bs-toggle="tooltip"
+                    title="Simpan"
                     id="flexSwitchDefault"
                     @click="simpan(dasar)"
                 />
@@ -110,5 +113,16 @@ export default {
     .symbol{
         overflow: hidden;
         cursor: pointer;
+    }
+    #flexSwitchDefault{
+        opacity: 0;
+        z-index: 1;
+        cursor: pointer;
+    }
+
+    .form-check i{
+        position: absolute;
+        left: 0;
+        font-size: 30px;
     }
 </style>

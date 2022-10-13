@@ -10437,6 +10437,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     dasar: Object,
@@ -16196,7 +16199,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".symbol[data-v-9c12feba] {\n  overflow: hidden;\n  cursor: pointer;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".symbol[data-v-9c12feba] {\n  overflow: hidden;\n  cursor: pointer;\n}\n#flexSwitchDefault[data-v-9c12feba] {\n  opacity: 0;\n  z-index: 1;\n  cursor: pointer;\n}\n.form-check i[data-v-9c12feba] {\n  position: absolute;\n  left: 0;\n  font-size: 30px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -67659,9 +67662,11 @@ var render = function () {
             "div",
             {
               staticClass:
-                "form-check form-switch form-check-custom form-check-solid",
+                "form-check form-switch form-check-custom form-check-solid position-relative",
             },
             [
+              _c("i", { staticClass: "fa-solid fa-save" }),
+              _vm._v(" "),
               _c("input", {
                 directives: [
                   {
@@ -67672,7 +67677,12 @@ var render = function () {
                   },
                 ],
                 staticClass: "form-check-input",
-                attrs: { type: "checkbox", id: "flexSwitchDefault" },
+                attrs: {
+                  type: "checkbox",
+                  "data-bs-toggle": "tooltip",
+                  title: "Simpan",
+                  id: "flexSwitchDefault",
+                },
                 domProps: {
                   checked: Array.isArray(_vm.active)
                     ? _vm._i(_vm.active, null) > -1
