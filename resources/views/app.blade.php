@@ -54,6 +54,9 @@
             font-family: "Acme", sans-serif;
             border: none;
         }
+        .menu.menu-user.menu-sub.menu-sub-dropdown.menu-column{
+            border-radius: 4px;
+        }
 
     </style>
 </head>
@@ -103,9 +106,9 @@
 
     @endphp
     <div id="app" class="mb-3">
-        <example-component :roles="{{ $role }}" :id_skpd="{{ $skpd }}" :dasar="{{ $dasar }}" :todos="{{ $todo }}" :doing="{{ $doing }}" :done="{{ $done }}" :staffs="{{ collect($newStaffs) }}"
+        <main-component :roles="{{ $role }}" :id_skpd="{{ $skpd }}" :dasar="{{ $dasar }}" :todos="{{ $todo }}" :doing="{{ $doing }}" :done="{{ $done }}" :staffs="{{ collect($newStaffs) }}"
             :user="{{ collect($format) }}">
-        </example-component>
+        </main-component>
     </div>
     <div class="container-fluid">
         @if ($errors->any())

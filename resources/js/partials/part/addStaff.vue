@@ -1,7 +1,6 @@
 <template>
     <div class="addStaff mb-1">
-        <!-- Button trigger modal -->
-        <button
+        <!-- <button
             type="button"
             class="btn btn-light-info btnAdd btn-hover-rotate-end me-2"
             data-bs-toggle="modal"
@@ -15,9 +14,8 @@
             @click="addStaffModal()"
         >
             <i class="fas fa-plus"></i> ASN Terkait
-        </button>
+        </button> -->
 
-        <!-- Modal Staff-->
         <div
             class="modal fade"
             id="addStaffModal"
@@ -205,6 +203,14 @@ export default {
             namaSkpd: null,
             selected: [],
         };
+    },
+    mounted(){
+        this.$root.$on('addStaff', () => {
+            this.addStaffModal();
+        })
+        this.$root.$on('addDasar', () => {
+            this.addStaffModal();
+        })
     },
     methods: {
         addStaffModal() {

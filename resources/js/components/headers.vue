@@ -1,14 +1,6 @@
 <template>
-    <!-- <nav class="navbar navbar-light">
-        <div class="container-fluid h-100">
-            <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="img/etask.png" height="23" alt="" class="me-2" />
-                E-Tasks
-            </a>
-        </div>
-    </nav> -->
     <nav
-        class=""
+        class="headers"
         id="header"
         data-test-id="header-container"
         data-desktop-id="header-inner"
@@ -33,11 +25,18 @@
                         aria-expanded="false"
                         title="Workspaces"
                         aria-label="Workspaces"
+                        data-bs-custom-class="tooltip-inverse"
+                        data-bs-placement="left"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-start"
+                        data-kt-menu-offset="0px, 5px"
                     >
-                        <span class="nav-item-title me-2 text-light text-capitalize">Tambah data</span
+                        <span
+                            class="nav-item-title me-2 text-light text-capitalize"
+                            >Tambah data</span
                         >
-                        <!-- <span
-                            class="nch-icon"
+                        <span
+                            class="nch-icon zb2xH7sIF-ak3S ttnK8PUoemc3bn yL4b0Ecr10JiXu frgVIeU5oJb3WB"
                             ><span
                                 role="img"
                                 aria-label="DownIcon"
@@ -61,9 +60,33 @@
                                         d="M11.2929 16.7071L4.22185 9.63606C3.83132 9.24554 3.83132 8.61237 4.22185 8.22185C4.61237 7.83133 5.24554 7.83133 5.63606 8.22185L12 14.5858L18.364 8.22185C18.7545 7.83132 19.3877 7.83132 19.7782 8.22185C20.1687 8.61237 20.1687 9.24554 19.7782 9.63606L12.7071 16.7071C12.3166 17.0977 11.6834 17.0977 11.2929 16.7071Z"
                                         fill="currentColor"
                                     ></path></svg></span
-                        ></span> -->
-                    </button
-                    ><button
+                        ></span>
+                    </button>
+                    <div
+                        class="menu menu-user menu-sub menu-sub-dropdown menu-column menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px"
+                        data-kt-menu="true"
+                    >
+                        <div class="menu-item px-3">
+                            <a
+                                href="javascript:"
+                                class="menu-link px-3"
+                                @click="showModalAddStaff"
+                            >
+                                <i class="fa-solid fa-plus me-3"></i>
+                                ASN Terkait
+                            </a>
+                        </div>
+                        <div class="menu-item px-3">
+                            <a href="javascript:"
+                            class="menu-link px-3"
+                            data-bs-toggle="modal"
+                            data-bs-target="#addSptModal">
+                                <i class="fa-solid fa-plus me-3"></i>
+                                Dasar SPT
+                            </a>
+                        </div>
+                    </div>
+                    <button
                         class="nav-items nav-global"
                         data-test-id="recently-viewed-boards-menu"
                         type="button"
@@ -72,9 +95,9 @@
                         title="Recent"
                         aria-label="Recent boards"
                     >
-                        <span class="nav-item-title me-2 text-light">Recent</span
-                        >
-                        </button
+                        <span class="nav-item-title me-2 text-light"
+                            >Recent</span
+                        ></button
                     ><button
                         class="nav-items nav-global"
                         data-test-id="starred-boards-menu"
@@ -84,10 +107,14 @@
                         title="Starred"
                         aria-label="Starred boards"
                     >
-                        <a class="nav-item-title me-2 text-light" href="javascript:" data-bs-toggle="modal" data-bs-target="#dasarSpt">Dasar SPT</a
+                        <a
+                            class="nav-item-title me-2 text-light"
+                            href="javascript:"
+                            data-bs-toggle="modal"
+                            data-bs-target="#dasarSpt"
+                            >Dasar SPT</a
                         >
-                    </button
-                    >
+                    </button>
                 </div>
                 <div class="dyyadVYdVIR0rS">
                     <div
@@ -109,7 +136,12 @@
                         role="img"
                         aria-label="InformationIcon"
                         class="css-pxzk9z"
-                        style=" --icon-primary-color: var( --ds-text-accent-gray-bolder, #172b4d ); --icon-secondary-color: inherit;"
+                        style=" --icon-primary-color: var(
+                                --ds-text-accent-gray-bolder,
+                                #172b4d
+                            );
+                            --icon-secondary-color: inherit;
+                        "
                         ><svg
                             width="24"
                             height="24"
@@ -132,8 +164,8 @@
                                 d="M13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8Z"
                                 fill="currentColor"
                             ></path></svg></span
-                ></span></button
-            >
+                ></span>
+            </button>
             <div class="FmsNZYly9TPRkA"></div>
             <button
                 class="main-right menu-profile nav-items nav-global"
@@ -146,17 +178,12 @@
                 data-kt-menu-placement="bottom-start"
                 data-kt-menu-offset="0px, 5px"
             >
-                <div
-                    class="profile-container"
-                >
-                    <img :src="user.foto"
+                <div class="profile-container">
+                    <img
+                        :src="user.foto"
                         @error="onErrorImg"
                         class="p6oJr7SHjK+vLr aqePx81u4BGHTH Glb3QqRGpd64YB"
-                        style="
-                            height: 25px;
-                            width: 25px;
-                            line-height: 32px;
-                        "
+                        style="height: 25px; width: 25px; line-height: 32px"
                     />
                 </div>
             </button>
@@ -165,7 +192,14 @@
                 data-kt-menu="true"
             >
                 <div class="menu-item px-3">
-                    <a href="javascript:"  data-bs-toggle="modal" data-bs-target="#dasarSpt" class="menu-link px-3"> Dasar SPT </a>
+                    <a
+                        href="javascript:"
+                        data-bs-toggle="modal"
+                        data-bs-target="#dasarSpt"
+                        class="menu-link px-3"
+                    >
+                        Dasar SPT
+                    </a>
                 </div>
                 <div class="menu-item px-3">
                     <a href="#" class="menu-link px-3"> New Customer </a>
@@ -178,13 +212,14 @@
                             type="submit"
                             class="menu-link px-3 text-danger logout-btn"
                         >
-                            <i class="fa-solid fa-right-from-bracket me-2 text-danger"></i>
+                            <i
+                                class="fa-solid fa-right-from-bracket me-2 text-danger"
+                            ></i>
                             Keluar
                         </button>
                     </form>
                 </div>
             </div>
-
         </div>
     </nav>
 </template>
@@ -200,14 +235,17 @@ export default {
                 .getAttribute("content"),
         };
     },
-    mounted(){
-        this.user = JSON.parse(localStorage.getItem('user'));
+    mounted() {
+        this.user = JSON.parse(localStorage.getItem("user"));
     },
-    methods:{
-        onErrorImg(e){
-            e.target.src = "img/user.png"
+    methods: {
+        showModalAddStaff() {
+            this.$root.$emit("addStaff");
         },
-    }
+        onErrorImg(e) {
+            e.target.src = "img/user.png";
+        },
+    },
 };
 </script>
 
@@ -233,7 +271,7 @@ nav {
         height: 32px;
         border-radius: 3px;
 
-        .logo{
+        .logo {
             color: #fff;
             font-weight: 700;
             font-size: 18px;
@@ -241,11 +279,11 @@ nav {
         }
     }
 
-    .menu-left{
+    .menu-left {
         display: flex;
         flex-basis: 100%;
 
-        .menu-left-container{
+        .menu-left-container {
             align-items: stretch;
             display: flex;
             flex-grow: 1;
@@ -260,9 +298,11 @@ nav {
             flex-shrink: 0;
             margin: 0 4px;
 
-            .nav-global{
+            .nav-global {
                 color: #172b4d;
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Noto Sans', 'Ubuntu', 'Droid Sans', 'Helvetica Neue', sans-serif;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                    "Roboto", "Noto Sans", "Ubuntu", "Droid Sans",
+                    "Helvetica Neue", sans-serif;
                 font-size: 14px;
                 line-height: 20px;
                 font-weight: 400;
@@ -275,7 +315,10 @@ nav {
                 padding: 6px 12px;
                 text-decoration: none;
                 white-space: normal;
-                background-color: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
+                background-color: var(
+                    --ds-background-neutral,
+                    rgba(9, 30, 66, 0.04)
+                );
                 box-shadow: none;
                 border: none;
                 color: var(--ds-text, inherit);
@@ -284,7 +327,7 @@ nav {
                 transition-timing-function: ease;
             }
 
-            .nav-global:hover{
+            .nav-global:hover {
                 background-color: #ffffff4d;
                 box-shadow: none;
                 color: #fff;
@@ -292,7 +335,7 @@ nav {
                 color: var(--ds-text, inherit);
             }
 
-            .nav-items{
+            .nav-items {
                 background-color: transparent;
                 height: 32px;
                 line-height: 32px;
@@ -300,7 +343,7 @@ nav {
                 padding-right: 10px;
                 font-weight: 600;
                 white-space: nowrap;
-                .nch-icon{
+                .nch-icon {
                     margin-left: 4px;
                     min-width: 16px;
                     display: inline-block;
@@ -311,19 +354,19 @@ nav {
         }
     }
 
-    .menu-right{
+    .menu-right {
         display: flex;
         justify-content: flex-end;
         flex-grow: 1;
 
-        .menu-seru{
+        .menu-seru {
             background-color: rgba(255, 255, 255, 0);
             color: #fff;
             box-shadow: none;
             border: none;
         }
 
-        .main-right{
+        .main-right {
             border-radius: 3px;
             text-decoration: none;
             align-items: center;
@@ -333,14 +376,14 @@ nav {
             line-height: 32px;
             margin: 0 4px 0 0;
             padding: 6px;
-            transition: .5s;
+            transition: 0.5s;
             white-space: nowrap;
         }
         .menu-seru:hover {
-            color: #FFFFFF;
+            color: #ffffff;
             background-color: rgba(255, 255, 255, 0.2);
         }
-        button.menu-profile{
+        button.menu-profile {
             background-color: #0ad6e2;
             border: none;
             border-radius: 50%;
@@ -351,18 +394,17 @@ nav {
             justify-content: center;
             display: flex;
 
-                .profile-container{
-                    position: relative;
-                    line-height: 10px;
-                    overflow: hidden;
-                    white-space: nowrap;
-                }
+            .profile-container {
+                position: relative;
+                line-height: 10px;
+                overflow: hidden;
+                white-space: nowrap;
+            }
         }
 
-        button.menu-profile:hover{
+        button.menu-profile:hover {
             background-color: rgba(255, 255, 255, 0.2);
         }
-
     }
 }
 </style>

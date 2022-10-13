@@ -1,5 +1,5 @@
 <template>
-    <div class="p-2 bg-primary-custom fw-bold card-list w-100">
+    <div class="p-2 bg-primary-custom fw-bold card-list w-100 doing">
         <div class="list-header mb-4">
             <span class="list-drag-handle">&#x2630;</span>
             Doing

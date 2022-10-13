@@ -1,5 +1,5 @@
 <template>
-    <tr v-if="show">
+    <tr v-if="show" class="pegawai">
         <td>
             <div class="symbol symbol-45px me-2">
                 <span class="symbol-label">

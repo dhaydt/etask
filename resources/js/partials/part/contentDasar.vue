@@ -1,5 +1,5 @@
 <template>
-    <tr>
+    <tr class="contentDasar">
         <td>
             <div class="symbol symbol-45px me-2">
                 <span class="symbol-label">

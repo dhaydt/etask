@@ -1,5 +1,5 @@
 <template>
-    <div class="p-2 bg-warning-custom text-warning fw-bold card-list w-100">
+    <div class="done p-2 bg-warning-custom text-warning fw-bold card-list w-100">
         <div class="list-header mb-2">
             <span class="list-drag-handle">&#x2630;</span>
             Done
