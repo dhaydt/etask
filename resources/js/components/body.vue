@@ -166,6 +166,7 @@
             :staffs="newStaff"
             :dasar="dasar"
             :selected="selected"
+            :updateFlat="updateFlat"
         ></Modal>
         <Loading v-if="loadingAsn"></Loading>
     </div>
@@ -228,6 +229,7 @@ export default {
             taskStaff: [],
             taskData: [],
             newDasar: [],
+            updateFlat: null,
             loading: false,
         };
     },
@@ -261,6 +263,7 @@ export default {
             this.status = data.status;
             this.selected = data.staffs;
             this.refreshStaff();
+            this.updateFlat =this.selected;
             console.log('body',this.newStaff);
             modalTask.show();
         },
@@ -283,6 +286,7 @@ export default {
             axios
                 .get("pegawaiSkpd")
                 .then(function (resp) {
+                    // console.log('bcrypt', resp.data)
                     if (resp.data.code == 200) {
                         var dataSkpd = resp.data.data;
                         var user = resp.data.user;

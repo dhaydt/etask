@@ -1,5 +1,9 @@
 import Alpine from "alpinejs";
 
+global.jQuery = require('jquery');
+var $ = global.jQuery;
+window.$ = $;
+
 window.Alpine = Alpine;
 
 Alpine.start();
@@ -15,7 +19,6 @@ import Vue from "vue";
 import ToastPlugin from "vue-toast-notification";
 
 import "vue-toast-notification/dist/theme-sugar.css";
-
 window.Vue = require("vue").default;
 
 /**

@@ -58,6 +58,12 @@
             border-radius: 4px;
         }
 
+        .datetime-picker.flatpickr-input.active{
+            display: inline-block;
+            z-index: 99999;
+            background: #fff;
+        }
+
     </style>
 </head>
 
@@ -93,7 +99,9 @@
             array_push($newStaffs, $staf);
         }
 
+
         $u = $user;
+        if($user){
             $format = [
                 'id' => $u['id'],
                 'name' => $u['name'],
@@ -103,6 +111,17 @@
                 'foto' => $u['detail']['foto'],
                 'id_skpd' => $u['detail']['id_skpd'],
             ];
+        }else{
+            $format = [
+                'id' => 0,
+                'name' => 'default',
+                'created_at' => '',
+                'updated_at' => '',
+                'available' => 0,
+                'foto' => '',
+                'id_skpd' => 13,
+        ];
+        }
 
     @endphp
     <div id="app" class="mb-3">
@@ -125,7 +144,6 @@
     <script src="{{ mix('/js/app.js') }}"></script>
 
     @include('template.script')
-
 </body>
 
 </html>

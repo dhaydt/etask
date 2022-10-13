@@ -56,7 +56,16 @@
                                 type="date"
                                 v-model="start"
                                 class="form-control"
+                                :disabled="taskData.status == 'doing'"
                             />
+                        </div>
+                        <LabelTitle title="Mulai mengerjakan" icon="fa-solid fa-stopwatch"></LabelTitle>
+                        <div class="mb-3 input-text">
+                            <input class="form-control" id="dateStart" v-model="start_on">
+                        </div>
+                        <LabelTitle title="Selesai mengerjakan" icon="fa-solid fa-stopwatch"></LabelTitle>
+                        <div class="mb-3 input-text">
+                            <input class="form-control" id="dateFinish" v-model="finish_on">
                         </div>
                         <LabelTitle
                             title="Dasar Surat Perintah Tugas"
@@ -69,6 +78,7 @@
                                 multiple
                                 v-model="dasarSpt"
                                 label="dasar"
+                                :disabled="taskData.status == 'doing'"
                                 placeholder="Pilih dasar SPT"
                                 :components="{ Deselect }"
                             ></v-select>
@@ -112,6 +122,13 @@
                     </div>
                     <div v-if="role == 1" class="modal-footer">
                         <button
+                            class="btn btn-success me-auto"
+                            @click.prevent="mulaiTask(taskData.id, newStat)"
+                        >
+                            <label v-if="newStat == 'doing'">Mulai Task</label>
+                            <label v-else>Selesaikan Task</label>
+                        </button>
+                        <button
                             type="button"
                             class="btn btn-secondary"
                             data-bs-dismiss="modal"
@@ -153,15 +170,19 @@
 <script>
 import LabelTitle from "./part/label-title";
 import vSelect from "vue-select";
+import DateTimePicker from 'vue-vanilla-datetime-picker';
+
+
 export default {
-    components: { LabelTitle, vSelect },
+    components: { LabelTitle, vSelect, DateTimePicker },
     props: {
         taskData: Object & Array,
         role: String,
         status: String,
         staffs: Array,
         dasar: Array,
-        selected: Array
+        selected: Array,
+        updateFlat: Array,
     },
     data() {
         return {
@@ -169,6 +190,8 @@ export default {
             dasarNew: [],
             start: null,
             options: [],
+            start_on: null,
+            finish_on: null,
             newStat: null,
             spt: ["SURAT 1", "SURAT 2", "SURAT 3"],
             sptList: ["SURAT 1", "SURAT 2"],
@@ -198,6 +221,19 @@ export default {
         status() {
             this.checkStatus(this.status);
             console.log("watch status", this.taskData.staffs);
+        },
+        updateFlat(){
+            this.start_on == null
+            this.finish_on == null
+
+            $("#dateStart").flatpickr({
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+            });
+            $("#dateFinish").flatpickr({
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+            });
         },
         taskData() {
             this.checkStaff();

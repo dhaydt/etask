@@ -2224,6 +2224,11 @@
   dependencies:
     "browserslist" "^4.21.3"
 
+"core-js@^3.12.1":
+  "integrity" "sha512-nbm6eZSjm+ZuBQxCUPQKQCoUEfFOXjUZ8dTTyikyKaWrTYmAVbykQfwsKE5dBK88u3QCkCrzsx/PPlKfhsvgpw=="
+  "resolved" "https://registry.npmjs.org/core-js/-/core-js-3.25.5.tgz"
+  "version" "3.25.5"
+
 "core-util-is@~1.0.0":
   "integrity" "sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ=="
   "resolved" "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.3.tgz"
@@ -3445,7 +3450,7 @@
     "merge-stream" "^2.0.0"
     "supports-color" "^8.0.0"
 
-"jquery@^3.3.1":
+"jquery@^3.3.1", "jquery@^3.6.1":
   "integrity" "sha512-opJeO4nCucVnsjiXOE+/PcCgYw9Gwpvs/a6B1LL/lQhwWwpbVEVYDZ1FokFr8PRc7ghYlrFPuyHuiiDNTQxmcw=="
   "resolved" "https://registry.npmjs.org/jquery/-/jquery-3.6.1.tgz"
   "version" "3.6.1"
@@ -3671,6 +3676,11 @@
   "version" "6.0.0"
   dependencies:
     "yallist" "^4.0.0"
+
+"luxon@^1.26.0":
+  "integrity" "sha512-TfTiyvZhwBYM/7QdAVDh+7dBTBA29v4ik0Ce9zda3Mnf8on1S5KJI8P2jKFZ8+5C0jhmr0KwJEO/Wdpm0VeWJQ=="
+  "resolved" "https://registry.npmjs.org/luxon/-/luxon-1.28.0.tgz"
+  "version" "1.28.0"
 
 "make-dir@^3.0.0", "make-dir@^3.0.2", "make-dir@^3.1.0":
   "integrity" "sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw=="
@@ -5581,6 +5591,15 @@
   "integrity" "sha512-w4daYmEWsUsqDfON1snfhMUxxm+Blf9OISnoOeKrN3f7HqKvH4pQYwIcPOvIr9cX2EOsRReMWfv8Kha03n9nqw=="
   "resolved" "https://registry.npmjs.org/vue-toast-notification/-/vue-toast-notification-0.6.3.tgz"
   "version" "0.6.3"
+
+"vue-vanilla-datetime-picker@^1.2.0":
+  "integrity" "sha512-D2LVUZJjZjmzgHm/l4+RExOfImZAtz2/vs6TSc+2Y5UKi2zjmqEWst6del3ovAkrNij/RFG2te+EYC9FqVvXTA=="
+  "resolved" "https://registry.npmjs.org/vue-vanilla-datetime-picker/-/vue-vanilla-datetime-picker-1.2.0.tgz"
+  "version" "1.2.0"
+  dependencies:
+    "core-js" "^3.12.1"
+    "luxon" "^1.26.0"
+    "vue" "^2.6.12"
 
 "vue@^2.0.0", "vue@^2.6.12", "vue@2.x":
   "integrity" "sha512-HmFC70qarSHPXcKtW8U8fgIkF6JGvjEmDiVInTkKZP0gIlEPhlVlcJJLkdGIDiNkIeA2zJPQTWJUI4iWe+AVfg=="

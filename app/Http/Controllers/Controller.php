@@ -24,6 +24,26 @@ class Controller extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
 
+    public function checkUser(Request $request)
+    {
+        $id = $request->nip;
+        $user = User::where('nip', $id)->first();
+        if ($user) {
+            $response = [
+                'code' => 200,
+                'message' => 'NIP sudah terdaftar, silahkan masukkan password!',
+                'data' => $user,
+            ];
+        } else {
+            $response = [
+                'code' => 404,
+                'message' => 'NIP tidak terdaftar!',
+            ];
+        }
+
+        return $response;
+    }
+
     public function getSkpd()
     {
         $token = Helpers::getToken();

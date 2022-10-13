@@ -44,5 +44,6 @@ Route::post('updateDasarStatus', [Controller::class, 'updateDasarStatus']);
 
 Route::get('pegawaiSkpd', [Controller::class, 'getSkpd']);
 Route::post('addStaff', [Controller::class, 'addStaff']);
+Route::post('checkUser', [Controller::class, 'checkUser'])->name('checkUser');
 
 require __DIR__.'/auth.php';

@@ -19,7 +19,16 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+
+
+<link href="{{ asset('/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet"
+type="text/css" />
+<link href="{{ asset('/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{{ asset('/assets/css/custom.css') }}" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/login.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/toastr.css') }}">
     <!-- Scripts -->
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
     <style>
@@ -39,6 +48,27 @@
         {{ $slot }}
     </div>
     <script type="text/javascript" src="{{ asset('js/login.js') }}"></script>
+    <script src="{{ asset('js/jquery-2.2.4.min.js') }}"></script>
+    <script src={{asset("js/toastr.js")}}></script>
+    <script src="{{ asset('/assets/plugins/global/plugins.bundle.js') }}"></script>
+
+<script src="{{ asset('/assets/js/scripts.bundle.js') }}"></script>
+<script src="{{ asset('/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
+<script src="{{ asset('/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+<script src="{{ asset('/assets/js/widgets.bundle.js') }}"></script>
+<script src="{{ asset('/assets/js/custom/widgets.js') }}"></script>
+<script src="{{ asset('/assets/js/custom/apps/chat/chat.js') }}"></script>
+<script src="{{ asset('/assets/js/custom/utilities/modals/create-project/type.js') }}"></script>
+<script src="{{ asset('/assets/js/custom/utilities/modals/create-project/budget.js') }}"></script>
+<script src="{{ asset('/assets/js/custom/utilities/modals/create-project/settings.js') }}"></script>
+<script src="{{ asset('/assets/js/custom/utilities/modals/create-project/team.js') }}"></script>
+<script src="{{ asset('/assets/js/custom/utilities/modals/create-project/targets.js') }}"></script>
+<script src="{{ asset('/assets/js/custom/utilities/modals/create-project/files.js') }}"></script>
+<script src="{{ asset('/assets/js/custom/utilities/modals/create-project/complete.js') }}"></script>
+<script src="{{ asset('/assets/js/custom/utilities/modals/create-project/main.js') }}"></script>
+<script src="{{ asset('/assets/js/custom/utilities/modals/users-search.js') }}"></script>
+<script src="{{ asset('/assets/js/alpine.min.js') }}"></script>
+<script src="{{ asset('/assets/js/custom.js') }}"></script>
 </body>
 
 </html>
