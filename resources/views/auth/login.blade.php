@@ -23,7 +23,7 @@
                         </div>
                         <div class="div">
                             <h5>NIP</h5>
-                            <input type="number" id="nip" class="input" name="nip">
+                            <input type="text" id="nip" class="input" name="nip">
                         </div>
                     </div>
                     {{-- <div class="input-div pass">
@@ -96,7 +96,7 @@
                 success: function(data){
                     if(data.code == 200){
                         toastr.success(data.message);
-                        $('#nipUser').val(data.data.nip)
+                        $('#nipUser').val(String(data.data.nip))
                         $('#loginModal').modal('show');
                         console.log('checked user', data);
                     }else if(data.code == 404){
