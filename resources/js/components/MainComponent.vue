@@ -1,6 +1,6 @@
 <template>
     <div class="main-body mb-4">
-        <Header></Header>
+        <Header :users="users"></Header>
         <!-- <div class="nav-menu d-flex justify-content-end align-items-center">
             <button
                 type="button"
@@ -59,6 +59,7 @@ export default {
         return {
             dasarSpt:[],
             role: null,
+            users: [],
             csrf: document
                 .querySelector('meta[name="csrf-token"]')
                 .getAttribute("content"),
@@ -80,9 +81,9 @@ export default {
         Header,
     },
     mounted() {
-        console.log('user', this.user);
         this.role = String(this.roles);
         this.dasarSpt = this.dasar;
+        this.users = this.user;
         localStorage.setItem('id_skpd', this.id_skpd);
         localStorage.setItem('role', this.role);
         localStorage.setItem('user', JSON.stringify(this.user));

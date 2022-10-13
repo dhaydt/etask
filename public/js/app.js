@@ -8345,6 +8345,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       dasarSpt: [],
       role: null,
+      users: [],
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content")
     };
   },
@@ -8364,9 +8365,9 @@ __webpack_require__.r(__webpack_exports__);
     Header: _headers__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   mounted: function mounted() {
-    console.log('user', this.user);
     this.role = String(this.roles);
     this.dasarSpt = this.dasar;
+    this.users = this.user;
     localStorage.setItem('id_skpd', this.id_skpd);
     localStorage.setItem('role', this.role);
     localStorage.setItem('user', JSON.stringify(this.user));
@@ -9198,8 +9199,13 @@ __webpack_require__.r(__webpack_exports__);
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content")
     };
   },
-  mounted: function mounted() {
-    this.user = JSON.parse(localStorage.getItem("user"));
+  props: {
+    users: Object
+  },
+  watch: {
+    users: function users() {
+      this.user = this.users;
+    }
   },
   methods: {
     showModalAddStaff: function showModalAddStaff() {
@@ -76475,7 +76481,7 @@ var render = function () {
     "div",
     { staticClass: "main-body mb-4" },
     [
-      _c("Header"),
+      _c("Header", { attrs: { users: _vm.users } }),
       _vm._v(" "),
       _c("Body", {
         attrs: {

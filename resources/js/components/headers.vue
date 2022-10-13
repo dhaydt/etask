@@ -233,8 +233,13 @@ export default {
                 .getAttribute("content"),
         };
     },
-    mounted() {
-        this.user = JSON.parse(localStorage.getItem("user"));
+    props:{
+        users: Object,
+    },
+    watch: {
+        users(){
+            this.user = this.users
+        }
     },
     methods: {
         showModalAddStaff() {

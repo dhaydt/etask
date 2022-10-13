@@ -23,7 +23,7 @@
                         </div>
                         <div class="div">
                             <h5>NIP</h5>
-                            <input type="text" id="nip" class="input" name="nip">
+                            <input type="number" id="nip" class="input" name="nip">
                         </div>
                     </div>
                     {{-- <div class="input-div pass">
@@ -55,11 +55,11 @@
                         @csrf
                     <div class="modal-body">
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">NIP</span>
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
                             <input type="text" name="nip" id="nipUser" class="form-control" aria-label="Username" readonly aria-describedby="basic-addon1">
                         </div>
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">Password</span>
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
                             <input type="password" name="password" class="form-control" placeholder="Masukan Password anda"  aria-describedby="basic-addon1" required>
                         </div>
                     </div>
