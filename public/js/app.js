@@ -10486,6 +10486,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     dasar: Object,
@@ -16252,7 +16254,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".symbol[data-v-9c12feba] {\n  overflow: hidden;\n  cursor: pointer;\n}\n#flexSwitchDefault[data-v-9c12feba] {\n  opacity: 0;\n  z-index: 1;\n  cursor: pointer;\n}\n.form-check i[data-v-9c12feba] {\n  position: absolute;\n  left: 0;\n  font-size: 30px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".symbol[data-v-9c12feba] {\n  overflow: hidden;\n  cursor: pointer;\n}\n#flexSwitchDefault[data-v-9c12feba] {\n  opacity: 0;\n  z-index: 1;\n  cursor: pointer;\n}\n.check:hover i[data-v-9c12feba] {\n  transform: scale(1.2);\n  color: rgb(0, 195, 0);\n}\n.form-check i[data-v-9c12feba] {\n  position: absolute;\n  left: 0;\n  font-size: 30px;\n  transition: 0.5s;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -67798,54 +67800,56 @@ var render = function () {
                 "form-check form-switch form-check-custom form-check-solid position-relative",
             },
             [
-              _c("i", { staticClass: "fa-solid fa-save" }),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.active,
-                    expression: "active",
+              _c("div", { staticClass: "check" }, [
+                _c("i", { staticClass: "fa-solid fa-save" }),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.active,
+                      expression: "active",
+                    },
+                  ],
+                  staticClass: "form-check-input",
+                  attrs: {
+                    type: "checkbox",
+                    "data-bs-toggle": "tooltip",
+                    title: "Simpan",
+                    id: "flexSwitchDefault",
                   },
-                ],
-                staticClass: "form-check-input",
-                attrs: {
-                  type: "checkbox",
-                  "data-bs-toggle": "tooltip",
-                  title: "Simpan",
-                  id: "flexSwitchDefault",
-                },
-                domProps: {
-                  checked: Array.isArray(_vm.active)
-                    ? _vm._i(_vm.active, null) > -1
-                    : _vm.active,
-                },
-                on: {
-                  click: function ($event) {
-                    return _vm.simpan(_vm.dasar)
+                  domProps: {
+                    checked: Array.isArray(_vm.active)
+                      ? _vm._i(_vm.active, null) > -1
+                      : _vm.active,
                   },
-                  change: function ($event) {
-                    var $$a = _vm.active,
-                      $$el = $event.target,
-                      $$c = $$el.checked ? true : false
-                    if (Array.isArray($$a)) {
-                      var $$v = null,
-                        $$i = _vm._i($$a, $$v)
-                      if ($$el.checked) {
-                        $$i < 0 && (_vm.active = $$a.concat([$$v]))
+                  on: {
+                    click: function ($event) {
+                      return _vm.simpan(_vm.dasar)
+                    },
+                    change: function ($event) {
+                      var $$a = _vm.active,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 && (_vm.active = $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            (_vm.active = $$a
+                              .slice(0, $$i)
+                              .concat($$a.slice($$i + 1)))
+                        }
                       } else {
-                        $$i > -1 &&
-                          (_vm.active = $$a
-                            .slice(0, $$i)
-                            .concat($$a.slice($$i + 1)))
+                        _vm.active = $$c
                       }
-                    } else {
-                      _vm.active = $$c
-                    }
+                    },
                   },
-                },
-              }),
+                }),
+              ]),
               _vm._v(" "),
               _vm._m(0),
             ]

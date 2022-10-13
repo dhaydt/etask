@@ -23,16 +23,18 @@
             <div
                 class="form-check form-switch form-check-custom form-check-solid position-relative"
             >
-                <i class="fa-solid fa-save"></i>
-                <input
-                    class="form-check-input"
-                    v-model="active"
-                    type="checkbox"
-                    data-bs-toggle="tooltip"
-                    title="Simpan"
-                    id="flexSwitchDefault"
-                    @click="simpan(dasar)"
-                />
+                <div class="check">
+                    <i class="fa-solid fa-save"></i>
+                    <input
+                        class="form-check-input"
+                        v-model="active"
+                        type="checkbox"
+                        data-bs-toggle="tooltip"
+                        title="Simpan"
+                        id="flexSwitchDefault"
+                        @click="simpan(dasar)"
+                    />
+                </div>
                 <label
                     class="form-check-label"
                     for="flexSwitchDefault"
@@ -120,9 +122,15 @@ export default {
         cursor: pointer;
     }
 
+    .check:hover i{
+        transform: scale(1.2);
+        color: rgb(0, 195, 0);
+    }
+
     .form-check i{
         position: absolute;
         left: 0;
         font-size: 30px;
+        transition: 0.5s;
     }
 </style>
