@@ -1,5 +1,5 @@
 <template>
-    <div class="addStaff mb-1">
+    <div class="addStaff">
         <!-- <button
             type="button"
             class="btn btn-light-info btnAdd btn-hover-rotate-end me-2"
@@ -347,7 +347,7 @@ h5.modal-title {
     display: flex;
     justify-content: right;
     margin-top: -55px;
-    height: 40px;
+    height: 20px;
 
     .btnAdd {
         border-radius: 4px;

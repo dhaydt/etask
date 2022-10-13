@@ -15,7 +15,7 @@
             </div>
         </a>
         <div class="menu-left">
-            <div class="menu-left-container">
+            <div class="menu-left-container position-relative">
                 <div>
                     <button
                         class="nav-items nav-global"
@@ -69,7 +69,7 @@
                         <div class="menu-item px-3">
                             <a
                                 href="javascript:"
-                                class="menu-link px-3"
+                                class="menu-link px-3 fw-bold"
                                 @click="showModalAddStaff"
                             >
                                 <i class="fa-solid fa-plus me-3"></i>
@@ -77,10 +77,12 @@
                             </a>
                         </div>
                         <div class="menu-item px-3">
-                            <a href="javascript:"
-                            class="menu-link px-3"
-                            data-bs-toggle="modal"
-                            data-bs-target="#addSptModal">
+                            <a
+                                href="javascript:"
+                                class="menu-link px-3 fw-bold"
+                                data-bs-toggle="modal"
+                                data-bs-target="#addSptModal"
+                            >
                                 <i class="fa-solid fa-plus me-3"></i>
                                 Dasar SPT
                             </a>
@@ -115,6 +117,19 @@
                             >Dasar SPT</a
                         >
                     </button>
+                    <button
+                        class="nav-items nav-global profile-name"
+                        data-test-id="recently-viewed-boards-menu"
+                        type="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        title="Recent"
+                        aria-label="Recent boards"
+                    >
+                        <span class="nav-item-title me-2 text-light">{{
+                            user.name
+                        }}</span>
+                    </button>
                 </div>
                 <div class="dyyadVYdVIR0rS">
                     <div
@@ -136,7 +151,8 @@
                         role="img"
                         aria-label="InformationIcon"
                         class="css-pxzk9z"
-                        style=" --icon-primary-color: var(
+                        style="
+                            --icon-primary-color: var(
                                 --ds-text-accent-gray-bolder,
                                 #172b4d
                             );
@@ -170,10 +186,6 @@
             <button
                 class="main-right menu-profile nav-items nav-global"
                 type="button"
-                data-bs-toggle="tooltip"
-                :title="user.name"
-                data-bs-custom-class="tooltip-inverse"
-                data-bs-placement="left"
                 data-kt-menu-trigger="hover"
                 data-kt-menu-placement="bottom-start"
                 data-kt-menu-offset="0px, 5px"
@@ -192,20 +204,6 @@
                 data-kt-menu="true"
             >
                 <div class="menu-item px-3">
-                    <a
-                        href="javascript:"
-                        data-bs-toggle="modal"
-                        data-bs-target="#dasarSpt"
-                        class="menu-link px-3"
-                    >
-                        Dasar SPT
-                    </a>
-                </div>
-                <div class="menu-item px-3">
-                    <a href="#" class="menu-link px-3"> New Customer </a>
-                </div>
-                <div class="separator mb-3 opacity-75"></div>
-                <div class="menu-item px-3">
                     <form method="POST" action="/logout">
                         <input type="hidden" name="_token" :value="csrf" />
                         <button
@@ -213,7 +211,7 @@
                             class="menu-link px-3 text-danger logout-btn"
                         >
                             <i
-                                class="fa-solid fa-right-from-bracket me-2 text-danger"
+                                class="fa-solid fa-right-from-bracket me-2 text-danger fw-bold"
                             ></i>
                             Keluar
                         </button>
@@ -297,6 +295,17 @@ nav {
             display: flex;
             flex-shrink: 0;
             margin: 0 4px;
+
+            button.profile-name{
+                position: absolute;
+                right: 0;
+                cursor: none;
+                background-color: rgba(255, 255, 255, 0.3019607843);
+                box-shadow: none;
+                color: #fff;
+                border: none;
+                color: var(--ds-text, inherit);
+            }
 
             .nav-global {
                 color: #172b4d;

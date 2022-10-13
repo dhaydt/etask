@@ -9186,8 +9186,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -16086,7 +16084,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "nav[data-v-889883ea] {\n  background-color: rgba(89, 89, 151, 0.4392156863);\n  transition: background-color 300ms;\n  border-bottom: 1px solid var(--dynamic-text-color-transparent);\n  box-sizing: border-box;\n  display: flex;\n  -webkit-backdrop-filter: blur(6px);\n  backdrop-filter: blur(6px);\n  max-height: 44px;\n  padding: 6px 20px;\n}\nnav .app-logo[data-v-889883ea] {\n  display: block;\n  position: relative;\n  flex-shrink: 0;\n  margin-top: 1px;\n  padding: 0 6px;\n  height: 32px;\n  border-radius: 3px;\n}\nnav .app-logo .logo[data-v-889883ea] {\n  color: #fff;\n  font-weight: 700;\n  font-size: 18px;\n  font-family: \"Courgette\", cursive;\n}\nnav .menu-left[data-v-889883ea] {\n  display: flex;\n  flex-basis: 100%;\n}\nnav .menu-left .menu-left-container[data-v-889883ea] {\n  align-items: stretch;\n  display: flex;\n  flex-grow: 1;\n  flex-shrink: 0;\n  flex-basis: 0;\n  height: 100%;\n  position: relative;\n}\nnav .menu-left .menu-left-container > *[data-v-889883ea] {\n  display: flex;\n  flex-shrink: 0;\n  margin: 0 4px;\n}\nnav .menu-left .menu-left-container > * .nav-global[data-v-889883ea] {\n  color: #172b4d;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Noto Sans\", \"Ubuntu\", \"Droid Sans\", \"Helvetica Neue\", sans-serif;\n  font-size: 14px;\n  line-height: 20px;\n  font-weight: 400;\n  box-sizing: border-box;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 3px;\n  cursor: pointer;\n  padding: 6px 12px;\n  text-decoration: none;\n  white-space: normal;\n  background-color: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));\n  box-shadow: none;\n  border: none;\n  color: var(--ds-text, inherit);\n  transition-property: background-color, border-color, box-shadow;\n  transition-duration: 85ms;\n  transition-timing-function: ease;\n}\nnav .menu-left .menu-left-container > * .nav-global[data-v-889883ea]:hover {\n  background-color: rgba(255, 255, 255, 0.3019607843);\n  box-shadow: none;\n  color: #fff;\n  border: none;\n  color: var(--ds-text, inherit);\n}\nnav .menu-left .menu-left-container > * .nav-items[data-v-889883ea] {\n  background-color: transparent;\n  height: 32px;\n  line-height: 32px;\n  margin-right: 4px;\n  padding-right: 10px;\n  font-weight: 600;\n  white-space: nowrap;\n}\nnav .menu-left .menu-left-container > * .nav-items .nch-icon[data-v-889883ea] {\n  margin-left: 4px;\n  min-width: 16px;\n  display: inline-block;\n  line-height: 1;\n  color: #fff;\n}\nnav .menu-right[data-v-889883ea] {\n  display: flex;\n  justify-content: flex-end;\n  flex-grow: 1;\n}\nnav .menu-right .menu-seru[data-v-889883ea] {\n  background-color: rgba(255, 255, 255, 0);\n  color: #fff;\n  box-shadow: none;\n  border: none;\n}\nnav .menu-right .main-right[data-v-889883ea] {\n  border-radius: 3px;\n  text-decoration: none;\n  align-items: center;\n  display: flex;\n  font-weight: bold;\n  height: 32px;\n  line-height: 32px;\n  margin: 0 4px 0 0;\n  padding: 6px;\n  transition: 0.5s;\n  white-space: nowrap;\n}\nnav .menu-right .menu-seru[data-v-889883ea]:hover {\n  color: #ffffff;\n  background-color: rgba(255, 255, 255, 0.2);\n}\nnav .menu-right button.menu-profile[data-v-889883ea] {\n  background-color: #0ad6e2;\n  border: none;\n  border-radius: 50%;\n  width: 30px;\n  overflow: hidden;\n  padding: 0;\n  height: 30px;\n  justify-content: center;\n  display: flex;\n}\nnav .menu-right button.menu-profile .profile-container[data-v-889883ea] {\n  position: relative;\n  line-height: 10px;\n  overflow: hidden;\n  white-space: nowrap;\n}\nnav .menu-right button.menu-profile[data-v-889883ea]:hover {\n  background-color: rgba(255, 255, 255, 0.2);\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "nav[data-v-889883ea] {\n  background-color: rgba(89, 89, 151, 0.4392156863);\n  transition: background-color 300ms;\n  border-bottom: 1px solid var(--dynamic-text-color-transparent);\n  box-sizing: border-box;\n  display: flex;\n  -webkit-backdrop-filter: blur(6px);\n  backdrop-filter: blur(6px);\n  max-height: 44px;\n  padding: 6px 20px;\n}\nnav .app-logo[data-v-889883ea] {\n  display: block;\n  position: relative;\n  flex-shrink: 0;\n  margin-top: 1px;\n  padding: 0 6px;\n  height: 32px;\n  border-radius: 3px;\n}\nnav .app-logo .logo[data-v-889883ea] {\n  color: #fff;\n  font-weight: 700;\n  font-size: 18px;\n  font-family: \"Courgette\", cursive;\n}\nnav .menu-left[data-v-889883ea] {\n  display: flex;\n  flex-basis: 100%;\n}\nnav .menu-left .menu-left-container[data-v-889883ea] {\n  align-items: stretch;\n  display: flex;\n  flex-grow: 1;\n  flex-shrink: 0;\n  flex-basis: 0;\n  height: 100%;\n  position: relative;\n}\nnav .menu-left .menu-left-container > *[data-v-889883ea] {\n  display: flex;\n  flex-shrink: 0;\n  margin: 0 4px;\n}\nnav .menu-left .menu-left-container > * button.profile-name[data-v-889883ea] {\n  position: absolute;\n  right: 0;\n  cursor: none;\n  background-color: rgba(255, 255, 255, 0.3019607843);\n  box-shadow: none;\n  color: #fff;\n  border: none;\n  color: var(--ds-text, inherit);\n}\nnav .menu-left .menu-left-container > * .nav-global[data-v-889883ea] {\n  color: #172b4d;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Noto Sans\", \"Ubuntu\", \"Droid Sans\", \"Helvetica Neue\", sans-serif;\n  font-size: 14px;\n  line-height: 20px;\n  font-weight: 400;\n  box-sizing: border-box;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 3px;\n  cursor: pointer;\n  padding: 6px 12px;\n  text-decoration: none;\n  white-space: normal;\n  background-color: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));\n  box-shadow: none;\n  border: none;\n  color: var(--ds-text, inherit);\n  transition-property: background-color, border-color, box-shadow;\n  transition-duration: 85ms;\n  transition-timing-function: ease;\n}\nnav .menu-left .menu-left-container > * .nav-global[data-v-889883ea]:hover {\n  background-color: rgba(255, 255, 255, 0.3019607843);\n  box-shadow: none;\n  color: #fff;\n  border: none;\n  color: var(--ds-text, inherit);\n}\nnav .menu-left .menu-left-container > * .nav-items[data-v-889883ea] {\n  background-color: transparent;\n  height: 32px;\n  line-height: 32px;\n  margin-right: 4px;\n  padding-right: 10px;\n  font-weight: 600;\n  white-space: nowrap;\n}\nnav .menu-left .menu-left-container > * .nav-items .nch-icon[data-v-889883ea] {\n  margin-left: 4px;\n  min-width: 16px;\n  display: inline-block;\n  line-height: 1;\n  color: #fff;\n}\nnav .menu-right[data-v-889883ea] {\n  display: flex;\n  justify-content: flex-end;\n  flex-grow: 1;\n}\nnav .menu-right .menu-seru[data-v-889883ea] {\n  background-color: rgba(255, 255, 255, 0);\n  color: #fff;\n  box-shadow: none;\n  border: none;\n}\nnav .menu-right .main-right[data-v-889883ea] {\n  border-radius: 3px;\n  text-decoration: none;\n  align-items: center;\n  display: flex;\n  font-weight: bold;\n  height: 32px;\n  line-height: 32px;\n  margin: 0 4px 0 0;\n  padding: 6px;\n  transition: 0.5s;\n  white-space: nowrap;\n}\nnav .menu-right .menu-seru[data-v-889883ea]:hover {\n  color: #ffffff;\n  background-color: rgba(255, 255, 255, 0.2);\n}\nnav .menu-right button.menu-profile[data-v-889883ea] {\n  background-color: #0ad6e2;\n  border: none;\n  border-radius: 50%;\n  width: 30px;\n  overflow: hidden;\n  padding: 0;\n  height: 30px;\n  justify-content: center;\n  display: flex;\n}\nnav .menu-right button.menu-profile .profile-container[data-v-889883ea] {\n  position: relative;\n  line-height: 10px;\n  overflow: hidden;\n  white-space: nowrap;\n}\nnav .menu-right button.menu-profile[data-v-889883ea]:hover {\n  background-color: rgba(255, 255, 255, 0.2);\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -16182,7 +16180,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "h5.modal-title[data-v-52242a1c] {\n  font-family: \"Acme\", sans-serif;\n  font-size: 18px;\n}\n.addStaff[data-v-52242a1c] {\n  display: flex;\n  justify-content: right;\n  margin-top: -55px;\n  height: 40px;\n}\n.addStaff .btnAdd[data-v-52242a1c] {\n  border-radius: 4px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "h5.modal-title[data-v-52242a1c] {\n  font-family: \"Acme\", sans-serif;\n  font-size: 18px;\n}\n.addStaff[data-v-52242a1c] {\n  display: flex;\n  justify-content: right;\n  margin-top: -55px;\n  height: 20px;\n}\n.addStaff .btnAdd[data-v-52242a1c] {\n  border-radius: 4px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -65559,7 +65557,7 @@ var render = function () {
     "div",
     {
       staticClass: "container-fluid position-relative",
-      staticStyle: { "margin-top": "50px" },
+      staticStyle: { "margin-top": "20px" },
     },
     [
       _c(
@@ -65984,7 +65982,7 @@ var render = function () {
       _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "menu-left" }, [
-        _c("div", { staticClass: "menu-left-container" }, [
+        _c("div", { staticClass: "menu-left-container position-relative" }, [
           _c("div", [
             _c(
               "button",
@@ -66072,7 +66070,7 @@ var render = function () {
                   _c(
                     "a",
                     {
-                      staticClass: "menu-link px-3",
+                      staticClass: "menu-link px-3 fw-bold",
                       attrs: { href: "javascript:" },
                       on: { click: _vm.showModalAddStaff },
                     },
@@ -66091,6 +66089,26 @@ var render = function () {
             _vm._v(" "),
             _vm._m(2),
             _vm._m(3),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "nav-items nav-global profile-name",
+                attrs: {
+                  "data-test-id": "recently-viewed-boards-menu",
+                  type: "button",
+                  "aria-haspopup": "true",
+                  "aria-expanded": "false",
+                  title: "Recent",
+                  "aria-label": "Recent boards",
+                },
+              },
+              [
+                _c("span", { staticClass: "nav-item-title me-2 text-light" }, [
+                  _vm._v(_vm._s(_vm.user.name)),
+                ]),
+              ]
+            ),
           ]),
           _vm._v(" "),
           _vm._m(4),
@@ -66179,10 +66197,6 @@ var render = function () {
             staticClass: "main-right menu-profile nav-items nav-global",
             attrs: {
               type: "button",
-              "data-bs-toggle": "tooltip",
-              title: _vm.user.name,
-              "data-bs-custom-class": "tooltip-inverse",
-              "data-bs-placement": "left",
               "data-kt-menu-trigger": "hover",
               "data-kt-menu-placement": "bottom-start",
               "data-kt-menu-offset": "0px, 5px",
@@ -66212,12 +66226,6 @@ var render = function () {
             attrs: { "data-kt-menu": "true" },
           },
           [
-            _vm._m(5),
-            _vm._v(" "),
-            _vm._m(6),
-            _vm._v(" "),
-            _c("div", { staticClass: "separator mb-3 opacity-75" }),
-            _vm._v(" "),
             _c("div", { staticClass: "menu-item px-3" }, [
               _c("form", { attrs: { method: "POST", action: "/logout" } }, [
                 _c("input", {
@@ -66225,7 +66233,7 @@ var render = function () {
                   domProps: { value: _vm.csrf },
                 }),
                 _vm._v(" "),
-                _vm._m(7),
+                _vm._m(5),
               ]),
             ]),
           ]
@@ -66266,7 +66274,7 @@ var staticRenderFns = [
       _c(
         "a",
         {
-          staticClass: "menu-link px-3",
+          staticClass: "menu-link px-3 fw-bold",
           attrs: {
             href: "javascript:",
             "data-bs-toggle": "modal",
@@ -66353,35 +66361,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "menu-item px-3" }, [
-      _c(
-        "a",
-        {
-          staticClass: "menu-link px-3",
-          attrs: {
-            href: "javascript:",
-            "data-bs-toggle": "modal",
-            "data-bs-target": "#dasarSpt",
-          },
-        },
-        [_vm._v("\n                    Dasar SPT\n                ")]
-      ),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "menu-item px-3" }, [
-      _c("a", { staticClass: "menu-link px-3", attrs: { href: "#" } }, [
-        _vm._v(" New Customer "),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
       "button",
       {
@@ -66390,7 +66369,8 @@ var staticRenderFns = [
       },
       [
         _c("i", {
-          staticClass: "fa-solid fa-right-from-bracket me-2 text-danger",
+          staticClass:
+            "fa-solid fa-right-from-bracket me-2 text-danger fw-bold",
         }),
         _vm._v("\n                        Keluar\n                    "),
       ]
@@ -67051,7 +67031,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "addStaff mb-1" }, [
+  return _c("div", { staticClass: "addStaff" }, [
     _c(
       "div",
       {
