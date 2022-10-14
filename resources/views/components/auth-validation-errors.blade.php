@@ -8,7 +8,7 @@
         @endforeach
     </ul>
 </div> --}}
-<div class="toast d-block showing align-items-center text-center ms-auto text-white bg-red-300 border-0 m-2" role="alert" aria-live="assertive"
+<div class="toast d-block showing align-items-center text-center ms-auto text-white bg-red-300 border-0 m-2" role="alert" aria-live="assertive" style="opacity: 1 !important"
     aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">

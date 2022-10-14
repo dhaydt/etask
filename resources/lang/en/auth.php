@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'failed' => 'NIP tidak sesuai dengan database kami.',
+    'failed' => 'Password anda salah.',
     'password' => 'Password anda salah.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 ];

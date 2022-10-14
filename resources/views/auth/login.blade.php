@@ -58,7 +58,7 @@
                         </ul>
                     </div>
                     @endif --}}
-                    <form method="POST" action="{{ route('login') }}" class="w-100">
+                    <form method="POST" action="{{ route('post-login') }}" class="w-100">
                         @csrf
                         <div class="modal-body">
                             <div class="input-group mb-3">

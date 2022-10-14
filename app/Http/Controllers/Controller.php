@@ -383,7 +383,7 @@ class Controller extends BaseController
         $data['staffs'] = Staff::with('detail')->get();
         $data['dasar'] = Dasar::orderBy('created_at', 'desc')->get();
 
-        return view('app', $data);
+        return view('app', $data)->with('success', 'Selamat datang di Aplikasi E-Task');
     }
 
     public function getTaskMaria($user, $status)

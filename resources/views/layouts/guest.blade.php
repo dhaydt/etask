@@ -37,6 +37,9 @@ type="text/css" />
         top: 15px;
         right: 15px;
     }
+    .toast-body li::marker{
+        color: transparent;
+    }
     input:-internal-autofill-selected{
         border-radius: 20px !important;
     }
