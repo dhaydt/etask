@@ -72,6 +72,39 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal Login-->
+        <div class="modal fade" id="registerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Register E-Task</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="POST" action="{{ route('reg') }}" class="w-100">
+                        @csrf
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                            <input type="text" name="nip" id="nipUser" class="form-control" aria-label="Username" readonly aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
+                            <input type="password" name="password" class="form-control" placeholder="Masukan Password anda"  aria-describedby="basic-addon1" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
+                            <input type="password" name="password_confirm" class="form-control" placeholder="Konfirmasi password anda"  aria-describedby="basic-addon1" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Daftar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </x-guest-layout>
 <script>
@@ -101,6 +134,9 @@
                         console.log('checked user', data);
                     }else if(data.code == 404){
                         toastr.warning(data.message)
+                        console.log('dataReg', data)
+                        // $('#nipUser').val(String(data.data.nip))
+                        $('#registerModal').modal('show');
                     }else{
                         toastr.danger('Error Data')
                         console.log('err', data);

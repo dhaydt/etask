@@ -24,6 +24,11 @@ class Controller extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
 
+    public function reg(Request $request)
+    {
+        return 'success';
+    }
+
     public function checkUser(Request $request)
     {
         $id = $request->nip;
@@ -35,9 +40,11 @@ class Controller extends BaseController
                 'data' => $user,
             ];
         } else {
+            $data = $this->getStaff($id);
             $response = [
                 'code' => 404,
                 'message' => 'NIP tidak terdaftar!',
+                'data' => $data,
             ];
         }
 
