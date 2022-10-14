@@ -35,8 +35,12 @@
                             <input type="password" name="password" class="input">
                         </div>
                     </div> --}}
-                    <x-button class=" btn" onclick="checkUser()">
-                        {{ __('Masuk') }}
+                    <x-button class="login-btn btn" onclick="checkUser()">
+                        <div class="spin spinner-border text-info spinner-border-sm d-none" role="status">
+                        </div>
+                        <span>
+                            {{ __('Masuk') }}
+                        </span>
                     </x-button>
                     {{--
                 </form> --}}
@@ -72,10 +76,14 @@
                                     placeholder="Masukan Password anda" aria-describedby="basic-addon1" required>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <x-button class=" btn">
-                                {{ __('Masuk') }}
-                            </x-button>
+                        <div class="modal-footer" >
+                            <button class="btn btn-success btn-sm login-post" onclick="postLogin()">
+                                <div class="spin spinner-border text-info spinner-border-sm d-none" role="status">
+                                </div>
+                                <span>
+                                    {{ __('Masuk') }}
+                                </span>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -122,7 +130,13 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Daftar</button>
+                            <button type="submit" class="btn btn-primary reg-btn" onclick="toggleLoading()">
+                                <div class="spin spinner-border text-info spinner-border-sm d-none" role="status">
+                                </div>
+                                <span>
+                                    {{ __('Daftar') }}
+                                </span>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -131,11 +145,23 @@
     </div>
 </x-guest-layout>
 <script>
+    function toggleLoading(){
+        $('.reg-btn .spin').removeClass('d-none');
+        $('.reg-btn span').addClass('d-none');
+    }
+    function postLogin(){
+        $('.login-post .spin').removeClass('d-none');
+        $('.login-post span').addClass('d-none');
+    }
     function checkUser(){
+        $('.login-btn .spin').removeClass('d-none');
+        $('.login-btn span').addClass('d-none');
         var nip = $('#nip').val();
         console.log('called', nip)
         if(nip == ''){
             toastr.warning('Mohon masukan NIP anda!')
+            $('.login-btn span').removeClass('d-none');
+            $('.login-btn .spin').addClass('d-none');
         }else{
             $.ajaxSetup({
                 headers: {
@@ -150,6 +176,8 @@
                     nip : nip
                 },
                 success: function(data){
+                    $('.login-btn span').removeClass('d-none');
+                    $('.login-btn .spin').addClass('d-none');
                     if(data.code == 200){
                         toastr.success(data.message);
                         $('#nipUser').val(String(data.data.nip))
