@@ -119,7 +119,7 @@
                 'updated_at' => '',
                 'available' => 0,
                 'foto' => '',
-                'id_skpd' => 13,
+                'id_skpd' => 11,
         ];
         }
 

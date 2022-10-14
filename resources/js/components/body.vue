@@ -263,18 +263,18 @@ export default {
             this.status = data.status;
             this.selected = data.staffs;
             this.refreshStaff();
-            this.updateFlat =this.selected;
-            console.log('body',this.newStaff);
+            this.updateFlat = this.selected;
+            console.log("body", this.newStaff);
             modalTask.show();
         },
-        refreshStaff(){
+        refreshStaff() {
             this.newStaff = [];
             this.staffs.forEach((s) => {
                 this.newStaff.push(s);
             });
         },
-        onErrorImg(e){
-            e.target.src = "img/user.png"
+        onErrorImg(e) {
+            e.target.src = "img/user.png";
         },
         mountSkpd() {
             // this.loadingAsn = true;
@@ -284,14 +284,16 @@ export default {
             console.log("skpd", id_skpd);
 
             axios
-                .get("pegawaiSkpd")
+                .post("pegawaiSkpd", {
+                    id_skpd: id_skpd,
+                })
                 .then(function (resp) {
                     // console.log('bcrypt', resp.data)
                     if (resp.data.code == 200) {
                         var dataSkpd = resp.data.data;
                         var user = resp.data.user;
                         var selected = [];
-                        var allStaff = [];
+                        localStorage.setItem('semuaPegawaiSkpd', JSON.stringify(dataSkpd));
                         dataSkpd.forEach(function (item, i) {
                             if (item.id_skpd == id_skpd) {
                                 user.filter((u) => {
@@ -302,7 +304,6 @@ export default {
                                         selected.push(item);
                                     }
                                 });
-                                allStaff.push(item);
                             }
                         });
                         that.loadingAsn = false;
@@ -310,12 +311,8 @@ export default {
                             "Data ASN Terkait berhasil di update.."
                         );
                         // that.namaSkpd = selected[0].nama_skpd;
-                        localStorage.setItem(
-                            "asn_skpd",
-                            JSON.stringify(allStaff)
-                        );
 
-                        localStorage.setItem("saved", JSON.stringify(selected));
+                        localStorage.setItem("asnTerdaftar", JSON.stringify(selected));
                         // that.dataPegawai = selected;
                     }
                 })
@@ -323,8 +320,39 @@ export default {
                     console.log("err skpd", err);
                 });
         },
+        refreshSkpd() {
+            this.getStaffList();
+            var dataSkpd = JSON.parse(localStorage.getItem("semuaPegawaiSkpd"));
+            var selected = [];
+            var allStaff = [];
+            dataSkpd.forEach(function (item, i) {
+                if (item.id_skpd) {
+                    var user = JSON.parse(localStorage.getItem("asnTerdaftar"));
+                    console.log('beforeFilter', item)
+                    user.filter((u) => {
+                        // return u.id.toString() === item.nip.toString();
+                        if (u.nip == item.nip) {
+                            selected.push(item);
+                        }
+                    });
+                    allStaff.push(item);
+                }
+            });
+            // that.loadingAsn = false;
+            // Vue.$toast.success("Data ASN Terkait berhasil di update..");
+            // that.namaSkpd = selected[0].nama_skpd;
+            this.$root.$emit("updateDataPeg");
+            localStorage.setItem("allAsnAkpd", JSON.stringify(allStaff));
+            localStorage.setItem("selected", JSON.stringify(allStaff));
+
+        },
         updateDasarStatus(data) {
             this.$parent.updateDasarStatus(data);
+        },
+        getStaffList(){
+            axios.get('staffList').then(function(resp){
+                localStorage.setItem('asnTerdaftar', JSON.stringify(resp.data));
+            });
         },
         toggleLoading(val) {
             this.loading = val;
@@ -367,9 +395,9 @@ export default {
                         });
                 } else {
                     Swal.fire({
-                                icon: "error",
-                                title: "Dibatalkan",
-                            });
+                        icon: "error",
+                        title: "Dibatalkan",
+                    });
                 }
             });
         },
@@ -522,8 +550,7 @@ export default {
             var status = evt.to.id;
             var id = evt.draggedContext.element.id;
             console.log("moved", evt);
-            if(status == done){
-
+            if (status == done) {
             }
             const that = this;
 
@@ -676,10 +703,10 @@ h6 .delete-btn {
     }
 }
 
-.staff-list-stack{
-        margin-left: -23px;
-    }
-    .staff-list-stack:first-child{
-        margin-left: 0;
-    }
+.staff-list-stack {
+    margin-left: -23px;
+}
+.staff-list-stack:first-child {
+    margin-left: 0;
+}
 </style>

@@ -8368,7 +8368,7 @@ __webpack_require__.r(__webpack_exports__);
     this.role = String(this.roles);
     this.dasarSpt = this.dasar;
     this.users = this.user;
-    localStorage.setItem('id_skpd', this.id_skpd);
+    localStorage.setItem('id_skpd', this.user.id_skpd);
     localStorage.setItem('role', this.role);
     localStorage.setItem('user', JSON.stringify(this.user));
   },
@@ -8671,7 +8671,7 @@ __webpack_require__.r(__webpack_exports__);
       this.selected = data.staffs;
       this.refreshStaff();
       this.updateFlat = this.selected;
-      console.log('body', this.newStaff);
+      console.log("body", this.newStaff);
       modalTask.show();
     },
     refreshStaff: function refreshStaff() {
@@ -8690,13 +8690,15 @@ __webpack_require__.r(__webpack_exports__);
       var id_skpd = localStorage.getItem("id_skpd");
       var that = this;
       console.log("skpd", id_skpd);
-      axios__WEBPACK_IMPORTED_MODULE_7___default().get("pegawaiSkpd").then(function (resp) {
+      axios__WEBPACK_IMPORTED_MODULE_7___default().post("pegawaiSkpd", {
+        id_skpd: id_skpd
+      }).then(function (resp) {
         // console.log('bcrypt', resp.data)
         if (resp.data.code == 200) {
           var dataSkpd = resp.data.data;
           var user = resp.data.user;
           var selected = [];
-          var allStaff = [];
+          localStorage.setItem('semuaPegawaiSkpd', JSON.stringify(dataSkpd));
           dataSkpd.forEach(function (item, i) {
             if (item.id_skpd == id_skpd) {
               user.filter(function (u) {
@@ -8705,21 +8707,49 @@ __webpack_require__.r(__webpack_exports__);
                   selected.push(item);
                 }
               });
-              allStaff.push(item);
             }
           });
           that.loadingAsn = false;
           Vue.$toast.success("Data ASN Terkait berhasil di update.."); // that.namaSkpd = selected[0].nama_skpd;
 
-          localStorage.setItem("asn_skpd", JSON.stringify(allStaff));
-          localStorage.setItem("saved", JSON.stringify(selected)); // that.dataPegawai = selected;
+          localStorage.setItem("asnTerdaftar", JSON.stringify(selected)); // that.dataPegawai = selected;
         }
       })["catch"](function (err) {
         console.log("err skpd", err);
       });
     },
+    refreshSkpd: function refreshSkpd() {
+      this.getStaffList();
+      var dataSkpd = JSON.parse(localStorage.getItem("semuaPegawaiSkpd"));
+      var selected = [];
+      var allStaff = [];
+      dataSkpd.forEach(function (item, i) {
+        if (item.id_skpd) {
+          var user = JSON.parse(localStorage.getItem("asnTerdaftar"));
+          console.log('beforeFilter', item);
+          user.filter(function (u) {
+            // return u.id.toString() === item.nip.toString();
+            if (u.nip == item.nip) {
+              selected.push(item);
+            }
+          });
+          allStaff.push(item);
+        }
+      }); // that.loadingAsn = false;
+      // Vue.$toast.success("Data ASN Terkait berhasil di update..");
+      // that.namaSkpd = selected[0].nama_skpd;
+
+      this.$root.$emit("updateDataPeg");
+      localStorage.setItem("allAsnAkpd", JSON.stringify(allStaff));
+      localStorage.setItem("selected", JSON.stringify(allStaff));
+    },
     updateDasarStatus: function updateDasarStatus(data) {
       this.$parent.updateDasarStatus(data);
+    },
+    getStaffList: function getStaffList() {
+      axios__WEBPACK_IMPORTED_MODULE_7___default().get('staffList').then(function (resp) {
+        localStorage.setItem('asnTerdaftar', JSON.stringify(resp.data));
+      });
     },
     toggleLoading: function toggleLoading(val) {
       this.loading = val;
@@ -10030,9 +10060,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 
 
@@ -10062,15 +10089,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.$root.$on('addDasar', function () {
       _this.addStaffModal();
     });
+    this.$root.$on('updateDataPeg', function () {
+      _this.updateDataPegawai();
+    });
   },
   methods: {
     addStaffModal: function addStaffModal() {
-      var selected = JSON.parse(localStorage.getItem("saved"));
-      var allStaff = JSON.parse(localStorage.getItem("asn_skpd"));
+      var selected = JSON.parse(localStorage.getItem("asnTerdaftar"));
+      var allStaff = JSON.parse(localStorage.getItem("semuaPegawaiSkpd"));
       this.dataPegawai = allStaff;
       this.selected = selected;
       this.namaSkpd = allStaff[0].nama_skpd;
       $("#addStaffModal").modal("show");
+    },
+    updateDataPegawai: function updateDataPegawai() {
+      this.dataPegawai = JSON.parse(localStorage.getItem('asn_skpd'));
     },
     getSkpd: function getSkpd() {
       this.$parent.toggleLoading(true);
@@ -10526,12 +10559,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     dasar: Object,
@@ -10708,12 +10735,12 @@ __webpack_require__.r(__webpack_exports__);
         var data = resp.data;
 
         if (data.code == 200) {
-          that.$parent.splitAxios(data.data.original);
-          Vue.$toast.success(data.message);
+          that.$parent.splitAxios(data.data.original); // Vue.$toast.success(data.message);
+
           console.log("respon", data);
         }
 
-        that.$parent.mountSkpd();
+        that.$parent.refreshSkpd();
       })["catch"](function (err) {
         console.log("err", err); // window.alert(err);
       });
@@ -78100,31 +78127,7 @@ var render = function () {
       [
         _c("div", { staticClass: "modal-dialog modal-lg" }, [
           _c("div", { staticClass: "modal-content" }, [
-            _c("div", { staticClass: "modal-header" }, [
-              _c(
-                "h5",
-                {
-                  staticClass: "modal-title",
-                  attrs: { id: "staticBackdropLabel" },
-                },
-                [
-                  _vm._v(
-                    "\n                        STAFF " +
-                      _vm._s(_vm.namaSkpd) +
-                      "\n                    "
-                  ),
-                ]
-              ),
-              _vm._v(" "),
-              _c("button", {
-                staticClass: "btn-close",
-                attrs: {
-                  type: "button",
-                  "data-bs-dismiss": "modal",
-                  "aria-label": "Close",
-                },
-              }),
-            ]),
+            _vm._m(0),
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
               _c("div", { staticClass: "card-body py-3" }, [
@@ -78147,7 +78150,7 @@ var render = function () {
                               "table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4",
                           },
                           [
-                            _vm._m(0),
+                            _vm._m(1),
                             _vm._v(" "),
                             _c(
                               "tbody",
@@ -78189,7 +78192,7 @@ var render = function () {
       [
         _c("div", { staticClass: "modal-dialog" }, [
           _c("div", { staticClass: "modal-content" }, [
-            _vm._m(1),
+            _vm._m(2),
             _vm._v(" "),
             _c(
               "div",
@@ -78379,6 +78382,27 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "staticBackdropLabel" } },
+        [_vm._v("\n                        ASN Terkait\n                    ")]
+      ),
+      _vm._v(" "),
+      _c("button", {
+        staticClass: "btn-close",
+        attrs: {
+          type: "button",
+          "data-bs-dismiss": "modal",
+          "aria-label": "Close",
+        },
+      }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", { staticClass: "border-0" }, [
         _c("th", { staticClass: "p-0 w-50px" }),
@@ -78386,8 +78410,6 @@ var staticRenderFns = [
         _c("th", { staticClass: "p-0 min-w-150px" }),
         _vm._v(" "),
         _c("th", { staticClass: "p-0 min-w-140px" }),
-        _vm._v(" "),
-        _c("th", { staticClass: "p-0 min-w-110px" }),
       ]),
     ])
   },
@@ -78884,30 +78906,13 @@ var render = function () {
                   },
                 }),
               ]),
-              _vm._v(" "),
-              _vm._m(0),
             ]
           ),
         ]),
       ])
     : _vm._e()
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "label",
-      { staticClass: "form-check-label", attrs: { for: "flexSwitchDefault" } },
-      [
-        _c("span", { staticClass: "badge badge-light-danger" }, [
-          _vm._v("Tidak Tersimpan"),
-        ]),
-      ]
-    )
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

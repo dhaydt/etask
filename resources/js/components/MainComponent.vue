@@ -84,7 +84,7 @@ export default {
         this.role = String(this.roles);
         this.dasarSpt = this.dasar;
         this.users = this.user;
-        localStorage.setItem('id_skpd', this.id_skpd);
+        localStorage.setItem('id_skpd', this.user.id_skpd);
         localStorage.setItem('role', this.role);
         localStorage.setItem('user', JSON.stringify(this.user));
     },

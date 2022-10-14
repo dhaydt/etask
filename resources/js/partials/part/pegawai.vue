@@ -35,12 +35,6 @@
                         @click="simpan(dasar)"
                     />
                 </div>
-                <label
-                    class="form-check-label"
-                    for="flexSwitchDefault"
-                >
-                    <span class="badge badge-light-danger">Tidak Tersimpan</span>
-                </label>
             </div>
         </td>
     </tr>

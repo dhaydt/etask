@@ -24,6 +24,13 @@ class Controller extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
 
+    public function staffList()
+    {
+        $staff = $this->staffIdString(Staff::get());
+
+        return response()->json($staff);
+    }
+
     public function reg(Request $request)
     {
         $user = new User();
@@ -94,7 +101,7 @@ class Controller extends BaseController
         return $response;
     }
 
-    public function getSkpd()
+    public function getSkpd(Request $request)
     {
         $token = Helpers::getToken();
 
@@ -132,9 +139,16 @@ class Controller extends BaseController
                     return $data;
                 } else {
                     $user = $this->staffIdString(Staff::get());
+                    $dataMentah = json_decode($response->getBody())->data;
+                    $dataSkpd = [];
+                    foreach ($dataMentah as $dm) {
+                        if ($dm->id_skpd == $request->id_skpd) {
+                            array_push($dataSkpd, $dm);
+                        }
+                    }
                     $data = [
                         'code' => 200,
-                        'data' => json_decode($response->getBody())->data,
+                        'data' => $dataSkpd,
                         'user' => $user,
                     ];
 
@@ -142,7 +156,7 @@ class Controller extends BaseController
                 }
             }
         } catch (ClientException $e) {
-            $this->getSkpd();
+            $this->getSkpd($request);
         }
     }
 
@@ -190,10 +204,24 @@ class Controller extends BaseController
             $user->created_at = now();
             $user->updated_at = now();
 
+            $check = Staff::where('id', $data['nip'])->get();
+            if (count($check) > 0) {
+                foreach ($check as $c) {
+                    $c->delete();
+                }
+            }
+
             $staff = new Staff();
             $staff->id = $data['nip'];
             $staff->name = $data['nama_pegawai'];
             $staff->available = 1;
+
+            $checkDetail = StaffDetail::where('nip', $data['nip'])->get();
+            if (count($checkDetail) > 0) {
+                foreach ($checkDetail as $cd) {
+                    $cd->delete();
+                }
+            }
 
             $detail = new StaffDetail();
             $detail->id_staff = $data['nip'];
@@ -451,6 +479,9 @@ class Controller extends BaseController
     public function refresh()
     {
         $user = auth()->user();
+        if (!$user) {
+            return redirect()->route('login');
+        }
         if ($user->role == 1) {
             $data['todo'] = Task::where('status', 'todo')->get();
             $data['doing'] = Task::where('status', 'doing')->get();

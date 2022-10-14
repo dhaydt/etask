@@ -108,10 +108,10 @@ export default {
                     var data = resp.data;
                     if (data.code == 200) {
                         that.$parent.splitAxios(data.data.original);
-                        Vue.$toast.success(data.message);
+                        // Vue.$toast.success(data.message);
                         console.log("respon", data);
                     }
-                    that.$parent.mountSkpd();
+                    that.$parent.refreshSkpd();
                 })
                 .catch(function (err) {
                     console.log("err", err);

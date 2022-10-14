@@ -42,9 +42,10 @@ Route::post('deleteTask', [Controller::class, 'deleteTask']);
 Route::post('addSpt', [Controller::class, 'addSpt']);
 Route::post('updateDasarStatus', [Controller::class, 'updateDasarStatus']);
 
-Route::get('pegawaiSkpd', [Controller::class, 'getSkpd']);
+Route::post('pegawaiSkpd', [Controller::class, 'getSkpd']);
 Route::post('addStaff', [Controller::class, 'addStaff']);
 Route::post('checkUser', [Controller::class, 'checkUser'])->name('checkUser');
 Route::post('reg', [Controller::class, 'reg'])->name('reg');
+Route::get('staffList', [Controller::class, 'staffList']);
 
 require __DIR__.'/auth.php';

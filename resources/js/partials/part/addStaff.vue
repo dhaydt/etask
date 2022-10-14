@@ -27,7 +27,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">
-                            STAFF {{ namaSkpd }}
+                            ASN Terkait
                         </h5>
                         <button
                             type="button"
@@ -56,9 +56,6 @@
                                                     ></th>
                                                     <th
                                                         class="p-0 min-w-140px"
-                                                    ></th>
-                                                    <th
-                                                        class="p-0 min-w-110px"
                                                     ></th>
                                                 </tr>
                                             </thead>
@@ -211,16 +208,22 @@ export default {
         this.$root.$on('addDasar', () => {
             this.addStaffModal();
         })
+        this.$root.$on('updateDataPeg', () => {
+            this.updateDataPegawai();
+        })
     },
     methods: {
         addStaffModal() {
-            var selected = JSON.parse(localStorage.getItem("saved"));
-            var allStaff = JSON.parse(localStorage.getItem("asn_skpd"));
+            var selected = JSON.parse(localStorage.getItem("asnTerdaftar"));
+            var allStaff = JSON.parse(localStorage.getItem("semuaPegawaiSkpd"));
 
             this.dataPegawai = allStaff;
             this.selected = selected;
             this.namaSkpd = allStaff[0].nama_skpd;
             $("#addStaffModal").modal("show");
+        },
+        updateDataPegawai(){
+            this.dataPegawai = JSON.parse(localStorage.getItem('asn_skpd'));
         },
         getSkpd() {
             this.$parent.toggleLoading(true);
