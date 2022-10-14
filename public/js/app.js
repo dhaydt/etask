@@ -8354,7 +8354,7 @@ __webpack_require__.r(__webpack_exports__);
     doing: Array,
     done: Array,
     staffs: Array | Object,
-    user: Object,
+    user: Array | Object,
     dasar: Array,
     roles: Number,
     id_skpd: String | Number
@@ -8686,7 +8686,7 @@ __webpack_require__.r(__webpack_exports__);
       e.target.src = "img/user.png";
     },
     mountSkpd: function mountSkpd() {
-      this.loadingAsn = true;
+      // this.loadingAsn = true;
       var id_skpd = localStorage.getItem("id_skpd");
       var that = this;
       console.log("skpd", id_skpd);
@@ -9200,7 +9200,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: {
-    users: Object
+    users: Array | Object
   },
   watch: {
     users: function users() {

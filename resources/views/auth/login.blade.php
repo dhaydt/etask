@@ -51,13 +51,13 @@
                         <h5 class="modal-title" id="staticBackdropLabel">Login E-Task</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    @if (\Session::has('success'))
+                    {{-- @if (\Session::has('success'))
                     <div class="alert alert-success">
                         <ul>
                             <li>{!! \Session::get('success') !!}</li>
                         </ul>
                     </div>
-                    @endif
+                    @endif --}}
                     <form method="POST" action="{{ route('login') }}" class="w-100">
                         @csrf
                         <div class="modal-body">

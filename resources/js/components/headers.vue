@@ -233,13 +233,13 @@ export default {
                 .getAttribute("content"),
         };
     },
-    props:{
-        users: Object,
+    props: {
+        users: Array | Object,
     },
     watch: {
-        users(){
-            this.user = this.users
-        }
+        users() {
+            this.user = this.users;
+        },
     },
     methods: {
         showModalAddStaff() {
@@ -301,7 +301,7 @@ nav {
             flex-shrink: 0;
             margin: 0 4px;
 
-            button.profile-name{
+            button.profile-name {
                 position: absolute;
                 right: 0;
                 cursor: none;

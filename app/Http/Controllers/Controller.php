@@ -27,8 +27,9 @@ class Controller extends BaseController
     public function reg(Request $request)
     {
         $user = new User();
+        $name = $request['gelarDpn'].$request['nama_peg'].$request['gelarBlk'];
         $user->nip = $request['nip'];
-        $user->name = $request['nama_peg'];
+        $user->name = $name;
         $user->password = Hash::make($request['password']);
         if ($request['nip'] == 1372010910920041 || $request['nip'] == 198611252010011009) {
             $user->role = 1;
@@ -40,13 +41,13 @@ class Controller extends BaseController
 
         $staff = new Staff();
         $staff->id = $request['nip'];
-        $staff->name = $request['nama_peg'];
+        $staff->name = $name;
         $staff->available = 1;
 
         $detail = new StaffDetail();
         $detail->id_staff = $request['nip'];
         $detail->nip = $request['nip'];
-        $detail->nama = $request['nama_peg'];
+        $detail->nama = $name;
         $detail->gelar_depan = $request['gelarDpn'];
         $detail->gelar_belakang = $request['gelarBlk'];
         $detail->id_jenis_asn = null;

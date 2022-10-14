@@ -277,7 +277,7 @@ export default {
             e.target.src = "img/user.png"
         },
         mountSkpd() {
-            this.loadingAsn = true;
+            // this.loadingAsn = true;
             var id_skpd = localStorage.getItem("id_skpd");
             var that = this;
 

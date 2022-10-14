@@ -70,7 +70,7 @@ export default {
         doing: Array,
         done: Array,
         staffs: Array | Object,
-        user: Object,
+        user: Array | Object,
         dasar: Array,
         roles: Number,
         id_skpd: String | Number
