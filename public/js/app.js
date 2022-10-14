@@ -9638,6 +9638,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
 
 
 
@@ -16232,7 +16234,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "#modalTask .modal-dialog[data-v-7256e124] {\n  max-width: 700px;\n}\n#modalTask .modal-dialog .modal-content[data-v-7256e124] {\n  padding: 0 1rem;\n}\n#modalTask .modal-dialog .btn-close[data-v-7256e124] {\n  margin-top: -35px;\n  font-size: 13px;\n  color: black;\n  font-weight: 800;\n}\n#modalTask .modal-dialog i[data-v-7256e124] {\n  font-size: 16px;\n  color: #67696f;\n}\ninput.form-control.header[data-v-7256e124] {\n  border: none;\n  display: unset;\n  width: auto;\n  font-family: \"Acme\", sans-serif;\n  font-weight: 600;\n  padding-bottom: 2px;\n  font-size: 20px;\n  color: #000;\n  text-transform: capitalize;\n}\n.mb-3.input-text[data-v-7256e124] {\n  padding-left: 32px;\n}\n.mb-3.input-text .form-control[data-v-7256e124] {\n  border: none;\n  background-color: #ededed;\n  margin-top: 10px;\n}\n.mb-3.input-text #description[data-v-7256e124] {\n  font-family: cursive;\n  font-size: 12px;\n}\n.modal-content .modal-header[data-v-7256e124] {\n  border-bottom: none;\n}\n.label-row[data-v-7256e124] {\n  display: block;\n  font-size: 12px;\n  margin-left: 35px;\n  color: #84868a;\n}\n.avatar-card label[data-v-7256e124] {\n  font-family: \"Acme\", sans-serif;\n  font-size: 12px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "#modalTask .modal-dialog[data-v-7256e124] {\n  max-width: 700px;\n}\n#modalTask .modal-dialog .modal-content[data-v-7256e124] {\n  padding: 0 1rem;\n  overflow: scroll;\n}\n#modalTask .modal-dialog .modal-content .modal-body[data-v-7256e124] {\n  height: 70vh;\n  overflow: scroll;\n}\n#modalTask .modal-dialog .btn-close[data-v-7256e124] {\n  margin-top: -35px;\n  font-size: 13px;\n  color: black;\n  font-weight: 800;\n}\n#modalTask .modal-dialog i[data-v-7256e124] {\n  font-size: 16px;\n  color: #67696f;\n}\ninput.form-control.header[data-v-7256e124] {\n  border: none;\n  display: unset;\n  width: auto;\n  font-family: \"Acme\", sans-serif;\n  font-weight: 600;\n  padding-bottom: 2px;\n  font-size: 20px;\n  color: #000;\n  text-transform: capitalize;\n}\n.mb-3.input-text[data-v-7256e124] {\n  padding-left: 32px;\n}\n.mb-3.input-text .form-control[data-v-7256e124] {\n  border: none;\n  background-color: #ededed;\n  margin-top: 10px;\n}\n.mb-3.input-text #description[data-v-7256e124] {\n  font-family: cursive;\n  font-size: 12px;\n}\n.modal-content .modal-header[data-v-7256e124] {\n  border-bottom: none;\n}\n.label-row[data-v-7256e124] {\n  position: absolute;\n  top: 0;\n  left: -15px;\n  z-index: 1;\n  font-size: 12px;\n  margin-left: 35px;\n  color: #84868a;\n  padding: 6px 15px;\n  border-radius: 0 0 4px 4px;\n}\n.avatar-card label[data-v-7256e124] {\n  font-family: \"Acme\", sans-serif;\n  font-size: 12px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -77685,58 +77687,107 @@ var render = function () {
               },
             },
             [
-              _c("div", { staticClass: "modal-header" }, [
-                _c(
-                  "h5",
-                  {
-                    staticClass: "modal-title",
-                    attrs: { id: "exampleModalLabel" },
-                  },
-                  [
-                    _c("i", { staticClass: "fa-regular fa-window-maximize" }),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
+              _c(
+                "div",
+                { staticClass: "modal-header position-relative pt-1 pb-0" },
+                [
+                  _vm.taskData.status == "todo"
+                    ? _c(
+                        "label",
                         {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.taskData.name,
-                          expression: "taskData.name",
+                          staticClass:
+                            "label-row bg-warning text-capitalize text-dark fw-bold d-flex align-items-center",
                         },
-                      ],
-                      staticClass: "form-control header",
-                      attrs: {
-                        type: "text",
-                        id: "name",
-                        placeholder: "Judul Task",
-                        name: "name",
-                      },
-                      domProps: { value: _vm.taskData.name },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.taskData, "name", $event.target.value)
+                        [
+                          _c("i", {
+                            staticClass:
+                              "fa-solid text-dark fa-list-check me-2",
+                          }),
+                          _c("span", [_vm._v("To - Do")]),
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.taskData.status == "doing"
+                    ? _c(
+                        "label",
+                        {
+                          staticClass:
+                            "label-row bg-info text-capitalize text-light fw-bold",
                         },
-                      },
-                    }),
-                    _vm._v(" "),
-                    _c("label", { staticClass: "label-row" }, [
-                      _vm._v("in list To-do"),
-                    ]),
-                  ]
-                ),
-                _vm._v(" "),
-                _c("button", {
-                  staticClass: "btn-close",
-                  attrs: {
-                    type: "button",
-                    "data-bs-dismiss": "modal",
-                    "aria-label": "Close",
-                  },
-                }),
-              ]),
+                        [
+                          _c("i", {
+                            staticClass: "fa-solid fa-spinner text-light me-2",
+                          }),
+                          _c("span", [_vm._v("Doing")]),
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.taskData.status == "done"
+                    ? _c(
+                        "label",
+                        {
+                          staticClass:
+                            "label-row bg-success text-capitalize text-light fw-bold",
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fa-solid fa-check text-light me-2",
+                          }),
+                          _c("span", [_vm._v("Done")]),
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "h5",
+                    {
+                      staticClass: "modal-title",
+                      attrs: { id: "exampleModalLabel" },
+                    },
+                    [
+                      _c("i", { staticClass: "fa-regular fa-window-maximize" }),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.taskData.name,
+                            expression: "taskData.name",
+                          },
+                        ],
+                        staticClass: "form-control header",
+                        attrs: {
+                          type: "text",
+                          id: "name",
+                          placeholder: "Judul Task",
+                          name: "name",
+                        },
+                        domProps: { value: _vm.taskData.name },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.taskData, "name", $event.target.value)
+                          },
+                        },
+                      }),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("button", {
+                    staticClass: "btn-close",
+                    attrs: {
+                      type: "button",
+                      "data-bs-dismiss": "modal",
+                      "aria-label": "Close",
+                    },
+                  }),
+                ]
+              ),
               _vm._v(" "),
               _c("input", {
                 attrs: { type: "hidden", name: "_token" },
@@ -77750,7 +77801,7 @@ var render = function () {
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "modal-body" },
+                { staticClass: "modal-body pt-1" },
                 [
                   _c("LabelTitle", {
                     attrs: {

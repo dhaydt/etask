@@ -10,7 +10,10 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form action="/updateTask" method="POST" name="cardTask">
-                    <div class="modal-header">
+                    <div class="modal-header position-relative pt-1 pb-0">
+                        <label v-if="taskData.status == 'todo'" class="label-row bg-warning text-capitalize text-dark fw-bold d-flex align-items-center"><i class="fa-solid text-dark fa-list-check me-2"></i><span>To - Do</span></label>
+                        <label v-if="taskData.status == 'doing'" class="label-row bg-info text-capitalize text-light fw-bold"><i class="fa-solid fa-spinner text-light me-2"></i><span>Doing</span></label>
+                        <label v-if="taskData.status == 'done'" class="label-row bg-success text-capitalize text-light fw-bold"><i class="fa-solid fa-check text-light me-2"></i><span>Done</span></label>
                         <h5 class="modal-title" id="exampleModalLabel">
                             <i class="fa-regular fa-window-maximize"></i>
                             <input
@@ -21,7 +24,6 @@
                                 name="name"
                                 v-model="taskData.name"
                             />
-                            <label class="label-row">in list To-do</label>
                         </h5>
                         <button
                             type="button"
@@ -33,7 +35,7 @@
 
                     <input type="hidden" name="_token" :value="token" />
                     <input type="hidden" name="id" :value="taskData.id" />
-                    <div class="modal-body">
+                    <div class="modal-body pt-1">
                         <LabelTitle
                             title="Deskripsi"
                             icon="fa-solid fa-align-justify"
@@ -403,6 +405,12 @@ export default {
 #modalTask .modal-dialog {
     .modal-content {
         padding: 0 1rem;
+        overflow: scroll;
+
+        .modal-body{
+            height: 70vh;
+            overflow: scroll;
+        }
     }
     max-width: 700px;
     .btn-close {
@@ -445,10 +453,15 @@ input.form-control.header {
 }
 
 .label-row {
-    display: block;
+    position: absolute;
+    top: 0;
+    left: -15px;
+    z-index: 1;
     font-size: 12px;
     margin-left: 35px;
     color: #84868a;
+    padding: 6px 15px;
+    border-radius: 0 0 4px 4px;
 }
 .avatar-card label {
     font-family: "Acme", sans-serif;
