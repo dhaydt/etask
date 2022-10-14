@@ -9640,6 +9640,41 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -9710,7 +9745,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.checkStaff();
     },
     staffs: function staffs() {
-      console.log('wacth staff', this.selected);
+      console.log("wacth staff", this.selected);
       this.options = this.staffs;
       this.newStaff = this.selected;
 
@@ -9721,7 +9756,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     selected: function selected() {
       this.options = this.staffs;
       this.newStaff = this.selected;
-      console.log('watch selected', this.options);
+      console.log("watch selected", this.options);
 
       if (this.selected.length > 0) {
         this.updateSelectStaff(this.options, this.selected);
@@ -9751,7 +9786,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.dasarSpt = this.taskData.dasar;
     },
     updateSelectStaff: function updateSelectStaff(options, selected) {
-      console.log('sel', selected);
+      console.log("sel", selected);
 
       if (selected.length > 0) {
         var filtered;
@@ -16234,7 +16269,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "#modalTask .modal-dialog[data-v-7256e124] {\n  max-width: 700px;\n}\n#modalTask .modal-dialog .modal-content[data-v-7256e124] {\n  padding: 0 1rem;\n  overflow: scroll;\n}\n#modalTask .modal-dialog .modal-content .modal-body[data-v-7256e124] {\n  height: 70vh;\n  overflow: scroll;\n}\n#modalTask .modal-dialog .btn-close[data-v-7256e124] {\n  margin-top: -35px;\n  font-size: 13px;\n  color: black;\n  font-weight: 800;\n}\n#modalTask .modal-dialog i[data-v-7256e124] {\n  font-size: 16px;\n  color: #67696f;\n}\ninput.form-control.header[data-v-7256e124] {\n  border: none;\n  display: unset;\n  width: auto;\n  font-family: \"Acme\", sans-serif;\n  font-weight: 600;\n  padding-bottom: 2px;\n  font-size: 20px;\n  color: #000;\n  text-transform: capitalize;\n}\n.mb-3.input-text[data-v-7256e124] {\n  padding-left: 32px;\n}\n.mb-3.input-text .form-control[data-v-7256e124] {\n  border: none;\n  background-color: #ededed;\n  margin-top: 10px;\n}\n.mb-3.input-text #description[data-v-7256e124] {\n  font-family: cursive;\n  font-size: 12px;\n}\n.modal-content .modal-header[data-v-7256e124] {\n  border-bottom: none;\n}\n.label-row[data-v-7256e124] {\n  position: absolute;\n  top: 0;\n  left: -15px;\n  z-index: 1;\n  font-size: 12px;\n  margin-left: 35px;\n  color: #84868a;\n  padding: 6px 15px;\n  border-radius: 0 0 4px 4px;\n}\n.avatar-card label[data-v-7256e124] {\n  font-family: \"Acme\", sans-serif;\n  font-size: 12px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "#modalTask .modal-dialog[data-v-7256e124] {\n  max-width: 700px;\n}\n#modalTask .modal-dialog .modal-content[data-v-7256e124] {\n  padding: 0 1rem;\n  overflow: scroll;\n}\n#modalTask .modal-dialog .modal-content .modal-body[data-v-7256e124] {\n  height: 70vh;\n  overflow: scroll;\n}\n#modalTask .modal-dialog .btn-close[data-v-7256e124] {\n  margin-top: -35px;\n  font-size: 13px;\n  color: black;\n  font-weight: 800;\n}\n#modalTask .modal-dialog i[data-v-7256e124] {\n  font-size: 16px;\n  color: #67696f;\n}\ninput.form-control.header[data-v-7256e124] {\n  border: none;\n  display: unset;\n  width: 90%;\n  font-family: \"Acme\", sans-serif;\n  font-weight: 600;\n  padding-bottom: 2px;\n  font-size: 20px;\n  color: #000;\n  text-transform: capitalize;\n}\n.mb-3.input-text[data-v-7256e124] {\n  padding-left: 32px;\n}\n.mb-3.input-text .form-control[data-v-7256e124] {\n  border: none;\n  background-color: #ededed;\n  margin-top: 10px;\n}\n.mb-3.input-text #description[data-v-7256e124] {\n  font-family: cursive;\n  font-size: 12px;\n}\n.modal-content .modal-header[data-v-7256e124] {\n  border-bottom: none;\n}\n.label-row[data-v-7256e124] {\n  position: absolute;\n  top: 0;\n  left: -15px;\n  z-index: 1;\n  font-size: 12px;\n  margin-left: 35px;\n  color: #84868a;\n  padding: 6px 15px;\n  border-radius: 0 0 4px 4px;\n}\n.avatar-card label[data-v-7256e124] {\n  font-family: \"Acme\", sans-serif;\n  font-size: 12px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -77743,7 +77778,7 @@ var render = function () {
                   _c(
                     "h5",
                     {
-                      staticClass: "modal-title",
+                      staticClass: "modal-title w-100",
                       attrs: { id: "exampleModalLabel" },
                     },
                     [
@@ -77803,6 +77838,114 @@ var render = function () {
                 "div",
                 { staticClass: "modal-body pt-1" },
                 [
+                  _c("LabelTitle", {
+                    attrs: { title: "Staff", icon: "fa-solid fa-users" },
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "mb-3 input-text" },
+                    [
+                      _vm.newStaff == "[]"
+                        ? _c("div", {}, [
+                            _c(
+                              "span",
+                              { staticClass: "badge rounded-pill bg-danger" },
+                              [_vm._v("Belum ada Staff dipilih!")]
+                            ),
+                          ])
+                        : _c(
+                            "div",
+                            { staticClass: "avatar-list flex-row row mt-2" },
+                            _vm._l(_vm.newStaff, function (s) {
+                              return _c(
+                                "div",
+                                {
+                                  key: s.id,
+                                  staticClass:
+                                    "avatar-card d-flex col-12 col-md-6 align-items-center",
+                                },
+                                [
+                                  _c("div", { staticClass: "avatar me-2" }, [
+                                    _c("img", {
+                                      attrs: {
+                                        src: s.foto,
+                                        height: "25",
+                                        alt: "",
+                                      },
+                                      on: { error: _vm.onErrorImg },
+                                    }),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "text-capitalize",
+                                      attrs: { for: "" },
+                                    },
+                                    [_vm._v(_vm._s(s.name))]
+                                  ),
+                                ]
+                              )
+                            }),
+                            0
+                          ),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        staticClass: "mt-2",
+                        attrs: {
+                          options: _vm.options,
+                          multiple: "",
+                          label: "name",
+                          placeholder: "Pilih Staff",
+                          components: { Deselect: _vm.Deselect },
+                        },
+                        on: { input: _vm.getId },
+                        model: {
+                          value: _vm.newStaff,
+                          callback: function ($$v) {
+                            _vm.newStaff = $$v
+                          },
+                          expression: "newStaff",
+                        },
+                      }),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("LabelTitle", {
+                    attrs: {
+                      title: "Dasar Surat Perintah Tugas",
+                      icon: "fas fa-tasks",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "mb-3 input-text" },
+                    [
+                      _c("v-select", {
+                        staticClass: "mt-2",
+                        attrs: {
+                          options: _vm.dasarNew,
+                          multiple: "",
+                          label: "dasar",
+                          disabled: _vm.taskData.status == "doing",
+                          placeholder: "Pilih dasar SPT",
+                          components: { Deselect: _vm.Deselect },
+                        },
+                        model: {
+                          value: _vm.dasarSpt,
+                          callback: function ($$v) {
+                            _vm.dasarSpt = $$v
+                          },
+                          expression: "dasarSpt",
+                        },
+                      }),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
                   _c("LabelTitle", {
                     attrs: {
                       title: "Deskripsi",
@@ -77934,114 +78077,6 @@ var render = function () {
                       },
                     }),
                   ]),
-                  _vm._v(" "),
-                  _c("LabelTitle", {
-                    attrs: {
-                      title: "Dasar Surat Perintah Tugas",
-                      icon: "fas fa-tasks",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "mb-3 input-text" },
-                    [
-                      _c("v-select", {
-                        staticClass: "mt-2",
-                        attrs: {
-                          options: _vm.dasarNew,
-                          multiple: "",
-                          label: "dasar",
-                          disabled: _vm.taskData.status == "doing",
-                          placeholder: "Pilih dasar SPT",
-                          components: { Deselect: _vm.Deselect },
-                        },
-                        model: {
-                          value: _vm.dasarSpt,
-                          callback: function ($$v) {
-                            _vm.dasarSpt = $$v
-                          },
-                          expression: "dasarSpt",
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("LabelTitle", {
-                    attrs: { title: "Staff", icon: "fa-solid fa-users" },
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "mb-3 input-text" },
-                    [
-                      _vm.newStaff == "[]"
-                        ? _c("div", {}, [
-                            _c(
-                              "span",
-                              { staticClass: "badge rounded-pill bg-danger" },
-                              [_vm._v("Belum ada Staff dipilih!")]
-                            ),
-                          ])
-                        : _c(
-                            "div",
-                            { staticClass: "avatar-list flex-row row mt-2" },
-                            _vm._l(_vm.newStaff, function (s) {
-                              return _c(
-                                "div",
-                                {
-                                  key: s.id,
-                                  staticClass:
-                                    "avatar-card d-flex col-12 col-md-6 align-items-center",
-                                },
-                                [
-                                  _c("div", { staticClass: "avatar me-2" }, [
-                                    _c("img", {
-                                      attrs: {
-                                        src: s.foto,
-                                        height: "25",
-                                        alt: "",
-                                      },
-                                      on: { error: _vm.onErrorImg },
-                                    }),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass: "text-capitalize",
-                                      attrs: { for: "" },
-                                    },
-                                    [_vm._v(_vm._s(s.name))]
-                                  ),
-                                ]
-                              )
-                            }),
-                            0
-                          ),
-                      _vm._v(" "),
-                      _c("v-select", {
-                        staticClass: "mt-2",
-                        attrs: {
-                          options: _vm.options,
-                          multiple: "",
-                          label: "name",
-                          placeholder: "Pilih Staff",
-                          components: { Deselect: _vm.Deselect },
-                        },
-                        on: { input: _vm.getId },
-                        model: {
-                          value: _vm.newStaff,
-                          callback: function ($$v) {
-                            _vm.newStaff = $$v
-                          },
-                          expression: "newStaff",
-                        },
-                      }),
-                    ],
-                    1
-                  ),
                 ],
                 1
               ),
