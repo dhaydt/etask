@@ -26,7 +26,48 @@ class Controller extends BaseController
 
     public function reg(Request $request)
     {
-        return 'success';
+        $user = new User();
+        $user->nip = $request['nip'];
+        $user->name = $request['nama_peg'];
+        $user->password = Hash::make($request['password']);
+        if ($request['nip'] == 1372010910920041 || $request['nip'] == 198611252010011009) {
+            $user->role = 1;
+        } else {
+            $user->role = 2;
+        }
+        $user->created_at = now();
+        $user->updated_at = now();
+
+        $staff = new Staff();
+        $staff->id = $request['nip'];
+        $staff->name = $request['nama_peg'];
+        $staff->available = 1;
+
+        $detail = new StaffDetail();
+        $detail->id_staff = $request['nip'];
+        $detail->nip = $request['nip'];
+        $detail->nama = $request['nama_peg'];
+        $detail->gelar_depan = $request['gelarDpn'];
+        $detail->gelar_belakang = $request['gelarBlk'];
+        $detail->id_jenis_asn = null;
+        $detail->tempat_lahir = null;
+        $detail->tanggal_lahir = null;
+        $detail->foto = $request['foto'];
+        $detail->jenis_kelamin = null;
+        $detail->id_agama = $request['id_agama'];
+        $detail->alamat = null;
+        $detail->active = $request['active'];
+        $detail->no_hp = $request['no_hp'];
+        $detail->nik = $request['nik'];
+        $detail->nama_jabatan = 'Belum Ada Respon Api';
+        $detail->id_sotk = null;
+        $detail->id_skpd = $request['id_skpd'];
+
+        $user->save();
+        $staff->save();
+        $detail->save();
+
+        return redirect()->back()->with('success', 'Akun E-Task anda berhasil didaftarkan! Silhakna login menggunakan NIP dan password yang didaftarkan');
     }
 
     public function checkUser(Request $request)
@@ -43,8 +84,9 @@ class Controller extends BaseController
             $data = $this->getStaff($id);
             $response = [
                 'code' => 404,
-                'message' => 'NIP tidak terdaftar!',
+                'message' => 'NIP tidak terdaftar, tapi tersedia di data kepegawaian kami. Silahkan daftarkan akun untuk E-Task anda!',
                 'data' => $data,
+                'nip' => $id,
             ];
         }
 
