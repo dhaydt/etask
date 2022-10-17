@@ -29,10 +29,10 @@ class AutentikasController extends Controller
 
         $user = User::where('nip', $data['nip'])->first();
         if (!$user) {
-            return redirect()->back()->with('fail', 'User dengan NIP '.$data['NIP'].' tidak ditemukan silahkan hubungi administrator');
+            return redirect()->back()->with('error', 'User dengan NIP '.$data['NIP'].' tidak ditemukan silahkan hubungi administrator');
         } else {
             if (!Hash::check($data['password'], $user->password)) {
-                return redirect()->back()->with('fail', 'Password salah. silahkan ulangi !');
+                return redirect()->back()->with('error', 'Password salah. silahkan ulangi !');
             }
 
             $token = Helpers::crypt(date('Y-m-d H:i:s'));
