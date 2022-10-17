@@ -70,7 +70,7 @@
 <body>
     <div class="bg-img"></div>
     @php
-        $id = auth()->user()->nip;
+        $id = session()->get('nip');
         if($id){
             $user = App\Helpers\Helpers::getUserDetail($id);
             if($user){
@@ -82,7 +82,7 @@
             $skpd = 0;
         }
 
-        $role = auth()->user()->role;
+        $role = session()->get('role_id');
 
         $newStaffs = [];
         foreach($staffs as $s){
@@ -142,8 +142,16 @@
     </div>
 
     <script src="{{ mix('/js/app.js') }}"></script>
-
     @include('template.script')
+    <script>
+        $(document).ready(function(){
+            setInterval(session, 3600500);
+        })
+
+        function session(){
+            location.reload();
+        }
+    </script>
 </body>
 
 </html>

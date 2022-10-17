@@ -204,7 +204,7 @@
                 data-kt-menu="true"
             >
                 <div class="menu-item px-3">
-                    <form method="POST" action="/logout">
+                    <form method="POST" action="/keluar">
                         <input type="hidden" name="_token" :value="csrf" />
                         <button
                             type="submit"

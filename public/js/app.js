@@ -77261,7 +77261,7 @@ var render = function () {
           },
           [
             _c("div", { staticClass: "menu-item px-3" }, [
-              _c("form", { attrs: { method: "POST", action: "/logout" } }, [
+              _c("form", { attrs: { method: "POST", action: "/keluar" } }, [
                 _c("input", {
                   attrs: { type: "hidden", name: "_token" },
                   domProps: { value: _vm.csrf },

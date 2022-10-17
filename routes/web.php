@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AutentikasController;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -31,7 +32,8 @@ Route::get('/add', function () {
     return redirect()->route('login');
 });
 
-Route::get('/dashboard', [Controller::class, 'task'])->middleware(['auth'])->name('dashboard');
+Route::post('postLogin', [AutentikasController::class, 'postLogin'])->name('postLogin');
+Route::post('keluar', [AutentikasController::class, 'logout'])->name('postLogout');
 
 Route::post('postTodo', [Controller::class, 'post']);
 Route::post('changeStatus', [Controller::class, 'status']);
@@ -44,8 +46,13 @@ Route::post('updateDasarStatus', [Controller::class, 'updateDasarStatus']);
 
 Route::post('pegawaiSkpd', [Controller::class, 'getSkpd']);
 Route::post('addStaff', [Controller::class, 'addStaff']);
-Route::post('checkUser', [Controller::class, 'checkUser'])->name('checkUser');
 Route::post('reg', [Controller::class, 'reg'])->name('reg');
-Route::get('staffList', [Controller::class, 'staffList']);
+Route::post('checkUser', [Controller::class, 'checkUser'])->name('checkUser');
+
+Route::middleware(['auth.staff'])->group(function () {
+    Route::get('/dashboard', [Controller::class, 'task'])->name('dashboard');
+
+    Route::get('staffList', [Controller::class, 'staffList']);
+});
 
 require __DIR__.'/auth.php';

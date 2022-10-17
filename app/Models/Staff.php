@@ -13,4 +13,9 @@ class Staff extends Model
     {
         return $this->belongsTo(StaffDetail::class, 'id', 'id_staff');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id', 'nip');
+    }
 }

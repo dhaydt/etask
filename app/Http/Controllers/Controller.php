@@ -129,7 +129,6 @@ class Controller extends BaseController
             if ($status == 200) {
                 $resp = json_decode($response->getBody()->getContents())->api_status;
 
-                // dd($resp == 0);
                 if ($resp == 0) {
                     $data = [
                         'code' => 404,
@@ -280,7 +279,7 @@ class Controller extends BaseController
 
     public function addSpt(Request $request)
     {
-        $user = auth()->user()->nip;
+        $user = Helpers::getUserDetail(session()->get('nip'))->user->nip;
         $status = $request->status;
         $keterangan = $request->keterangan;
         $base = $request->dasar;
@@ -357,7 +356,6 @@ class Controller extends BaseController
             if ($status == 200) {
                 $resp = json_decode($response->getBody()->getContents())->api_status;
 
-                // dd($resp == 0);
                 if ($resp == 0) {
                     $data = [
                         'code' => 404,
@@ -382,7 +380,7 @@ class Controller extends BaseController
     public function history($action, $task_id, $status)
     {
         $history = new Task_history();
-        $history->nip = auth()->user()->nip;
+        $history->nip = Helpers::getUserDetail(session()->get('nip'))->id;
         $history->action = $action;
         $history->task_id = $task_id;
         $history->status = $status;
@@ -392,8 +390,9 @@ class Controller extends BaseController
     public function task()
     {
         // $this->getStaff();
-        $user = auth()->user();
-        if ($user->role == 1) {
+        $user = User::where('nip', session()->get('nip'))->first();
+
+        if ($user['role'] == 1) {
             $data['todo'] = Task::where('status', 'todo')->get();
             $data['doing'] = Task::where('status', 'doing')->get();
             $data['done'] = Task::where('status', 'done')->get();
@@ -478,7 +477,7 @@ class Controller extends BaseController
 
     public function refresh()
     {
-        $user = auth()->user();
+        $user = Helpers::getUserDetail(session()->get('nip'))->user;
         if (!$user) {
             return redirect()->route('login');
         }
@@ -497,6 +496,7 @@ class Controller extends BaseController
                 $data['done'] = Task::where('status', 'done')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$user->nip.'")')->get();
             }
         }
+
         $data['staffs'] = $this->staffIdString(Staff::get());
         $data['dasar'] = Dasar::get();
 
@@ -528,16 +528,17 @@ class Controller extends BaseController
         $staff = [];
         $spt = [];
         $report = [];
-        if (auth()->user()->role == 2) {
+        $user = Helpers::getUserDetail(session()->get('nip'));
+        if ($user->user->nip == 2) {
             $staff = [
                 [
-                        'id' => auth()->user()->nip,
-                        'name' => auth()->user()->name,
+                        'id' => $user->user->nip,
+                        'name' => $user->user->name,
                 ],
             ];
         }
         $task = new Task();
-        $task->nip = auth()->user()->nip;
+        $task->nip = $user->user->nip;
         $task->name = $request->title;
         $task->status = $request->status;
         $task->staff = json_encode($staff);

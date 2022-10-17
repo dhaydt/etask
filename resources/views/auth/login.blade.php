@@ -62,7 +62,7 @@
                         </ul>
                     </div>
                     @endif --}}
-                    <form method="POST" action="{{ route('post-login') }}" class="w-100">
+                    <form method="POST" action="{{ route('postLogin') }}" class="w-100">
                         @csrf
                         <div class="modal-body">
                             <div class="input-group mb-3">
@@ -78,11 +78,10 @@
                         </div>
                         <div class="modal-footer" >
                             <button class="btn btn-success btn-sm login-post" onclick="postLogin()">
-                                <div class="spin spinner-border text-info spinner-border-sm d-none" role="status">
-                                </div>
-                                <span>
-                                    {{ __('Masuk') }}
-                                </span>
+                                    <div class="spin spinner-border text-info spinner-border-sm d-none" role="status">
+                                    </div>
+                                    Masuk
+                                </button>
                             </button>
                         </div>
                     </form>
@@ -201,8 +200,8 @@
                         $('#nipUserReg').val(String(data.nip))
                         $('#registerModal').modal('show');
                     }else{
-                        toastr.danger('Error Data')
-                        console.log('err', data);
+                        toastr.error('Error Data')
+                        console.log('err', data.code);
                     }
                 }
             })
