@@ -9848,7 +9848,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       },
       newStaff: [],
       dasarSpt: [],
-      fileName: null,
+      fileName: [],
       file: null,
       isUploading: false,
       Deselect: {
@@ -9884,7 +9884,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       console.log("modal.taskData", this.taskData);
       this.checkStaff();
 
-      if (this.status == 'doing') {
+      if (this.status == "doing") {
         this.start_on = this.taskData.start_do;
         this.start_on = this.taskData.finish_do;
         this.fileName = this.taskData.report;
@@ -10024,27 +10024,56 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         var dasar = [];
       }
 
-      if (start_on == null) {
-        Vue.$toast.warning("Mohon isi tanggal mengerjakan!");
-      } else if (finish_on == "" || description == null) {
-        Vue.$toast.warning("Mohon isi tanggal selesai mengerjakan!");
-      } else if (fileName == null) {
-        Vue.$toast.warning("Mohon upload foto atau dokumen laporan!");
-      } else {
-        axios.post("/updateTask", {
-          id: id,
-          name: name,
-          staf: staf,
-          description: description,
-          start: start,
-          dasar: dasar
-        }, this.config).then(function (response) {
-          that.sembunyi();
-          that.$parent.splitAxios(response.data.original);
-          Vue.$toast.success("Task Updated Successfully");
-        })["catch"](function (err) {
-          Vue.$toast.error(err);
-        });
+      if (this.status == "todo") {
+        if (name == null || name == '') {
+          Vue.$toast.warning("Nama task tidak boleh kosong!!");
+        } else if (description == null || description == '') {
+          Vue.$toast.warning("Mohon isi deskripsi task!!");
+        } else if (staf.length == 0) {
+          Vue.$toast.warning("Mohon pilih staff!");
+        } else if (dasar.length == 0) {
+          Vue.$toast.warning("Mohon pilih dasar SPT!");
+        } else if (start == null) {
+          Vue.$toast.warning("Mohon masukan tanggal pengerjaan task!");
+        } else {
+          axios.post("/updateTask", {
+            id: id,
+            name: name,
+            staf: staf,
+            description: description,
+            start: start,
+            dasar: dasar
+          }, this.config).then(function (response) {
+            that.sembunyi();
+            that.$parent.splitAxios(response.data.original);
+            Vue.$toast.success("Task Updated Successfully");
+          })["catch"](function (err) {
+            Vue.$toast.error(err);
+          });
+        }
+      } else if (this.status == "doing") {
+        if (start_on == null) {
+          Vue.$toast.warning("Mohon isi tanggal mengerjakan!");
+        } else if (finish_on == "" || description == null) {
+          Vue.$toast.warning("Mohon isi tanggal selesai mengerjakan!");
+        } else if (fileName == null) {
+          Vue.$toast.warning("Mohon upload foto atau dokumen laporan!");
+        } else {
+          axios.post("/updateTask", {
+            id: id,
+            name: name,
+            staf: staf,
+            description: description,
+            start: start,
+            dasar: dasar
+          }, this.config).then(function (response) {
+            that.sembunyi();
+            that.$parent.splitAxios(response.data.original);
+            Vue.$toast.success("Task Updated Successfully");
+          })["catch"](function (err) {
+            Vue.$toast.error(err);
+          });
+        }
       }
     }
   }
