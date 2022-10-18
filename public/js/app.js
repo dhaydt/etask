@@ -9833,6 +9833,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     mulaiTask: function mulaiTask(id, status) {
       var that = this;
+
+      if (status == 'todo') {
+        status = 'doing';
+      } else {
+        status = 'done';
+      }
+
       axios.post("/taskStatus", {
         id: id,
         status: status
@@ -78116,7 +78123,7 @@ var render = function () {
                         on: {
                           click: function ($event) {
                             $event.preventDefault()
-                            return _vm.mulaiTask(_vm.taskData.id, _vm.newStat)
+                            return _vm.mulaiTask(_vm.taskData.id, _vm.status)
                           },
                         },
                       },
@@ -78182,7 +78189,7 @@ var render = function () {
                         on: {
                           click: function ($event) {
                             $event.preventDefault()
-                            return _vm.mulaiTask(_vm.taskData.id, _vm.newStat)
+                            return _vm.mulaiTask(_vm.taskData.id, _vm.status)
                           },
                         },
                       },

@@ -160,7 +160,7 @@
                     <div v-if="role == 1" class="modal-footer">
                         <button
                             class="btn btn-success me-auto"
-                            @click.prevent="mulaiTask(taskData.id, newStat)"
+                            @click.prevent="mulaiTask(taskData.id, status)"
                         >
                             <label v-if="status == 'todo'">Mulai Task</label>
                             <label v-else>Selesaikan Task</label>
@@ -192,7 +192,7 @@
                         </button>
                         <button
                             class="btn btn-success"
-                            @click.prevent="mulaiTask(taskData.id, newStat)"
+                            @click.prevent="mulaiTask(taskData.id, status)"
                         >
                             <label v-if="status == 'todo'">Mulai Task</label>
                             <label v-else>Selesaikan Task</label>
@@ -358,6 +358,11 @@ export default {
         },
         mulaiTask(id, status) {
             const that = this;
+            if(status == 'todo'){
+                status = 'doing'
+            }else{
+                status = 'done'
+            }
             axios
                 .post(
                     "/taskStatus",

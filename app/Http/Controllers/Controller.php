@@ -321,9 +321,15 @@ class Controller extends BaseController
 
         $task->status = $request->status;
         $task->save();
-        $this->history('status', $request->id, $request->status);
+        $staffList = json_decode($task->staff);
+
+        foreach ($staffList as $s) {
+            Helpers::checkAvailable($s->id);
+        }
 
         $data = $this->refresh();
+
+        $this->history('status', $request->id, $request->status);
 
         return response()->json($data);
     }
