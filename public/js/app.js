@@ -9357,6 +9357,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     doing: Array
@@ -9757,8 +9763,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }
       },
       newStaff: [],
-      newName: null,
-      newDescription: null,
       dasarSpt: [],
       Deselect: {
         render: function render(createElement) {
@@ -9790,10 +9794,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
     },
     taskData: function taskData() {
+      console.log('modal.taskData', this.taskData);
       this.checkStaff();
     },
     staffs: function staffs() {
-      console.log("wacth staff", this.selected);
       this.options = this.staffs;
       this.newStaff = this.selected;
 
@@ -77637,7 +77641,8 @@ var render = function () {
             "div",
             {
               key: element.name,
-              staticClass: "list-group-item text-capitalize",
+              staticClass:
+                "list-group-item overflow-hidden text-capitalize mb-4",
               on: {
                 click: function ($event) {
                   return _vm.cardModal(element)
@@ -77645,9 +77650,25 @@ var render = function () {
               },
             },
             [
-              _vm._v(
-                "\n            " + _vm._s(element.name) + "\n            "
-              ),
+              _c("div", { staticClass: "card-header-doing row" }, [
+                _c("div", { staticClass: "content-header my-2" }, [
+                  _c(
+                    "h6",
+                    {
+                      staticClass:
+                        "mb-0 text-capitalize d-flex justify-content-start align-items-center",
+                    },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(element.name) +
+                          "\n                "
+                      ),
+                    ]
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
               _c(
                 "draggable",
                 _vm._b(
@@ -77966,8 +77987,8 @@ var render = function () {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.newName,
-                            expression: "newName",
+                            value: _vm.taskData.name,
+                            expression: "taskData.name",
                           },
                         ],
                         staticClass: "form-control header",
@@ -77977,13 +77998,13 @@ var render = function () {
                           placeholder: "Judul Task",
                           name: "name",
                         },
-                        domProps: { value: _vm.newName },
+                        domProps: { value: _vm.taskData.name },
                         on: {
                           input: function ($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.newName = $event.target.value
+                            _vm.$set(_vm.taskData, "name", $event.target.value)
                           },
                         },
                       }),

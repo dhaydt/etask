@@ -39,7 +39,7 @@
                                 id="name"
                                 placeholder="Judul Task"
                                 name="name"
-                                v-model="newName"
+                                v-model="taskData.name"
                             />
                         </h5>
                         <button
@@ -240,8 +240,6 @@ export default {
                 },
             },
             newStaff: [],
-            newName: null,
-            newDescription: null,
             dasarSpt: [],
 
 
@@ -274,10 +272,10 @@ export default {
             });
         },
         taskData() {
+            console.log('modal.taskData',this.taskData);
             this.checkStaff();
         },
         staffs() {
-            console.log("wacth staff", this.selected);
             this.options = this.staffs;
             this.newStaff = this.selected;
             if (this.selected.length > 0) {

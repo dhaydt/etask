@@ -14,12 +14,18 @@
             :move="checkMove"
         >
             <div
-                class="list-group-item  text-capitalize"
+                class="list-group-item overflow-hidden  text-capitalize mb-4"
                 v-for="element in doing"
                 :key="element.name"
                 @click="cardModal(element)"
             >
-                {{ element.name  }}
+            <div class="card-header-doing row">
+                <div class="content-header my-2">
+                    <h6 class="mb-0 text-capitalize d-flex justify-content-start align-items-center">
+                        {{ element.name  }}
+                    </h6>
+                </div>
+            </div>
                 <draggable
                     v-bind="dragOptions"
                     class="list-staff d-flex"
