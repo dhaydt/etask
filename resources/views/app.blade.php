@@ -64,6 +64,13 @@
             background: #fff;
         }
 
+        .vdatetime-input{
+            border: none;
+            background-color: transparent;
+            width: 100%;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 

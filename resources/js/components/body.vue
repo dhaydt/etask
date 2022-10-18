@@ -106,6 +106,7 @@
                                 <span v-if="element.dasar.length == 0" class="badge badge-light-warning  mt-2 me-2"><i class="fa-solid fa-circle-exclamation me-2 text-danger"></i>Pilih Dasar SPT</span>
                                 <span v-if="element.description == null" class="badge badge-light-danger  mt-2 me-2"><i class="fa-solid fa-circle-exclamation me-2 text-danger"></i>Isi Deskripsi</span>
                                 <span v-if="element.start == null" class="badge badge-light-info  mt-2 me-2"><i class="fa-solid fa-circle-exclamation me-2 text-danger"></i>Masukan Tanggal Mulai</span>
+                                <div class="separator my-3"></div>
                             <div
                                 class="created-at mt-3 d-flex justify-content-between"
                             >
@@ -510,6 +511,9 @@ export default {
                     updated: s.updated_at,
                     start: s.start,
                     dasar: JSON.parse(s.spt_id),
+                    start_do: s.start_do,
+                    finish_do: s.finish_do,
+                    report: s.report,
                 };
                 this.newDoing.push(todo);
             });
@@ -683,6 +687,7 @@ export default {
     margin-bottom: 5px;
     cursor: pointer;
     transition: 0.5s;
+    border: unset;
     border-radius: 4px;
     h6 {
         font-family: "Acme", sans-serif;

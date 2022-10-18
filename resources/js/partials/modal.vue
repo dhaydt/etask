@@ -23,7 +23,7 @@
                             v-if="status == 'doing'"
                             class="label-row bg-info text-capitalize text-light fw-bold"
                             ><i class="fa-solid fa-spinner text-light me-2"></i
-                            ><span>{{newStat }}</span></label
+                            ><span>{{ newStat }}</span></label
                         >
                         <label
                             v-if="status == 'done'"
@@ -64,7 +64,8 @@
                                 >
                             </div>
                             <div class="avatar-list flex-row row mt-2" v-else>
-                                <div v-for="s in newStaff"
+                                <div
+                                    v-for="s in newStaff"
                                     class="avatar-card d-flex col-12 col-md-6 align-items-center"
                                     :key="s.id"
                                 >
@@ -133,27 +134,68 @@
                                 :disabled="taskData.status == 'doing'"
                             />
                         </div>
-                        <LabelTitle v-if="status == 'doing'"
+                        <LabelTitle
+                            v-if="status == 'doing'"
                             title="Mulai mengerjakan"
                             icon="fa-solid fa-stopwatch"
                         ></LabelTitle>
                         <div class="mb-3 input-text" v-if="status == 'doing'">
-                            <input
+                            <datetime
                                 class="form-control"
-                                id="dateStart"
+                                type="datetime"
                                 v-model="start_on"
-                            />
+                                use24-hour
+                            ></datetime>
                         </div>
-                        <LabelTitle v-if="status == 'doing'"
+                        <LabelTitle
+                            v-if="status == 'doing'"
                             title="Selesai mengerjakan"
                             icon="fa-solid fa-stopwatch"
                         ></LabelTitle>
                         <div class="mb-3 input-text" v-if="status == 'doing'">
-                            <input
+                            <datetime
                                 class="form-control"
-                                id="dateFinish"
+                                type="datetime"
                                 v-model="finish_on"
+                                use24-hour
+                            ></datetime>
+                        </div>
+                        <div class="mb-5" v-if="status == 'doing'">
+                            <LabelTitle
+                                title="Upload Laporan"
+                                icon="fa-solid fa-upload"
+                            ></LabelTitle>
+                            <input
+                                type="file"
+                                name="file"
+                                @change="onFileChange"
+                                accept="application/pdf,application/vnd.ms-excel,.docx, image/jpeg, .png, .jpg, .jpeg"
+                                id="pilih_file"
+                                hidden
                             />
+                            <div class="text-center">
+                                <label
+                                    for="pilih_file"
+                                    class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Upload File"
+                                >
+                                    <i class="fa-solid fa-file"></i>
+                                    {{ fileName ? fileName : "Pilih File" }}
+                                </label>
+                            </div>
+                            <div v-if="isUploading" class="progress mt-5">
+                                <div
+                                    class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                                    role="progressbar"
+                                    aria-label="Animated striped example"
+                                    aria-valuenow="75"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                    x-bind:style="`width: ${progress}%`"
+                                ></div>
+                            </div>
                         </div>
                     </div>
                     <div v-if="role == 1" class="modal-footer">
@@ -207,9 +249,12 @@
 import LabelTitle from "./part/label-title";
 import vSelect from "vue-select";
 import DateTimePicker from "vue-vanilla-datetime-picker";
+import { Datetime } from "vue-datetime";
+import 'vue-datetime/dist/vue-datetime.css'
+
 
 export default {
-    components: { LabelTitle, vSelect, DateTimePicker },
+    components: { LabelTitle, vSelect, Datetime },
     props: {
         taskData: Object & Array,
         role: String,
@@ -242,7 +287,9 @@ export default {
             newStaff: [],
             dasarSpt: [],
 
-
+            fileName: null,
+            file: null,
+            isUploading: false,
             Deselect: {
                 render: (createElement) => createElement("span", "❌"),
             },
@@ -272,8 +319,13 @@ export default {
             });
         },
         taskData() {
-            console.log('modal.taskData',this.taskData);
+            console.log("modal.taskData", this.taskData);
             this.checkStaff();
+            if(this.status == 'doing'){
+                this.start_on = this.taskData.start_do;
+                this.start_on = this.taskData.finish_do;
+                this.fileName = this.taskData.report;
+            }
         },
         staffs() {
             this.options = this.staffs;
@@ -292,6 +344,11 @@ export default {
         },
     },
     methods: {
+        onFileChange(e) {
+            //console.log(e.target.files[0]);
+            this.fileName = "Selected File: " + e.target.files[0].name;
+            this.file = e.target.files[0];
+        },
         onErrorImg(e) {
             this.$parent.onErrorImg(e);
         },
@@ -359,10 +416,10 @@ export default {
         },
         mulaiTask(id, status) {
             const that = this;
-            if(status == 'todo'){
-                status = 'doing'
-            }else{
-                status = 'done'
+            if (status == "todo") {
+                status = "doing";
+            } else {
+                status = "done";
             }
             axios
                 .post(
@@ -402,19 +459,20 @@ export default {
             var staf = this.newStaff;
             var dasar = this.dasarSpt;
             var start = this.start;
+            var start_on = this.start_on;
+            var finish_on = this.finish_on;
+            var fileName = this.fileName;
             const that = this;
             if (dasar == undefined) {
                 var dasar = [];
             }
-            if (name == "" || name == null) {
-                Vue.$toast.warning("Judul task tidak boleh kosong!");
-            } else if (description == "" || description == null) {
-                Vue.$toast.warning("Deskripsi task tidak boleh kosong!");
-            } else if (dasar.length == 0) {
-                Vue.$toast.warning("Mohon pilih Dasar SPT!");
-            } else if(start == null){
-                Vue.$toast.warning("Mohon pilih Tanggal Mulai!");
-            }else {
+            if (start_on == null) {
+                Vue.$toast.warning("Mohon isi tanggal mengerjakan!");
+            } else if (finish_on == "" || description == null) {
+                Vue.$toast.warning("Mohon isi tanggal selesai mengerjakan!");
+            } else if (fileName == null) {
+                Vue.$toast.warning("Mohon upload foto atau dokumen laporan!");
+            } else {
                 axios
                     .post(
                         "/updateTask",

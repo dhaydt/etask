@@ -14,18 +14,45 @@
             :move="checkMove"
         >
             <div
-                class="list-group-item overflow-hidden  text-capitalize mb-4"
+                class="list-group-item overflow-hidden text-capitalize mb-4"
                 v-for="element in doing"
                 :key="element.name"
                 @click="cardModal(element)"
             >
-            <div class="card-header-doing row">
-                <div class="content-header my-2">
-                    <h6 class="mb-0 text-capitalize d-flex justify-content-start align-items-center">
-                        {{ element.name  }}
-                    </h6>
+                <div class="card-headers row">
+                    <div class="content-header my-2">
+                        <h6
+                            class="mb-0 text-capitalize d-flex justify-content-start align-items-center"
+                        >
+                            {{ element.name }}
+                        </h6>
+                    </div>
                 </div>
-            </div>
+                <span
+                    v-if="element.start_do == null"
+                    class="badge badge-light-warning mt-2 me-2"
+                    ><i
+                        class="fa-solid fa-circle-exclamation me-2 text-danger"
+                    ></i
+                    >Pilih Tanggal Mengerjakan</span
+                >
+                <span
+                    v-if="element.finish_do == null"
+                    class="badge badge-light-danger mt-2 me-2"
+                    ><i
+                        class="fa-solid fa-circle-exclamation me-2 text-danger"
+                    ></i
+                    >Pilih tanggal Selesai</span
+                >
+                <span
+                    v-if="element.report == null"
+                    class="badge badge-light-info mt-2 me-2"
+                    ><i
+                        class="fa-solid fa-circle-exclamation me-2 text-danger"
+                    ></i
+                    >Upload Laporan</span
+                >
+                <div class="separator mb-2 mt-3"></div>
                 <draggable
                     v-bind="dragOptions"
                     class="list-staff d-flex"
@@ -44,7 +71,13 @@
                             data-bs-toggle="tooltip"
                             :title="staf.name"
                         >
-                            <img height="25" width="25" :src="staf.foto" alt="" @error="onErrorImg"/>
+                            <img
+                                height="25"
+                                width="25"
+                                :src="staf.foto"
+                                alt=""
+                                @error="onErrorImg"
+                            />
                         </div>
                     </div>
                 </draggable>
@@ -73,10 +106,10 @@ export default {
         },
     },
     methods: {
-        onErrorImg(e){
+        onErrorImg(e) {
             this.$parent.onErrorImg(e);
         },
-        cardModal(data){
+        cardModal(data) {
             this.$parent.cardModal(data);
         },
         checkMove(evt) {
@@ -90,17 +123,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .disable_pointer{
-        pointer-events: none;
-    }
-    .alert.alert-primary{
-        background-color: #cfe2ffa1;
-    }
-    .avatar{
-        border: 2px solid rgb(64, 95, 249);
-    }
-    .bg-primary-custom{
-        background-color: #009ef76e;
-        color: #aae0ff;
-    }
+.disable_pointer {
+    pointer-events: none;
+}
+.alert.alert-primary {
+    background-color: #cfe2ffa1;
+}
+.avatar {
+    border: 2px solid rgb(64, 95, 249);
+}
+.bg-primary-custom {
+    background-color: #009ef76e;
+    color: #aae0ff;
+}
+.card-header-doing {
+    background-color: #d6d6d6;
+}
 </style>
