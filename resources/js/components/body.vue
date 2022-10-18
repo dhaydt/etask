@@ -40,7 +40,9 @@
                                         {{ element.name }}
                                     </h6>
                                 </div>
-                                <div class="col-2 d-flex justify-content-center align-items-center">
+                                <div
+                                    class="col-2 d-flex justify-content-center align-items-center"
+                                >
                                     <button
                                         @click="removeTask(element.id)"
                                         class="btn delete-btn btn-sm text-danger"
@@ -100,29 +102,51 @@
                                     </div>
                                 </div>
                             </draggable>
+                                <span v-if="element.staffs.length == 0" class="badge badge-light-danger mt-2 me-2"><i class="fa-solid fa-circle-exclamation me-2 text-danger"></i>Pilih staff</span>
+                                <span v-if="element.dasar.length == 0" class="badge badge-light-warning  mt-2 me-2"><i class="fa-solid fa-circle-exclamation me-2 text-danger"></i>Pilih Dasar SPT</span>
+                                <span v-if="element.description == null" class="badge badge-light-danger  mt-2 me-2"><i class="fa-solid fa-circle-exclamation me-2 text-danger"></i>Isi Deskripsi</span>
+                                <span v-if="element.start == null" class="badge badge-light-info  mt-2 me-2"><i class="fa-solid fa-circle-exclamation me-2 text-danger"></i>Masukan Tanggal Mulai</span>
                             <div
-                                class="created-at mt-3 d-flex justify-content-end"
-                                data-bs-toggle="tooltip"
-                                title="Tanggal mulai pengerjaan"
+                                class="created-at mt-3 d-flex justify-content-between"
                             >
-                                <span
-                                    v-if="element.start"
-                                    class="badge rounded-pill badge-secondary text-danger d-flex align-items-center"
+                                <div
+                                    class="dated-star align-items-center d-flex"
                                 >
-                                    <i
-                                        class="fa-solid fa-calendar me-2 text-danger"
-                                    ></i>
-                                    <span class="pt-1">
-                                        {{ element.start | moment }}
+                                    <span
+                                        v-if="element.start"
+                                        data-bs-toggle="tooltip"
+                                        title="Tanggal mulai pengerjaan"
+                                        class="badge rounded-pill badge-secondary text-danger d-flex align-items-center"
+                                    >
+                                        <i
+                                            class="fa-solid fa-calendar me-2 text-danger"
+                                        ></i>
+                                        <span class="pt-1">
+                                            {{ element.start | moment }}
+                                        </span>
                                     </span>
-                                </span>
 
-                                <span
-                                    v-else
-                                    class="badge rounded-pill badge-warning"
+                                    <span
+                                        v-else
+                                        class="badge rounded-pill badge-warning"
+                                    >
+                                        Pengerjaan belum diatur
+                                    </span>
+                                </div>
+                                <button
+                                    v-if="
+                                        element.staffs.length !== 0 &&
+                                        element.dasar.length !== 0 &&
+                                        element.description !== null &&
+                                        element.start !== null
+                                    "
+                                    class="btn btn-sm btn-success"
+                                    @click="
+                                        mulaiTask(element.id, element.status)
+                                    "
                                 >
-                                    Pengerjaan belum diatur
-                                </span>
+                                    Mulai Task
+                                </button>
                             </div>
                         </div>
                         <div class="input-group input-group-sm mt-auto">
@@ -256,6 +280,32 @@ export default {
         },
     },
     methods: {
+        mulaiTask(id, status) {
+            event.stopPropagation();
+            const that = this;
+            if (status == "todo") {
+                status = "doing";
+            } else {
+                status = "done";
+            }
+            axios
+                .post(
+                    "/taskStatus",
+                    {
+                        id: id,
+                        status: status,
+                    },
+                    this.config
+                )
+                .then(function (resp) {
+                    that.splitAxios(resp.data.original);
+                    that.hideModalTask();
+                    Vue.$toast.success("Status task berhasil di update!");
+                })
+                .catch(function (err) {
+                    window.alert(err);
+                });
+        },
         cardModal(data) {
             var modalTask = new bootstrap.Modal(
                 document.getElementById("modalTask"),
@@ -296,7 +346,10 @@ export default {
                         var dataSkpd = resp.data.data;
                         var user = resp.data.user;
                         var selected = [];
-                        localStorage.setItem('semuaPegawaiSkpd', JSON.stringify(dataSkpd));
+                        localStorage.setItem(
+                            "semuaPegawaiSkpd",
+                            JSON.stringify(dataSkpd)
+                        );
                         dataSkpd.forEach(function (item, i) {
                             if (item.id_skpd == id_skpd) {
                                 user.filter((u) => {
@@ -315,7 +368,10 @@ export default {
                         );
                         // that.namaSkpd = selected[0].nama_skpd;
 
-                        localStorage.setItem("asnTerdaftar", JSON.stringify(selected));
+                        localStorage.setItem(
+                            "asnTerdaftar",
+                            JSON.stringify(selected)
+                        );
                         // that.dataPegawai = selected;
                     }
                 })
@@ -331,7 +387,7 @@ export default {
             dataSkpd.forEach(function (item, i) {
                 if (item.id_skpd) {
                     var user = JSON.parse(localStorage.getItem("asnTerdaftar"));
-                    console.log('beforeFilter', item)
+                    console.log("beforeFilter", item);
                     user.filter((u) => {
                         // return u.id.toString() === item.nip.toString();
                         if (u.nip == item.nip) {
@@ -347,14 +403,13 @@ export default {
             this.$root.$emit("updateDataPeg");
             localStorage.setItem("allAsnAkpd", JSON.stringify(allStaff));
             localStorage.setItem("selected", JSON.stringify(allStaff));
-
         },
         updateDasarStatus(data) {
             this.$parent.updateDasarStatus(data);
         },
-        getStaffList(){
-            axios.get('staffList').then(function(resp){
-                localStorage.setItem('asnTerdaftar', JSON.stringify(resp.data));
+        getStaffList() {
+            axios.get("staffList").then(function (resp) {
+                localStorage.setItem("asnTerdaftar", JSON.stringify(resp.data));
             });
         },
         toggleLoading(val) {
@@ -660,8 +715,8 @@ export default {
     background: #ddd;
     object-position: 50px 30px;
 }
-.content-header{
-    h6{
+.content-header {
+    h6 {
         display: -webkit-box;
         max-width: 100%;
         -webkit-line-clamp: 4;

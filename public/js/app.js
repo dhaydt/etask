@@ -8588,6 +8588,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8666,6 +8690,27 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    mulaiTask: function mulaiTask(id, status) {
+      event.stopPropagation();
+      var that = this;
+
+      if (status == "todo") {
+        status = "doing";
+      } else {
+        status = "done";
+      }
+
+      axios__WEBPACK_IMPORTED_MODULE_7___default().post("/taskStatus", {
+        id: id,
+        status: status
+      }, this.config).then(function (resp) {
+        that.splitAxios(resp.data.original);
+        that.hideModalTask();
+        Vue.$toast.success("Status task berhasil di update!");
+      })["catch"](function (err) {
+        window.alert(err);
+      });
+    },
     cardModal: function cardModal(data) {
       var modalTask = new bootstrap.Modal(document.getElementById("modalTask"), {
         keyboard: false
@@ -8701,7 +8746,7 @@ __webpack_require__.r(__webpack_exports__);
           var dataSkpd = resp.data.data;
           var user = resp.data.user;
           var selected = [];
-          localStorage.setItem('semuaPegawaiSkpd', JSON.stringify(dataSkpd));
+          localStorage.setItem("semuaPegawaiSkpd", JSON.stringify(dataSkpd));
           dataSkpd.forEach(function (item, i) {
             if (item.id_skpd == id_skpd) {
               user.filter(function (u) {
@@ -8729,7 +8774,7 @@ __webpack_require__.r(__webpack_exports__);
       dataSkpd.forEach(function (item, i) {
         if (item.id_skpd) {
           var user = JSON.parse(localStorage.getItem("asnTerdaftar"));
-          console.log('beforeFilter', item);
+          console.log("beforeFilter", item);
           user.filter(function (u) {
             // return u.id.toString() === item.nip.toString();
             if (u.nip == item.nip) {
@@ -8750,8 +8795,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$parent.updateDasarStatus(data);
     },
     getStaffList: function getStaffList() {
-      axios__WEBPACK_IMPORTED_MODULE_7___default().get('staffList').then(function (resp) {
-        localStorage.setItem('asnTerdaftar', JSON.stringify(resp.data));
+      axios__WEBPACK_IMPORTED_MODULE_7___default().get("staffList").then(function (resp) {
+        localStorage.setItem("asnTerdaftar", JSON.stringify(resp.data));
       });
     },
     toggleLoading: function toggleLoading(val) {
@@ -9697,7 +9742,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   data: function data() {
     return {
-      dasarSpt: [],
       dasarNew: [],
       start: null,
       options: [],
@@ -9713,6 +9757,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }
       },
       newStaff: [],
+      newName: null,
+      newDescription: null,
+      dasarSpt: [],
       Deselect: {
         render: function render(createElement) {
           return createElement("span", "❌");
@@ -9878,6 +9925,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         Vue.$toast.warning("Deskripsi task tidak boleh kosong!");
       } else if (dasar.length == 0) {
         Vue.$toast.warning("Mohon pilih Dasar SPT!");
+      } else if (start == null) {
+        Vue.$toast.warning("Mohon pilih Tanggal Mulai!");
       } else {
         axios.post("/updateTask", {
           id: id,
@@ -76810,53 +76859,157 @@ var render = function () {
                             0
                           ),
                           _vm._v(" "),
+                          element.staffs.length == 0
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "badge badge-light-danger mt-2 me-2",
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "fa-solid fa-circle-exclamation me-2 text-danger",
+                                  }),
+                                  _vm._v("Pilih staff"),
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          element.dasar.length == 0
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "badge badge-light-warning mt-2 me-2",
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "fa-solid fa-circle-exclamation me-2 text-danger",
+                                  }),
+                                  _vm._v("Pilih Dasar SPT"),
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          element.description == null
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "badge badge-light-danger mt-2 me-2",
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "fa-solid fa-circle-exclamation me-2 text-danger",
+                                  }),
+                                  _vm._v("Isi Deskripsi"),
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          element.start == null
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "badge badge-light-info mt-2 me-2",
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "fa-solid fa-circle-exclamation me-2 text-danger",
+                                  }),
+                                  _vm._v("Masukan Tanggal Mulai"),
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
                           _c(
                             "div",
                             {
                               staticClass:
-                                "created-at mt-3 d-flex justify-content-end",
-                              attrs: {
-                                "data-bs-toggle": "tooltip",
-                                title: "Tanggal mulai pengerjaan",
-                              },
+                                "created-at mt-3 d-flex justify-content-between",
                             },
                             [
-                              element.start
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "dated-star align-items-center d-flex",
+                                },
+                                [
+                                  element.start
+                                    ? _c(
+                                        "span",
+                                        {
+                                          staticClass:
+                                            "badge rounded-pill badge-secondary text-danger d-flex align-items-center",
+                                          attrs: {
+                                            "data-bs-toggle": "tooltip",
+                                            title: "Tanggal mulai pengerjaan",
+                                          },
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "fa-solid fa-calendar me-2 text-danger",
+                                          }),
+                                          _vm._v(" "),
+                                          _c("span", { staticClass: "pt-1" }, [
+                                            _vm._v(
+                                              "\n                                        " +
+                                                _vm._s(
+                                                  _vm._f("moment")(
+                                                    element.start
+                                                  )
+                                                ) +
+                                                "\n                                    "
+                                            ),
+                                          ]),
+                                        ]
+                                      )
+                                    : _c(
+                                        "span",
+                                        {
+                                          staticClass:
+                                            "badge rounded-pill badge-warning",
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                    Pengerjaan belum diatur\n                                "
+                                          ),
+                                        ]
+                                      ),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              element.staffs.length !== 0 &&
+                              element.dasar.length !== 0 &&
+                              element.description !== null &&
+                              element.start !== null
                                 ? _c(
-                                    "span",
+                                    "button",
                                     {
-                                      staticClass:
-                                        "badge rounded-pill badge-secondary text-danger d-flex align-items-center",
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass:
-                                          "fa-solid fa-calendar me-2 text-danger",
-                                      }),
-                                      _vm._v(" "),
-                                      _c("span", { staticClass: "pt-1" }, [
-                                        _vm._v(
-                                          "\n                                    " +
-                                            _vm._s(
-                                              _vm._f("moment")(element.start)
-                                            ) +
-                                            "\n                                "
-                                        ),
-                                      ]),
-                                    ]
-                                  )
-                                : _c(
-                                    "span",
-                                    {
-                                      staticClass:
-                                        "badge rounded-pill badge-warning",
+                                      staticClass: "btn btn-sm btn-success",
+                                      on: {
+                                        click: function ($event) {
+                                          return _vm.mulaiTask(
+                                            element.id,
+                                            element.status
+                                          )
+                                        },
+                                      },
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                Pengerjaan belum diatur\n                            "
+                                        "\n                                Mulai Task\n                            "
                                       ),
                                     ]
-                                  ),
+                                  )
+                                : _vm._e(),
                             ]
                           ),
                         ],
@@ -77813,8 +77966,8 @@ var render = function () {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.taskData.name,
-                            expression: "taskData.name",
+                            value: _vm.newName,
+                            expression: "newName",
                           },
                         ],
                         staticClass: "form-control header",
@@ -77824,13 +77977,13 @@ var render = function () {
                           placeholder: "Judul Task",
                           name: "name",
                         },
-                        domProps: { value: _vm.taskData.name },
+                        domProps: { value: _vm.newName },
                         on: {
                           input: function ($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(_vm.taskData, "name", $event.target.value)
+                            _vm.newName = $event.target.value
                           },
                         },
                       }),
@@ -78115,32 +78268,6 @@ var render = function () {
               _vm._v(" "),
               _vm.role == 1
                 ? _c("div", { staticClass: "modal-footer" }, [
-                    _vm.newStaff.length !== 0 &&
-                    _vm.dasarSpt.length !== 0 &&
-                    _vm.taskData.description !== null &&
-                    _vm.start !== null
-                      ? _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-success me-auto",
-                            on: {
-                              click: function ($event) {
-                                $event.preventDefault()
-                                return _vm.mulaiTask(
-                                  _vm.taskData.id,
-                                  _vm.status
-                                )
-                              },
-                            },
-                          },
-                          [
-                            _vm.status == "todo"
-                              ? _c("label", [_vm._v("Mulai Task")])
-                              : _c("label", [_vm._v("Selesaikan Task")]),
-                          ]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
                     _c(
                       "button",
                       {

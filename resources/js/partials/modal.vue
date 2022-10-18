@@ -39,7 +39,7 @@
                                 id="name"
                                 placeholder="Judul Task"
                                 name="name"
-                                v-model="taskData.name"
+                                v-model="newName"
                             />
                         </h5>
                         <button
@@ -157,13 +157,13 @@
                         </div>
                     </div>
                     <div v-if="role == 1" class="modal-footer">
-                        <button v-if="newStaff.length !== 0 && dasarSpt.length !== 0 && taskData.description !== null && start !== null "
+                        <!-- <button v-if="newStaff.length !== 0 && dasarSpt.length !== 0 && taskData.description !== null && start !== null "
                             class="btn btn-success me-auto"
                             @click.prevent="mulaiTask(taskData.id, status)"
                         >
                             <label v-if="status == 'todo'">Mulai Task</label>
                             <label v-else>Selesaikan Task</label>
-                        </button>
+                        </button> -->
                         <button
                             type="button"
                             class="btn btn-secondary"
@@ -221,7 +221,6 @@ export default {
     },
     data() {
         return {
-            dasarSpt: [],
             dasarNew: [],
             start: null,
             options: [],
@@ -241,6 +240,11 @@ export default {
                 },
             },
             newStaff: [],
+            newName: null,
+            newDescription: null,
+            dasarSpt: [],
+
+
             Deselect: {
                 render: (createElement) => createElement("span", "❌"),
             },
@@ -410,7 +414,9 @@ export default {
                 Vue.$toast.warning("Deskripsi task tidak boleh kosong!");
             } else if (dasar.length == 0) {
                 Vue.$toast.warning("Mohon pilih Dasar SPT!");
-            } else {
+            } else if(start == null){
+                Vue.$toast.warning("Mohon pilih Tanggal Mulai!");
+            }else {
                 axios
                     .post(
                         "/updateTask",
