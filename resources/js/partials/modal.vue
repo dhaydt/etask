@@ -58,14 +58,13 @@
                             icon="fa-solid fa-users"
                         ></LabelTitle>
                         <div class="mb-3 input-text">
-                            <div class="" v-if="newStaff == '[]'">
+                            <div class="" v-if="newStaff.length < 1">
                                 <span class="badge rounded-pill bg-danger"
                                     >Belum ada Staff dipilih!</span
                                 >
                             </div>
                             <div class="avatar-list flex-row row mt-2" v-else>
-                                <div
-                                    v-for="s in newStaff"
+                                <div v-for="s in newStaff"
                                     class="avatar-card d-flex col-12 col-md-6 align-items-center"
                                     :key="s.id"
                                 >
@@ -158,7 +157,7 @@
                         </div>
                     </div>
                     <div v-if="role == 1" class="modal-footer">
-                        <button
+                        <button v-if="newStaff.length !== 0 && dasarSpt.length !== 0 && taskData.description !== null && start !== null "
                             class="btn btn-success me-auto"
                             @click.prevent="mulaiTask(taskData.id, status)"
                         >

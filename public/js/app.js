@@ -9677,7 +9677,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
-//
 
 
 
@@ -77871,7 +77870,7 @@ var render = function () {
                     "div",
                     { staticClass: "mb-3 input-text" },
                     [
-                      _vm.newStaff == "[]"
+                      _vm.newStaff.length < 1
                         ? _c("div", {}, [
                             _c(
                               "span",
@@ -78116,23 +78115,31 @@ var render = function () {
               _vm._v(" "),
               _vm.role == 1
                 ? _c("div", { staticClass: "modal-footer" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-success me-auto",
-                        on: {
-                          click: function ($event) {
-                            $event.preventDefault()
-                            return _vm.mulaiTask(_vm.taskData.id, _vm.status)
+                    _vm.newStaff.length !== 0 &&
+                    _vm.dasarSpt.length !== 0 &&
+                    _vm.taskData.description !== null &&
+                    _vm.start !== null
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success me-auto",
+                            on: {
+                              click: function ($event) {
+                                $event.preventDefault()
+                                return _vm.mulaiTask(
+                                  _vm.taskData.id,
+                                  _vm.status
+                                )
+                              },
+                            },
                           },
-                        },
-                      },
-                      [
-                        _vm.status == "todo"
-                          ? _c("label", [_vm._v("Mulai Task")])
-                          : _c("label", [_vm._v("Selesaikan Task")]),
-                      ]
-                    ),
+                          [
+                            _vm.status == "todo"
+                              ? _c("label", [_vm._v("Mulai Task")])
+                              : _c("label", [_vm._v("Selesaikan Task")]),
+                          ]
+                        )
+                      : _vm._e(),
                     _vm._v(" "),
                     _c(
                       "button",
