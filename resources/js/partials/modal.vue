@@ -12,24 +12,24 @@
                 <form action="/updateTask" method="POST" name="cardTask">
                     <div class="modal-header position-relative pt-1 pb-0">
                         <label
-                            v-if="taskData.status == 'todo'"
+                            v-if="status == 'todo'"
                             class="label-row bg-warning text-capitalize text-dark fw-bold d-flex align-items-center"
                             ><i
                                 class="fa-solid text-dark fa-list-check me-2"
                             ></i
-                            ><span>To - Do</span></label
+                            ><span>{{ newStat }}</span></label
                         >
                         <label
-                            v-if="taskData.status == 'doing'"
+                            v-if="status == 'doing'"
                             class="label-row bg-info text-capitalize text-light fw-bold"
                             ><i class="fa-solid fa-spinner text-light me-2"></i
-                            ><span>Doing</span></label
+                            ><span>{{newStat }}</span></label
                         >
                         <label
-                            v-if="taskData.status == 'done'"
+                            v-if="status == 'done'"
                             class="label-row bg-success text-capitalize text-light fw-bold"
                             ><i class="fa-solid fa-check text-light me-2"></i
-                            ><span>Done</span></label
+                            ><span>{{ newStat }}</span></label
                         >
                         <h5 class="modal-title w-100" id="exampleModalLabel">
                             <i class="fa-regular fa-window-maximize"></i>
@@ -134,22 +134,22 @@
                                 :disabled="taskData.status == 'doing'"
                             />
                         </div>
-                        <LabelTitle
+                        <LabelTitle v-if="status == 'doing'"
                             title="Mulai mengerjakan"
                             icon="fa-solid fa-stopwatch"
                         ></LabelTitle>
-                        <div class="mb-3 input-text">
+                        <div class="mb-3 input-text" v-if="status == 'doing'">
                             <input
                                 class="form-control"
                                 id="dateStart"
                                 v-model="start_on"
                             />
                         </div>
-                        <LabelTitle
+                        <LabelTitle v-if="status == 'doing'"
                             title="Selesai mengerjakan"
                             icon="fa-solid fa-stopwatch"
                         ></LabelTitle>
-                        <div class="mb-3 input-text">
+                        <div class="mb-3 input-text" v-if="status == 'doing'">
                             <input
                                 class="form-control"
                                 id="dateFinish"
@@ -162,7 +162,7 @@
                             class="btn btn-success me-auto"
                             @click.prevent="mulaiTask(taskData.id, newStat)"
                         >
-                            <label v-if="newStat == 'doing'">Mulai Task</label>
+                            <label v-if="status == 'todo'">Mulai Task</label>
                             <label v-else>Selesaikan Task</label>
                         </button>
                         <button
@@ -194,7 +194,7 @@
                             class="btn btn-success"
                             @click.prevent="mulaiTask(taskData.id, newStat)"
                         >
-                            <label v-if="newStat == 'doing'">Mulai Task</label>
+                            <label v-if="status == 'todo'">Mulai Task</label>
                             <label v-else>Selesaikan Task</label>
                         </button>
                     </div>
@@ -256,7 +256,6 @@ export default {
         },
         status() {
             this.checkStatus(this.status);
-            console.log("watch status", this.taskData.staffs);
         },
         updateFlat() {
             this.start_on == null;
@@ -350,11 +349,11 @@ export default {
         },
         checkStatus(stat) {
             if (stat == "todo") {
-                this.newStat = "doing";
+                this.newStat = "To - Do";
             } else if (stat == "doing") {
-                this.newStat = "done";
+                this.newStat = "Doing";
             } else {
-                this.newStat = "finish";
+                this.newStat = "Done / Finished";
             }
         },
         mulaiTask(id, status) {

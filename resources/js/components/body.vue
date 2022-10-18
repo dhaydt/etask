@@ -32,11 +32,15 @@
                             :key="element.name"
                             @click="cardModal(element)"
                         >
-                            <div class="card-headers">
-                                <h6
-                                    class="mb-0 text-capitalize d-flex justify-content-between align-items-center"
-                                >
-                                    {{ element.name }}
+                            <div class="card-headers row">
+                                <div class="content-header my-2 col-10">
+                                    <h6
+                                        class="mb-0 text-capitalize d-flex justify-content-between align-items-center"
+                                    >
+                                        {{ element.name }}
+                                    </h6>
+                                </div>
+                                <div class="col-2 d-flex justify-content-center align-items-center">
                                     <button
                                         @click="removeTask(element.id)"
                                         class="btn delete-btn btn-sm text-danger"
@@ -44,7 +48,7 @@
                                     >
                                         <i class="fas fa-trash"></i>
                                     </button>
-                                </h6>
+                                </div>
                             </div>
                             <div
                                 v-if="element.description"
@@ -264,7 +268,6 @@ export default {
             this.selected = data.staffs;
             this.refreshStaff();
             this.updateFlat = this.selected;
-            console.log("body", this.newStaff);
             modalTask.show();
         },
         refreshStaff() {
@@ -657,18 +660,27 @@ export default {
     background: #ddd;
     object-position: 50px 30px;
 }
+.content-header{
+    h6{
+        display: -webkit-box;
+        max-width: 100%;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
 .btn-remove {
     font-size: 10px;
     right: -7px;
     top: -7px;
     z-index: 9;
 }
-h6 .delete-btn {
+.delete-btn {
     opacity: 0;
     transition: 0.6s;
 }
 
-.list-group-item:hover h6 .delete-btn {
+.list-group-item:hover .delete-btn {
     opacity: 1;
     i {
         color: red;

@@ -8584,6 +8584,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -8671,7 +8675,6 @@ __webpack_require__.r(__webpack_exports__);
       this.selected = data.staffs;
       this.refreshStaff();
       this.updateFlat = this.selected;
-      console.log("body", this.newStaff);
       modalTask.show();
     },
     refreshStaff: function refreshStaff() {
@@ -9727,7 +9730,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     status: function status() {
       this.checkStatus(this.status);
-      console.log("watch status", this.taskData.staffs);
     },
     updateFlat: function updateFlat() {
       this.start_on == null;
@@ -9822,11 +9824,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     checkStatus: function checkStatus(stat) {
       if (stat == "todo") {
-        this.newStat = "doing";
+        this.newStat = "To - Do";
       } else if (stat == "doing") {
-        this.newStat = "done";
+        this.newStat = "Doing";
       } else {
-        this.newStat = "finish";
+        this.newStat = "Done / Finished";
       }
     },
     mulaiTask: function mulaiTask(id, status) {
@@ -16173,7 +16175,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* light stylings for the kanban columns */\n.staff-name {\n  font-size: 12px;\n  align-items: center;\n  width: 100%;\n  text-transform: capitalize;\n}\n.card-list {\n  margin-right: 20px;\n  background-color: rgba(239, 239, 239, 0.6117647059);\n  border-radius: 4px;\n  transition: 0.5s;\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);\n}\n.kanban-column {\n  min-height: 100px;\n}\n.overflow-hidden {\n  overflow: hidden;\n}\n.list-group-staff {\n  transition: 0.5s;\n}\n.list-group-staff:hover {\n  transform: translate(-5px, 0);\n}\n.list-group-item {\n  margin-bottom: 5px;\n  cursor: pointer;\n  transition: 0.5s;\n  border-radius: 4px;\n}\n.list-group-item h6 {\n  font-family: \"Acme\", sans-serif;\n}\n.list-group-item .card-headers {\n  margin: -6px 0 10px -13px;\n  background: #dedede;\n  width: 111%;\n  padding-left: 10px;\n}\n.list-group-item .description {\n  background-color: #efefef;\n  line-height: 1.2;\n  padding: 0 5px 5px 5px;\n  max-height: 45px;\n  overflow: hidden;\n  border-radius: 5px;\n  transition: 1s;\n}\n.list-group-item .description span {\n  font-size: 10px;\n  font-family: \"Noto Serif Gujarati\", serif;\n}\n.avatar {\n  border-radius: 50%;\n  padding: 3px;\n  overflow: hidden;\n  background: #ddd;\n  -o-object-position: 50px 30px;\n     object-position: 50px 30px;\n}\n.btn-remove {\n  font-size: 10px;\n  right: -7px;\n  top: -7px;\n  z-index: 9;\n}\nh6 .delete-btn {\n  opacity: 0;\n  transition: 0.6s;\n}\n.list-group-item:hover h6 .delete-btn {\n  opacity: 1;\n}\n.list-group-item:hover h6 .delete-btn i {\n  color: red;\n}\n.description:hover {\n  height: 85px;\n  max-height: 85px;\n}\n.created-at span.badge {\n  font-size: 10px;\n}\n.loader {\n  position: absolute;\n  top: 30vh;\n  z-index: 99;\n}\n.task-repo {\n  background: rgba(212, 212, 212, 0.568627451);\n}\n.input-group #input-2 {\n  border-right: none;\n}\n.input-group span button {\n  border-radius: 0 10px 10px 0;\n}\n.staff-list-stack {\n  margin-left: -23px;\n}\n.staff-list-stack:first-child {\n  margin-left: 0;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* light stylings for the kanban columns */\n.staff-name {\n  font-size: 12px;\n  align-items: center;\n  width: 100%;\n  text-transform: capitalize;\n}\n.card-list {\n  margin-right: 20px;\n  background-color: rgba(239, 239, 239, 0.6117647059);\n  border-radius: 4px;\n  transition: 0.5s;\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);\n}\n.kanban-column {\n  min-height: 100px;\n}\n.overflow-hidden {\n  overflow: hidden;\n}\n.list-group-staff {\n  transition: 0.5s;\n}\n.list-group-staff:hover {\n  transform: translate(-5px, 0);\n}\n.list-group-item {\n  margin-bottom: 5px;\n  cursor: pointer;\n  transition: 0.5s;\n  border-radius: 4px;\n}\n.list-group-item h6 {\n  font-family: \"Acme\", sans-serif;\n}\n.list-group-item .card-headers {\n  margin: -6px 0 10px -13px;\n  background: #dedede;\n  width: 111%;\n  padding-left: 10px;\n}\n.list-group-item .description {\n  background-color: #efefef;\n  line-height: 1.2;\n  padding: 0 5px 5px 5px;\n  max-height: 45px;\n  overflow: hidden;\n  border-radius: 5px;\n  transition: 1s;\n}\n.list-group-item .description span {\n  font-size: 10px;\n  font-family: \"Noto Serif Gujarati\", serif;\n}\n.avatar {\n  border-radius: 50%;\n  padding: 3px;\n  overflow: hidden;\n  background: #ddd;\n  -o-object-position: 50px 30px;\n     object-position: 50px 30px;\n}\n.content-header h6 {\n  display: -webkit-box;\n  max-width: 100%;\n  -webkit-line-clamp: 4;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n}\n.btn-remove {\n  font-size: 10px;\n  right: -7px;\n  top: -7px;\n  z-index: 9;\n}\n.delete-btn {\n  opacity: 0;\n  transition: 0.6s;\n}\n.list-group-item:hover .delete-btn {\n  opacity: 1;\n}\n.list-group-item:hover .delete-btn i {\n  color: red;\n}\n.description:hover {\n  height: 85px;\n  max-height: 85px;\n}\n.created-at span.badge {\n  font-size: 10px;\n}\n.loader {\n  position: absolute;\n  top: 30vh;\n  z-index: 99;\n}\n.task-repo {\n  background: rgba(212, 212, 212, 0.568627451);\n}\n.input-group #input-2 {\n  border-right: none;\n}\n.input-group span button {\n  border-radius: 0 10px 10px 0;\n}\n.staff-list-stack {\n  margin-left: -23px;\n}\n.staff-list-stack:first-child {\n  margin-left: 0;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -76651,19 +76653,35 @@ var render = function () {
                           },
                         },
                         [
-                          _c("div", { staticClass: "card-headers" }, [
+                          _c("div", { staticClass: "card-headers row" }, [
                             _c(
-                              "h6",
+                              "div",
+                              { staticClass: "content-header my-2 col-10" },
+                              [
+                                _c(
+                                  "h6",
+                                  {
+                                    staticClass:
+                                      "mb-0 text-capitalize d-flex justify-content-between align-items-center",
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                    " +
+                                        _vm._s(element.name) +
+                                        "\n                                "
+                                    ),
+                                  ]
+                                ),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
                               {
                                 staticClass:
-                                  "mb-0 text-capitalize d-flex justify-content-between align-items-center",
+                                  "col-2 d-flex justify-content-center align-items-center",
                               },
                               [
-                                _vm._v(
-                                  "\n                                " +
-                                    _vm._s(element.name) +
-                                    "\n                                "
-                                ),
                                 _c(
                                   "button",
                                   {
@@ -77726,7 +77744,7 @@ var render = function () {
                 "div",
                 { staticClass: "modal-header position-relative pt-1 pb-0" },
                 [
-                  _vm.taskData.status == "todo"
+                  _vm.status == "todo"
                     ? _c(
                         "label",
                         {
@@ -77738,12 +77756,12 @@ var render = function () {
                             staticClass:
                               "fa-solid text-dark fa-list-check me-2",
                           }),
-                          _c("span", [_vm._v("To - Do")]),
+                          _c("span", [_vm._v(_vm._s(_vm.newStat))]),
                         ]
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.taskData.status == "doing"
+                  _vm.status == "doing"
                     ? _c(
                         "label",
                         {
@@ -77754,12 +77772,12 @@ var render = function () {
                           _c("i", {
                             staticClass: "fa-solid fa-spinner text-light me-2",
                           }),
-                          _c("span", [_vm._v("Doing")]),
+                          _c("span", [_vm._v(_vm._s(_vm.newStat))]),
                         ]
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.taskData.status == "done"
+                  _vm.status == "done"
                     ? _c(
                         "label",
                         {
@@ -77770,7 +77788,7 @@ var render = function () {
                           _c("i", {
                             staticClass: "fa-solid fa-check text-light me-2",
                           }),
-                          _c("span", [_vm._v("Done")]),
+                          _c("span", [_vm._v(_vm._s(_vm.newStat))]),
                         ]
                       )
                     : _vm._e(),
@@ -78016,67 +78034,75 @@ var render = function () {
                     }),
                   ]),
                   _vm._v(" "),
-                  _c("LabelTitle", {
-                    attrs: {
-                      title: "Mulai mengerjakan",
-                      icon: "fa-solid fa-stopwatch",
-                    },
-                  }),
+                  _vm.status == "doing"
+                    ? _c("LabelTitle", {
+                        attrs: {
+                          title: "Mulai mengerjakan",
+                          icon: "fa-solid fa-stopwatch",
+                        },
+                      })
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c("div", { staticClass: "mb-3 input-text" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.start_on,
-                          expression: "start_on",
-                        },
-                      ],
-                      staticClass: "form-control",
-                      attrs: { id: "dateStart" },
-                      domProps: { value: _vm.start_on },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.start_on = $event.target.value
-                        },
-                      },
-                    }),
-                  ]),
+                  _vm.status == "doing"
+                    ? _c("div", { staticClass: "mb-3 input-text" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.start_on,
+                              expression: "start_on",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          attrs: { id: "dateStart" },
+                          domProps: { value: _vm.start_on },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.start_on = $event.target.value
+                            },
+                          },
+                        }),
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c("LabelTitle", {
-                    attrs: {
-                      title: "Selesai mengerjakan",
-                      icon: "fa-solid fa-stopwatch",
-                    },
-                  }),
+                  _vm.status == "doing"
+                    ? _c("LabelTitle", {
+                        attrs: {
+                          title: "Selesai mengerjakan",
+                          icon: "fa-solid fa-stopwatch",
+                        },
+                      })
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c("div", { staticClass: "mb-3 input-text" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.finish_on,
-                          expression: "finish_on",
-                        },
-                      ],
-                      staticClass: "form-control",
-                      attrs: { id: "dateFinish" },
-                      domProps: { value: _vm.finish_on },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.finish_on = $event.target.value
-                        },
-                      },
-                    }),
-                  ]),
+                  _vm.status == "doing"
+                    ? _c("div", { staticClass: "mb-3 input-text" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.finish_on,
+                              expression: "finish_on",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          attrs: { id: "dateFinish" },
+                          domProps: { value: _vm.finish_on },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.finish_on = $event.target.value
+                            },
+                          },
+                        }),
+                      ])
+                    : _vm._e(),
                 ],
                 1
               ),
@@ -78095,7 +78121,7 @@ var render = function () {
                         },
                       },
                       [
-                        _vm.newStat == "doing"
+                        _vm.status == "todo"
                           ? _c("label", [_vm._v("Mulai Task")])
                           : _c("label", [_vm._v("Selesaikan Task")]),
                       ]
@@ -78161,7 +78187,7 @@ var render = function () {
                         },
                       },
                       [
-                        _vm.newStat == "doing"
+                        _vm.status == "todo"
                           ? _c("label", [_vm._v("Mulai Task")])
                           : _c("label", [_vm._v("Selesaikan Task")]),
                       ]
