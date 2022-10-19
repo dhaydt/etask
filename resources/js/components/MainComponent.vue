@@ -1,43 +1,6 @@
 <template>
     <div class="main-body mb-4">
         <Header :users="users"></Header>
-        <!-- <div class="nav-menu d-flex justify-content-end align-items-center">
-            <button
-                type="button"
-                class="btn btn-secondary rotate user-btn py-0 px-2 text-capitalize"
-                data-kt-menu-trigger="hover"
-                data-kt-menu-placement="bottom-start"
-                data-kt-menu-offset="0px, 5px"
-            >
-                <img height="20" class="me-2" src="img/user.png" />Welcome, {{ user.name }}
-                <i class="fas fa-caret-down ms-2"></i>
-            </button>
-
-            <div
-                class="menu menu-user menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px"
-                data-kt-menu="true"
-            >
-                <div class="menu-item px-3">
-                    <a href="javascript:"  data-bs-toggle="modal" data-bs-target="#dasarSpt" class="menu-link px-3"> Dasar SPT </a>
-                </div>
-                <div class="menu-item px-3">
-                    <a href="#" class="menu-link px-3"> New Customer </a>
-                </div>
-                <div class="separator mb-3 opacity-75"></div>
-                <div class="menu-item px-3">
-                    <form method="POST" action="/logout">
-                        <input type="hidden" name="_token" :value="csrf" />
-                        <button
-                            type="submit"
-                            class="menu-link px-3 text-danger logout-btn"
-                        >
-                            <i class="fa-solid fa-right-from-bracket me-2 text-danger"></i>
-                            Keluar
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div> -->
         <Body
             :todos="todos"
             :doing="doing"

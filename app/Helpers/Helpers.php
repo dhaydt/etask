@@ -2,8 +2,10 @@
 
 namespace App\Helpers;
 
+use App\Models\AsnTerkait;
 use App\Models\Staff;
 use App\Models\Task;
+use App\Models\User;
 use GuzzleHttp\Client;
 
 class Helpers
@@ -110,9 +112,16 @@ class Helpers
         return $return;
     }
 
+    public static function getAuthUser($id)
+    {
+        $user = User::with('asn')->find($id);
+
+        return $user;
+    }
+
     public static function getUserDetail($id)
     {
-        $user = Staff::with('detail', 'user')->find($id);
+        $user = AsnTerkait::with('user')->where('');
 
         return $user;
     }

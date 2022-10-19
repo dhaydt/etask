@@ -53,6 +53,8 @@ class AutentikasController extends Controller
             $request->session()->put('token_user', $loginLogs->token);
             $request->session()->put('user_log_id', $loginLogs->id);
             $request->session()->put('role_id', $user->role);
+            $request->session()->put('user_id', $user->id);
+            $request->session()->put('id_skpd', $user->id_skpd);
 
             return redirect()->route('dashboard')->with('success', 'Selamat datang '.$user['name']);
         }

@@ -8300,43 +8300,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -8747,16 +8710,16 @@ __webpack_require__.r(__webpack_exports__);
           var user = resp.data.user;
           var selected = [];
           localStorage.setItem("semuaPegawaiSkpd", JSON.stringify(dataSkpd));
+          console.log('user', user);
           dataSkpd.forEach(function (item, i) {
-            if (item.id_skpd == id_skpd) {
-              user.filter(function (u) {
-                // return u.id.toString() === item.nip.toString();
-                if (u.id.toString() === item.nip.toString()) {
-                  selected.push(item);
-                }
-              });
-            }
+            user.filter(function (u) {
+              // return u.id.toString() === item.nip.toString();
+              if (u.nip_terkait === item.nip) {
+                selected.push(item);
+              }
+            });
           });
+          console.log('dataSkpd', selected);
           that.loadingAsn = false;
           Vue.$toast.success("Data ASN Terkait berhasil di update.."); // that.namaSkpd = selected[0].nama_skpd;
 
@@ -8772,24 +8735,25 @@ __webpack_require__.r(__webpack_exports__);
       var selected = [];
       var allStaff = [];
       dataSkpd.forEach(function (item, i) {
-        if (item.id_skpd) {
-          var user = JSON.parse(localStorage.getItem("asnTerdaftar"));
-          console.log("beforeFilter", item);
-          user.filter(function (u) {
-            // return u.id.toString() === item.nip.toString();
-            if (u.nip == item.nip) {
-              selected.push(item);
-            }
-          });
-          allStaff.push(item);
-        }
-      }); // that.loadingAsn = false;
+        var user = JSON.parse(localStorage.getItem("asnTerdaftar"));
+        console.log("beforeFilter", item);
+        console.log("user", user);
+        user.filter(function (u) {
+          console.log('filter', u.nip === item.nip, u, item.nip);
+
+          if (u.nip === item.nip) {
+            selected.push(item);
+          }
+        });
+        allStaff.push(item);
+      });
+      console.log('selec', selected); // that.loadingAsn = false;
       // Vue.$toast.success("Data ASN Terkait berhasil di update..");
       // that.namaSkpd = selected[0].nama_skpd;
 
       this.$root.$emit("updateDataPeg");
       localStorage.setItem("allAsnAkpd", JSON.stringify(allStaff));
-      localStorage.setItem("selected", JSON.stringify(allStaff));
+      localStorage.setItem("selected", JSON.stringify(selected));
     },
     updateDasarStatus: function updateDasarStatus(data) {
       this.$parent.updateDasarStatus(data);
@@ -8881,6 +8845,7 @@ __webpack_require__.r(__webpack_exports__);
       this.staffs.forEach(function (s) {
         _this2.newStaff.push(s);
       });
+      console.log('staff-body', this.staffs);
       this.doing.forEach(function (s) {
         var todo = {
           id: s.id,
@@ -86404,7 +86369,7 @@ var render = function () {
                       return _c(
                         "div",
                         {
-                          key: element.name,
+                          key: element.id,
                           staticClass:
                             "list-group-item overflow-hidden text-capitalize mb-4",
                           on: {
@@ -87344,7 +87309,7 @@ var render = function () {
           return _c(
             "div",
             {
-              key: element.name,
+              key: element.id,
               staticClass:
                 "list-group-item overflow-hidden text-capitalize mb-4",
               on: {
@@ -89077,7 +89042,7 @@ var render = function () {
           return _c(
             "div",
             {
-              key: element.name,
+              key: element.nama,
               staticClass:
                 "list-group-staff mb-2 d-flex card flex-row shadow-sm list-group-item text-capitalize position-relative",
               attrs: { "data-bs-toggle": "tooltip" },
@@ -89091,7 +89056,7 @@ var render = function () {
                   attrs: { "data-bs-toggle": "tooltip" },
                   on: {
                     click: function ($event) {
-                      return _vm.removeStaff(element.id)
+                      return _vm.removeStaff(element.nip_terkait)
                     },
                   },
                 },
@@ -89136,7 +89101,7 @@ var render = function () {
                   _c("div", { staticClass: "staff-label" }, [
                     _vm._v(
                       "\n                    " +
-                        _vm._s(element.name) +
+                        _vm._s(element.nama) +
                         "\n                "
                     ),
                   ]),

@@ -77,11 +77,11 @@
 <body>
     <div class="bg-img"></div>
     @php
-        $id = session()->get('nip');
+        $id = session()->get('user_id');
         if($id){
-            $user = App\Helpers\Helpers::getUserDetail($id);
+            $user = App\Helpers\Helpers::getAuthUser($id);
             if($user){
-                $skpd = $user['detail']['id_skpd'];
+                $skpd = $user['id_skpd'];
             }else{
                 $skpd = 0;
             }
@@ -95,17 +95,18 @@
         foreach($staffs as $s){
             $staf = [
                 'id' => (string)$s['id'],
+                'nip_terkait' => $s['nip_terkait'],
                 'available' => $s['available'],
-                'name' => $s['name'],
-                'jabatan_id' => $s['jabatan_id'],
+                'nama' => $s['nama'],
+                'nama_jabatan' => $s['nama_jabatan'],
                 'created_at' => $s['created_at'],
-                'foto' => $s['detail']['foto'],
+                'foto' => $s['foto'],
+                'id_skpd' => $s['id_skpd'],
                 'updated_at' => $s['updated_at'],
         ];
 
             array_push($newStaffs, $staf);
         }
-
 
         $u = $user;
         if($user){
@@ -115,8 +116,8 @@
                 'created_at' => $u['created_at'],
                 'updated_at' => $u['updated_at'],
                 'available' => $u['available'],
-                'foto' => $u['detail']['foto'],
-                'id_skpd' => $u['detail']['id_skpd'],
+                'foto' => $u['foto'],
+                'id_skpd' => $u['id_skpd'],
             ];
         }else{
             $format = [

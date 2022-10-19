@@ -29,7 +29,7 @@
                         <div
                             class="list-group-item overflow-hidden text-capitalize mb-4"
                             v-for="element in newTodos"
-                            :key="element.name"
+                            :key="element.id"
                             @click="cardModal(element)"
                         >
                             <div class="card-headers row">
@@ -350,18 +350,17 @@ export default {
                             "semuaPegawaiSkpd",
                             JSON.stringify(dataSkpd)
                         );
+                        console.log('user', user);
                         dataSkpd.forEach(function (item, i) {
-                            if (item.id_skpd == id_skpd) {
                                 user.filter((u) => {
                                     // return u.id.toString() === item.nip.toString();
-                                    if (
-                                        u.id.toString() === item.nip.toString()
-                                    ) {
+                                    if (u.nip_terkait === item.nip) {
                                         selected.push(item);
                                     }
                                 });
-                            }
                         });
+                        console.log('dataSkpd', selected)
+
                         that.loadingAsn = false;
                         Vue.$toast.success(
                             "Data ASN Terkait berhasil di update.."
@@ -385,24 +384,24 @@ export default {
             var selected = [];
             var allStaff = [];
             dataSkpd.forEach(function (item, i) {
-                if (item.id_skpd) {
                     var user = JSON.parse(localStorage.getItem("asnTerdaftar"));
                     console.log("beforeFilter", item);
+                    console.log("user", user);
                     user.filter((u) => {
-                        // return u.id.toString() === item.nip.toString();
-                        if (u.nip == item.nip) {
+                        console.log('filter',u.nip === item.nip, u, item.nip);
+                        if (u.nip === item.nip) {
                             selected.push(item);
                         }
                     });
                     allStaff.push(item);
-                }
             });
+            console.log('selec', selected);
             // that.loadingAsn = false;
             // Vue.$toast.success("Data ASN Terkait berhasil di update..");
             // that.namaSkpd = selected[0].nama_skpd;
             this.$root.$emit("updateDataPeg");
             localStorage.setItem("allAsnAkpd", JSON.stringify(allStaff));
-            localStorage.setItem("selected", JSON.stringify(allStaff));
+            localStorage.setItem("selected", JSON.stringify(selected));
         },
         updateDasarStatus(data) {
             this.$parent.updateDasarStatus(data);
@@ -498,6 +497,8 @@ export default {
             this.staffs.forEach((s) => {
                 this.newStaff.push(s);
             });
+
+            console.log('staff-body',this.staffs);
 
             this.doing.forEach((s) => {
                 var todo = {

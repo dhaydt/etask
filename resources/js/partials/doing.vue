@@ -16,7 +16,7 @@
             <div
                 class="list-group-item overflow-hidden text-capitalize mb-4"
                 v-for="element in doList"
-                :key="element.name"
+                :key="element.id"
                 @click="cardModal(element)"
             >
                 <div class="card-headers row">

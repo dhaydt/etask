@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helpers;
+use App\Models\AsnTerkait;
 use App\Models\Dasar;
 use App\Models\Staff;
 use App\Models\StaffDetail;
@@ -27,7 +28,7 @@ class Controller extends BaseController
 
     public function staffList()
     {
-        $staff = $this->staffIdString(Staff::get());
+        $staff = AsnTerkait::where('id_skpd', session()->get('id_skpd'))->get();
 
         return response()->json($staff);
     }
@@ -138,7 +139,7 @@ class Controller extends BaseController
 
                     return $data;
                 } else {
-                    $user = $this->staffIdString(Staff::get());
+                    $user = AsnTerkait::where('id_skpd', session()->get('id_skpd'))->get();
                     $dataMentah = json_decode($response->getBody())->data;
                     $dataSkpd = [];
                     foreach ($dataMentah as $dm) {
@@ -191,88 +192,75 @@ class Controller extends BaseController
     public function addStaff(Request $request)
     {
         $data = $request['user'];
-        if ($request['status'] == false) {
-            $user = new User();
-            $user->nip = $data['nip'];
-            $user->name = $data['nama_pegawai'];
-            $user->password = Hash::make($data['nip']);
-            if ($data['nip'] == 1372010910920041 || $data['nip'] == 198611252010011009) {
-                $user->role = 1;
-            } else {
-                $user->role = 2;
-            }
-            $user->created_at = now();
-            $user->updated_at = now();
+        $auth = session()->get('user_id');
 
-            $check = Staff::where('id', $data['nip'])->get();
-            if (count($check) > 0) {
-                foreach ($check as $c) {
+        $data = $request['user'];
+        if ($request['status'] == false) {
+            $check = User::where('nip', $data['nip'])->first();
+            if (!$check) {
+                $user = new User();
+                $user->nip = $data['nip'];
+                $user->name = $data['nama_pegawai'];
+                $user->password = Hash::make($data['nip']);
+                if ($data['nip'] == 1372010910920041 || $data['nip'] == 198611252010011009) {
+                    $user->role = 1;
+                } else {
+                    $user->role = 2;
+                }
+                $user->id_skpd = $data['id_skpd'];
+                $user->created_at = now();
+                $user->updated_at = now();
+            }
+
+            $checkStaff = AsnTerkait::where(['id_users' => $auth, 'nip_terkait' => $data['nip']])->get();
+            if (count($checkStaff) > 0) {
+                foreach ($checkStaff as $c) {
                     $c->delete();
                 }
             }
 
-            $staff = new Staff();
-            $staff->id = $data['nip'];
-            $staff->name = $data['nama_pegawai'];
+            $staff = new AsnTerkait();
+            $staff->id_users = $auth;
+            $staff->nip_terkait = $data['nip'];
+            $staff->nama = $data['nama_pegawai'];
+            $staff->gelar_depan = '';
+            $staff->gelar_belakang = '';
+            $staff->tempat_lahir = null;
+            $staff->foto = $data['foto'];
+            $staff->tanggal_lahir = null;
+            $staff->id_jenis_kelamin = null;
+            $staff->id_agama = null;
+            $staff->alamat = null;
+            $staff->no_hp = $data['no_hp'];
+            $staff->nik = null;
+            $staff->nama_jabatan = $data['nama_jabatan'];
+            $staff->id_sotk = $data['id_sotk'];
+            $staff->id_skpd = $data['id_skpd'];
             $staff->available = 1;
 
-            $checkDetail = StaffDetail::where('nip', $data['nip'])->get();
-            if (count($checkDetail) > 0) {
-                foreach ($checkDetail as $cd) {
-                    $cd->delete();
-                }
+            if (!$check) {
+                $user->save();
             }
-
-            $detail = new StaffDetail();
-            $detail->id_staff = $data['nip'];
-            $detail->nip = $data['nip'];
-            $detail->nama = $data['nama_pegawai'];
-            $detail->gelar_depan = '';
-            $detail->gelar_belakang = '';
-            $detail->id_jenis_asn = $data['id_jns_asn'];
-            $detail->tempat_lahir = null;
-            $detail->tanggal_lahir = null;
-            $detail->foto = $data['foto'];
-            $detail->jenis_kelamin = null;
-            $detail->id_agama = null;
-            $detail->alamat = null;
-            $detail->active = $data['aktif_jab'];
-            $detail->no_hp = $data['no_hp'];
-            $detail->nik = null;
-            $detail->nama_jabatan = $data['nama_jabatan'];
-            $detail->id_sotk = $data['id_sotk'];
-            $detail->id_skpd = $data['id_skpd'];
-
-            $user->save();
             $staff->save();
-            $detail->save();
 
             $refresh = $this->refresh();
 
             return response()->json([
-                    'code' => 200,
-                    'message' => 'Berhasil menyimpan Staff',
-                    'data' => $refresh,
-                ]);
+                'code' => 200,
+                'message' => 'Berhasil menyimpan ASN Terkait',
+                'data' => $refresh,
+        ]);
         } else {
-            $staff = Staff::where('id', $data['nip'])->first();
-            $staffDetail = StaffDetail::where('nip', $data['nip'])->first();
-            $user = User::where('nip', $data['nip'])->first();
+            $staff = AsnTerkait::where('nip_terkait', $data['nip'])->first();
             if ($staff) {
                 $staff->delete();
-            }
-            if ($staffDetail) {
-                $staffDetail->delete();
-            }
-            if ($user) {
-                $user->delete();
             }
 
             $refresh = $this->refresh();
 
             return response()->json([
                 'code' => 200,
-                'message' => 'Staff berhasil dihilangkan.',
+                'message' => 'ASN Terkait berhasil dihilangkan.',
                 'data' => $refresh,
             ]);
         }
@@ -387,7 +375,7 @@ class Controller extends BaseController
     public function history($action, $task_id, $status)
     {
         $history = new Task_history();
-        $history->nip = Helpers::getUserDetail(session()->get('nip'))->id;
+        $history->nip = Helpers::getUserDetail(session()->get('nip'))->nip_terkait;
         $history->action = $action;
         $history->task_id = $task_id;
         $history->status = $status;
@@ -414,7 +402,7 @@ class Controller extends BaseController
                 $data['done'] = Task::where('status', 'done')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$user->nip.'")')->get();
             }
         }
-        $data['staffs'] = Staff::with('detail')->get();
+        $data['staffs'] = AsnTerkait::where('id_skpd', session()->get('id_skpd'))->get();
         $data['dasar'] = Dasar::orderBy('created_at', 'desc')->get();
 
         return view('app', $data)->with('success', 'Selamat datang di Aplikasi E-Task');
@@ -490,7 +478,7 @@ class Controller extends BaseController
 
     public function refresh()
     {
-        $user = Helpers::getUserDetail(session()->get('nip'))->user;
+        $user = Helpers::getAuthUser(session()->get('user_id'));
         if (!$user) {
             return redirect()->route('login');
         }
@@ -510,7 +498,7 @@ class Controller extends BaseController
             }
         }
 
-        $data['staffs'] = $this->staffIdString(Staff::get());
+        $data['staffs'] = AsnTerkait::where('id_skpd', session()->get('id_skpd'))->get();
         $data['dasar'] = Dasar::get();
 
         return response()->json($data);

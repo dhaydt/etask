@@ -15,11 +15,11 @@
             <div
                 class="list-group-staff mb-2 d-flex card flex-row shadow-sm list-group-item text-capitalize position-relative"
                 v-for="element in staffs"
-                :key="element.name"
+                :key="element.nama"
                 data-bs-toggle="tooltip"
             >
                 <button
-                    @click="removeStaff(element.id)"
+                    @click="removeStaff(element.nip_terkait)"
                     class="btn btn-sm btn-danger btn-hover-scale p-1 btn-remove position-absolute text-light"
                     data-bs-toggle="tooltip"
                 >
@@ -34,7 +34,7 @@
                     class="staff-name d-flex justify-content-center align-items-start flex-column"
                 >
                     <div class="staff-label">
-                        {{ element.name }}
+                        {{ element.nama }}
                     </div>
                     <label
                         v-if="element.available == 1"
