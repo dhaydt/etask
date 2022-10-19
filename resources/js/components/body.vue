@@ -263,7 +263,6 @@ export default {
         };
     },
     mounted() {
-        console.log("staffBody", this.staffs);
         this.splitData();
         this.mountSkpd();
     },
@@ -566,6 +565,9 @@ export default {
                     start: s.start,
                     description: s.description,
                     dasar: JSON.parse(s.spt_id),
+                    start_do: s.start_do,
+                    finish_do: s.finish_do,
+                    report: s.report,
                 };
                 this.newDoing.push(todo);
             });

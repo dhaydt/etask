@@ -9,7 +9,11 @@
     >
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="/updateTask" method="POST" name="cardTask">
+                <form
+                    @submit="formSubmit"
+                    name="cardTask"
+                    enctype="multipart/form-data"
+                >
                     <div class="modal-header position-relative pt-1 pb-0">
                         <label
                             v-if="status == 'todo'"
@@ -130,6 +134,7 @@
                             <input
                                 type="date"
                                 v-model="start"
+                                name="start"
                                 class="form-control"
                                 :disabled="taskData.status == 'doing'"
                             />
@@ -160,6 +165,7 @@
                                 use24-hour
                             ></datetime>
                         </div>
+
                         <div class="mb-5" v-if="status == 'doing'">
                             <LabelTitle
                                 title="Upload Laporan"
@@ -168,7 +174,7 @@
                             <input
                                 type="file"
                                 name="file"
-                                @change="onFileChange"
+                                v-on:change="onFileChange"
                                 accept="application/pdf,application/vnd.ms-excel,.docx, image/jpeg, .png, .jpg, .jpeg"
                                 id="pilih_file"
                                 hidden
@@ -184,6 +190,24 @@
                                     <i class="fa-solid fa-file"></i>
                                     {{ fileName ? fileName : "Pilih File" }}
                                 </label>
+                                <div class="border p-2 mt-3">
+                                    <p>Preview Here:</p>
+                                    <template v-if="preview">
+                                        <img :src="preview" class="img-fluid" />
+                                        <p class="mb-0">
+                                            file name: {{ image.name }}
+                                        </p>
+                                        <p class="mb-0">
+                                            size:
+                                            {{
+                                                Math.round(
+                                                    (image.size / 1024 / 1024) *
+                                                        100
+                                                ) / 100
+                                            }}MB
+                                        </p>
+                                    </template>
+                                </div>
                             </div>
                             <div v-if="isUploading" class="progress mt-5">
                                 <div
@@ -213,10 +237,7 @@
                         >
                             Tutup
                         </button>
-                        <button
-                            class="btn btn-primary"
-                            @click.prevent="saveTask"
-                        >
+                        <button class="btn btn-primary" type="submit">
                             Simpan Task
                         </button>
                     </div>
@@ -248,7 +269,6 @@
 <script>
 import LabelTitle from "./part/label-title";
 import vSelect from "vue-select";
-import DateTimePicker from "vue-vanilla-datetime-picker";
 import { Datetime } from "vue-datetime";
 import "vue-datetime/dist/vue-datetime.css";
 
@@ -278,7 +298,7 @@ export default {
                 .getAttribute("content"),
             config: {
                 headers: {
-                    header: document
+                    headers: document
                         .querySelector('meta[name="csrf-token"]')
                         .getAttribute("content"),
                 },
@@ -287,8 +307,9 @@ export default {
             dasarSpt: [],
 
             fileName: [],
-            file: null,
+            file: [],
             isUploading: false,
+            preview: null,
             Deselect: {
                 render: (createElement) => createElement("span", "❌"),
             },
@@ -304,25 +325,21 @@ export default {
         status() {
             this.checkStatus(this.status);
         },
-        updateFlat() {
-            this.start_on == null;
-            this.finish_on == null;
-
-            $("#dateStart").flatpickr({
-                enableTime: true,
-                dateFormat: "Y-m-d H:i",
-            });
-            $("#dateFinish").flatpickr({
-                enableTime: true,
-                dateFormat: "Y-m-d H:i",
-            });
-        },
         taskData() {
             console.log("modal.taskData", this.taskData);
             this.checkStaff();
             if (this.status == "doing") {
-                this.start_on = this.taskData.start_do;
-                this.start_on = this.taskData.finish_do;
+                if (this.taskData.start_do !== null) {
+                    this.start_on = new Date(
+                        this.taskData.start_do
+                    ).toISOString();
+                }
+
+                if (this.taskData.finish_do !== null) {
+                    this.finish_on = new Date(
+                        this.taskData.finish_do
+                    ).toISOString();
+                }
                 this.fileName = this.taskData.report;
             }
         },
@@ -343,10 +360,20 @@ export default {
         },
     },
     methods: {
-        onFileChange(e) {
+        onFileChange(event) {
             //console.log(e.target.files[0]);
-            this.fileName = "Selected File: " + e.target.files[0].name;
-            this.file = e.target.files[0];
+            this.fileName = event.target.files[0].name;
+            this.file = event.target.files[0];
+            console.log("img", event.target.files[0]);
+            var input = event.target;
+            if (input.files) {
+                var reader = new FileReader();
+                reader.onload = (e) => {
+                    this.preview = e.target.result;
+                };
+                this.image = input.files[0];
+                reader.readAsDataURL(input.files[0]);
+            }
         },
         onErrorImg(e) {
             this.$parent.onErrorImg(e);
@@ -370,7 +397,6 @@ export default {
             this.dasarSpt = this.taskData.dasar;
         },
         updateSelectStaff(options, selected) {
-            console.log("sel", selected);
             if (selected.length > 0) {
                 var filtered;
                 for (let i = 0; i < selected.length; i++) {
@@ -385,7 +411,6 @@ export default {
                             []
                         );
                         filtered = filter;
-                        console.log("filtered" + i, filtered);
                     } else {
                         const filter = filtered.reduce(
                             (acc, el) =>
@@ -396,7 +421,6 @@ export default {
                             []
                         );
                         filtered = filter;
-                        console.log("filtered" + i, filtered);
                     }
                 }
                 this.options = filtered;
@@ -451,7 +475,10 @@ export default {
         sembunyi() {
             this.$parent.hideModalTask();
         },
-        saveTask(e) {
+        formSubmit(e) {
+            e.preventDefault();
+            let that = this;
+
             var id = this.taskData.id;
             var name = this.taskData.name;
             var description = this.taskData.description;
@@ -460,31 +487,26 @@ export default {
             var start = this.start;
             var start_on = this.start_on;
             var finish_on = this.finish_on;
-            var fileName = this.fileName;
-            const that = this;
+            var file = this.file;
+
             if (dasar == undefined) {
                 var dasar = [];
             }
 
             if (this.status == "todo") {
-                if(name == null || name == ''){
+                if (name == null || name == "") {
                     Vue.$toast.warning("Nama task tidak boleh kosong!!");
-                }
-                else if (description == null || description == '') {
+                } else if (description == null || description == "") {
                     Vue.$toast.warning("Mohon isi deskripsi task!!");
                 } else if (staf.length == 0) {
-                    Vue.$toast.warning(
-                        "Mohon pilih staff!"
-                    );
+                    Vue.$toast.warning("Mohon pilih staff!");
                 } else if (dasar.length == 0) {
-                    Vue.$toast.warning(
-                        "Mohon pilih dasar SPT!"
-                    );
-                } else if(start == null){
+                    Vue.$toast.warning("Mohon pilih dasar SPT!");
+                } else if (start == null) {
                     Vue.$toast.warning(
                         "Mohon masukan tanggal pengerjaan task!"
                     );
-                }else {
+                } else {
                     axios
                         .post(
                             "/updateTask",
@@ -508,17 +530,57 @@ export default {
                         });
                 }
             } else if (this.status == "doing") {
-                if (start_on == null) {
+                if (start_on == null || start_on == "") {
                     Vue.$toast.warning("Mohon isi tanggal mengerjakan!");
                 } else if (finish_on == "" || description == null) {
                     Vue.$toast.warning(
                         "Mohon isi tanggal selesai mengerjakan!"
                     );
-                } else if (fileName == null) {
-                    Vue.$toast.warning(
-                        "Mohon upload foto atau dokumen laporan!"
-                    );
-                } else {
+                }
+                // else if (file.name) {
+                //     Vue.$toast.warning(
+                //         "Mohon upload foto atau dokumen laporan!"
+                //     );
+                // }
+                else {
+                    var formData = new FormData();
+
+                    formData.append("file", file);
+                    console.log("file", file);
+                    console.log("formData", ...formData.entries());
+
+                    // var dataSend = {
+                    //             id: id,
+                    //             name: name,
+                    //             staf: staf,
+                    //             description: description,
+                    //             start: start,
+                    //             dasar: dasar,
+                    //             start_on: start_on,
+                    //             finish_on: finish_on,
+                    //             file: formData,
+                    //         },
+
+                    // $.ajax({
+                    //     url: "/updateTask",
+                    //     method: "post",
+                    //     data: JSON.stringify(dataSend), // Replace 'this' with self''
+                    //     contentType: "multypart/",
+                    //     dataType: "json",
+                    //     context: this,
+                    //     success: function (res) {
+                    //         $("#res").html(res);
+                    //     },
+                    // })
+
+                    const config = {
+                        headers: {
+                            "Content-Type":
+                                "multipart/form-data; charset=utf-8; boundary=" +
+                                Math.random().toString().substr(2),
+                        },
+                    };
+
                     axios
                         .post(
                             "/updateTask",
@@ -529,6 +591,9 @@ export default {
                                 description: description,
                                 start: start,
                                 dasar: dasar,
+                                start_on: start_on,
+                                finish_on: finish_on,
+                                file: formData,
                             },
                             this.config
                         )

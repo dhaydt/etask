@@ -15,7 +15,7 @@
         >
             <div
                 class="list-group-item overflow-hidden text-capitalize mb-4"
-                v-for="element in doing"
+                v-for="element in doList"
                 :key="element.name"
                 @click="cardModal(element)"
             >
@@ -34,7 +34,7 @@
                     ><i
                         class="fa-solid fa-circle-exclamation me-2 text-danger"
                     ></i
-                    >Pilih Tanggal Mengerjakan</span
+                    >Pilih Tanggal Mengerjakan {{ element.start_do }}</span
                 >
                 <span
                     v-if="element.finish_do == null"
@@ -91,6 +91,11 @@ export default {
     props: {
         doing: Array,
     },
+    data(){
+        return {
+            doList: [],
+        }
+    },
     computed: {
         dragOptions() {
             return {
@@ -104,6 +109,11 @@ export default {
         realValue() {
             return this.value ? this.value : this.list;
         },
+    },
+    watch:{
+        doing(){
+            this.doList = this.doing
+        }
     },
     methods: {
         onErrorImg(e) {

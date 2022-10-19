@@ -1,6 +1,6 @@
 import Alpine from "alpinejs";
 
-global.jQuery = require('jquery');
+global.jQuery = require("jquery");
 var $ = global.jQuery;
 window.$ = $;
 
@@ -17,9 +17,15 @@ require("./bootstrap");
 // import bootstrapvue from "bootstrap-vue";
 import Vue from "vue";
 import ToastPlugin from "vue-toast-notification";
+import ObjectToFD from "vue-object-to-formdata";
 
 import "vue-toast-notification/dist/theme-sugar.css";
+const VueUploadComponent = require("vue-upload-component");
+
 window.Vue = require("vue").default;
+
+Vue.use(ObjectToFD);
+Vue.component("file-upload", VueUploadComponent);
 
 /**
  * The following block of code may be used to automatically register your
@@ -47,7 +53,7 @@ Vue.use(ToastPlugin);
 Vue.mixin({
     methods: {
         callTitle() {
-            console.log('code Hit');
+            console.log("code Hit");
         },
     },
 });

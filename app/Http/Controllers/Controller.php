@@ -9,6 +9,7 @@ use App\Models\StaffDetail;
 use App\Models\Task;
 use App\Models\Task_history;
 use App\Models\User;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -442,6 +443,7 @@ class Controller extends BaseController
 
     public function updateTask(Request $request)
     {
+        // dd($request);
         $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -469,6 +471,11 @@ class Controller extends BaseController
         $task->spt_id = $request->dasar;
         $task->start = $request->start;
         $task->staff = $staffOld;
+
+        if ($task->status == 'doing') {
+            $task->start_do = Carbon::parse($request->start_on)->addHours(7)->format('Y-m-d H:i:s');
+            $task->finish_do = Carbon::parse($request->finish_on)->addHours(7)->format('Y-m-d H:i:s');
+        }
         $task->save();
 
         foreach ($task->staff as $s) {
