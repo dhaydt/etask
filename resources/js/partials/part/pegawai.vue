@@ -15,7 +15,7 @@
             <a
                 href="javascript:"
                 class="text-dark fw-bold text-hover-primary mb-1 fs-6"
-                >{{ dasar.nama_pegawai }} {{ dasar.nip }}</a
+                >{{ dasar.nama_pegawai }}</a
             >
         </td>
         <td class="text-center text-muted fw-bold">{{ dasar.nama_jabatan }}</td>
@@ -79,6 +79,8 @@ export default {
             console.log('selectedPeg', this.selected.some(checkId), nip)
             if(this.selected.some(checkId) == true){
                 this.show = false;
+            }else{
+                this.show = true;
             }
         },
         simpan(user){

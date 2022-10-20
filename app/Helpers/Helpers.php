@@ -3,7 +3,6 @@
 namespace App\Helpers;
 
 use App\Models\AsnTerkait;
-use App\Models\Staff;
 use App\Models\Task;
 use App\Models\User;
 use GuzzleHttp\Client;
@@ -154,37 +153,44 @@ class Helpers
     public static function checkAvailable($id)
     {
         $tasks = Task::get();
-
         if ($tasks) {
             foreach ($tasks as $t) {
                 $staffs = json_decode($t->staff);
                 if ($t['status'] == 'doing') {
                     foreach ($staffs as $s) {
                         if ($s->id == $id) {
-                            $user = Staff::where('id', $id)->first();
-                            if ($user) {
-                                $user->available = 0;
-                                $user->save();
+                            $users = AsnTerkait::where('nip_terkait', $id)->get();
+                            // dd($id);
+
+                            if (count($users) > 0) {
+                                foreach ($users as $u) {
+                                    $u->available = 0;
+                                    $u->save();
+                                }
                             }
                         }
                     }
                 } else {
                     foreach ($staffs as $s) {
                         if ($s->id == $id) {
-                            $user = Staff::where('id', $id)->first();
-                            if ($user) {
-                                $user->available = 1;
-                                $user->save();
+                            $user = AsnTerkait::where('nip_terkait', $id)->get();
+                            if (count($user) > 0) {
+                                foreach ($user as $u) {
+                                    $u->available = 1;
+                                    $u->save();
+                                }
                             }
                         }
                     }
                 }
             }
         } else {
-            $user = Staff::find($id);
-            if ($user) {
-                $user->available = 1;
-                $user->save();
+            $user = AsnTerkait::where('nip_terkait', $id)->get();
+            if (count($user) > 0) {
+                foreach ($user as $u) {
+                    $u->available = 1;
+                    $u->save();
+                }
             }
         }
     }

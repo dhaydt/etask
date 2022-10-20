@@ -10848,6 +10848,8 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.selected.some(checkId) == true) {
         this.show = false;
+      } else {
+        this.show = true;
       }
     },
     simpan: function simpan(user) {
@@ -88909,11 +88911,7 @@ var render = function () {
               staticClass: "text-dark fw-bold text-hover-primary mb-1 fs-6",
               attrs: { href: "javascript:" },
             },
-            [
-              _vm._v(
-                _vm._s(_vm.dasar.nama_pegawai) + " " + _vm._s(_vm.dasar.nip)
-              ),
-            ]
+            [_vm._v(_vm._s(_vm.dasar.nama_pegawai))]
           ),
         ]),
         _vm._v(" "),

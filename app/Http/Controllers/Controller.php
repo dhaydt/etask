@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Helpers\Helpers;
 use App\Models\AsnTerkait;
 use App\Models\Dasar;
-use App\Models\Staff;
 use App\Models\Task;
 use App\Models\Task_history;
 use App\Models\User;
@@ -419,7 +418,7 @@ class Controller extends BaseController
 
         foreach ($newStaff as $s) {
             $st = [
-                'id' => $s['id'],
+                'id' => $s['nip_terkait'],
                 'nama' => $s['nama'],
                 'foto' => $s['foto'],
             ];
@@ -547,11 +546,13 @@ class Controller extends BaseController
 
     public function updateStaff(Request $request)
     {
-        $staff = Staff::find($request->staff);
+        $staff = AsnTerkait::where('nip_terkait', $request->staff)->get();
         if ($request->task == '' || $request->task == 'todo') {
             $this->staffRemove($request->staff);
-            $staff->available = 1;
-            $staff->save();
+            foreach ($staff as $s) {
+                $s->available = 1;
+                $s->save();
+            }
             $from = Task::find($request->task_id);
 
             $data = $this->refresh();
