@@ -82,7 +82,7 @@
                                         />
                                     </div>
                                     <label for="" class="text-capitalize">{{
-                                        s.name
+                                        s.nama
                                     }}</label>
                                 </div>
                             </div>
@@ -92,7 +92,7 @@
                                 multiple
                                 v-model="newStaff"
                                 v-on:input="getId"
-                                label="name"
+                                label="nama"
                                 placeholder="Pilih Staff"
                                 :components="{ Deselect }"
                             ></v-select>

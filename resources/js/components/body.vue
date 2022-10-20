@@ -96,7 +96,7 @@
                                         class="staff-name d-flex justify-content-center"
                                     >
                                         <div class="staff-label">
-                                            {{ staf.name }}
+                                            {{ staf.nama }}
                                         </div>
                                     </div>
                                 </div>

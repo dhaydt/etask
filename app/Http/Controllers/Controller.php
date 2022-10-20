@@ -447,7 +447,7 @@ class Controller extends BaseController
         foreach ($newStaff as $s) {
             $st = [
                 'id' => $s['id'],
-                'name' => $s['name'],
+                'nama' => $s['nama'],
                 'foto' => $s['foto'],
             ];
             array_push($staffOld, $st);

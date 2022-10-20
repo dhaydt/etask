@@ -86493,7 +86493,7 @@ var render = function () {
                                         [
                                           _vm._v(
                                             "\n                                        " +
-                                              _vm._s(staf.name) +
+                                              _vm._s(staf.nama) +
                                               "\n                                    "
                                           ),
                                         ]
@@ -87769,7 +87769,7 @@ var render = function () {
                                       staticClass: "text-capitalize",
                                       attrs: { for: "" },
                                     },
-                                    [_vm._v(_vm._s(s.name))]
+                                    [_vm._v(_vm._s(s.nama))]
                                   ),
                                 ]
                               )
@@ -87782,7 +87782,7 @@ var render = function () {
                         attrs: {
                           options: _vm.options,
                           multiple: "",
-                          label: "name",
+                          label: "nama",
                           placeholder: "Pilih Staff",
                           components: { Deselect: _vm.Deselect },
                         },
