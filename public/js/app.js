@@ -8575,7 +8575,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -8700,7 +8699,6 @@ __webpack_require__.r(__webpack_exports__);
       // this.loadingAsn = true;
       var id_skpd = localStorage.getItem("id_skpd");
       var that = this;
-      console.log("skpd", id_skpd);
       axios__WEBPACK_IMPORTED_MODULE_7___default().post("pegawaiSkpd", {
         id_skpd: id_skpd
       }).then(function (resp) {
@@ -8709,6 +8707,7 @@ __webpack_require__.r(__webpack_exports__);
           var dataSkpd = resp.data.data;
           var user = resp.data.user;
           var selected = [];
+          localStorage.removeItem("semuaPegawaiSkpd");
           localStorage.setItem("semuaPegawaiSkpd", JSON.stringify(dataSkpd));
           console.log('user', user);
           dataSkpd.forEach(function (item, i) {
@@ -8734,12 +8733,11 @@ __webpack_require__.r(__webpack_exports__);
       var dataSkpd = JSON.parse(localStorage.getItem("semuaPegawaiSkpd"));
       var selected = [];
       var allStaff = [];
+      var user = JSON.parse(localStorage.getItem("asnTerdaftar"));
+      console.log("user", user);
       dataSkpd.forEach(function (item, i) {
-        var user = JSON.parse(localStorage.getItem("asnTerdaftar"));
-        console.log("beforeFilter", item);
-        console.log("user", user);
         user.filter(function (u) {
-          console.log('filter', u.nip === item.nip, u, item.nip);
+          console.log('filter', u.nip_terkait === item.nip, u, item.nip);
 
           if (u.nip === item.nip) {
             selected.push(item);
@@ -8751,9 +8749,9 @@ __webpack_require__.r(__webpack_exports__);
       // Vue.$toast.success("Data ASN Terkait berhasil di update..");
       // that.namaSkpd = selected[0].nama_skpd;
 
+      localStorage.setItem("semuaPegawaiSkpd", JSON.stringify(allStaff));
+      localStorage.setItem("asnTerdaftar", JSON.stringify(selected));
       this.$root.$emit("updateDataPeg");
-      localStorage.setItem("allAsnAkpd", JSON.stringify(allStaff));
-      localStorage.setItem("selected", JSON.stringify(selected));
     },
     updateDasarStatus: function updateDasarStatus(data) {
       this.$parent.updateDasarStatus(data);
@@ -8979,26 +8977,6 @@ __webpack_require__.r(__webpack_exports__);
         console.log("err", err);
       });
       this.status = status;
-    },
-    checkStaff: function checkStaff(evt) {// console.log("evt", evt);
-      // var taskId = evt.to.id;
-      // var from_id = evt.from.id;
-      // var user = evt.draggedContext.element.id;
-      // console.log(evt);
-      // axios
-      //     .post("updateStaff", {
-      //         task: taskId,
-      //         staff: user,
-      //         task_id: from_id,
-      //     })
-      //     .then(function (response) {
-      //         console.log("resp", response);
-      //         Vue.$toast.success("Staff Moved Successfully");
-      //     })
-      //     .catch(function (err) {
-      //         console.log("err", err);
-      //     });
-      // console.log("staffcheck", user);
     }
   }
 });
@@ -10313,22 +10291,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -10364,15 +10326,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: {
     addStaffModal: function addStaffModal() {
+      this.resetStaff();
       var selected = JSON.parse(localStorage.getItem("asnTerdaftar"));
       var allStaff = JSON.parse(localStorage.getItem("semuaPegawaiSkpd"));
       this.dataPegawai = allStaff;
       this.selected = selected;
       this.namaSkpd = allStaff[0].nama_skpd;
+      console.log('dataPeg', this.dataPegawai);
+      console.log('selected', this.selected);
       $("#addStaffModal").modal("show");
     },
+    resetStaff: function resetStaff() {
+      this.selected = [];
+      this.dataPegawai = [];
+    },
     updateDataPegawai: function updateDataPegawai() {
-      this.dataPegawai = JSON.parse(localStorage.getItem('asn_skpd'));
+      this.dataPegawai = JSON.parse(localStorage.getItem('semuaPegawaiSkpd'));
+      this.selected = JSON.parse(localStorage.getItem('asnTerdaftar'));
     },
     getSkpd: function getSkpd() {
       this.$parent.toggleLoading(true);
@@ -10851,13 +10821,20 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     dasar: function dasar() {
       this.updateActive();
+    },
+    selected: function selected() {
+      this.checkStatus(this.dasar.nip);
     }
   },
   methods: {
     checkStatus: function checkStatus(nip) {
+      console.log('sel', this.selected);
+
       var checkId = function checkId(obj) {
         return obj.nip === nip;
       };
+
+      console.log('peg', this.selected.some(checkId) == true);
 
       if (this.selected.some(checkId) == true) {
         this.show = false;
@@ -86451,7 +86428,6 @@ var render = function () {
                                 list: element.staffs,
                                 group: "task-staff",
                               },
-                              on: { move: _vm.checkStaff },
                             },
                             _vm._l(element.staffs, function (staf) {
                               return _c(

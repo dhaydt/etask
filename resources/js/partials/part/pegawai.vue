@@ -66,11 +66,16 @@ export default {
     watch:{
         dasar(){
             this.updateActive();
+        },
+        selected(){
+            this.checkStatus(this.dasar.nip);
         }
     },
     methods:{
         checkStatus(nip){
+            console.log('sel', this.selected)
             var checkId = obj => obj.nip === nip;
+            console.log('peg', this.selected.some(checkId) == true)
             if(this.selected.some(checkId) == true){
                 this.show = false;
             }

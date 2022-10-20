@@ -375,7 +375,7 @@ class Controller extends BaseController
     public function history($action, $task_id, $status)
     {
         $history = new Task_history();
-        $history->nip = Helpers::getUserDetail(session()->get('nip'))->nip_terkait;
+        $history->nip = Helpers::getAuthUser(session()->get('user_id'))->nip;
         $history->action = $action;
         $history->task_id = $task_id;
         $history->status = $status;
@@ -529,17 +529,17 @@ class Controller extends BaseController
         $staff = [];
         $spt = [];
         $report = [];
-        $user = Helpers::getUserDetail(session()->get('nip'));
-        if ($user->user->nip == 2) {
+        $user = Helpers::getAuthUser(session()->get('user_id'));
+        if ($user->nip == 2) {
             $staff = [
                 [
-                        'id' => $user->user->nip,
+                        'id' => $user->nip,
                         'name' => $user->user->name,
                 ],
             ];
         }
         $task = new Task();
-        $task->nip = $user->user->nip;
+        $task->nip = $user->nip;
         $task->name = $request->title;
         $task->status = $request->status;
         $task->staff = json_encode($staff);

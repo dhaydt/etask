@@ -65,7 +65,6 @@
                                 :id="element.id"
                                 :list="element.staffs"
                                 group="task-staff"
-                                @move="checkStaff"
                             >
                                 <div
                                     class="list-group-staff bg-light-success d-flex card flex-row shadow-sm p-1 mb-1"
@@ -334,8 +333,6 @@ export default {
             var id_skpd = localStorage.getItem("id_skpd");
             var that = this;
 
-            console.log("skpd", id_skpd);
-
             axios
                 .post("pegawaiSkpd", {
                     id_skpd: id_skpd,
@@ -346,6 +343,7 @@ export default {
                         var dataSkpd = resp.data.data;
                         var user = resp.data.user;
                         var selected = [];
+                        localStorage.removeItem("semuaPegawaiSkpd");
                         localStorage.setItem(
                             "semuaPegawaiSkpd",
                             JSON.stringify(dataSkpd)
@@ -383,12 +381,11 @@ export default {
             var dataSkpd = JSON.parse(localStorage.getItem("semuaPegawaiSkpd"));
             var selected = [];
             var allStaff = [];
+            var user = JSON.parse(localStorage.getItem("asnTerdaftar"));
+            console.log("user", user);
             dataSkpd.forEach(function (item, i) {
-                    var user = JSON.parse(localStorage.getItem("asnTerdaftar"));
-                    console.log("beforeFilter", item);
-                    console.log("user", user);
                     user.filter((u) => {
-                        console.log('filter',u.nip === item.nip, u, item.nip);
+                        console.log('filter',u.nip_terkait === item.nip, u, item.nip);
                         if (u.nip === item.nip) {
                             selected.push(item);
                         }
@@ -399,9 +396,9 @@ export default {
             // that.loadingAsn = false;
             // Vue.$toast.success("Data ASN Terkait berhasil di update..");
             // that.namaSkpd = selected[0].nama_skpd;
+            localStorage.setItem("semuaPegawaiSkpd", JSON.stringify(allStaff));
+            localStorage.setItem("asnTerdaftar", JSON.stringify(selected));
             this.$root.$emit("updateDataPeg");
-            localStorage.setItem("allAsnAkpd", JSON.stringify(allStaff));
-            localStorage.setItem("selected", JSON.stringify(selected));
         },
         updateDasarStatus(data) {
             this.$parent.updateDasarStatus(data);
@@ -633,27 +630,6 @@ export default {
                     console.log("err", err);
                 });
             this.status = status;
-        },
-        checkStaff: function (evt) {
-            // console.log("evt", evt);
-            // var taskId = evt.to.id;
-            // var from_id = evt.from.id;
-            // var user = evt.draggedContext.element.id;
-            // console.log(evt);
-            // axios
-            //     .post("updateStaff", {
-            //         task: taskId,
-            //         staff: user,
-            //         task_id: from_id,
-            //     })
-            //     .then(function (response) {
-            //         console.log("resp", response);
-            //         Vue.$toast.success("Staff Moved Successfully");
-            //     })
-            //     .catch(function (err) {
-            //         console.log("err", err);
-            //     });
-            // console.log("staffcheck", user);
         },
     },
 };

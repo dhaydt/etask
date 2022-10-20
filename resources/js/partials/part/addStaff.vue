@@ -1,21 +1,5 @@
 <template>
     <div class="addStaff">
-        <!-- <button
-            type="button"
-            class="btn btn-light-info btnAdd btn-hover-rotate-end me-2"
-            data-bs-toggle="modal"
-            data-bs-target="#addSptModal"
-        >
-            <i class="fas fa-plus"></i> Dasar SPT
-        </button>
-        <button
-            type="button"
-            class="btn btn-light-success btnAdd btn-hover-rotate-start"
-            @click="addStaffModal()"
-        >
-            <i class="fas fa-plus"></i> ASN Terkait
-        </button> -->
-
         <div
             class="modal fade"
             id="addStaffModal"
@@ -214,16 +198,24 @@ export default {
     },
     methods: {
         addStaffModal() {
+            this.resetStaff();
             var selected = JSON.parse(localStorage.getItem("asnTerdaftar"));
             var allStaff = JSON.parse(localStorage.getItem("semuaPegawaiSkpd"));
 
             this.dataPegawai = allStaff;
             this.selected = selected;
             this.namaSkpd = allStaff[0].nama_skpd;
+            console.log('dataPeg', this.dataPegawai)
+            console.log('selected', this.selected)
             $("#addStaffModal").modal("show");
         },
+        resetStaff(){
+            this.selected = [];
+            this.dataPegawai = [];
+        },
         updateDataPegawai(){
-            this.dataPegawai = JSON.parse(localStorage.getItem('asn_skpd'));
+            this.dataPegawai = JSON.parse(localStorage.getItem('semuaPegawaiSkpd'));
+            this.selected = JSON.parse(localStorage.getItem('asnTerdaftar'));
         },
         getSkpd() {
             this.$parent.toggleLoading(true);
