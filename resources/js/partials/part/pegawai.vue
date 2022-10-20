@@ -15,7 +15,7 @@
             <a
                 href="javascript:"
                 class="text-dark fw-bold text-hover-primary mb-1 fs-6"
-                >{{ dasar.nama_pegawai }}</a
+                >{{ dasar.nama_pegawai }} {{ dasar.nip }}</a
             >
         </td>
         <td class="text-center text-muted fw-bold">{{ dasar.nama_jabatan }}</td>
@@ -66,16 +66,17 @@ export default {
     watch:{
         dasar(){
             this.updateActive();
+            this.checkStatus(this.dasar.nip);
         },
         selected(){
+            this.updateActive();
             this.checkStatus(this.dasar.nip);
         }
     },
     methods:{
         checkStatus(nip){
-            console.log('sel', this.selected)
-            var checkId = obj => obj.nip === nip;
-            console.log('peg', this.selected.some(checkId) == true)
+            var checkId = obj => obj.nip === nip.toString();
+            console.log('selectedPeg', this.selected.some(checkId), nip)
             if(this.selected.some(checkId) == true){
                 this.show = false;
             }

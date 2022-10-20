@@ -19,7 +19,7 @@
                 data-bs-toggle="tooltip"
             >
                 <button
-                    @click="removeStaff(element.nip_terkait)"
+                    @click="removeStaff(element)"
                     class="btn btn-sm btn-danger btn-hover-scale p-1 btn-remove position-absolute text-light"
                     data-bs-toggle="tooltip"
                 >
@@ -90,9 +90,9 @@ export default {
         checkStaff(evt) {
             this.$parent.checkStaff(evt);
         },
-        removeStaff(id) {
+        removeStaff(staff) {
             var user = {
-                nip: id,
+                nip: staff.nip_terkait,
             };
             var that = this;
             axios
@@ -117,6 +117,7 @@ export default {
                     console.log("err", err);
                     // window.alert(err);
                 });
+                that.$root.$emit('returnStaff');
         },
     },
 };

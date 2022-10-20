@@ -6,7 +6,6 @@ use App\Helpers\Helpers;
 use App\Models\AsnTerkait;
 use App\Models\Dasar;
 use App\Models\Staff;
-use App\Models\StaffDetail;
 use App\Models\Task;
 use App\Models\Task_history;
 use App\Models\User;
@@ -28,7 +27,7 @@ class Controller extends BaseController
 
     public function staffList()
     {
-        $staff = AsnTerkait::where('id_skpd', session()->get('id_skpd'))->get();
+        $staff = AsnTerkait::where('id_users', session()->get('user_id'))->get();
 
         return response()->json($staff);
     }
@@ -45,37 +44,11 @@ class Controller extends BaseController
         } else {
             $user->role = 2;
         }
+        $user->id_skpd = $request['id_skpd'];
         $user->created_at = now();
         $user->updated_at = now();
 
-        $staff = new Staff();
-        $staff->id = $request['nip'];
-        $staff->name = $name;
-        $staff->available = 1;
-
-        $detail = new StaffDetail();
-        $detail->id_staff = $request['nip'];
-        $detail->nip = $request['nip'];
-        $detail->nama = $name;
-        $detail->gelar_depan = $request['gelarDpn'];
-        $detail->gelar_belakang = $request['gelarBlk'];
-        $detail->id_jenis_asn = null;
-        $detail->tempat_lahir = null;
-        $detail->tanggal_lahir = null;
-        $detail->foto = $request['foto'];
-        $detail->jenis_kelamin = null;
-        $detail->id_agama = $request['id_agama'];
-        $detail->alamat = null;
-        $detail->active = $request['active'];
-        $detail->no_hp = $request['no_hp'];
-        $detail->nik = $request['nik'];
-        $detail->nama_jabatan = 'Belum Ada Respon Api';
-        $detail->id_sotk = null;
-        $detail->id_skpd = $request['id_skpd'];
-
         $user->save();
-        $staff->save();
-        $detail->save();
 
         return redirect()->back()->with('success', 'Akun E-Task anda berhasil didaftarkan! Silhakna login menggunakan NIP dan password yang didaftarkan');
     }
@@ -268,7 +241,7 @@ class Controller extends BaseController
 
     public function addSpt(Request $request)
     {
-        $user = Helpers::getUserDetail(session()->get('nip'))->user->nip;
+        $user = Helpers::getAuthUser(session()->get('user_id'))->nip;
         $status = $request->status;
         $keterangan = $request->keterangan;
         $base = $request->dasar;
@@ -402,7 +375,7 @@ class Controller extends BaseController
                 $data['done'] = Task::where('status', 'done')->whereRaw('JSON_CONTAINS(staff->"$[*].id"'.', "'.$user->nip.'")')->get();
             }
         }
-        $data['staffs'] = AsnTerkait::where('id_skpd', session()->get('id_skpd'))->get();
+        $data['staffs'] = AsnTerkait::where('id_users', session()->get('user_id'))->get();
         $data['dasar'] = Dasar::orderBy('created_at', 'desc')->get();
 
         return view('app', $data)->with('success', 'Selamat datang di Aplikasi E-Task');
@@ -498,7 +471,7 @@ class Controller extends BaseController
             }
         }
 
-        $data['staffs'] = AsnTerkait::where('id_skpd', session()->get('id_skpd'))->get();
+        $data['staffs'] = AsnTerkait::where('id_users', session()->get('user_id'))->get();
         $data['dasar'] = Dasar::get();
 
         return response()->json($data);

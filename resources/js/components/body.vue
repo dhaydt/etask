@@ -370,6 +370,7 @@ export default {
                             JSON.stringify(selected)
                         );
                         // that.dataPegawai = selected;
+                        that.$root.$emit("updateDataPeg");
                     }
                 })
                 .catch(function (err) {
@@ -377,36 +378,38 @@ export default {
                 });
         },
         refreshSkpd() {
-            this.getStaffList();
-            var dataSkpd = JSON.parse(localStorage.getItem("semuaPegawaiSkpd"));
-            var selected = [];
-            var allStaff = [];
-            var user = JSON.parse(localStorage.getItem("asnTerdaftar"));
-            console.log("user", user);
-            dataSkpd.forEach(function (item, i) {
-                    user.filter((u) => {
-                        console.log('filter',u.nip_terkait === item.nip, u, item.nip);
-                        if (u.nip === item.nip) {
-                            selected.push(item);
-                        }
-                    });
-                    allStaff.push(item);
+            var that = this;
+            axios.get("staffList").then(function (resp) {
+                console.log('staffGet', resp);
+                localStorage.setItem("asnTerdaftar", JSON.stringify(resp.data));
+
+                console.log('staffList', resp.data);
+                var dataSkpd = JSON.parse(localStorage.getItem("semuaPegawaiSkpd"));
+                var selected = [];
+                var allStaff = [];
+                var user = resp.data;
+                console.log("user", user);
+                dataSkpd.forEach(function (item, i) {
+                        user.filter((u) => {
+                            console.log('filter',u.nip_terkait === item.nip, u, item.nip);
+                            if (u.nip_terkait === item.nip) {
+                                selected.push(item);
+                            }
+                        });
+                        allStaff.push(item);
+                });
+                console.log('selec', selected);
+                // that.loadingAsn = false;
+                // Vue.$toast.success("Data ASN Terkait berhasil di update..");
+                // that.namaSkpd = selected[0].nama_skpd;
+                localStorage.setItem("semuaPegawaiSkpd", JSON.stringify(allStaff));
+                localStorage.setItem("asnTerdaftar", JSON.stringify(selected));
+                // that.$root.$emit("updateDataPeg");
+                that.$root.$emit('returnStaff');
             });
-            console.log('selec', selected);
-            // that.loadingAsn = false;
-            // Vue.$toast.success("Data ASN Terkait berhasil di update..");
-            // that.namaSkpd = selected[0].nama_skpd;
-            localStorage.setItem("semuaPegawaiSkpd", JSON.stringify(allStaff));
-            localStorage.setItem("asnTerdaftar", JSON.stringify(selected));
-            this.$root.$emit("updateDataPeg");
         },
         updateDasarStatus(data) {
             this.$parent.updateDasarStatus(data);
-        },
-        getStaffList() {
-            axios.get("staffList").then(function (resp) {
-                localStorage.setItem("asnTerdaftar", JSON.stringify(resp.data));
-            });
         },
         toggleLoading(val) {
             this.loading = val;

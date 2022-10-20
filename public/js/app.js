@@ -8723,43 +8723,46 @@ __webpack_require__.r(__webpack_exports__);
           Vue.$toast.success("Data ASN Terkait berhasil di update.."); // that.namaSkpd = selected[0].nama_skpd;
 
           localStorage.setItem("asnTerdaftar", JSON.stringify(selected)); // that.dataPegawai = selected;
+
+          that.$root.$emit("updateDataPeg");
         }
       })["catch"](function (err) {
         console.log("err skpd", err);
       });
     },
     refreshSkpd: function refreshSkpd() {
-      this.getStaffList();
-      var dataSkpd = JSON.parse(localStorage.getItem("semuaPegawaiSkpd"));
-      var selected = [];
-      var allStaff = [];
-      var user = JSON.parse(localStorage.getItem("asnTerdaftar"));
-      console.log("user", user);
-      dataSkpd.forEach(function (item, i) {
-        user.filter(function (u) {
-          console.log('filter', u.nip_terkait === item.nip, u, item.nip);
+      var that = this;
+      axios__WEBPACK_IMPORTED_MODULE_7___default().get("staffList").then(function (resp) {
+        console.log('staffGet', resp);
+        localStorage.setItem("asnTerdaftar", JSON.stringify(resp.data));
+        console.log('staffList', resp.data);
+        var dataSkpd = JSON.parse(localStorage.getItem("semuaPegawaiSkpd"));
+        var selected = [];
+        var allStaff = [];
+        var user = resp.data;
+        console.log("user", user);
+        dataSkpd.forEach(function (item, i) {
+          user.filter(function (u) {
+            console.log('filter', u.nip_terkait === item.nip, u, item.nip);
 
-          if (u.nip === item.nip) {
-            selected.push(item);
-          }
+            if (u.nip_terkait === item.nip) {
+              selected.push(item);
+            }
+          });
+          allStaff.push(item);
         });
-        allStaff.push(item);
-      });
-      console.log('selec', selected); // that.loadingAsn = false;
-      // Vue.$toast.success("Data ASN Terkait berhasil di update..");
-      // that.namaSkpd = selected[0].nama_skpd;
+        console.log('selec', selected); // that.loadingAsn = false;
+        // Vue.$toast.success("Data ASN Terkait berhasil di update..");
+        // that.namaSkpd = selected[0].nama_skpd;
 
-      localStorage.setItem("semuaPegawaiSkpd", JSON.stringify(allStaff));
-      localStorage.setItem("asnTerdaftar", JSON.stringify(selected));
-      this.$root.$emit("updateDataPeg");
+        localStorage.setItem("semuaPegawaiSkpd", JSON.stringify(allStaff));
+        localStorage.setItem("asnTerdaftar", JSON.stringify(selected)); // that.$root.$emit("updateDataPeg");
+
+        that.$root.$emit('returnStaff');
+      });
     },
     updateDasarStatus: function updateDasarStatus(data) {
       this.$parent.updateDasarStatus(data);
-    },
-    getStaffList: function getStaffList() {
-      axios__WEBPACK_IMPORTED_MODULE_7___default().get("staffList").then(function (resp) {
-        localStorage.setItem("asnTerdaftar", JSON.stringify(resp.data));
-      });
     },
     toggleLoading: function toggleLoading(val) {
       this.loading = val;
@@ -10323,8 +10326,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.$root.$on('updateDataPeg', function () {
       _this.updateDataPegawai();
     });
+    this.$root.$on('returnStaff', function () {
+      _this.returnStaff();
+    });
   },
   methods: {
+    returnStaff: function returnStaff() {
+      console.log('returnStaff');
+      this.dataPegawai = JSON.parse(localStorage.getItem('semuaPegawaiSkpd'));
+      this.selected = JSON.parse(localStorage.getItem('asnTerdaftar'));
+    },
     addStaffModal: function addStaffModal() {
       this.resetStaff();
       var selected = JSON.parse(localStorage.getItem("asnTerdaftar"));
@@ -10340,9 +10351,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.selected = [];
       this.dataPegawai = [];
     },
-    updateDataPegawai: function updateDataPegawai() {
-      this.dataPegawai = JSON.parse(localStorage.getItem('semuaPegawaiSkpd'));
-      this.selected = JSON.parse(localStorage.getItem('asnTerdaftar'));
+    updateDataPegawai: function updateDataPegawai() {// this.dataPegawai = JSON.parse(localStorage.getItem('semuaPegawaiSkpd'));
+      // this.selected = JSON.parse(localStorage.getItem('asnTerdaftar'));
     },
     getSkpd: function getSkpd() {
       this.$parent.toggleLoading(true);
@@ -10821,20 +10831,20 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     dasar: function dasar() {
       this.updateActive();
+      this.checkStatus(this.dasar.nip);
     },
     selected: function selected() {
+      this.updateActive();
       this.checkStatus(this.dasar.nip);
     }
   },
   methods: {
     checkStatus: function checkStatus(nip) {
-      console.log('sel', this.selected);
-
       var checkId = function checkId(obj) {
-        return obj.nip === nip;
+        return obj.nip === nip.toString();
       };
 
-      console.log('peg', this.selected.some(checkId) == true);
+      console.log('selectedPeg', this.selected.some(checkId), nip);
 
       if (this.selected.some(checkId) == true) {
         this.show = false;
@@ -10969,9 +10979,9 @@ __webpack_require__.r(__webpack_exports__);
     checkStaff: function checkStaff(evt) {
       this.$parent.checkStaff(evt);
     },
-    removeStaff: function removeStaff(id) {
+    removeStaff: function removeStaff(staff) {
       var user = {
-        nip: id
+        nip: staff.nip_terkait
       };
       var that = this;
       axios.post("addStaff", {
@@ -10990,6 +11000,7 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         console.log("err", err); // window.alert(err);
       });
+      that.$root.$emit('returnStaff');
     }
   }
 });
@@ -88898,7 +88909,11 @@ var render = function () {
               staticClass: "text-dark fw-bold text-hover-primary mb-1 fs-6",
               attrs: { href: "javascript:" },
             },
-            [_vm._v(_vm._s(_vm.dasar.nama_pegawai))]
+            [
+              _vm._v(
+                _vm._s(_vm.dasar.nama_pegawai) + " " + _vm._s(_vm.dasar.nip)
+              ),
+            ]
           ),
         ]),
         _vm._v(" "),
@@ -89032,7 +89047,7 @@ var render = function () {
                   attrs: { "data-bs-toggle": "tooltip" },
                   on: {
                     click: function ($event) {
-                      return _vm.removeStaff(element.nip_terkait)
+                      return _vm.removeStaff(element)
                     },
                   },
                 },

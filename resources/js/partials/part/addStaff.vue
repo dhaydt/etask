@@ -195,8 +195,16 @@ export default {
         this.$root.$on('updateDataPeg', () => {
             this.updateDataPegawai();
         })
+        this.$root.$on('returnStaff', () => {
+            this.returnStaff();
+        })
     },
     methods: {
+        returnStaff(){
+            console.log('returnStaff');
+            this.dataPegawai = JSON.parse(localStorage.getItem('semuaPegawaiSkpd'));
+            this.selected = JSON.parse(localStorage.getItem('asnTerdaftar'));
+        },
         addStaffModal() {
             this.resetStaff();
             var selected = JSON.parse(localStorage.getItem("asnTerdaftar"));
@@ -214,8 +222,8 @@ export default {
             this.dataPegawai = [];
         },
         updateDataPegawai(){
-            this.dataPegawai = JSON.parse(localStorage.getItem('semuaPegawaiSkpd'));
-            this.selected = JSON.parse(localStorage.getItem('asnTerdaftar'));
+            // this.dataPegawai = JSON.parse(localStorage.getItem('semuaPegawaiSkpd'));
+            // this.selected = JSON.parse(localStorage.getItem('asnTerdaftar'));
         },
         getSkpd() {
             this.$parent.toggleLoading(true);
