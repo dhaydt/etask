@@ -87390,7 +87390,7 @@ var render = function () {
                           staticClass: "avatar mt-2 me-2",
                           attrs: {
                             "data-bs-toggle": "tooltip",
-                            title: staf.name,
+                            title: staf.nama,
                           },
                         },
                         [
@@ -87524,7 +87524,7 @@ var render = function () {
                           staticClass: "avatar mt-2 me-2",
                           attrs: {
                             "data-bs-toggle": "tooltip",
-                            title: staf.name,
+                            title: staf.nama,
                           },
                         },
                         [

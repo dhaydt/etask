@@ -69,7 +69,7 @@
                         <div
                             class="avatar mt-2 me-2"
                             data-bs-toggle="tooltip"
-                            :title="staf.name"
+                            :title="staf.nama"
                         >
                             <img
                                 height="25"
