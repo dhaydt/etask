@@ -52,7 +52,13 @@
                     ></i
                     >Upload Laporan</span
                 >
-                <div class="separator mb-2 mt-3"></div>
+                <div
+                    v-if="
+                        element.start_do == null ||
+                        (element.finish_do == null) | (element.report == null)
+                    "
+                    class="separator mb-2 mt-3"
+                ></div>
                 <draggable
                     v-bind="dragOptions"
                     class="list-staff d-flex"
@@ -81,6 +87,19 @@
                         </div>
                     </div>
                 </draggable>
+                <div class="card-footer mt-2 d-flex justify-content-end">
+                    <button
+                        v-if="
+                            element.start_do !== null &&
+                            element.finish_do !== null &&
+                            element.report !== null
+                        "
+                        class="btn btn-sm btn-light-warning"
+                        @click="finishTask(element.id, element.status)"
+                    >
+                        Selesaikan Task
+                    </button>
+                </div>
             </div>
         </draggable>
     </div>
@@ -91,10 +110,10 @@ export default {
     props: {
         doing: Array,
     },
-    data(){
+    data() {
         return {
             doList: [],
-        }
+        };
     },
     computed: {
         dragOptions() {
@@ -110,12 +129,38 @@ export default {
             return this.value ? this.value : this.list;
         },
     },
-    watch:{
-        doing(){
-            this.doList = this.doing
-        }
+    watch: {
+        doing() {
+            this.doList = this.doing;
+        },
     },
     methods: {
+        finishTask(id, status) {
+            event.stopPropagation();
+            const that = this;
+            if (status == "todo") {
+                status = "doing";
+            } else {
+                status = "done";
+            }
+            axios
+                .post(
+                    "/taskStatus",
+                    {
+                        id: id,
+                        status: status,
+                    },
+                    this.config
+                )
+                .then(function (resp) {
+                    that.$parent.splitAxios(resp.data.original);
+                    that.$parent.hideModalTask();
+                    Vue.$toast.success("Task berhasil diselesaikan!");
+                })
+                .catch(function (err) {
+                    window.alert(err);
+                });
+        },
         onErrorImg(e) {
             this.$parent.onErrorImg(e);
         },

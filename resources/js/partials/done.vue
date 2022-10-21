@@ -15,7 +15,7 @@
         >
             <div
                 class="list-group-item  text-capitalize"
-                v-for="element in done"
+                v-for="element in doneList"
                 :key="element.name"
                 @click="cardModal(element)"
             >
@@ -52,6 +52,11 @@ export default {
     props: {
         done: Array,
     },
+    data(){
+        return{
+            doneList : [],
+        }
+    },
     computed: {
         dragOptions() {
             return {
@@ -65,6 +70,12 @@ export default {
         realValue() {
             return this.value ? this.value : this.list;
         },
+    },
+    watch:{
+        done(){
+            this.doneList = this.done
+            console.log(this.done);
+        }
     },
     methods: {
         onErrorImg(e){

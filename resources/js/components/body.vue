@@ -140,7 +140,7 @@
                                         element.description !== null &&
                                         element.start !== null
                                     "
-                                    class="btn btn-sm btn-success"
+                                    class="btn btn-sm btn-primary"
                                     @click="
                                         mulaiTask(element.id, element.status)
                                     "
@@ -528,6 +528,9 @@ export default {
                     description: s.description,
                     start: s.start,
                     dasar: JSON.parse(s.spt_id),
+                    start_do: s.start_do,
+                    finish_do: s.finish_do,
+                    report: s.report,
                 };
                 this.newDone.push(todo);
             });
@@ -583,6 +586,9 @@ export default {
                     description: s.description,
                     start: s.start,
                     dasar: JSON.parse(s.spt_id),
+                    start_do: s.start_do,
+                    finish_do: s.finish_do,
+                    report: s.report,
                 };
                 this.newDone.push(todo);
             });

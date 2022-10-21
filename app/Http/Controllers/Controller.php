@@ -16,7 +16,9 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class Controller extends BaseController
 {
@@ -403,7 +405,6 @@ class Controller extends BaseController
 
     public function updateTask(Request $request)
     {
-        // dd($request);
         $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -411,14 +412,14 @@ class Controller extends BaseController
             'name.required' => 'Mohon isi judul Task!',
             'description.required' => 'Mohon isi Deskripsi Task!',
         ]);
-        $newStaff = $request->staf;
+        $newStaff = json_decode($request->staf, true);
 
         $task = Task::find($request->id);
         $staffOld = [];
 
         foreach ($newStaff as $s) {
             $st = [
-                'id' => $s['nip_terkait'],
+                'id' => $s['id'],
                 'nama' => $s['nama'],
                 'foto' => $s['foto'],
             ];
@@ -428,13 +429,39 @@ class Controller extends BaseController
         $task->name = $request->name;
         $task->description = $request->description;
         $task->updated_at = now();
-        $task->spt_id = $request->dasar;
+        $task->spt_id = json_decode($request->dasar, true);
         $task->start = $request->start;
         $task->staff = $staffOld;
 
         if ($task->status == 'doing') {
+            $file = $request->file('file');
             $task->start_do = Carbon::parse($request->start_on)->addHours(7)->format('Y-m-d H:i:s');
             $task->finish_do = Carbon::parse($request->finish_on)->addHours(7)->format('Y-m-d H:i:s');
+
+            $dir = 'report';
+            if ($file) {
+                $imgLogo = Helpers::upload($dir, '.png', $file);
+
+                $old_image = $task['report'];
+
+                if ($task->report !== null) {
+                    if (File::exists(public_path($old_image))) {
+                        unlink(public_path($old_image));
+                    }
+                }
+
+                if ($file !== null) {
+                    $imageName = Carbon::now()->toDateString().'-'.uniqid().'.'.'.png';
+
+                    if (!Storage::disk('public')->exists($dir)) {
+                        Storage::disk('public')->makeDirectory($dir);
+                    }
+                    $url = $file->store('storage/'.$dir);
+                } else {
+                    $url = null;
+                }
+                $task->report = $url;
+            }
         }
         $task->save();
 

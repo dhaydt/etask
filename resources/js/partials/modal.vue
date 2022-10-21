@@ -140,11 +140,11 @@
                             />
                         </div>
                         <LabelTitle
-                            v-if="status == 'doing'"
+                            v-if="status == 'doing' || status == 'done'"
                             title="Mulai mengerjakan"
                             icon="fa-solid fa-stopwatch"
                         ></LabelTitle>
-                        <div class="mb-3 input-text" v-if="status == 'doing'">
+                        <div class="mb-3 input-text" v-if="status == 'doing' || status == 'done'">
                             <datetime
                                 class="form-control"
                                 type="datetime"
@@ -153,11 +153,11 @@
                             ></datetime>
                         </div>
                         <LabelTitle
-                            v-if="status == 'doing'"
+                            v-if="status == 'doing' || status == 'done'"
                             title="Selesai mengerjakan"
                             icon="fa-solid fa-stopwatch"
                         ></LabelTitle>
-                        <div class="mb-3 input-text" v-if="status == 'doing'">
+                        <div class="mb-3 input-text" v-if="status == 'doing' || status == 'done'">
                             <datetime
                                 class="form-control"
                                 type="datetime"
@@ -166,7 +166,7 @@
                             ></datetime>
                         </div>
 
-                        <div class="mb-5" v-if="status == 'doing'">
+                        <div class="mb-5" v-if="status == 'doing' || status == 'done'">
                             <LabelTitle
                                 title="Upload Laporan"
                                 icon="fa-solid fa-upload"
@@ -177,6 +177,7 @@
                                 v-on:change="onFileChange"
                                 accept="application/pdf,application/vnd.ms-excel,.docx, image/jpeg, .png, .jpg, .jpeg"
                                 id="pilih_file"
+                                ref="fileReport"
                                 hidden
                             />
                             <div class="text-center">
@@ -191,7 +192,7 @@
                                     {{ fileName ? fileName : "Pilih File" }}
                                 </label>
                                 <div class="border p-2 mt-3">
-                                    <p>Preview Here:</p>
+                                    <p>Report:</p>
                                     <template v-if="preview">
                                         <img :src="preview" class="img-fluid" />
                                         <p class="mb-0">
@@ -206,6 +207,9 @@
                                                 ) / 100
                                             }}MB
                                         </p>
+                                    </template>
+                                    <template v-else>
+                                        <img :src="taskData.report" class="img-fluid" />
                                     </template>
                                 </div>
                             </div>
@@ -301,6 +305,7 @@ export default {
                     headers: document
                         .querySelector('meta[name="csrf-token"]')
                         .getAttribute("content"),
+                    contentType: false,
                 },
             },
             newStaff: [],
@@ -479,19 +484,33 @@ export default {
             e.preventDefault();
             let that = this;
 
+            var formData = new FormData();
             var id = this.taskData.id;
             var name = this.taskData.name;
             var description = this.taskData.description;
-            var staf = this.newStaff;
-            var dasar = this.dasarSpt;
+            var staf = JSON.stringify(this.newStaff);
+            var dasar = JSON.stringify(this.dasarSpt);
             var start = this.start;
             var start_on = this.start_on;
             var finish_on = this.finish_on;
             var file = this.file;
+            var fileName = this.fileName;
 
             if (dasar == undefined) {
                 var dasar = [];
             }
+
+            formData.append("id", id);
+            formData.append("name", name);
+            formData.append("description", description);
+            formData.append("staf", staf);
+            formData.append("dasar", dasar);
+            formData.append("start", start);
+            formData.append("start_on", start_on);
+            formData.append("finish_on", finish_on);
+            formData.append("file", file);
+
+            console.log('file', file)
 
             if (this.status == "todo") {
                 if (name == null || name == "") {
@@ -537,64 +556,16 @@ export default {
                         "Mohon isi tanggal selesai mengerjakan!"
                     );
                 }
-                // else if (file.name) {
-                //     Vue.$toast.warning(
-                //         "Mohon upload foto atau dokumen laporan!"
-                //     );
-                // }
+                else if (file == null || file == '') {
+                    Vue.$toast.warning(
+                        "Mohon upload foto atau dokumen laporan!"
+                    );
+                }
                 else {
-                    var formData = new FormData();
-
-                    formData.append("file", file);
-                    console.log("file", file);
-                    console.log("formData", ...formData.entries());
-
-                    // var dataSend = {
-                    //             id: id,
-                    //             name: name,
-                    //             staf: staf,
-                    //             description: description,
-                    //             start: start,
-                    //             dasar: dasar,
-                    //             start_on: start_on,
-                    //             finish_on: finish_on,
-                    //             file: formData,
-                    //         },
-
-                    // $.ajax({
-                    //     url: "/updateTask",
-                    //     method: "post",
-                    //     data: JSON.stringify(dataSend), // Replace 'this' with self''
-                    //     contentType: "multypart/",
-                    //     dataType: "json",
-                    //     context: this,
-                    //     success: function (res) {
-                    //         $("#res").html(res);
-                    //     },
-                    // })
-
-                    const config = {
-                        headers: {
-                            "Content-Type":
-                                "multipart/form-data; charset=utf-8; boundary=" +
-                                Math.random().toString().substr(2),
-                        },
-                    };
-
                     axios
                         .post(
                             "/updateTask",
-                            {
-                                id: id,
-                                name: name,
-                                staf: staf,
-                                description: description,
-                                start: start,
-                                dasar: dasar,
-                                start_on: start_on,
-                                finish_on: finish_on,
-                                file: formData,
-                            },
+                            formData,
                             this.config
                         )
                         .then(function (response) {

@@ -5,10 +5,27 @@ namespace App\Helpers;
 use App\Models\AsnTerkait;
 use App\Models\Task;
 use App\Models\User;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Storage;
 
 class Helpers
 {
+    public static function upload(string $dir, string $format, $image = null)
+    {
+        if ($image != null) {
+            $imageName = Carbon::now()->toDateString().'-'.uniqid().'.'.$format;
+            if (!Storage::disk('public')->exists($dir)) {
+                Storage::disk('public')->makeDirectory($dir);
+            }
+            Storage::disk('public')->put($dir, $image);
+        } else {
+            $imageName = null;
+        }
+
+        return $image;
+    }
+
     public static function crypt($string, $action = 'e')
     {
         $secret_key = 'mitraglobalkenca';

@@ -8873,7 +8873,10 @@ __webpack_require__.r(__webpack_exports__);
           status: s.status,
           description: s.description,
           start: s.start,
-          dasar: JSON.parse(s.spt_id)
+          dasar: JSON.parse(s.spt_id),
+          start_do: s.start_do,
+          finish_do: s.finish_do,
+          report: s.report
         };
 
         _this2.newDone.push(todo);
@@ -8930,7 +8933,10 @@ __webpack_require__.r(__webpack_exports__);
           status: s.status,
           description: s.description,
           start: s.start,
-          dasar: JSON.parse(s.spt_id)
+          dasar: JSON.parse(s.spt_id),
+          start_do: s.start_do,
+          finish_do: s.finish_do,
+          report: s.report
         };
 
         _this3.newDone.push(todo);
@@ -9369,6 +9375,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     doing: Array
@@ -9398,6 +9423,27 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    finishTask: function finishTask(id, status) {
+      event.stopPropagation();
+      var that = this;
+
+      if (status == "todo") {
+        status = "doing";
+      } else {
+        status = "done";
+      }
+
+      axios.post("/taskStatus", {
+        id: id,
+        status: status
+      }, this.config).then(function (resp) {
+        that.$parent.splitAxios(resp.data.original);
+        that.$parent.hideModalTask();
+        Vue.$toast.success("Task berhasil diselesaikan!");
+      })["catch"](function (err) {
+        window.alert(err);
+      });
+    },
     onErrorImg: function onErrorImg(e) {
       this.$parent.onErrorImg(e);
     },
@@ -9479,6 +9525,11 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     done: Array
   },
+  data: function data() {
+    return {
+      doneList: []
+    };
+  },
   computed: {
     dragOptions: function dragOptions() {
       return {
@@ -9491,6 +9542,12 @@ __webpack_require__.r(__webpack_exports__);
     // this.list  when input != v-model
     realValue: function realValue() {
       return this.value ? this.value : this.list;
+    }
+  },
+  watch: {
+    done: function done() {
+      this.doneList = this.done;
+      console.log(this.done);
     }
   },
   methods: {
@@ -9808,6 +9865,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -9840,7 +9901,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       token: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
       config: {
         headers: {
-          headers: document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+          headers: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+          contentType: false
         }
       },
       newStaff: [],
@@ -10014,19 +10076,32 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     formSubmit: function formSubmit(e) {
       e.preventDefault();
       var that = this;
+      var formData = new FormData();
       var id = this.taskData.id;
       var name = this.taskData.name;
       var description = this.taskData.description;
-      var staf = this.newStaff;
-      var dasar = this.dasarSpt;
+      var staf = JSON.stringify(this.newStaff);
+      var dasar = JSON.stringify(this.dasarSpt);
       var start = this.start;
       var start_on = this.start_on;
       var finish_on = this.finish_on;
       var file = this.file;
+      var fileName = this.fileName;
 
       if (dasar == undefined) {
         var dasar = [];
       }
+
+      formData.append("id", id);
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("staf", staf);
+      formData.append("dasar", dasar);
+      formData.append("start", start);
+      formData.append("start_on", start_on);
+      formData.append("finish_on", finish_on);
+      formData.append("file", file);
+      console.log('file', file);
 
       if (this.status == "todo") {
         if (name == null || name == "") {
@@ -10060,58 +10135,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           Vue.$toast.warning("Mohon isi tanggal mengerjakan!");
         } else if (finish_on == "" || description == null) {
           Vue.$toast.warning("Mohon isi tanggal selesai mengerjakan!");
-        } // else if (file.name) {
-        //     Vue.$toast.warning(
-        //         "Mohon upload foto atau dokumen laporan!"
-        //     );
-        // }
-        else {
-          var _console;
-
-          var formData = new FormData();
-          formData.append("file", file);
-          console.log("file", file);
-
-          (_console = console).log.apply(_console, ["formData"].concat(_toConsumableArray(formData.entries()))); // var dataSend = {
-          //             id: id,
-          //             name: name,
-          //             staf: staf,
-          //             description: description,
-          //             start: start,
-          //             dasar: dasar,
-          //             start_on: start_on,
-          //             finish_on: finish_on,
-          //             file: formData,
-          //         },
-          // $.ajax({
-          //     url: "/updateTask",
-          //     method: "post",
-          //     data: JSON.stringify(dataSend), // Replace 'this' with self''
-          //     contentType: "multypart/",
-          //     dataType: "json",
-          //     context: this,
-          //     success: function (res) {
-          //         $("#res").html(res);
-          //     },
-          // })
-
-
-          var config = {
-            headers: {
-              "Content-Type": "multipart/form-data; charset=utf-8; boundary=" + Math.random().toString().substr(2)
-            }
-          };
-          axios.post("/updateTask", {
-            id: id,
-            name: name,
-            staf: staf,
-            description: description,
-            start: start,
-            dasar: dasar,
-            start_on: start_on,
-            finish_on: finish_on,
-            file: formData
-          }, this.config).then(function (response) {
+        } else if (file == null || file == '') {
+          Vue.$toast.warning("Mohon upload foto atau dokumen laporan!");
+        } else {
+          axios.post("/updateTask", formData, this.config).then(function (response) {
             that.sembunyi();
             that.$parent.splitAxios(response.data.original);
             Vue.$toast.success("Task Updated Successfully");
@@ -86674,7 +86701,7 @@ var render = function () {
                                 ? _c(
                                     "button",
                                     {
-                                      staticClass: "btn btn-sm btn-success",
+                                      staticClass: "btn btn-sm btn-primary",
                                       on: {
                                         click: function ($event) {
                                           return _vm.mulaiTask(
@@ -87409,7 +87436,10 @@ var render = function () {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _c("div", { staticClass: "separator mb-2 mt-3" }),
+              element.start_do == null ||
+              (element.finish_do == null) | (element.report == null)
+                ? _c("div", { staticClass: "separator mb-2 mt-3" })
+                : _vm._e(),
               _vm._v(" "),
               _c(
                 "draggable",
@@ -87460,6 +87490,33 @@ var render = function () {
                   )
                 }),
                 0
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "card-footer mt-2 d-flex justify-content-end" },
+                [
+                  element.start_do !== null &&
+                  element.finish_do !== null &&
+                  element.report !== null
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-sm btn-light-warning",
+                          on: {
+                            click: function ($event) {
+                              return _vm.finishTask(element.id, element.status)
+                            },
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\n                    Selesaikan Task\n                "
+                          ),
+                        ]
+                      )
+                    : _vm._e(),
+                ]
               ),
             ],
             1
@@ -87529,7 +87586,7 @@ var render = function () {
           _vm.dragOptions,
           false
         ),
-        _vm._l(_vm.done, function (element) {
+        _vm._l(_vm.doneList, function (element) {
           return _c(
             "div",
             {
@@ -87954,7 +88011,7 @@ var render = function () {
                     }),
                   ]),
                   _vm._v(" "),
-                  _vm.status == "doing"
+                  _vm.status == "doing" || _vm.status == "done"
                     ? _c("LabelTitle", {
                         attrs: {
                           title: "Mulai mengerjakan",
@@ -87963,7 +88020,7 @@ var render = function () {
                       })
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.status == "doing"
+                  _vm.status == "doing" || _vm.status == "done"
                     ? _c(
                         "div",
                         { staticClass: "mb-3 input-text" },
@@ -87984,7 +88041,7 @@ var render = function () {
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.status == "doing"
+                  _vm.status == "doing" || _vm.status == "done"
                     ? _c("LabelTitle", {
                         attrs: {
                           title: "Selesai mengerjakan",
@@ -87993,7 +88050,7 @@ var render = function () {
                       })
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.status == "doing"
+                  _vm.status == "doing" || _vm.status == "done"
                     ? _c(
                         "div",
                         { staticClass: "mb-3 input-text" },
@@ -88014,7 +88071,7 @@ var render = function () {
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.status == "doing"
+                  _vm.status == "doing" || _vm.status == "done"
                     ? _c(
                         "div",
                         { staticClass: "mb-5" },
@@ -88027,6 +88084,7 @@ var render = function () {
                           }),
                           _vm._v(" "),
                           _c("input", {
+                            ref: "fileReport",
                             attrs: {
                               type: "file",
                               name: "file",
@@ -88067,7 +88125,7 @@ var render = function () {
                               "div",
                               { staticClass: "border p-2 mt-3" },
                               [
-                                _c("p", [_vm._v("Preview Here:")]),
+                                _c("p", [_vm._v("Report:")]),
                                 _vm._v(" "),
                                 _vm.preview
                                   ? [
@@ -88097,7 +88155,12 @@ var render = function () {
                                         ),
                                       ]),
                                     ]
-                                  : _vm._e(),
+                                  : [
+                                      _c("img", {
+                                        staticClass: "img-fluid",
+                                        attrs: { src: _vm.taskData.report },
+                                      }),
+                                    ],
                               ],
                               2
                             ),
