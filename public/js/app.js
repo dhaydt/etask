@@ -8720,8 +8720,8 @@ __webpack_require__.r(__webpack_exports__);
           });
           console.log('dataSkpd', selected);
           that.loadingAsn = false;
-          Vue.$toast.success("Data ASN Terkait berhasil di update.."); // that.namaSkpd = selected[0].nama_skpd;
-
+          Vue.$toast.success("Data ASN Terkait berhasil di update..");
+          that.$root.$emit("toggleAdd");
           localStorage.setItem("asnTerdaftar", JSON.stringify(selected)); // that.dataPegawai = selected;
 
           that.$root.$emit("updateDataPeg");
@@ -9221,10 +9221,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       rule: null,
+      loaded: false,
       user: [],
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content")
     };
@@ -9232,12 +9243,22 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     users: Array | Object
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$root.$on('toggleAdd', function () {
+      _this.toggleAdd();
+    });
+  },
   watch: {
     users: function users() {
       this.user = this.users;
     }
   },
   methods: {
+    toggleAdd: function toggleAdd() {
+      this.loaded = true;
+    },
     showModalAddStaff: function showModalAddStaff() {
       this.$root.$emit("addStaff");
     },
@@ -10842,9 +10863,8 @@ __webpack_require__.r(__webpack_exports__);
     checkStatus: function checkStatus(nip) {
       var checkId = function checkId(obj) {
         return obj.nip === nip.toString();
-      };
+      }; // console.log('selectedPeg', this.selected.some(checkId), nip)
 
-      console.log('selectedPeg', this.selected.some(checkId), nip);
 
       if (this.selected.some(checkId) == true) {
         this.show = false;
@@ -10864,8 +10884,7 @@ __webpack_require__.r(__webpack_exports__);
 
         if (data.code == 200) {
           that.$parent.splitAxios(data.data.original);
-          Vue.$toast.success(data.message);
-          console.log('respon', data);
+          Vue.$toast.success(data.message); // console.log('respon',data);
         }
       })["catch"](function (err) {
         console.log('err', err); // window.alert(err);
@@ -86940,20 +86959,39 @@ var render = function () {
               },
               [
                 _c("div", { staticClass: "menu-item px-3" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "menu-link px-3 fw-bold",
-                      attrs: { href: "javascript:" },
-                      on: { click: _vm.showModalAddStaff },
-                    },
-                    [
-                      _c("i", { staticClass: "fa-solid fa-plus me-3" }),
-                      _vm._v(
-                        "\n                            ASN Terkait\n                        "
+                  _vm.loaded
+                    ? _c(
+                        "a",
+                        {
+                          staticClass: "menu-link px-3 fw-bold disabled",
+                          attrs: { href: "javascript:" },
+                          on: { click: _vm.showModalAddStaff },
+                        },
+                        [
+                          _c("i", { staticClass: "fa-solid fa-plus me-3" }),
+                          _vm._v(
+                            "\n                            ASN Terkait\n                        "
+                          ),
+                        ]
+                      )
+                    : _c(
+                        "a",
+                        {
+                          staticClass: "menu-link px-3 fw-bold disabled",
+                          staticStyle: { cursor: "not-allowed" },
+                          attrs: { href: "javascript:" },
+                        },
+                        [
+                          _c("img", {
+                            staticClass: "me-2",
+                            staticStyle: { "margin-left": "-5px" },
+                            attrs: { src: "img/loading.svg", width: "20px" },
+                          }),
+                          _vm._v(
+                            "\n                            Mengambil data\n                        "
+                          ),
+                        ]
                       ),
-                    ]
-                  ),
                 ]),
                 _vm._v(" "),
                 _vm._m(1),

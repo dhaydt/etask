@@ -76,7 +76,7 @@ export default {
     methods:{
         checkStatus(nip){
             var checkId = obj => obj.nip === nip.toString();
-            console.log('selectedPeg', this.selected.some(checkId), nip)
+            // console.log('selectedPeg', this.selected.some(checkId), nip)
             if(this.selected.some(checkId) == true){
                 this.show = false;
             }else{
@@ -95,7 +95,7 @@ export default {
                 if(data.code == 200){
                     that.$parent.splitAxios(data.data.original);
                     Vue.$toast.success(data.message);
-                    console.log('respon',data);
+                    // console.log('respon',data);
                 }
             }).catch(function(err){
                 console.log('err',err);

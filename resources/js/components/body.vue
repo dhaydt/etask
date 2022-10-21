@@ -363,7 +363,8 @@ export default {
                         Vue.$toast.success(
                             "Data ASN Terkait berhasil di update.."
                         );
-                        // that.namaSkpd = selected[0].nama_skpd;
+
+                        that.$root.$emit("toggleAdd");
 
                         localStorage.setItem(
                             "asnTerdaftar",

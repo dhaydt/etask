@@ -68,12 +68,22 @@
                     >
                         <div class="menu-item px-3">
                             <a
+                                v-if="loaded"
                                 href="javascript:"
-                                class="menu-link px-3 fw-bold"
+                                class="menu-link px-3 fw-bold disabled"
                                 @click="showModalAddStaff"
                             >
                                 <i class="fa-solid fa-plus me-3"></i>
                                 ASN Terkait
+                            </a>
+                            <a
+                                v-else
+                                href="javascript:"
+                                class="menu-link px-3 fw-bold disabled"
+                                style="cursor:not-allowed"
+                            >
+                                <img src="img/loading.svg" width="20px" style="margin-left: -5px;" class="me-2" />
+                                Mengambil data
                             </a>
                         </div>
                         <div class="menu-item px-3">
@@ -227,6 +237,7 @@ export default {
     data() {
         return {
             rule: null,
+            loaded: false,
             user: [],
             csrf: document
                 .querySelector('meta[name="csrf-token"]')
@@ -236,12 +247,20 @@ export default {
     props: {
         users: Array | Object,
     },
+    mounted(){
+        this.$root.$on('toggleAdd', () => {
+            this.toggleAdd();
+        })
+    },
     watch: {
         users() {
             this.user = this.users;
         },
     },
     methods: {
+        toggleAdd(){
+            this.loaded = true
+        },
         showModalAddStaff() {
             this.$root.$emit("addStaff");
         },

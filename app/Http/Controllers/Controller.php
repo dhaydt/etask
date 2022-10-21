@@ -111,7 +111,7 @@ class Controller extends BaseController
 
                     return $data;
                 } else {
-                    $user = AsnTerkait::where('id_skpd', session()->get('id_skpd'))->get();
+                    $user = AsnTerkait::where('id_users', session()->get('user_id'))->get();
                     $dataMentah = json_decode($response->getBody())->data;
                     $dataSkpd = [];
                     foreach ($dataMentah as $dm) {
@@ -223,7 +223,7 @@ class Controller extends BaseController
                 'data' => $refresh,
         ]);
         } else {
-            $staff = AsnTerkait::where('nip_terkait', $data['nip'])->first();
+            $staff = AsnTerkait::where(['id_users' => session()->get('user_id'), 'nip_terkait' => $data['nip']])->first();
             if ($staff) {
                 $staff->delete();
             }
