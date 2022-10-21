@@ -87590,7 +87590,7 @@ var render = function () {
           return _c(
             "div",
             {
-              key: element.name,
+              key: element.id,
               staticClass: "list-group-item text-capitalize",
               on: {
                 click: function ($event) {
@@ -89132,7 +89132,7 @@ var render = function () {
           return _c(
             "div",
             {
-              key: element.nama,
+              key: element.id,
               staticClass:
                 "list-group-staff mb-2 d-flex card flex-row shadow-sm list-group-item text-capitalize position-relative",
               attrs: { "data-bs-toggle": "tooltip" },

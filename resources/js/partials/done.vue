@@ -16,7 +16,7 @@
             <div
                 class="list-group-item  text-capitalize"
                 v-for="element in doneList"
-                :key="element.name"
+                :key="element.id"
                 @click="cardModal(element)"
             >
                 {{ element.name }}

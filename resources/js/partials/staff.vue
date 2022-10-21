@@ -15,7 +15,7 @@
             <div
                 class="list-group-staff mb-2 d-flex card flex-row shadow-sm list-group-item text-capitalize position-relative"
                 v-for="element in staffs"
-                :key="element.nama"
+                :key="element.id"
                 data-bs-toggle="tooltip"
             >
                 <button
