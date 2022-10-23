@@ -173,28 +173,30 @@ class Helpers
         if ($tasks) {
             foreach ($tasks as $t) {
                 $staffs = json_decode($t->staff);
-                if ($t['status'] == 'doing') {
-                    foreach ($staffs as $s) {
-                        if ($s->id == $id) {
-                            $users = AsnTerkait::where('nip_terkait', $id)->get();
-                            // dd($id);
+                if (count($staffs) > 0) {
+                    if ($t['status'] == 'doing') {
+                        foreach ($staffs as $s) {
+                            if ($s->id == $id) {
+                                $users = AsnTerkait::where('nip_terkait', $id)->get();
+                                // dd($id);
 
-                            if (count($users) > 0) {
-                                foreach ($users as $u) {
-                                    $u->available = 0;
-                                    $u->save();
+                                if (count($users) > 0) {
+                                    foreach ($users as $u) {
+                                        $u->available = 0;
+                                        $u->save();
+                                    }
                                 }
                             }
                         }
-                    }
-                } else {
-                    foreach ($staffs as $s) {
-                        if ($s->id == $id) {
-                            $user = AsnTerkait::where('nip_terkait', $id)->get();
-                            if (count($user) > 0) {
-                                foreach ($user as $u) {
-                                    $u->available = 1;
-                                    $u->save();
+                    } else {
+                        foreach ($staffs as $s) {
+                            if ($s->id == $id) {
+                                $user = AsnTerkait::where('nip_terkait', $id)->get();
+                                if (count($user) > 0) {
+                                    foreach ($user as $u) {
+                                        $u->available = 1;
+                                        $u->save();
+                                    }
                                 }
                             }
                         }

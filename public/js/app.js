@@ -10034,6 +10034,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       } else {
         this.options = options;
       }
+
+      console.log('filtered', this.options);
     },
     checkStatus: function checkStatus(stat) {
       if (stat == "todo") {
@@ -87855,7 +87857,7 @@ var render = function () {
                               return _c(
                                 "div",
                                 {
-                                  key: s.id,
+                                  key: s.nip_terkait,
                                   staticClass:
                                     "avatar-card d-flex col-12 col-md-6 align-items-center",
                                 },
@@ -89132,7 +89134,7 @@ var render = function () {
           return _c(
             "div",
             {
-              key: element.id,
+              key: element.nip_terkait,
               staticClass:
                 "list-group-staff mb-2 d-flex card flex-row shadow-sm list-group-item text-capitalize position-relative",
               attrs: { "data-bs-toggle": "tooltip" },

@@ -187,35 +187,31 @@ class Controller extends BaseController
             }
 
             $checkStaff = AsnTerkait::where(['id_users' => $auth, 'nip_terkait' => $data['nip']])->get();
-            if (count($checkStaff) > 0) {
-                foreach ($checkStaff as $c) {
-                    $c->delete();
-                }
+            if (count($checkStaff) < 1) {
+                $staff = new AsnTerkait();
+                $staff->id_users = $auth;
+                $staff->nip_terkait = $data['nip'];
+                $staff->nama = $data['nama_pegawai'];
+                $staff->gelar_depan = '';
+                $staff->gelar_belakang = '';
+                $staff->tempat_lahir = null;
+                $staff->foto = $data['foto'];
+                $staff->tanggal_lahir = null;
+                $staff->id_jenis_kelamin = null;
+                $staff->id_agama = null;
+                $staff->alamat = null;
+                $staff->no_hp = $data['no_hp'];
+                $staff->nik = null;
+                $staff->nama_jabatan = $data['nama_jabatan'];
+                $staff->id_sotk = $data['id_sotk'];
+                $staff->id_skpd = $data['id_skpd'];
+                $staff->available = 1;
+                $staff->save();
             }
-
-            $staff = new AsnTerkait();
-            $staff->id_users = $auth;
-            $staff->nip_terkait = $data['nip'];
-            $staff->nama = $data['nama_pegawai'];
-            $staff->gelar_depan = '';
-            $staff->gelar_belakang = '';
-            $staff->tempat_lahir = null;
-            $staff->foto = $data['foto'];
-            $staff->tanggal_lahir = null;
-            $staff->id_jenis_kelamin = null;
-            $staff->id_agama = null;
-            $staff->alamat = null;
-            $staff->no_hp = $data['no_hp'];
-            $staff->nik = null;
-            $staff->nama_jabatan = $data['nama_jabatan'];
-            $staff->id_sotk = $data['id_sotk'];
-            $staff->id_skpd = $data['id_skpd'];
-            $staff->available = 1;
 
             if (!$check) {
                 $user->save();
             }
-            $staff->save();
 
             $refresh = $this->refresh();
 

@@ -71,7 +71,7 @@
                                 <div
                                     v-for="s in newStaff"
                                     class="avatar-card d-flex col-12 col-md-6 align-items-center"
-                                    :key="s.id"
+                                    :key="s.nip_terkait"
                                 >
                                     <div class="avatar me-2">
                                         <img
@@ -432,6 +432,7 @@ export default {
             } else {
                 this.options = options;
             }
+            console.log('filtered', this.options)
         },
         checkStatus(stat) {
             if (stat == "todo") {

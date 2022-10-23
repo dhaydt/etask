@@ -94,7 +94,7 @@
         $newStaffs = [];
         foreach($staffs as $s){
             $staf = [
-                'id' => (string)$s['id'],
+                'id' => (string)$s['nip_terkait'],
                 'nip_terkait' => $s['nip_terkait'],
                 'available' => $s['available'],
                 'nama' => $s['nama'],
