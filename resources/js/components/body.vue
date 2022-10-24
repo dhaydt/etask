@@ -192,6 +192,7 @@
             :role="role"
             :status="status"
             :staffs="newStaff"
+            :resetPreview="resetPreview"
             :dasar="dasar"
             :selected="selected"
             :updateFlat="updateFlat"
@@ -242,6 +243,7 @@ export default {
     },
     data() {
         return {
+            resetPreview: null,
             newTask: "",
             status: null,
             loadingAsn: false,
@@ -306,17 +308,28 @@ export default {
                 });
         },
         cardModal(data) {
-            var modalTask = new bootstrap.Modal(
-                document.getElementById("modalTask"),
-                {
-                    keyboard: false,
-                }
-            );
+            if(data.status == 'todo' || data.status == 'doing'){
+                var modalTask = new bootstrap.Modal(
+                    document.getElementById("modalTask"),
+                    {
+                        keyboard: false,
+                    }
+                );
+            }else{
+                var modalTask = new bootstrap.Modal(
+                    document.getElementById("modal_done"),
+                    {
+                        keyboard: true,
+                    }
+                );
+
+            }
             this.taskData = data;
             this.status = data.status;
             this.selected = data.staffs;
             this.refreshStaff();
             this.updateFlat = this.selected;
+            this.resetPreview = 'reset';
             modalTask.show();
         },
         refreshStaff() {
@@ -595,6 +608,7 @@ export default {
         },
         hideModalTask() {
             $("#modalTask").modal("hide");
+            $("#modal_done").modal("hide");
             console.log("called");
         },
         //add new tasks method
