@@ -763,10 +763,6 @@ export default {
         },
     },
     watch: {
-        resetPreview(){
-            console.log('preview watched')
-            this.preview = null;
-        },
         dasar() {
             this.dasarUpdate(this.dasar);
         },
@@ -793,6 +789,7 @@ export default {
                 }
                 this.fileName = this.taskData.report;
             }
+            this.preview = null;
         },
         staffs() {
             this.options = this.staffs;

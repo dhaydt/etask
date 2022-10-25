@@ -192,7 +192,6 @@
             :role="role"
             :status="status"
             :staffs="newStaff"
-            :resetPreview="resetPreview"
             :dasar="dasar"
             :selected="selected"
             :updateFlat="updateFlat"
@@ -243,7 +242,6 @@ export default {
     },
     data() {
         return {
-            resetPreview: null,
             newTask: "",
             status: null,
             loadingAsn: false,
@@ -329,7 +327,6 @@ export default {
             this.selected = data.staffs;
             this.refreshStaff();
             this.updateFlat = this.selected;
-            this.resetPreview = 'reset';
             modalTask.show();
         },
         refreshStaff() {

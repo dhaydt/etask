@@ -8575,7 +8575,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -8616,7 +8615,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      resetPreview: null,
       newTask: "",
       status: null,
       loadingAsn: false,
@@ -8691,7 +8689,6 @@ __webpack_require__.r(__webpack_exports__);
       this.selected = data.staffs;
       this.refreshStaff();
       this.updateFlat = this.selected;
-      this.resetPreview = 'reset';
       modalTask.show();
     },
     refreshStaff: function refreshStaff() {
@@ -10374,10 +10371,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   },
   watch: {
-    resetPreview: function resetPreview() {
-      console.log('preview watched');
-      this.preview = null;
-    },
     dasar: function dasar() {
       this.dasarUpdate(this.dasar);
     },
@@ -10402,6 +10395,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
         this.fileName = this.taskData.report;
       }
+
+      this.preview = null;
     },
     staffs: function staffs() {
       this.options = this.staffs;
@@ -87306,7 +87301,6 @@ var render = function () {
           role: _vm.role,
           status: _vm.status,
           staffs: _vm.newStaff,
-          resetPreview: _vm.resetPreview,
           dasar: _vm.dasar,
           selected: _vm.selected,
           updateFlat: _vm.updateFlat,
