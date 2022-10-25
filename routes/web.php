@@ -48,6 +48,7 @@ Route::post('pegawaiSkpd', [Controller::class, 'getSkpd']);
 Route::post('addStaff', [Controller::class, 'addStaff']);
 Route::post('reg', [Controller::class, 'reg'])->name('reg');
 Route::post('checkUser', [Controller::class, 'checkUser'])->name('checkUser');
+Route::get('generate_spt/{id}', [Controller::class, 'generate_spt'])->name('generate_spt');
 
 Route::middleware(['auth.staff'])->group(function () {
     Route::get('/dashboard', [Controller::class, 'task'])->name('dashboard');

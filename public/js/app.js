@@ -8575,6 +8575,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8652,6 +8698,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    generateSpt: function generateSpt(id) {
+      event.stopPropagation();
+    },
     mulaiTask: function mulaiTask(id, status) {
       event.stopPropagation();
       var that = this;
@@ -8674,7 +8723,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     cardModal: function cardModal(data) {
-      if (data.status == 'todo' || data.status == 'doing') {
+      if (data.status == "todo" || data.status == "doing") {
         var modalTask = new bootstrap.Modal(document.getElementById("modalTask"), {
           keyboard: false
         });
@@ -8716,7 +8765,7 @@ __webpack_require__.r(__webpack_exports__);
           var selected = [];
           localStorage.removeItem("semuaPegawaiSkpd");
           localStorage.setItem("semuaPegawaiSkpd", JSON.stringify(dataSkpd));
-          console.log('user', user);
+          console.log("user", user);
           dataSkpd.forEach(function (item, i) {
             user.filter(function (u) {
               // return u.id.toString() === item.nip.toString();
@@ -8725,7 +8774,7 @@ __webpack_require__.r(__webpack_exports__);
               }
             });
           });
-          console.log('dataSkpd', selected);
+          console.log("dataSkpd", selected);
           that.loadingAsn = false;
           Vue.$toast.success("Data ASN Terkait berhasil di update..");
           that.$root.$emit("toggleAdd");
@@ -8740,9 +8789,9 @@ __webpack_require__.r(__webpack_exports__);
     refreshSkpd: function refreshSkpd() {
       var that = this;
       axios__WEBPACK_IMPORTED_MODULE_7___default().get("staffList").then(function (resp) {
-        console.log('staffGet', resp);
+        console.log("staffGet", resp);
         localStorage.setItem("asnTerdaftar", JSON.stringify(resp.data));
-        console.log('staffList', resp.data);
+        console.log("staffList", resp.data);
         var dataSkpd = JSON.parse(localStorage.getItem("semuaPegawaiSkpd"));
         var selected = [];
         var allStaff = [];
@@ -8750,7 +8799,7 @@ __webpack_require__.r(__webpack_exports__);
         console.log("user", user);
         dataSkpd.forEach(function (item, i) {
           user.filter(function (u) {
-            console.log('filter', u.nip_terkait === item.nip, u, item.nip);
+            console.log("filter", u.nip_terkait === item.nip, u, item.nip);
 
             if (u.nip_terkait === item.nip) {
               selected.push(item);
@@ -8758,14 +8807,14 @@ __webpack_require__.r(__webpack_exports__);
           });
           allStaff.push(item);
         });
-        console.log('selec', selected); // that.loadingAsn = false;
+        console.log("selec", selected); // that.loadingAsn = false;
         // Vue.$toast.success("Data ASN Terkait berhasil di update..");
         // that.namaSkpd = selected[0].nama_skpd;
 
         localStorage.setItem("semuaPegawaiSkpd", JSON.stringify(allStaff));
         localStorage.setItem("asnTerdaftar", JSON.stringify(selected)); // that.$root.$emit("updateDataPeg");
 
-        that.$root.$emit('returnStaff');
+        that.$root.$emit("returnStaff");
       });
     },
     updateDasarStatus: function updateDasarStatus(data) {
@@ -8853,7 +8902,7 @@ __webpack_require__.r(__webpack_exports__);
       this.staffs.forEach(function (s) {
         _this2.newStaff.push(s);
       });
-      console.log('staff-body', this.staffs);
+      console.log("staff-body", this.staffs);
       this.doing.forEach(function (s) {
         var todo = {
           id: s.id,
@@ -9623,9 +9672,6 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-//
-//
-//
 //
 //
 //
@@ -87207,9 +87253,44 @@ var render = function () {
                               element.description !== null &&
                               element.start !== null
                                 ? _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "btn btn-info btn-hover-rotate-start pe-3 ps-4 py-2",
+                                      attrs: {
+                                        href: "generate_spt/" + element.id,
+                                        target: "_blank",
+                                        "data-bs-toggle": "tooltip",
+                                        title: "Generate Surat Tugas",
+                                      },
+                                      on: {
+                                        click: function ($event) {
+                                          return _vm.generateSpt(element.id)
+                                        },
+                                      },
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass:
+                                          "fa-solid fa-print text-light",
+                                      }),
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              element.staffs.length !== 0 &&
+                              element.dasar.length !== 0 &&
+                              element.description !== null &&
+                              element.start !== null
+                                ? _c(
                                     "button",
                                     {
-                                      staticClass: "btn btn-sm btn-primary",
+                                      staticClass:
+                                        "btn btn-sm btn-primary btn-hover-rotate-end",
+                                      attrs: {
+                                        "data-bs-toggle": "tooltip",
+                                        title: "Mulai Task",
+                                      },
                                       on: {
                                         click: function ($event) {
                                           return _vm.mulaiTask(
@@ -88880,34 +88961,9 @@ var render = function () {
                     _vm._v(" "),
                     _vm.role == 1
                       ? _c("div", { staticClass: "modal-footer" }, [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-secondary",
-                              attrs: {
-                                type: "button",
-                                "data-bs-dismiss": "modal",
-                              },
-                            },
-                            [
-                              _vm._v(
-                                "\n                            Tutup\n                        "
-                              ),
-                            ]
-                          ),
+                          _vm._m(0),
                           _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-primary",
-                              attrs: { type: "submit" },
-                            },
-                            [
-                              _vm._v(
-                                "\n                            Simpan Task\n                        "
-                              ),
-                            ]
-                          ),
+                          _vm._m(1),
                         ])
                       : _vm._e(),
                     _vm._v(" "),
@@ -89167,7 +89223,7 @@ var render = function () {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "card mb-10 shadow-sm" }, [
-                    _vm._m(0),
+                    _vm._m(2),
                     _vm._v(" "),
                     _c("div", { staticClass: "card-body py-3" }, [
                       _c(
@@ -89236,7 +89292,7 @@ var render = function () {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "card mb-10 shadow-sm" }, [
-                    _vm._m(1),
+                    _vm._m(3),
                     _vm._v(" "),
                     _c("div", { staticClass: "card-body" }, [
                       _c("div", { staticClass: "row justify-content-center" }, [
@@ -89345,9 +89401,9 @@ var render = function () {
                                             ]
                                           ),
                                           _vm._v(" "),
-                                          _vm._m(2),
+                                          _vm._m(4),
                                           _vm._v(" "),
-                                          _vm._m(3),
+                                          _vm._m(5),
                                         ]
                                       ),
                                       _vm._v(" "),
@@ -89382,7 +89438,7 @@ var render = function () {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "card mb-10 shadow-sm" }, [
-                    _vm._m(4),
+                    _vm._m(6),
                     _vm._v(" "),
                     _c("div", { staticClass: "card-body py-3" }, [
                       _c(
@@ -89394,7 +89450,7 @@ var render = function () {
                             { key: s.id, staticClass: "col-md-4" },
                             [
                               _c("div", { staticClass: "row" }, [
-                                _vm._m(5, true),
+                                _vm._m(7, true),
                                 _vm._v(" "),
                                 _c(
                                   "div",
@@ -89427,7 +89483,7 @@ var render = function () {
             ),
             _vm._v(" "),
             _c("div", { staticClass: "modal-footer" }, [
-              _vm._m(6),
+              _vm._m(8),
               _vm._v(" "),
               _c(
                 "button",
@@ -89456,6 +89512,40 @@ var render = function () {
   ])
 }
 var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-secondary",
+        attrs: { type: "button", "data-bs-dismiss": "modal" },
+      },
+      [
+        _c("i", { staticClass: "fa-solid fa-times" }),
+        _vm._v("\n                            Tutup\n                        "),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+      [
+        _c("i", { staticClass: "fa-solid fa-save text-light" }),
+        _vm._v(" "),
+        _c("span", [
+          _vm._v(
+            "\n                                Simpan Task\n                            "
+          ),
+        ]),
+      ]
+    )
+  },
   function () {
     var _vm = this
     var _h = _vm.$createElement

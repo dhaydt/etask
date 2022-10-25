@@ -26,6 +26,13 @@ class Controller extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
 
+    public function generate_spt($id)
+    {
+        $data['task'] = Task::find($id);
+
+        return view('spt.index', $data);
+    }
+
     public function staffList()
     {
         $staff = AsnTerkait::where('id_users', session()->get('user_id'))->get();

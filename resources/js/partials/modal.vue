@@ -306,22 +306,19 @@
                             </div>
                         </div>
                         <div v-if="role == 1" class="modal-footer">
-                            <!-- <button v-if="newStaff.length !== 0 && dasarSpt.length !== 0 && taskData.description !== null && start !== null "
-                            class="btn btn-success me-auto"
-                            @click.prevent="mulaiTask(taskData.id, status)"
-                        >
-                            <label v-if="status == 'todo'">Mulai Task</label>
-                            <label v-else>Selesaikan Task</label>
-                        </button> -->
                             <button
                                 type="button"
                                 class="btn btn-secondary"
                                 data-bs-dismiss="modal"
                             >
+                            <i class="fa-solid fa-times"></i>
                                 Tutup
                             </button>
                             <button class="btn btn-primary" type="submit">
-                                Simpan Task
+                                <i class="fa-solid fa-save text-light"></i>
+                                <span>
+                                    Simpan Task
+                                </span>
                             </button>
                         </div>
                         <div

@@ -101,11 +101,39 @@
                                     </div>
                                 </div>
                             </draggable>
-                                <span v-if="element.staffs.length == 0" class="badge badge-light-danger mt-2 me-2"><i class="fa-solid fa-circle-exclamation me-2 text-danger"></i>Pilih staff</span>
-                                <span v-if="element.dasar.length == 0" class="badge badge-light-warning  mt-2 me-2"><i class="fa-solid fa-circle-exclamation me-2 text-danger"></i>Pilih Dasar SPT</span>
-                                <span v-if="element.description == null" class="badge badge-light-danger  mt-2 me-2"><i class="fa-solid fa-circle-exclamation me-2 text-danger"></i>Isi Deskripsi</span>
-                                <span v-if="element.start == null" class="badge badge-light-info  mt-2 me-2"><i class="fa-solid fa-circle-exclamation me-2 text-danger"></i>Masukan Tanggal Mulai</span>
-                                <div class="separator my-3"></div>
+                            <span
+                                v-if="element.staffs.length == 0"
+                                class="badge badge-light-danger mt-2 me-2"
+                                ><i
+                                    class="fa-solid fa-circle-exclamation me-2 text-danger"
+                                ></i
+                                >Pilih staff</span
+                            >
+                            <span
+                                v-if="element.dasar.length == 0"
+                                class="badge badge-light-warning mt-2 me-2"
+                                ><i
+                                    class="fa-solid fa-circle-exclamation me-2 text-danger"
+                                ></i
+                                >Pilih Dasar SPT</span
+                            >
+                            <span
+                                v-if="element.description == null"
+                                class="badge badge-light-danger mt-2 me-2"
+                                ><i
+                                    class="fa-solid fa-circle-exclamation me-2 text-danger"
+                                ></i
+                                >Isi Deskripsi</span
+                            >
+                            <span
+                                v-if="element.start == null"
+                                class="badge badge-light-info mt-2 me-2"
+                                ><i
+                                    class="fa-solid fa-circle-exclamation me-2 text-danger"
+                                ></i
+                                >Masukan Tanggal Mulai</span
+                            >
+                            <div class="separator my-3"></div>
                             <div
                                 class="created-at mt-3 d-flex justify-content-between"
                             >
@@ -133,6 +161,22 @@
                                         Pengerjaan belum diatur
                                     </span>
                                 </div>
+                                <a
+                                    v-if="
+                                        element.staffs.length !== 0 &&
+                                        element.dasar.length !== 0 &&
+                                        element.description !== null &&
+                                        element.start !== null
+                                    "
+                                    :href="'generate_spt/' + element.id"
+                                    target="_blank"
+                                    data-bs-toggle="tooltip"
+                                    title="Generate Surat Tugas"
+                                    @click="generateSpt(element.id)"
+                                    class="btn btn-info btn-hover-rotate-start pe-3 ps-4 py-2"
+                                >
+                                    <i class="fa-solid fa-print text-light"></i>
+                                </a>
                                 <button
                                     v-if="
                                         element.staffs.length !== 0 &&
@@ -140,7 +184,9 @@
                                         element.description !== null &&
                                         element.start !== null
                                     "
-                                    class="btn btn-sm btn-primary"
+                                    data-bs-toggle="tooltip"
+                                    title="Mulai Task"
+                                    class="btn btn-sm btn-primary btn-hover-rotate-end"
                                     @click="
                                         mulaiTask(element.id, element.status)
                                     "
@@ -279,6 +325,9 @@ export default {
         },
     },
     methods: {
+        generateSpt(id) {
+            event.stopPropagation();
+        },
         mulaiTask(id, status) {
             event.stopPropagation();
             const that = this;
@@ -306,21 +355,20 @@ export default {
                 });
         },
         cardModal(data) {
-            if(data.status == 'todo' || data.status == 'doing'){
+            if (data.status == "todo" || data.status == "doing") {
                 var modalTask = new bootstrap.Modal(
                     document.getElementById("modalTask"),
                     {
                         keyboard: false,
                     }
                 );
-            }else{
+            } else {
                 var modalTask = new bootstrap.Modal(
                     document.getElementById("modal_done"),
                     {
                         keyboard: true,
                     }
                 );
-
             }
             this.taskData = data;
             this.status = data.status;
@@ -358,16 +406,16 @@ export default {
                             "semuaPegawaiSkpd",
                             JSON.stringify(dataSkpd)
                         );
-                        console.log('user', user);
+                        console.log("user", user);
                         dataSkpd.forEach(function (item, i) {
-                                user.filter((u) => {
-                                    // return u.id.toString() === item.nip.toString();
-                                    if (u.nip_terkait === item.nip) {
-                                        selected.push(item);
-                                    }
-                                });
+                            user.filter((u) => {
+                                // return u.id.toString() === item.nip.toString();
+                                if (u.nip_terkait === item.nip) {
+                                    selected.push(item);
+                                }
+                            });
                         });
-                        console.log('dataSkpd', selected)
+                        console.log("dataSkpd", selected);
 
                         that.loadingAsn = false;
                         Vue.$toast.success(
@@ -391,32 +439,42 @@ export default {
         refreshSkpd() {
             var that = this;
             axios.get("staffList").then(function (resp) {
-                console.log('staffGet', resp);
+                console.log("staffGet", resp);
                 localStorage.setItem("asnTerdaftar", JSON.stringify(resp.data));
 
-                console.log('staffList', resp.data);
-                var dataSkpd = JSON.parse(localStorage.getItem("semuaPegawaiSkpd"));
+                console.log("staffList", resp.data);
+                var dataSkpd = JSON.parse(
+                    localStorage.getItem("semuaPegawaiSkpd")
+                );
                 var selected = [];
                 var allStaff = [];
                 var user = resp.data;
                 console.log("user", user);
                 dataSkpd.forEach(function (item, i) {
-                        user.filter((u) => {
-                            console.log('filter',u.nip_terkait === item.nip, u, item.nip);
-                            if (u.nip_terkait === item.nip) {
-                                selected.push(item);
-                            }
-                        });
-                        allStaff.push(item);
+                    user.filter((u) => {
+                        console.log(
+                            "filter",
+                            u.nip_terkait === item.nip,
+                            u,
+                            item.nip
+                        );
+                        if (u.nip_terkait === item.nip) {
+                            selected.push(item);
+                        }
+                    });
+                    allStaff.push(item);
                 });
-                console.log('selec', selected);
+                console.log("selec", selected);
                 // that.loadingAsn = false;
                 // Vue.$toast.success("Data ASN Terkait berhasil di update..");
                 // that.namaSkpd = selected[0].nama_skpd;
-                localStorage.setItem("semuaPegawaiSkpd", JSON.stringify(allStaff));
+                localStorage.setItem(
+                    "semuaPegawaiSkpd",
+                    JSON.stringify(allStaff)
+                );
                 localStorage.setItem("asnTerdaftar", JSON.stringify(selected));
                 // that.$root.$emit("updateDataPeg");
-                that.$root.$emit('returnStaff');
+                that.$root.$emit("returnStaff");
             });
         },
         updateDasarStatus(data) {
@@ -509,7 +567,7 @@ export default {
                 this.newStaff.push(s);
             });
 
-            console.log('staff-body',this.staffs);
+            console.log("staff-body", this.staffs);
 
             this.doing.forEach((s) => {
                 var todo = {
