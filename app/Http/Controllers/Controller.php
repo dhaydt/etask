@@ -604,11 +604,8 @@ class Controller extends BaseController
     {
         $staff = AsnTerkait::where('nip_terkait', $request->staff)->get();
         if ($request->task == '' || $request->task == 'todo') {
-            $this->staffRemove($request->staff);
-            foreach ($staff as $s) {
-                $s->available = 1;
-                $s->save();
-            }
+            $this->staffRemove($request->staff, $request->task_id);
+
             $from = Task::find($request->task_id);
 
             $data = $this->refresh();
@@ -618,7 +615,7 @@ class Controller extends BaseController
             return response()->json($data);
         }
         $task = Task::find($request->task);
-        $this->staffRemove($request->staff);
+        $this->staffRemove($request->staff, $request->task_id);
 
         $staffTask = json_decode($task->staff);
 
@@ -636,19 +633,19 @@ class Controller extends BaseController
         return response()->json($data);
     }
 
-    public function staffRemove($id)
+    public function staffRemove($id, $task_id)
     {
-        $taskStaff = Task::get();
-        foreach ($taskStaff as $ts) {
-            $staffs = json_decode($ts->staff);
+        $taskStaff = Task::find($task_id);
+        if ($taskStaff) {
+            $staffs = json_decode($taskStaff->staff);
             $newStaff = [];
             foreach ($staffs as $st) {
                 if ($st->id !== $id) {
                     array_push($newStaff, $st);
                 }
             }
-            $ts->staff = json_encode($newStaff);
-            $ts->save();
+            $taskStaff->staff = json_encode($newStaff);
+            $taskStaff->save();
         }
     }
 }
