@@ -358,9 +358,9 @@ class Controller extends BaseController
         $user = User::where('nip', session()->get('nip'))->first();
 
         if ($user['role'] == 1) {
-            $data['todo'] = Task::where('status', 'todo')->get();
-            $data['doing'] = Task::where('status', 'doing')->get();
-            $data['done'] = Task::where('status', 'done')->get();
+            $data['todo'] = Task::where('status', 'todo')->orderBy('updated_at', 'desc')->get();
+            $data['doing'] = Task::where('status', 'doing')->orderBy('updated_at', 'desc')->get();
+            $data['done'] = Task::where('status', 'done')->orderBy('updated_at', 'desc')->get();
         } else {
             if (env('APP_ENV') == 'server') {
                 $data['todo'] = json_encode($this->getTaskMaria($user, 'todo'));
@@ -380,7 +380,7 @@ class Controller extends BaseController
 
     public function getTaskMaria($user, $status)
     {
-        $todos = Task::where('status', $status)->get();
+        $todos = Task::where('status', $status)->orderBy('updated_at', 'desc')->get();
         $todoId = [];
 
         if (count($todos) > 0) {
@@ -511,9 +511,9 @@ class Controller extends BaseController
             return redirect()->route('login');
         }
         if ($user->role == 1) {
-            $data['todo'] = Task::where('status', 'todo')->get();
-            $data['doing'] = Task::where('status', 'doing')->get();
-            $data['done'] = Task::where('status', 'done')->get();
+            $data['todo'] = Task::where('status', 'todo')->orderBy('updated_at', 'desc')->get();
+            $data['doing'] = Task::where('status', 'doing')->orderBy('updated_at', 'desc')->get();
+            $data['done'] = Task::where('status', 'done')->orderBy('updated_at', 'desc')->get();
         } else {
             if (env('APP_ENV') == 'server') {
                 $data['todo'] = $this->getTaskMaria($user, 'todo');

@@ -3,6 +3,7 @@
     <div class="modal-list">
         <!-- Modal Task -->
         <div
+        v-if="status !== 'done'"
             class="modal fade modal-detail"
             id="modalTask"
             tabindex="-1"

@@ -1,5 +1,7 @@
 <template>
-    <div class="done p-2 bg-warning-custom text-warning fw-bold card-list w-100">
+    <div
+        class="done p-2 bg-warning-custom text-warning fw-bold card-list w-100"
+    >
         <div class="list-header mb-2">
             <span class="list-drag-handle">&#x2630;</span>
             Done
@@ -14,12 +16,20 @@
             :move="checkMove"
         >
             <div
-                class="list-group-item  text-capitalize"
+                class="list-group-item overflow-hidden text-capitalize mb-4"
                 v-for="element in doneList"
                 :key="element.id"
                 @click="cardModal(element)"
             >
-                {{ element.name }}
+                <div class="card-headers row">
+                    <div class="content-header my-2">
+                        <h6
+                            class="mb-0 text-capitalize d-flex justify-content-start align-items-center"
+                        >
+                            {{ element.name }}
+                        </h6>
+                    </div>
+                </div>
                 <draggable
                     v-bind="dragOptions"
                     class="list-staff d-flex"
@@ -38,7 +48,13 @@
                             data-bs-toggle="tooltip"
                             :title="staf.nama"
                         >
-                            <img height="25" width="25" :src="staf.foto" alt="" @error="onErrorImg"/>
+                            <img
+                                height="25"
+                                width="25"
+                                :src="staf.foto"
+                                alt=""
+                                @error="onErrorImg"
+                            />
                         </div>
                     </div>
                 </draggable>
@@ -52,16 +68,16 @@ export default {
     props: {
         done: Array,
     },
-    data(){
-        return{
-            doneList : [],
-        }
+    data() {
+        return {
+            doneList: [],
+        };
     },
     computed: {
         dragOptions() {
             return {
                 animation: 800,
-                disabled:   true,
+                disabled: true,
                 ghostClass: "ghost",
             };
         },
@@ -71,17 +87,17 @@ export default {
             return this.value ? this.value : this.list;
         },
     },
-    watch:{
-        done(){
-            this.doneList = this.done
+    watch: {
+        done() {
+            this.doneList = this.done;
             console.log(this.done);
-        }
+        },
     },
     methods: {
-        onErrorImg(e){
+        onErrorImg(e) {
             this.$parent.onErrorImg(e);
         },
-        cardModal(data){
+        cardModal(data) {
             this.$parent.cardModal(data);
         },
         checkMove(evt) {
@@ -95,13 +111,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .alert.alert-warning{
-        background-color: #fff3cdb5;
-    }
-    .avatar{
-        border: 2px solid rgb(202, 202, 0);
-    }
-    .bg-warning-custom{
-        background-color: #ffc70059;
-    }
+.alert.alert-warning {
+    background-color: #fff3cdb5;
+}
+.avatar {
+    border: 2px solid rgb(202, 202, 0);
+}
+.bg-warning-custom {
+    background-color: #ffc70059;
+}
 </style>
