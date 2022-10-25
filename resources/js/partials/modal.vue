@@ -350,11 +350,7 @@
         </div>
 
         <!-- Modal Done -->
-        <div
-            class="modal bg-white fade"
-            tabindex="-1"
-            id="modal_done"
-        >
+        <div class="modal bg-white fade" tabindex="-1" id="modal_done">
             <div class="modal-dialog modal-fullscreen">
                 <div class="modal-content shadow-none">
                     <div class="modal-header mt-6">
@@ -380,7 +376,7 @@
                         <!--end::Close-->
                     </div>
 
-                    <div class="modal-body pt-1">
+                    <div class="modal-body pt-1" style="overflow: unset">
                         <div class="container">
                             <div class="row justify-content-end mb-5">
                                 <div
@@ -455,7 +451,9 @@
                                 </h4>
                                 <!--end::Title-->
                                 <!--begin::Text-->
-                                <p class="fw-semibold ms-2 fs-4 text-gray-600 mb-2">
+                                <p
+                                    class="fw-semibold ms-2 fs-4 text-gray-600 mb-2"
+                                >
                                     {{ taskData.description }}
                                 </p>
                                 <!--end::Text-->
@@ -537,7 +535,7 @@
                                     <div class="row justify-content-center">
                                         <div class="col-lg-8 col-md-12">
                                             <form
-                                                action=""
+                                                @submit="formSubmit"
                                                 enctype="multipart/form-data"
                                             >
                                                 <input
@@ -554,7 +552,7 @@
                                                     class="card card-flush py-4"
                                                 >
                                                     <div
-                                                        class="card-body text-center pt-0"
+                                                        class="card-body text-center py-0"
                                                     >
                                                         <!--begin::Image input-->
                                                         <div
@@ -563,14 +561,23 @@
                                                         >
                                                             <!--begin::Preview existing avatar-->
                                                             <div
-                                                                class="image-input-wrapper w-500px h-500px"
+                                                                class="image-input-wrapper w-500px p-2"
                                                             >
                                                                 <img
+                                                                    v-if="preview"
+                                                                    :src="preview"
+                                                                    alt=""
+                                                                    height="auto"
+                                                                    width="100%"
+                                                                />
+                                                                <img
+                                                                    v-else
                                                                     :src="
                                                                         taskData.report
                                                                     "
                                                                     alt=""
-                                                                    height="100%"
+                                                                    height="auto"
+                                                                    width="100%"
                                                                 />
                                                             </div>
                                                             <!--end::Preview existing avatar-->
@@ -579,6 +586,7 @@
                                                                 class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                                                                 data-kt-image-input-action="change"
                                                                 data-bs-toggle="tooltip"
+                                                                title="Ganti laporan"
                                                                 aria-label="Change avatar"
                                                                 data-kt-initialized="1"
                                                             >
@@ -589,6 +597,7 @@
                                                                 <input
                                                                     type="file"
                                                                     name="avatar"
+                                                                    @change="onFileChange"
                                                                     accept=".png, .jpg, .jpeg"
                                                                 />
                                                                 <input
@@ -603,6 +612,7 @@
                                                                 class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                                                                 data-kt-image-input-action="cancel"
                                                                 data-bs-toggle="tooltip"
+                                                                title="Hapus Laporan"
                                                                 aria-label="Cancel avatar"
                                                                 data-kt-initialized="1"
                                                             >
@@ -625,6 +635,7 @@
                                                             </span>
                                                             <!--end::Remove-->
                                                         </div>
+                                                        <button v-if="preview" data-bas-toggle="tooltip" title="Simpan Report" type="submit" class="btn btn-icon btn-success rounded"><i class="fa-solid fa-save"></i></button>
                                                     </div>
                                                     <!--end::Card body-->
                                                 </div>
@@ -665,7 +676,9 @@
                                                         <span
                                                             class="symbol-label"
                                                         >
-                                                            <i class="fa-solid fa-book"></i>
+                                                            <i
+                                                                class="fa-solid fa-book"
+                                                            ></i>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -693,10 +706,16 @@
                             class="btn btn-light"
                             data-bs-dismiss="modal"
                         >
-                            Keluar
+                            <i class="fa-solid fa-times"></i>
+                            Tutup
                         </button>
-                        <button type="button" class="btn btn-primary" @click.prevent="mulaiTask(taskData.id, 'todo')">
-                            Kembalikan ke Doing
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            @click.prevent="mulaiTask(taskData.id, 'todo')"
+                        >
+                            <i class="fa-solid fa-chevron-left"></i> Kembalikan
+                            ke Doing
                         </button>
                     </div>
                 </div>
@@ -722,7 +741,7 @@ export default {
         dasar: Array,
         selected: Array,
         updateFlat: Array,
-        resetPreview: String
+        resetPreview: String,
     },
     data() {
         return {
@@ -927,6 +946,9 @@ export default {
         sembunyi() {
             this.$parent.hideModalTask();
         },
+        updateReport(){
+            console.log('report update')
+        },
         formSubmit(e) {
             e.preventDefault();
             let that = this;
@@ -934,6 +956,7 @@ export default {
             var formData = new FormData();
             var id = this.taskData.id;
             var name = this.taskData.name;
+            var status = this.taskData.status;
             var description = this.taskData.description;
             var staf = JSON.stringify(this.newStaff);
             var dasar = JSON.stringify(this.dasarSpt);
@@ -953,6 +976,7 @@ export default {
             formData.append("staf", staf);
             formData.append("dasar", dasar);
             formData.append("start", start);
+            formData.append("status", status);
             formData.append("start_on", start_on);
             formData.append("finish_on", finish_on);
             formData.append("file", file);
@@ -1018,6 +1042,17 @@ export default {
                             Vue.$toast.error(err);
                         });
                 }
+            }else if(this.status == 'done'){
+                axios
+                        .post("/updateTask", formData, this.config)
+                        .then(function (response) {
+                            that.sembunyi();
+                            that.$parent.splitAxios(response.data.original);
+                            Vue.$toast.success("Task Updated Successfully");
+                        })
+                        .catch(function (err) {
+                            Vue.$toast.error(err);
+                        });
             }
         },
     },
@@ -1096,6 +1131,19 @@ input.form-control.header {
     }
     span {
         font-size: 2rem;
+    }
+}
+
+.image-input-wrapper {
+    height: unset;
+    background-position-x: 1000px;
+}
+.btn.btn-icon.rounded{
+    border-radius: 50% !important;
+    position: absolute;
+    bottom: 20px;
+    i{
+        font-size: 24px;
     }
 }
 </style>

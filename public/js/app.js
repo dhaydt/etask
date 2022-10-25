@@ -10314,6 +10314,25 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -10532,12 +10551,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     sembunyi: function sembunyi() {
       this.$parent.hideModalTask();
     },
+    updateReport: function updateReport() {
+      console.log('report update');
+    },
     formSubmit: function formSubmit(e) {
       e.preventDefault();
       var that = this;
       var formData = new FormData();
       var id = this.taskData.id;
       var name = this.taskData.name;
+      var status = this.taskData.status;
       var description = this.taskData.description;
       var staf = JSON.stringify(this.newStaff);
       var dasar = JSON.stringify(this.dasarSpt);
@@ -10557,6 +10580,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       formData.append("staf", staf);
       formData.append("dasar", dasar);
       formData.append("start", start);
+      formData.append("status", status);
       formData.append("start_on", start_on);
       formData.append("finish_on", finish_on);
       formData.append("file", file);
@@ -10605,6 +10629,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             Vue.$toast.error(err);
           });
         }
+      } else if (this.status == 'done') {
+        axios.post("/updateTask", formData, this.config).then(function (response) {
+          that.sembunyi();
+          that.$parent.splitAxios(response.data.original);
+          Vue.$toast.success("Task Updated Successfully");
+        })["catch"](function (err) {
+          Vue.$toast.error(err);
+        });
       }
     }
   }
@@ -17004,7 +17036,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "#modalTask .modal-dialog[data-v-7256e124] {\n  max-width: 700px;\n}\n#modalTask .modal-dialog .modal-content[data-v-7256e124] {\n  padding: 0 1rem;\n  overflow: scroll;\n}\n#modalTask .modal-dialog .modal-content .modal-body[data-v-7256e124] {\n  height: 70vh;\n  overflow: scroll;\n}\n#modalTask .modal-dialog .btn-close[data-v-7256e124] {\n  margin-top: -35px;\n  font-size: 13px;\n  color: black;\n  font-weight: 800;\n}\n#modalTask .modal-dialog i[data-v-7256e124] {\n  font-size: 16px;\n  color: #67696f;\n}\ninput.form-control.header[data-v-7256e124] {\n  border: none;\n  display: unset;\n  width: 90%;\n  font-family: \"Acme\", sans-serif;\n  font-weight: 600;\n  padding-bottom: 2px;\n  font-size: 20px;\n  color: #000;\n  text-transform: capitalize;\n}\n.mb-3.input-text[data-v-7256e124] {\n  padding-left: 32px;\n}\n.mb-3.input-text .form-control[data-v-7256e124] {\n  border: none;\n  background-color: #ededed;\n  margin-top: 10px;\n}\n.mb-3.input-text #description[data-v-7256e124] {\n  font-family: cursive;\n  font-size: 12px;\n}\n.modal-content .modal-header[data-v-7256e124] {\n  border-bottom: none;\n}\n.label-row[data-v-7256e124] {\n  position: absolute;\n  top: 0;\n  left: -15px;\n  z-index: 1;\n  font-size: 12px;\n  margin-left: 35px;\n  color: #84868a;\n  padding: 6px 15px;\n  border-radius: 0 0 4px 4px;\n}\n.avatar-card label[data-v-7256e124] {\n  font-family: \"Acme\", sans-serif;\n  font-size: 12px;\n}\n.modal-title.done i[data-v-7256e124] {\n  font-size: 2rem;\n}\n.modal-title.done span[data-v-7256e124] {\n  font-size: 2rem;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "#modalTask .modal-dialog[data-v-7256e124] {\n  max-width: 700px;\n}\n#modalTask .modal-dialog .modal-content[data-v-7256e124] {\n  padding: 0 1rem;\n  overflow: scroll;\n}\n#modalTask .modal-dialog .modal-content .modal-body[data-v-7256e124] {\n  height: 70vh;\n  overflow: scroll;\n}\n#modalTask .modal-dialog .btn-close[data-v-7256e124] {\n  margin-top: -35px;\n  font-size: 13px;\n  color: black;\n  font-weight: 800;\n}\n#modalTask .modal-dialog i[data-v-7256e124] {\n  font-size: 16px;\n  color: #67696f;\n}\ninput.form-control.header[data-v-7256e124] {\n  border: none;\n  display: unset;\n  width: 90%;\n  font-family: \"Acme\", sans-serif;\n  font-weight: 600;\n  padding-bottom: 2px;\n  font-size: 20px;\n  color: #000;\n  text-transform: capitalize;\n}\n.mb-3.input-text[data-v-7256e124] {\n  padding-left: 32px;\n}\n.mb-3.input-text .form-control[data-v-7256e124] {\n  border: none;\n  background-color: #ededed;\n  margin-top: 10px;\n}\n.mb-3.input-text #description[data-v-7256e124] {\n  font-family: cursive;\n  font-size: 12px;\n}\n.modal-content .modal-header[data-v-7256e124] {\n  border-bottom: none;\n}\n.label-row[data-v-7256e124] {\n  position: absolute;\n  top: 0;\n  left: -15px;\n  z-index: 1;\n  font-size: 12px;\n  margin-left: 35px;\n  color: #84868a;\n  padding: 6px 15px;\n  border-radius: 0 0 4px 4px;\n}\n.avatar-card label[data-v-7256e124] {\n  font-family: \"Acme\", sans-serif;\n  font-size: 12px;\n}\n.modal-title.done i[data-v-7256e124] {\n  font-size: 2rem;\n}\n.modal-title.done span[data-v-7256e124] {\n  font-size: 2rem;\n}\n.image-input-wrapper[data-v-7256e124] {\n  height: unset;\n  background-position-x: 1000px;\n}\n.btn.btn-icon.rounded[data-v-7256e124] {\n  border-radius: 50% !important;\n  position: absolute;\n  bottom: 20px;\n}\n.btn.btn-icon.rounded i[data-v-7256e124] {\n  font-size: 24px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -88902,355 +88934,431 @@ var render = function () {
               }),
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "modal-body pt-1" }, [
-              _c("div", { staticClass: "container" }, [
-                _c("div", { staticClass: "row justify-content-end mb-5" }, [
-                  _c(
-                    "div",
-                    { staticClass: "d-flex flex-wrap justify-content-end" },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "border border-gray-300 shadow-sm border-dashed rounded min-w-125px py-3 px-4 me-6",
-                        },
-                        [
-                          _c(
-                            "div",
-                            { staticClass: "fw-semibold fs-6 text-gray-400" },
-                            [
-                              _vm._v(
-                                "\n                                        Mulai\n                                    "
-                              ),
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "d-flex align-items-center" },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "fs-4 fw-bold text-success" },
-                                [
-                                  _vm._v(
-                                    "\n                                            " +
-                                      _vm._s(
-                                        _vm._f("moment")(_vm.taskData.start)
-                                      ) +
-                                      "\n                                        "
-                                  ),
-                                ]
-                              ),
-                            ]
-                          ),
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "border border-gray-300 shadow-sm border-dashed rounded min-w-125px py-3 px-4 me-6",
-                        },
-                        [
-                          _c(
-                            "div",
-                            { staticClass: "fw-semibold fs-6 text-gray-400" },
-                            [
-                              _vm._v(
-                                "\n                                        Dikerjakan pada:\n                                    "
-                              ),
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "d-flex align-items-center" },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "fs-4 fw-bold text-info" },
-                                [
-                                  _vm._v(
-                                    "\n                                            " +
-                                      _vm._s(
-                                        _vm._f("moment")(_vm.taskData.start_do)
-                                      ) +
-                                      "\n                                        "
-                                  ),
-                                ]
-                              ),
-                            ]
-                          ),
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "border border-gray-300 shadow-sm border-dashed rounded min-w-125px py-3 px-4 me-6",
-                        },
-                        [
-                          _c(
-                            "div",
-                            { staticClass: "fw-semibold fs-6 text-gray-400" },
-                            [
-                              _vm._v(
-                                "\n                                        Selesai pada :\n                                    "
-                              ),
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "d-flex align-items-center" },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "fs-4 fw-bold text-warning" },
-                                [
-                                  _vm._v(
-                                    "\n                                            " +
-                                      _vm._s(
-                                        _vm._f("moment")(_vm.taskData.finish_do)
-                                      ) +
-                                      "\n                                        "
-                                  ),
-                                ]
-                              ),
-                            ]
-                          ),
-                        ]
-                      ),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "mb-15" }, [
-                  _c(
-                    "h4",
-                    { staticClass: "fs-2x text-gray-800 w-bolder mb-6" },
-                    [
-                      _vm._v(
-                        "\n                                Deskripsi Task\n                            "
-                      ),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "p",
-                    { staticClass: "fw-semibold ms-2 fs-4 text-gray-600 mb-2" },
-                    [
-                      _vm._v(
-                        "\n                                " +
-                          _vm._s(_vm.taskData.description) +
-                          "\n                            "
-                      ),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "card mb-10 shadow-sm" }, [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card-body py-3" }, [
+            _c(
+              "div",
+              {
+                staticClass: "modal-body pt-1",
+                staticStyle: { overflow: "unset" },
+              },
+              [
+                _c("div", { staticClass: "container" }, [
+                  _c("div", { staticClass: "row justify-content-end mb-5" }, [
                     _c(
                       "div",
-                      { staticClass: "row" },
-                      _vm._l(_vm.newStaff, function (s) {
-                        return _c(
+                      { staticClass: "d-flex flex-wrap justify-content-end" },
+                      [
+                        _c(
                           "div",
-                          { key: s.nip_terkait, staticClass: "col-md-4" },
+                          {
+                            staticClass:
+                              "border border-gray-300 shadow-sm border-dashed rounded min-w-125px py-3 px-4 me-6",
+                          },
                           [
-                            _c("div", { staticClass: "row" }, [
-                              _c("div", { staticClass: "col-md-2" }, [
+                            _c(
+                              "div",
+                              { staticClass: "fw-semibold fs-6 text-gray-400" },
+                              [
+                                _vm._v(
+                                  "\n                                        Mulai\n                                    "
+                                ),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "d-flex align-items-center" },
+                              [
                                 _c(
                                   "div",
-                                  { staticClass: "symbol symbol-50px me-2" },
+                                  { staticClass: "fs-4 fw-bold text-success" },
+                                  [
+                                    _vm._v(
+                                      "\n                                            " +
+                                        _vm._s(
+                                          _vm._f("moment")(_vm.taskData.start)
+                                        ) +
+                                        "\n                                        "
+                                    ),
+                                  ]
+                                ),
+                              ]
+                            ),
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "border border-gray-300 shadow-sm border-dashed rounded min-w-125px py-3 px-4 me-6",
+                          },
+                          [
+                            _c(
+                              "div",
+                              { staticClass: "fw-semibold fs-6 text-gray-400" },
+                              [
+                                _vm._v(
+                                  "\n                                        Dikerjakan pada:\n                                    "
+                                ),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "d-flex align-items-center" },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "fs-4 fw-bold text-info" },
+                                  [
+                                    _vm._v(
+                                      "\n                                            " +
+                                        _vm._s(
+                                          _vm._f("moment")(
+                                            _vm.taskData.start_do
+                                          )
+                                        ) +
+                                        "\n                                        "
+                                    ),
+                                  ]
+                                ),
+                              ]
+                            ),
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "border border-gray-300 shadow-sm border-dashed rounded min-w-125px py-3 px-4 me-6",
+                          },
+                          [
+                            _c(
+                              "div",
+                              { staticClass: "fw-semibold fs-6 text-gray-400" },
+                              [
+                                _vm._v(
+                                  "\n                                        Selesai pada :\n                                    "
+                                ),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "d-flex align-items-center" },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "fs-4 fw-bold text-warning" },
+                                  [
+                                    _vm._v(
+                                      "\n                                            " +
+                                        _vm._s(
+                                          _vm._f("moment")(
+                                            _vm.taskData.finish_do
+                                          )
+                                        ) +
+                                        "\n                                        "
+                                    ),
+                                  ]
+                                ),
+                              ]
+                            ),
+                          ]
+                        ),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "mb-15" }, [
+                    _c(
+                      "h4",
+                      { staticClass: "fs-2x text-gray-800 w-bolder mb-6" },
+                      [
+                        _vm._v(
+                          "\n                                Deskripsi Task\n                            "
+                        ),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "p",
+                      {
+                        staticClass: "fw-semibold ms-2 fs-4 text-gray-600 mb-2",
+                      },
+                      [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(_vm.taskData.description) +
+                            "\n                            "
+                        ),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card mb-10 shadow-sm" }, [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-body py-3" }, [
+                      _c(
+                        "div",
+                        { staticClass: "row" },
+                        _vm._l(_vm.newStaff, function (s) {
+                          return _c(
+                            "div",
+                            { key: s.nip_terkait, staticClass: "col-md-4" },
+                            [
+                              _c("div", { staticClass: "row" }, [
+                                _c("div", { staticClass: "col-md-2" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "symbol symbol-50px me-2" },
+                                    [
+                                      _c(
+                                        "span",
+                                        { staticClass: "symbol-label" },
+                                        [
+                                          _c("img", {
+                                            staticClass: "h-75 align-self-end",
+                                            attrs: { src: s.foto, alt: "" },
+                                            on: { error: _vm.onErrorImg },
+                                          }),
+                                        ]
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "col-md-10 d-flex flex-column align-items-left justify-content-center",
+                                  },
                                   [
                                     _c(
+                                      "a",
+                                      {
+                                        staticClass:
+                                          "text-dark fw-bold text-hover-primary mb-1 fs-6",
+                                        attrs: { href: "#" },
+                                      },
+                                      [_vm._v(_vm._s(s.nama))]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
                                       "span",
-                                      { staticClass: "symbol-label" },
-                                      [
-                                        _c("img", {
-                                          staticClass: "h-75 align-self-end",
-                                          attrs: { src: s.foto, alt: "" },
-                                          on: { error: _vm.onErrorImg },
-                                        }),
-                                      ]
+                                      {
+                                        staticClass:
+                                          "text-muted fw-semibold d-block",
+                                      },
+                                      [_vm._v(_vm._s(s.id))]
                                     ),
                                   ]
                                 ),
                               ]),
+                            ]
+                          )
+                        }),
+                        0
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card mb-10 shadow-sm" }, [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("div", { staticClass: "row justify-content-center" }, [
+                        _c("div", { staticClass: "col-lg-8 col-md-12" }, [
+                          _c(
+                            "form",
+                            {
+                              attrs: { enctype: "multipart/form-data" },
+                              on: { submit: _vm.formSubmit },
+                            },
+                            [
+                              _c("input", {
+                                attrs: { type: "hidden", name: "_token" },
+                                domProps: { value: _vm.token },
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                attrs: { type: "hidden", name: "id" },
+                                domProps: { value: _vm.taskData.id },
+                              }),
                               _vm._v(" "),
                               _c(
                                 "div",
-                                {
-                                  staticClass:
-                                    "col-md-10 d-flex flex-column align-items-left justify-content-center",
-                                },
-                                [
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass:
-                                        "text-dark fw-bold text-hover-primary mb-1 fs-6",
-                                      attrs: { href: "#" },
-                                    },
-                                    [_vm._v(_vm._s(s.nama))]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "span",
-                                    {
-                                      staticClass:
-                                        "text-muted fw-semibold d-block",
-                                    },
-                                    [_vm._v(_vm._s(s.id))]
-                                  ),
-                                ]
-                              ),
-                            ]),
-                          ]
-                        )
-                      }),
-                      0
-                    ),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "card mb-10 shadow-sm" }, [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("div", { staticClass: "row justify-content-center" }, [
-                      _c("div", { staticClass: "col-lg-8 col-md-12" }, [
-                        _c(
-                          "form",
-                          {
-                            attrs: {
-                              action: "",
-                              enctype: "multipart/form-data",
-                            },
-                          },
-                          [
-                            _c("input", {
-                              attrs: { type: "hidden", name: "_token" },
-                              domProps: { value: _vm.token },
-                            }),
-                            _vm._v(" "),
-                            _c("input", {
-                              attrs: { type: "hidden", name: "id" },
-                              domProps: { value: _vm.taskData.id },
-                            }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "card card-flush py-4" }, [
-                              _c(
-                                "div",
-                                { staticClass: "card-body text-center pt-0" },
+                                { staticClass: "card card-flush py-4" },
                                 [
                                   _c(
                                     "div",
                                     {
-                                      staticClass:
-                                        "image-input image-input-empty image-input-outline image-input-placeholder mb-3",
-                                      attrs: { "data-kt-image-input": "true" },
+                                      staticClass: "card-body text-center py-0",
                                     },
                                     [
                                       _c(
                                         "div",
                                         {
                                           staticClass:
-                                            "image-input-wrapper w-500px h-500px",
+                                            "image-input image-input-empty image-input-outline image-input-placeholder mb-3",
+                                          attrs: {
+                                            "data-kt-image-input": "true",
+                                          },
                                         },
                                         [
-                                          _c("img", {
-                                            attrs: {
-                                              src: _vm.taskData.report,
-                                              alt: "",
-                                              height: "100%",
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "image-input-wrapper w-500px p-2",
                                             },
-                                          }),
+                                            [
+                                              _vm.preview
+                                                ? _c("img", {
+                                                    attrs: {
+                                                      src: _vm.preview,
+                                                      alt: "",
+                                                      height: "auto",
+                                                      width: "100%",
+                                                    },
+                                                  })
+                                                : _c("img", {
+                                                    attrs: {
+                                                      src: _vm.taskData.report,
+                                                      alt: "",
+                                                      height: "auto",
+                                                      width: "100%",
+                                                    },
+                                                  }),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "label",
+                                            {
+                                              staticClass:
+                                                "btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow",
+                                              attrs: {
+                                                "data-kt-image-input-action":
+                                                  "change",
+                                                "data-bs-toggle": "tooltip",
+                                                title: "Ganti laporan",
+                                                "aria-label": "Change avatar",
+                                                "data-kt-initialized": "1",
+                                              },
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass:
+                                                  "bi bi-pencil-fill fs-7",
+                                              }),
+                                              _vm._v(" "),
+                                              _c("input", {
+                                                attrs: {
+                                                  type: "file",
+                                                  name: "avatar",
+                                                  accept: ".png, .jpg, .jpeg",
+                                                },
+                                                on: {
+                                                  change: _vm.onFileChange,
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              _c("input", {
+                                                attrs: {
+                                                  type: "hidden",
+                                                  name: "avatar_remove",
+                                                },
+                                              }),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _vm._m(2),
+                                          _vm._v(" "),
+                                          _vm._m(3),
                                         ]
                                       ),
                                       _vm._v(" "),
-                                      _vm._m(2),
-                                      _vm._v(" "),
-                                      _vm._m(3),
-                                      _vm._v(" "),
-                                      _vm._m(4),
+                                      _vm.preview
+                                        ? _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-icon btn-success rounded",
+                                              attrs: {
+                                                "data-bas-toggle": "tooltip",
+                                                title: "Simpan Report",
+                                                type: "submit",
+                                              },
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fa-solid fa-save",
+                                              }),
+                                            ]
+                                          )
+                                        : _vm._e(),
                                     ]
                                   ),
                                 ]
                               ),
-                            ]),
-                          ]
-                        ),
+                            ]
+                          ),
+                        ]),
                       ]),
                     ]),
                   ]),
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "card mb-10 shadow-sm" }, [
-                  _vm._m(5),
                   _vm._v(" "),
-                  _c("div", { staticClass: "card-body py-3" }, [
-                    _c(
-                      "div",
-                      { staticClass: "row" },
-                      _vm._l(_vm.dasarSpt, function (s) {
-                        return _c(
-                          "div",
-                          { key: s.id, staticClass: "col-md-4" },
-                          [
-                            _c("div", { staticClass: "row" }, [
-                              _vm._m(6, true),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "col-md-10 d-flex flex-column align-items-left justify-content-center",
-                                },
-                                [
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass:
-                                        "text-dark fw-bold text-hover-primary mb-1 fs-6",
-                                      attrs: { href: "#" },
-                                    },
-                                    [_vm._v(_vm._s(s.dasar))]
-                                  ),
-                                ]
-                              ),
-                            ]),
-                          ]
-                        )
-                      }),
-                      0
-                    ),
+                  _c("div", { staticClass: "card mb-10 shadow-sm" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-body py-3" }, [
+                      _c(
+                        "div",
+                        { staticClass: "row" },
+                        _vm._l(_vm.dasarSpt, function (s) {
+                          return _c(
+                            "div",
+                            { key: s.id, staticClass: "col-md-4" },
+                            [
+                              _c("div", { staticClass: "row" }, [
+                                _vm._m(5, true),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "col-md-10 d-flex flex-column align-items-left justify-content-center",
+                                  },
+                                  [
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass:
+                                          "text-dark fw-bold text-hover-primary mb-1 fs-6",
+                                        attrs: { href: "#" },
+                                      },
+                                      [_vm._v(_vm._s(s.dasar))]
+                                    ),
+                                  ]
+                                ),
+                              ]),
+                            ]
+                          )
+                        }),
+                        0
+                      ),
+                    ]),
                   ]),
                 ]),
-              ]),
-            ]),
+              ]
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "modal-footer" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-light",
-                  attrs: { type: "button", "data-bs-dismiss": "modal" },
-                },
-                [
-                  _vm._v(
-                    "\n                        Keluar\n                    "
-                  ),
-                ]
-              ),
+              _vm._m(6),
               _vm._v(" "),
               _c(
                 "button",
@@ -89265,8 +89373,9 @@ var render = function () {
                   },
                 },
                 [
+                  _c("i", { staticClass: "fa-solid fa-chevron-left" }),
                   _vm._v(
-                    "\n                        Kembalikan ke Doing\n                    "
+                    " Kembalikan\n                        ke Doing\n                    "
                   ),
                 ]
               ),
@@ -89309,33 +89418,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "label",
-      {
-        staticClass:
-          "btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow",
-        attrs: {
-          "data-kt-image-input-action": "change",
-          "data-bs-toggle": "tooltip",
-          "aria-label": "Change avatar",
-          "data-kt-initialized": "1",
-        },
-      },
-      [
-        _c("i", { staticClass: "bi bi-pencil-fill fs-7" }),
-        _vm._v(" "),
-        _c("input", {
-          attrs: { type: "file", name: "avatar", accept: ".png, .jpg, .jpeg" },
-        }),
-        _vm._v(" "),
-        _c("input", { attrs: { type: "hidden", name: "avatar_remove" } }),
-      ]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
       "span",
       {
         staticClass:
@@ -89343,6 +89425,7 @@ var staticRenderFns = [
         attrs: {
           "data-kt-image-input-action": "cancel",
           "data-bs-toggle": "tooltip",
+          title: "Hapus Laporan",
           "aria-label": "Cancel avatar",
           "data-kt-initialized": "1",
         },
@@ -89392,6 +89475,22 @@ var staticRenderFns = [
         ]),
       ]),
     ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-light",
+        attrs: { type: "button", "data-bs-dismiss": "modal" },
+      },
+      [
+        _c("i", { staticClass: "fa-solid fa-times" }),
+        _vm._v("\n                        Tutup\n                    "),
+      ]
+    )
   },
 ]
 render._withStripped = true

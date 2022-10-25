@@ -422,12 +422,14 @@ class Controller extends BaseController
             array_push($staffOld, $st);
         }
 
-        $task->name = $request->name;
-        $task->description = $request->description;
-        $task->updated_at = now();
-        $task->spt_id = json_decode($request->dasar, true);
-        $task->start = $request->start;
-        $task->staff = $staffOld;
+        if ($task->status == 'doing' || $task->status == 'todo') {
+            $task->name = $request->name;
+            $task->description = $request->description;
+            $task->updated_at = now();
+            $task->spt_id = json_decode($request->dasar, true);
+            $task->start = $request->start;
+            $task->staff = $staffOld;
+        }
 
         if ($task->status == 'doing') {
             $file = $request->file('file');
@@ -459,10 +461,41 @@ class Controller extends BaseController
                 $task->report = $url;
             }
         }
-        $task->save();
 
-        foreach ($task->staff as $s) {
-            Helpers::checkAvailable($s['id']);
+        if ($task->status == 'done') {
+            $file = $request->file('file');
+
+            $dir = 'report';
+            if ($file) {
+                $logo = $task->report;
+                $imgLogo = Helpers::update($dir, $logo, 'png', $file);
+
+                $old_image = $task['report'];
+
+                if ($task->report !== null) {
+                    if (File::exists(public_path($old_image))) {
+                        unlink(public_path($old_image));
+                    }
+                }
+
+                if ($file !== null) {
+                    $imageName = Carbon::now()->toDateString().'-'.uniqid().'.'.'.png';
+
+                    if (!Storage::disk('public')->exists($dir)) {
+                        Storage::disk('public')->makeDirectory($dir);
+                    }
+                    $url = $file->store('storage/'.$dir);
+                } else {
+                    $url = null;
+                }
+                $task->report = $url;
+            }
+        }
+        $task->save();
+        if ($task->status !== 'done') {
+            foreach ($task->staff as $s) {
+                Helpers::checkAvailable($s['id']);
+            }
         }
 
         $this->history('update_task', $request->id, $task->status);
