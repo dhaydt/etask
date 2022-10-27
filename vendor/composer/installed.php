@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '3c3b979c476deb9bbf7ffc500a1274e9b41ba6c2',
+        'reference' => '4158db2f2c61c4610774d1f9896e37f1ee46b502',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -42,15 +42,6 @@
             'replaced' => array(
                 0 => '*',
             ),
-        ),
-        'cossou/jasperphp' => array(
-            'pretty_version' => '2.8.0',
-            'version' => '2.8.0.0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../cossou/jasperphp',
-            'aliases' => array(),
-            'reference' => 'd24bc69aaaf55beb2a76a0db2a572e81f6baee09',
-            'dev_requirement' => false,
         ),
         'davedevelopment/hamcrest-php' => array(
             'dev_requirement' => true,
@@ -164,6 +155,15 @@
             'install_path' => __DIR__ . '/../fruitcake/laravel-cors',
             'aliases' => array(),
             'reference' => '783a74f5e3431d7b9805be8afb60fd0a8f743534',
+            'dev_requirement' => false,
+        ),
+        'geekcom/phpjasper' => array(
+            'pretty_version' => '3.3.1',
+            'version' => '3.3.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../geekcom/phpjasper',
+            'aliases' => array(),
+            'reference' => 'df25051c1c50410d89d51fa84b8b6457b3c1e851',
             'dev_requirement' => false,
         ),
         'graham-campbell/result-type' => array(
@@ -427,7 +427,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '3c3b979c476deb9bbf7ffc500a1274e9b41ba6c2',
+            'reference' => '4158db2f2c61c4610774d1f9896e37f1ee46b502',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(

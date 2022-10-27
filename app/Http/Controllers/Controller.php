@@ -19,6 +19,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use PHPJasper\PHPJasper;
 
 class Controller extends BaseController
 {
@@ -28,9 +29,73 @@ class Controller extends BaseController
 
     public function generate_spt($id)
     {
-        $data['task'] = Task::find($id);
+        $exists = Storage::disk()->exists('spt');
+        if (!$exists) {
+            Storage::disk('public')->makeDirectory('spt');
+        }
+        $input = public_path('js/testTask.jrxml');
+        $jasper = new PHPJasper();
+        $jasper = $jasper->compile($input)->execute();
 
-        return view('spt.index', $data);
+        $input = public_path('js/testTask.jasper');
+        $output = base_path('public/storage/spt');
+        $options = [
+                        'format' => ['docx'],
+                    ];
+
+        $jas = new PHPJasper();
+
+        $x = $jas->process(
+            $input,
+            $output,
+            $options
+        )->execute();
+
+        response()->file(public_path('storage/spt/testTask.docx'));
+
+        // return response()->file($x);
+        // exec($x);
+
+        // $data['task'] = Task::find($id);
+        // $ext = 'pdf';
+        // $filename = now();
+        // $output = public_path('report/'.$filename);
+        // JasperPHP::process(
+        //     public_path('js/testTask.jrxml'),
+        //     $output,
+        //     [$ext],
+        //     ['php_version' => phpversion()],
+        //     [
+        //         'driver' => env('DB_CONNECTION'),
+        //         'username' => env('DB_USERNAME'),
+        //         'host' => env('DB_HOST'),
+        //         'database' => env('DB_DATABASE'),
+        //         'port' => env('DB_PORT'),
+        //     ]
+        // )->execute();
+
+        // $file = $output.'.'.$ext;
+
+        // if (!file_exists($file)) {
+        //     abort(404);
+        // }
+        // if ($ext == 'xls') {
+        //     header('Content-Description: Arquivo Excel');
+        //     header('Content-Type: application/x-msexcel');
+        //     header('Content-Disposition: attachment; filename="'.basename($file).'"');
+        //     header('Expires: 0');
+        //     header('Cache-Control: must-revalidate');
+        //     header('Pragma: public');
+        //     header('Content-Length: '.filesize($file));
+        //     flush(); // Flush system output buffer
+        //     readfile($file);
+        //     unlink($file);
+        //     die();
+        // } elseif ($ext == 'pdf') {
+        //     return response()->file($file)->deleteFileAfterSend();
+        // }
+
+        // return view('spt.index', $data);
     }
 
     public function staffList()
