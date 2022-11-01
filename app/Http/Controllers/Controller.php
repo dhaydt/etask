@@ -69,7 +69,6 @@ class Controller extends BaseController
 
             $spt->save();
         }
-        $staffArray = $staff;
 
         $exists = Storage::disk()->exists('spt');
         if (!$exists) {
@@ -98,7 +97,6 @@ class Controller extends BaseController
                         'params' => [
                             'mulai' => $date,
                             'spt_id' => $id,
-                            'staff' => $staff,
                         ],
                     ];
 
