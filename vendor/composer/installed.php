@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '4158db2f2c61c4610774d1f9896e37f1ee46b502',
+        'reference' => '704995da2a38cd6b18f977320f965381572a2c96',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -42,6 +42,15 @@
             'replaced' => array(
                 0 => '*',
             ),
+        ),
+        'cossou/jasperphp' => array(
+            'pretty_version' => '2.8.0',
+            'version' => '2.8.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../cossou/jasperphp',
+            'aliases' => array(),
+            'reference' => 'd24bc69aaaf55beb2a76a0db2a572e81f6baee09',
+            'dev_requirement' => false,
         ),
         'davedevelopment/hamcrest-php' => array(
             'dev_requirement' => true,
@@ -427,7 +436,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '4158db2f2c61c4610774d1f9896e37f1ee46b502',
+            'reference' => '704995da2a38cd6b18f977320f965381572a2c96',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(

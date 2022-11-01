@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Helpers;
 use App\Models\AsnTerkait;
 use App\Models\Dasar;
+use App\Models\sptGenerate;
 use App\Models\Task;
 use App\Models\Task_history;
 use App\Models\User;
@@ -19,6 +20,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use JasperPHP;
 use PHPJasper\PHPJasper;
 
 class Controller extends BaseController
@@ -27,75 +29,95 @@ class Controller extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
 
+    public function generate_sptOld($id)
+    {
+        $input = public_path('js/SPT.jasper');
+        $output = base_path('public/storage/spt/');
+        $x = JasperPHP::process(
+            $input,
+            false,
+            ['docx'],
+            ['php_version' => phpversion()],
+            [
+                'driver' => 'mysql',
+                'username' => env('DB_USERNAME'),
+                'password' => env('DB_PASSWORD'),
+                'host' => env('DB_HOST'),
+                'database' => env('DB_DATABASE'),
+                'port' => env('DB_PORT'),
+            ]
+        );
+
+        $x->output();
+        var_dump($x);
+
+        // return response()->file(public_path('storage/spt/SPT.docx'));
+    }
+
     public function generate_spt($id)
     {
+        $task = Task::find($id);
+        $staff = json_decode($task->staff);
+
+        foreach ($staff as $s) {
+            $spt = new sptGenerate();
+
+            $spt->nip = $s->id;
+            $spt->name = $s->nama;
+            $spt->jabatan = 'Undefined';
+            $spt->spt_id = $id;
+
+            $spt->save();
+        }
+        $staffArray = $staff;
+
         $exists = Storage::disk()->exists('spt');
         if (!$exists) {
             Storage::disk('public')->makeDirectory('spt');
         }
-        $input = public_path('js/testTask.jrxml');
+        $input = public_path('js/SPT.jrxml');
         $jasper = new PHPJasper();
         $jasper = $jasper->compile($input)->execute();
 
-        $input = public_path('js/testTask.jasper');
-        $output = base_path('public/storage/spt');
+        $date = Carbon::parse($task['start'])->isoFormat('dddd, D MMMM Y');
+
+        $input = public_path('js/SPT.jasper');
+        $output = base_path('public/storage/spt/');
+        $jdbc_dir = base_path('/vendor/geekcom/phpjasper/bin/jaspertarter/jdbc');
         $options = [
+                        'driver' => 'mysql',
+                        'host' => env('DB_HOST'),
+                        'port' => env('DB_PORT'),
+                        'database' => env('DB_DATABASE'),
+                        'username' => env('DB_USERNAME'),
+                        'password' => env('DB_PASSWORD'),
+                        'jdbc_driver' => 'com.mysql.jdbc.Driver',
+                        'jdbc_url' => 'jdbc:mysql://localhost:3306/c1_etask',
+                        'jdbc_dir' => $jdbc_dir,
                         'format' => ['docx'],
+                        'params' => [
+                            'mulai' => $date,
+                            'spt_id' => $id,
+                            'staff' => $staff,
+                        ],
                     ];
 
         $jas = new PHPJasper();
 
-        $x = $jas->process(
+        $jas->process(
             $input,
             $output,
             $options
         )->execute();
 
-        response()->file(public_path('storage/spt/testTask.docx'));
-
-        // return response()->file($x);
-        // exec($x);
-
-        // $data['task'] = Task::find($id);
-        // $ext = 'pdf';
-        // $filename = now();
-        // $output = public_path('report/'.$filename);
-        // JasperPHP::process(
-        //     public_path('js/testTask.jrxml'),
-        //     $output,
-        //     [$ext],
-        //     ['php_version' => phpversion()],
-        //     [
-        //         'driver' => env('DB_CONNECTION'),
-        //         'username' => env('DB_USERNAME'),
-        //         'host' => env('DB_HOST'),
-        //         'database' => env('DB_DATABASE'),
-        //         'port' => env('DB_PORT'),
-        //     ]
-        // )->execute();
-
-        // $file = $output.'.'.$ext;
-
-        // if (!file_exists($file)) {
-        //     abort(404);
-        // }
-        // if ($ext == 'xls') {
-        //     header('Content-Description: Arquivo Excel');
-        //     header('Content-Type: application/x-msexcel');
-        //     header('Content-Disposition: attachment; filename="'.basename($file).'"');
-        //     header('Expires: 0');
-        //     header('Cache-Control: must-revalidate');
-        //     header('Pragma: public');
-        //     header('Content-Length: '.filesize($file));
-        //     flush(); // Flush system output buffer
-        //     readfile($file);
-        //     unlink($file);
-        //     die();
-        // } elseif ($ext == 'pdf') {
-        //     return response()->file($file)->deleteFileAfterSend();
+        // $remove = sptGenerate::where('spt_id', $id)->get();
+        // if (count($remove) > 0) {
+        //     foreach ($remove as $r) {
+        //         $r->delete();
+        //     }
         // }
 
-        // return view('spt.index', $data);
+        return response()->file(public_path('storage/spt/SPT.docx'));
     }
 
     public function staffList()

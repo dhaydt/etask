@@ -173,6 +173,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Yoeunes\Toastr\ToastrServiceProvider::class,
+        JasperPHP\JasperPHPServiceProvider::class,
     ],
 
     /*

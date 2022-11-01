@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Mockery' => array($vendorDir . '/mockery/mockery/library'),
+    'JasperPHP' => array($vendorDir . '/cossou/jasperphp/src'),
 );
