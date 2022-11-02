@@ -53,11 +53,11 @@ class Controller extends BaseController
         exec("java -jar $jasperstarter pr $input -o $output -f docx -P $parameter -t $database");
 
         $remove = sptGenerate::where('spt_id', $id)->get();
-        if (count($remove) > 0) {
-            foreach ($remove as $r) {
-                $r->delete();
-            }
-        }
+        // if (count($remove) > 0) {
+        //     foreach ($remove as $r) {
+        //         $r->delete();
+        //     }
+        // }
 
         return response()->file(public_path('storage/spt/SPT.docx'));
     }
