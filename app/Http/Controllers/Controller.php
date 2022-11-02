@@ -40,7 +40,7 @@ class Controller extends BaseController
             $spt->spt_id = $id;
             $spt->save();
         }
-        $input = public_path('js/SPT7.jrxml');
+        $input = public_path('js/SPT8.jrxml');
         $output = public_path('/storage/spt');
 
         $date = Carbon::parse($task['start'])->isoFormat('dddd, D MMMM Y');
@@ -56,7 +56,7 @@ class Controller extends BaseController
 
         $this->removeTask($id);
 
-        return response()->file(public_path('storage/spt/SPT7.docx'));
+        return response()->file(public_path('storage/spt/SPT8.docx'));
     }
 
     public function removeTask($id)
