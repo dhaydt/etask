@@ -57,7 +57,7 @@ WHERE
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="115" splitType="Stretch">
+		<band height="88" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<image>
 				<reportElement x="54" y="5" width="483" height="83" uuid="bb45cc4a-60dd-4531-b343-9382869372e6"/>
@@ -197,7 +197,7 @@ WHERE
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="144" splitType="Stretch">
+		<band height="186" splitType="Stretch">
 			<textField>
 				<reportElement x="270" y="12" width="230" height="20" uuid="c3782903-3042-47d9-be9c-911d67890a43"/>
 				<textElement textAlignment="Center">
