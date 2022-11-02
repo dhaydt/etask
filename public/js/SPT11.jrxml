@@ -208,7 +208,7 @@ WHERE
 			<staticText>
 				<reportElement x="225" y="35" width="300" height="20" uuid="9c028af8-40d7-4099-83df-98eaba47c9ab"/>
 				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Kepala Dinas Komunikasi dan Informatika]]></text>
 			</staticText>
