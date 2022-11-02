@@ -45,6 +45,7 @@ class Controller extends BaseController
 
         $date = Carbon::parse($task['start'])->isoFormat('dddd, D MMMM Y');
         $naskah = '12 November 2022';
+        // $jasperstarter = base_path('/vendor/cossou/jasperphp/src/JasperStarter/lib/jasperstarter.jar');
         $jasperstarter = base_path('/vendor/cossou/jasperphp/src/JasperStarter/lib/jasperstarter.jar');
         $parameter = 'mulai="'.$date.'" spt_id='.$id.' tanggal_naskah="'.$naskah.'"';
         $database = 'mysql -H localhost -u c1_etask -p KhSh_Bx4 -n c1_etask';
