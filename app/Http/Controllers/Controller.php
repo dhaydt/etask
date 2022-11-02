@@ -27,20 +27,45 @@ class Controller extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
 
-    public function generate_sppd(Request $request)
+    public function generate_sppd($task_id, $staff_id)
     {
-        // dd($request);
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(public_path('/storage/template/sppd.docx'));
+        $task = Task::find($task_id);
+        $staf = AsnTerkait::where('nip_terkait', $staff_id)->first();
+        // dd($staf);
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(public_path('/template/sppdTemplate.docx'));
 
         $templateProcessor->setValues([
-            'nip' => $request->staff,
+            'nama_pegawai' => $staf->nama,
+            'nip_pegawai' => $staf->nip_terkait,
+            'pangkat' => 'belum ada api',
+            'jabatan' => $staf->nama_jabatan,
+            'maksud_sppd' => $task->name,
+            'alat_angkut' => 'belum ada data',
+            'tempat_berangkat' => 'belum ada data',
+            'tempat_tujuan' => 'belum ada data',
+            'lama_perjalanan' => 'belum ada data',
+            'tgl_berangkat' => 'belum ada data',
+            'tgl_kembali' => 'belum ada data',
+            'pengikut' => 'belum ada data',
+            'instansi_pembebanan_anggaran' => 'belum ada data',
+            'tiba_di_kota_tujuan' => 'belum ada data',
+            'berangkat_dari_kota_tujuan' => 'belum ada data',
+            'tiba_di_kotas_asal' => 'belum ada data',
+            'keterangan' => 'belum ada data',
+            'dikeluarkan_di' => 'belum ada data',
+            'dikeluarkan_tanggal' => 'belum ada data',
+            'jabatan_tembusan' => 'KEPALA DINAS KOMUNIKASI DAN INFORMATIKA',
+            'nama_pejabat' => 'Drs, ERWIN UMAR, M.Pd',
+            'nip_pejabat' => '196311301988031003',
         ]);
 
-        header('Content-Disposition: attachment; filename=template.docx');
+        $name = 'SPPD-'.now();
+
+        header('Content-Disposition: attachment; filename='.$name.'.docx');
 
         $templateProcessor->saveAs(public_path('storage/sppd/SPPD.docx'));
 
-        return 'success';
+        return response()->file(public_path('storage/sppd/SPPD.docx'));
     }
 
     public function generate_spt($id)

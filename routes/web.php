@@ -49,7 +49,7 @@ Route::post('addStaff', [Controller::class, 'addStaff']);
 Route::post('reg', [Controller::class, 'reg'])->name('reg');
 Route::post('checkUser', [Controller::class, 'checkUser'])->name('checkUser');
 Route::get('generate_spt/{id}', [Controller::class, 'generate_spt'])->name('generate_spt');
-Route::post('generate_sppd/', [Controller::class, 'generate_sppd'])->name('generate_sppd');
+Route::get('generate_sppd/{task_id}/{staff_id}', [Controller::class, 'generate_sppd'])->name('generate_sppd');
 
 Route::middleware(['auth.staff'])->group(function () {
     Route::get('/dashboard', [Controller::class, 'task'])->name('dashboard');

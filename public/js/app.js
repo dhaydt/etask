@@ -8638,6 +8638,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8897,20 +8907,8 @@ __webpack_require__.r(__webpack_exports__);
       });
       console.log("staffcheck", user);
     },
-    generateSppd: function generateSppd(user, taskId) {
+    generateSppd: function generateSppd() {
       event.stopPropagation();
-      var that = this;
-      axios__WEBPACK_IMPORTED_MODULE_7___default().post("generate_sppd", {
-        task: "",
-        staff: user,
-        task_id: taskId
-      }).then(function (response) {
-        console.log("sppd", response); // that.splitAxios(response.data.original);
-        // Vue.$toast.success("Staff Moved Successfully");
-      })["catch"](function (err) {
-        console.log("err", err);
-      });
-      console.log("staffcheck", user);
     },
     splitData: function splitData() {
       var _this2 = this;
@@ -87083,30 +87081,39 @@ var render = function () {
                                     "list-group-staff bg-light-success d-flex card flex-row shadow-sm p-1 mb-1",
                                 },
                                 [
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass:
-                                        "btn btn-sm btn-primary p-1 btn-hover-scale btn-print position-absolute text-light",
-                                      attrs: {
-                                        "data-bs-toggle": "tooltip",
-                                        title: "Cetak SPPD",
-                                      },
-                                      on: {
-                                        click: function ($event) {
-                                          return _vm.generateSppd(
-                                            staf.id,
-                                            element.id
-                                          )
+                                  element.staffs.length !== 0 &&
+                                  element.dasar.length !== 0 &&
+                                  element.description !== null &&
+                                  element.start !== null
+                                    ? _c(
+                                        "a",
+                                        {
+                                          staticClass:
+                                            "btn btn-sm btn-primary p-1 btn-hover-scale btn-print position-absolute text-light",
+                                          attrs: {
+                                            href:
+                                              "generate_sppd/" +
+                                              element.id +
+                                              "/" +
+                                              staf.id,
+                                            target: "_blank",
+                                            "data-bs-toggle": "tooltip",
+                                            title: "Cetak SPPD",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.generateSppd()
+                                            },
+                                          },
                                         },
-                                      },
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass: "fas fa-print px-1 py-0",
-                                      }),
-                                    ]
-                                  ),
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "fa-solid fa-print ms-1 text-light",
+                                          }),
+                                        ]
+                                      )
+                                    : _vm._e(),
                                   _vm._v(" "),
                                   _c(
                                     "button",

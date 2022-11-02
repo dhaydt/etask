@@ -71,14 +71,24 @@
                                     v-for="staf in element.staffs"
                                     :key="staf.id"
                                 >
-                                    <button
-                                        @click="generateSppd(staf.id, element.id)"
-                                        class="btn btn-sm btn-primary p-1 btn-hover-scale btn-print position-absolute text-light"
+                                    <a
+                                        v-if="
+                                            element.staffs.length !== 0 &&
+                                            element.dasar.length !== 0 &&
+                                            element.description !== null &&
+                                            element.start !== null
+                                        "
+                                        :href="'generate_sppd/' + element.id + '/' + staf.id"
+                                        target="_blank"
                                         data-bs-toggle="tooltip"
                                         title="Cetak SPPD"
+                                        @click="generateSppd()"
+                                        class="btn btn-sm btn-primary p-1 btn-hover-scale btn-print position-absolute text-light"
                                     >
-                                        <i class="fas fa-print px-1 py-0"></i>
-                                    </button>
+                                        <i
+                                            class="fa-solid fa-print ms-1 text-light"
+                                        ></i>
+                                    </a>
                                     <button
                                         @click="
                                             removeStaff(staf.id, element.id)
@@ -563,24 +573,8 @@ export default {
                 });
             console.log("staffcheck", user);
         },
-        generateSppd(user, taskId) {
+        generateSppd() {
             event.stopPropagation();
-            const that = this;
-            axios
-                .post("generate_sppd", {
-                    task: "",
-                    staff: user,
-                    task_id: taskId,
-                })
-                .then(function (response) {
-                    console.log("sppd", response);
-                    // that.splitAxios(response.data.original);
-                    // Vue.$toast.success("Staff Moved Successfully");
-                })
-                .catch(function (err) {
-                    console.log("err", err);
-                });
-            console.log("staffcheck", user);
         },
         splitData() {
             console.log("body1", this.todos);
