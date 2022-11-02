@@ -27,6 +27,22 @@ class Controller extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
 
+    public function generate_sppd(Request $request)
+    {
+        // dd($request);
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(public_path('/storage/template/sppd.docx'));
+
+        $templateProcessor->setValues([
+            'nip' => $request->staff,
+        ]);
+
+        header('Content-Disposition: attachment; filename=template.docx');
+
+        $templateProcessor->saveAs(public_path('storage/sppd/SPPD.docx'));
+
+        return 'success';
+    }
+
     public function generate_spt($id)
     {
         $task = Task::find($id);

@@ -8637,6 +8637,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -8891,6 +8892,21 @@ __webpack_require__.r(__webpack_exports__);
         // console.log("resp", response);
         that.splitAxios(response.data.original);
         Vue.$toast.success("Staff Moved Successfully");
+      })["catch"](function (err) {
+        console.log("err", err);
+      });
+      console.log("staffcheck", user);
+    },
+    generateSppd: function generateSppd(user, taskId) {
+      event.stopPropagation();
+      var that = this;
+      axios__WEBPACK_IMPORTED_MODULE_7___default().post("generate_sppd", {
+        task: "",
+        staff: user,
+        task_id: taskId
+      }).then(function (response) {
+        console.log("sppd", response); // that.splitAxios(response.data.original);
+        // Vue.$toast.success("Staff Moved Successfully");
       })["catch"](function (err) {
         console.log("err", err);
       });
@@ -87074,7 +87090,15 @@ var render = function () {
                                         "btn btn-sm btn-primary p-1 btn-hover-scale btn-print position-absolute text-light",
                                       attrs: {
                                         "data-bs-toggle": "tooltip",
-                                        title: "Cetak Surat",
+                                        title: "Cetak SPPD",
+                                      },
+                                      on: {
+                                        click: function ($event) {
+                                          return _vm.generateSppd(
+                                            staf.id,
+                                            element.id
+                                          )
+                                        },
                                       },
                                     },
                                     [
