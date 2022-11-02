@@ -40,8 +40,8 @@ class Controller extends BaseController
             $spt->spt_id = $id;
             $spt->save();
         }
-        $input = public_path('js/SPT.jrxml');
-        $output = public_path('/storage/spt/SPT1');
+        $input = public_path('js/SPT1.jrxml');
+        $output = public_path('/storage/spt');
 
         $date = Carbon::parse($task['start'])->isoFormat('dddd, D MMMM Y');
         $naskah = '12 November 2022';
