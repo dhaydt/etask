@@ -40,11 +40,12 @@ class Controller extends BaseController
             $spt->spt_id = $id;
             $spt->save();
         }
-        $input = public_path('js/SPT1.jrxml');
+        $input = public_path('js/SPT6.jrxml');
         $output = public_path('/storage/spt');
 
         $date = Carbon::parse($task['start'])->isoFormat('dddd, D MMMM Y');
-        $naskah = '12 November 2022';
+        $naskah = Carbon::parse(now())->isoFormat('D MMMM Y');
+        // dd($naskah);
         // $jasperstarter = base_path('/vendor/cossou/jasperphp/src/JasperStarter/lib/jasperstarter.jar');
         $jasperstarter = base_path('/vendor/cossou/jasperphp/src/JasperStarter/lib/jasperstarter.jar');
         $parameter = 'mulai="'.$date.'" spt_id='.$id.' tanggal_naskah="'.$naskah.'"';
@@ -53,14 +54,19 @@ class Controller extends BaseController
         // dd("java -jar $jasperstarter pr $input -o $output -f docx -P $parameter");
         exec("java -jar $jasperstarter pr $input -o $output -f docx -P $parameter -t $database");
 
-        $remove = sptGenerate::where('spt_id', $id)->get();
-        // if (count($remove) > 0) {
-        //     foreach ($remove as $r) {
-        //         $r->delete();
-        //     }
-        // }
+        $this->removeTask($id);
 
-        return response()->file(public_path('storage/spt/SPT.docx'));
+        return response()->file(public_path('storage/spt/SPT6.docx'));
+    }
+
+    public function removeTask($id)
+    {
+        $remove = sptGenerate::where('spt_id', $id)->get();
+        if (count($remove) > 0) {
+            foreach ($remove as $r) {
+                $r->delete();
+            }
+        }
     }
 
     public function staffList()
