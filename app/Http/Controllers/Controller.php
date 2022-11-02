@@ -20,39 +20,12 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use JasperPHP;
-use PHPJasper\PHPJasper;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests;
     use DispatchesJobs;
     use ValidatesRequests;
-
-    public function generate_sptOld($id)
-    {
-        $input = public_path('js/SPT.jasper');
-        $output = base_path('public/storage/spt/');
-        $x = JasperPHP::process(
-            $input,
-            false,
-            ['docx'],
-            ['php_version' => phpversion()],
-            [
-                'driver' => 'mysql',
-                'username' => env('DB_USERNAME'),
-                'password' => env('DB_PASSWORD'),
-                'host' => env('DB_HOST'),
-                'database' => env('DB_DATABASE'),
-                'port' => env('DB_PORT'),
-            ]
-        );
-
-        $x->output();
-        var_dump($x);
-
-        // return response()->file(public_path('storage/spt/SPT.docx'));
-    }
 
     public function generate_spt($id)
     {
@@ -61,59 +34,28 @@ class Controller extends BaseController
 
         foreach ($staff as $s) {
             $spt = new sptGenerate();
-
             $spt->nip = $s->id;
             $spt->name = $s->nama;
             $spt->jabatan = 'Undefined';
             $spt->spt_id = $id;
-
             $spt->save();
         }
-
-        $exists = Storage::disk()->exists('spt');
-        if (!$exists) {
-            Storage::disk('public')->makeDirectory('spt');
-        }
         $input = public_path('js/SPT.jrxml');
-        $jasper = new PHPJasper();
-        $jasper = $jasper->compile($input)->execute();
+        $output = public_path('/storage/spt/SPT');
 
         $date = Carbon::parse($task['start'])->isoFormat('dddd, D MMMM Y');
+        $jasperstarter = base_path('/vendor/cossou/jasperphp/src/JasperStarter/lib/jasperstarter.jar');
+        $parameter = 'mulai='.$date.' spt_id='.$id;
+        $database = 'mysql -H localhost -u c1_etask -p KhSh_Bx4 -n c1_etask';
+        //dd("java -jar $jasperstarter pr $input -o $output -f docx -P $parameter");
+        exec("java -jar $jasperstarter pr $input -o $output -f docx -P $parameter -t $database");
 
-        $input = public_path('js/SPT.jasper');
-        $output = base_path('public/storage/spt/');
-        $jdbc_dir = base_path('/vendor/geekcom/phpjasper/bin/jaspertarter/jdbc');
-        $options = [
-                        'driver' => 'mysql',
-                        'host' => env('DB_HOST'),
-                        'port' => env('DB_PORT'),
-                        'database' => env('DB_DATABASE'),
-                        'username' => env('DB_USERNAME'),
-                        'password' => env('DB_PASSWORD'),
-                        'jdbc_driver' => 'com.mysql.jdbc.Driver',
-                        'jdbc_url' => 'jdbc:mysql://localhost:3306/c1_etask',
-                        'jdbc_dir' => $jdbc_dir,
-                        'format' => ['docx'],
-                        'params' => [
-                            'mulai' => $date,
-                            'spt_id' => $id,
-                        ],
-                    ];
-
-        $jas = new PHPJasper();
-
-        $jas->process(
-            $input,
-            $output,
-            $options
-        )->execute();
-
-        // $remove = sptGenerate::where('spt_id', $id)->get();
-        // if (count($remove) > 0) {
-        //     foreach ($remove as $r) {
-        //         $r->delete();
-        //     }
-        // }
+        $remove = sptGenerate::where('spt_id', $id)->get();
+        if (count($remove) > 0) {
+            foreach ($remove as $r) {
+                $r->delete();
+            }
+        }
 
         return response()->file(public_path('storage/spt/SPT.docx'));
     }
