@@ -197,16 +197,16 @@ WHERE
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="186" splitType="Stretch">
+		<band height="195" splitType="Stretch">
 			<textField>
-				<reportElement x="270" y="12" width="230" height="20" uuid="c3782903-3042-47d9-be9c-911d67890a43"/>
+				<reportElement x="262" y="12" width="230" height="20" uuid="c3782903-3042-47d9-be9c-911d67890a43"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Bukittinggi, " + $P{tanggal_naskah}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="237" y="35" width="300" height="20" uuid="9c028af8-40d7-4099-83df-98eaba47c9ab"/>
+				<reportElement x="225" y="35" width="300" height="20" uuid="9c028af8-40d7-4099-83df-98eaba47c9ab"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
