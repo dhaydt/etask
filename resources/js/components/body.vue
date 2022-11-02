@@ -72,6 +72,13 @@
                                     :key="staf.id"
                                 >
                                     <button
+                                        class="btn btn-sm btn-primary p-1 btn-hover-scale btn-print position-absolute text-light"
+                                        data-bs-toggle="tooltip"
+                                        title="Cetak Surat"
+                                    >
+                                        <i class="fas fa-print px-1 py-0"></i>
+                                    </button>
+                                    <button
                                         @click="
                                             removeStaff(staf.id, element.id)
                                         "
@@ -144,7 +151,7 @@
                                         v-if="element.start"
                                         data-bs-toggle="tooltip"
                                         title="Tanggal mulai pengerjaan"
-                                        class="badge rounded-pill badge-secondary text-danger d-flex align-items-center"
+                                        class="badge text-danger d-flex align-items-center"
                                     >
                                         <i
                                             class="fa-solid fa-calendar me-2 text-danger"
@@ -161,38 +168,47 @@
                                         Pengerjaan belum diatur
                                     </span>
                                 </div>
-                                <a
-                                    v-if="
-                                        element.staffs.length !== 0 &&
-                                        element.dasar.length !== 0 &&
-                                        element.description !== null &&
-                                        element.start !== null
-                                    "
-                                    :href="'generate_spt/' + element.id"
-                                    target="_blank"
-                                    data-bs-toggle="tooltip"
-                                    title="Generate Surat Tugas"
-                                    @click="generateSpt(element.id)"
-                                    class="btn btn-info btn-hover-rotate-start pe-3 ps-4 py-2"
-                                >
-                                    <i class="fa-solid fa-print text-light"></i>
-                                </a>
-                                <button
-                                    v-if="
-                                        element.staffs.length !== 0 &&
-                                        element.dasar.length !== 0 &&
-                                        element.description !== null &&
-                                        element.start !== null
-                                    "
-                                    data-bs-toggle="tooltip"
-                                    title="Mulai Task"
-                                    class="btn btn-sm btn-primary btn-hover-rotate-end"
-                                    @click="
-                                        mulaiTask(element.id, element.status)
-                                    "
-                                >
-                                    Mulai Task
-                                </button>
+                                <div class="d-flex">
+                                    <a
+                                        v-if="
+                                            element.staffs.length !== 0 &&
+                                            element.dasar.length !== 0 &&
+                                            element.description !== null &&
+                                            element.start !== null
+                                        "
+                                        :href="'generate_spt/' + element.id"
+                                        target="_blank"
+                                        data-bs-toggle="tooltip"
+                                        title="Generate Surat Tugas"
+                                        @click="generateSpt(element.id)"
+                                        class="btn btn-primary btn-hover-rotate-start pe-3 ps-4 py-2 me-2"
+                                    >
+                                        <i
+                                            class="fa-solid fa-print text-light"
+                                        ></i>
+                                    </a>
+                                    <button
+                                        v-if="
+                                            element.staffs.length !== 0 &&
+                                            element.dasar.length !== 0 &&
+                                            element.description !== null &&
+                                            element.start !== null
+                                        "
+                                        data-bs-toggle="tooltip"
+                                        title="Mulai Task"
+                                        class="btn btn-sm btn-primary btn-hover-rotate-end pe-3 ps-4 py-2"
+                                        @click="
+                                            mulaiTask(
+                                                element.id,
+                                                element.status
+                                            )
+                                        "
+                                    >
+                                        <i
+                                            class="fa-regular fa-circle-play"
+                                        ></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div class="input-group input-group-sm mt-auto">
@@ -792,6 +808,18 @@ export default {
     right: -7px;
     top: -7px;
     z-index: 9;
+    i {
+        font-size: 10px;
+    }
+}
+.btn-print {
+    font-size: 10px;
+    right: 22px;
+    top: -7px;
+    z-index: 9;
+    i {
+        font-size: 10px;
+    }
 }
 .delete-btn {
     opacity: 0;

@@ -8621,6 +8621,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -17003,7 +17019,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* light stylings for the kanban columns */\n.staff-name {\n  font-size: 12px;\n  align-items: center;\n  width: 100%;\n  text-transform: capitalize;\n}\n.card-list {\n  margin-right: 20px;\n  background-color: rgba(239, 239, 239, 0.6117647059);\n  border-radius: 4px;\n  transition: 0.5s;\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);\n}\n.kanban-column {\n  min-height: 100px;\n}\n.overflow-hidden {\n  overflow: hidden;\n}\n.list-group-staff {\n  transition: 0.5s;\n}\n.list-group-staff:hover {\n  transform: translate(-5px, 0);\n}\n.list-group-item {\n  margin-bottom: 5px;\n  cursor: pointer;\n  transition: 0.5s;\n  border: unset;\n  border-radius: 4px;\n}\n.list-group-item h6 {\n  font-family: \"Acme\", sans-serif;\n}\n.list-group-item .card-headers {\n  margin: -6px 0 10px -13px;\n  background: #dedede;\n  width: 111%;\n  padding-left: 10px;\n}\n.list-group-item .description {\n  background-color: #efefef;\n  line-height: 1.2;\n  padding: 0 5px 5px 5px;\n  max-height: 45px;\n  overflow: hidden;\n  border-radius: 5px;\n  transition: 1s;\n}\n.list-group-item .description span {\n  font-size: 10px;\n  font-family: \"Noto Serif Gujarati\", serif;\n}\n.avatar {\n  border-radius: 50%;\n  padding: 3px;\n  overflow: hidden;\n  background: #ddd;\n  -o-object-position: 50px 30px;\n     object-position: 50px 30px;\n}\n.content-header h6 {\n  display: -webkit-box;\n  max-width: 100%;\n  -webkit-line-clamp: 4;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n}\n.btn-remove {\n  font-size: 10px;\n  right: -7px;\n  top: -7px;\n  z-index: 9;\n}\n.delete-btn {\n  opacity: 0;\n  transition: 0.6s;\n}\n.list-group-item:hover .delete-btn {\n  opacity: 1;\n}\n.list-group-item:hover .delete-btn i {\n  color: red;\n}\n.description:hover {\n  height: 85px;\n  max-height: 85px;\n}\n.created-at span.badge {\n  font-size: 10px;\n}\n.loader {\n  position: absolute;\n  top: 30vh;\n  z-index: 99;\n}\n.task-repo {\n  background: rgba(212, 212, 212, 0.568627451);\n}\n.input-group #input-2 {\n  border-right: none;\n}\n.input-group span button {\n  border-radius: 0 10px 10px 0;\n}\n.staff-list-stack {\n  margin-left: -23px;\n}\n.staff-list-stack:first-child {\n  margin-left: 0;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* light stylings for the kanban columns */\n.staff-name {\n  font-size: 12px;\n  align-items: center;\n  width: 100%;\n  text-transform: capitalize;\n}\n.card-list {\n  margin-right: 20px;\n  background-color: rgba(239, 239, 239, 0.6117647059);\n  border-radius: 4px;\n  transition: 0.5s;\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);\n}\n.kanban-column {\n  min-height: 100px;\n}\n.overflow-hidden {\n  overflow: hidden;\n}\n.list-group-staff {\n  transition: 0.5s;\n}\n.list-group-staff:hover {\n  transform: translate(-5px, 0);\n}\n.list-group-item {\n  margin-bottom: 5px;\n  cursor: pointer;\n  transition: 0.5s;\n  border: unset;\n  border-radius: 4px;\n}\n.list-group-item h6 {\n  font-family: \"Acme\", sans-serif;\n}\n.list-group-item .card-headers {\n  margin: -6px 0 10px -13px;\n  background: #dedede;\n  width: 111%;\n  padding-left: 10px;\n}\n.list-group-item .description {\n  background-color: #efefef;\n  line-height: 1.2;\n  padding: 0 5px 5px 5px;\n  max-height: 45px;\n  overflow: hidden;\n  border-radius: 5px;\n  transition: 1s;\n}\n.list-group-item .description span {\n  font-size: 10px;\n  font-family: \"Noto Serif Gujarati\", serif;\n}\n.avatar {\n  border-radius: 50%;\n  padding: 3px;\n  overflow: hidden;\n  background: #ddd;\n  -o-object-position: 50px 30px;\n     object-position: 50px 30px;\n}\n.content-header h6 {\n  display: -webkit-box;\n  max-width: 100%;\n  -webkit-line-clamp: 4;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n}\n.btn-remove {\n  font-size: 10px;\n  right: -7px;\n  top: -7px;\n  z-index: 9;\n}\n.btn-remove i {\n  font-size: 10px;\n}\n.btn-print {\n  font-size: 10px;\n  right: 22px;\n  top: -7px;\n  z-index: 9;\n}\n.btn-print i {\n  font-size: 10px;\n}\n.delete-btn {\n  opacity: 0;\n  transition: 0.6s;\n}\n.list-group-item:hover .delete-btn {\n  opacity: 1;\n}\n.list-group-item:hover .delete-btn i {\n  color: red;\n}\n.description:hover {\n  height: 85px;\n  max-height: 85px;\n}\n.created-at span.badge {\n  font-size: 10px;\n}\n.loader {\n  position: absolute;\n  top: 30vh;\n  z-index: 99;\n}\n.task-repo {\n  background: rgba(212, 212, 212, 0.568627451);\n}\n.input-group #input-2 {\n  border-right: none;\n}\n.input-group span button {\n  border-radius: 0 10px 10px 0;\n}\n.staff-list-stack {\n  margin-left: -23px;\n}\n.staff-list-stack:first-child {\n  margin-left: 0;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -87055,6 +87071,23 @@ var render = function () {
                                     "button",
                                     {
                                       staticClass:
+                                        "btn btn-sm btn-primary p-1 btn-hover-scale btn-print position-absolute text-light",
+                                      attrs: {
+                                        "data-bs-toggle": "tooltip",
+                                        title: "Cetak Surat",
+                                      },
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-print px-1 py-0",
+                                      }),
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
                                         "btn btn-sm btn-danger p-1 btn-hover-scale btn-remove position-absolute text-light",
                                       attrs: { "data-bs-toggle": "tooltip" },
                                       on: {
@@ -87208,7 +87241,7 @@ var render = function () {
                                         "span",
                                         {
                                           staticClass:
-                                            "badge rounded-pill badge-secondary text-danger d-flex align-items-center",
+                                            "badge text-danger d-flex align-items-center",
                                           attrs: {
                                             "data-bs-toggle": "tooltip",
                                             title: "Tanggal mulai pengerjaan",
@@ -87248,65 +87281,68 @@ var render = function () {
                                 ]
                               ),
                               _vm._v(" "),
-                              element.staffs.length !== 0 &&
-                              element.dasar.length !== 0 &&
-                              element.description !== null &&
-                              element.start !== null
-                                ? _c(
-                                    "a",
-                                    {
-                                      staticClass:
-                                        "btn btn-info btn-hover-rotate-start pe-3 ps-4 py-2",
-                                      attrs: {
-                                        href: "generate_spt/" + element.id,
-                                        target: "_blank",
-                                        "data-bs-toggle": "tooltip",
-                                        title: "Generate Surat Tugas",
-                                      },
-                                      on: {
-                                        click: function ($event) {
-                                          return _vm.generateSpt(element.id)
-                                        },
-                                      },
-                                    },
-                                    [
-                                      _c("i", {
+                              _c("div", { staticClass: "d-flex" }, [
+                                element.staffs.length !== 0 &&
+                                element.dasar.length !== 0 &&
+                                element.description !== null &&
+                                element.start !== null
+                                  ? _c(
+                                      "a",
+                                      {
                                         staticClass:
-                                          "fa-solid fa-print text-light",
-                                      }),
-                                    ]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              element.staffs.length !== 0 &&
-                              element.dasar.length !== 0 &&
-                              element.description !== null &&
-                              element.start !== null
-                                ? _c(
-                                    "button",
-                                    {
-                                      staticClass:
-                                        "btn btn-sm btn-primary btn-hover-rotate-end",
-                                      attrs: {
-                                        "data-bs-toggle": "tooltip",
-                                        title: "Mulai Task",
-                                      },
-                                      on: {
-                                        click: function ($event) {
-                                          return _vm.mulaiTask(
-                                            element.id,
-                                            element.status
-                                          )
+                                          "btn btn-primary btn-hover-rotate-start pe-3 ps-4 py-2 me-2",
+                                        attrs: {
+                                          href: "generate_spt/" + element.id,
+                                          target: "_blank",
+                                          "data-bs-toggle": "tooltip",
+                                          title: "Generate Surat Tugas",
+                                        },
+                                        on: {
+                                          click: function ($event) {
+                                            return _vm.generateSpt(element.id)
+                                          },
                                         },
                                       },
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                Mulai Task\n                            "
-                                      ),
-                                    ]
-                                  )
-                                : _vm._e(),
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "fa-solid fa-print text-light",
+                                        }),
+                                      ]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                element.staffs.length !== 0 &&
+                                element.dasar.length !== 0 &&
+                                element.description !== null &&
+                                element.start !== null
+                                  ? _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-sm btn-primary btn-hover-rotate-end pe-3 ps-4 py-2",
+                                        attrs: {
+                                          "data-bs-toggle": "tooltip",
+                                          title: "Mulai Task",
+                                        },
+                                        on: {
+                                          click: function ($event) {
+                                            return _vm.mulaiTask(
+                                              element.id,
+                                              element.status
+                                            )
+                                          },
+                                        },
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "fa-regular fa-circle-play",
+                                        }),
+                                      ]
+                                    )
+                                  : _vm._e(),
+                              ]),
                             ]
                           ),
                         ],
