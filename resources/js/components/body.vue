@@ -589,6 +589,7 @@ export default {
                     updated: s.updated_at,
                     start: s.start,
                     dasar: JSON.parse(s.spt_id),
+                    tipe_dinas: s.tipe_dinas
                 };
                 this.newTodos.push(todo);
             });
@@ -613,6 +614,7 @@ export default {
                     start_do: s.start_do,
                     finish_do: s.finish_do,
                     report: s.report,
+                    tipe_dinas: s.tipe_dinas
                 };
                 this.newDoing.push(todo);
             });
@@ -629,6 +631,7 @@ export default {
                     start_do: s.start_do,
                     finish_do: s.finish_do,
                     report: s.report,
+                    tipe_dinas: s.tipe_dinas
                 };
                 this.newDone.push(todo);
             });
@@ -651,6 +654,7 @@ export default {
                     description: s.description,
                     start: s.start,
                     dasar: JSON.parse(s.spt_id),
+                    tipe_dinas: s.tipe_dinas
                 };
                 this.newTodos.push(todo);
             });
@@ -671,6 +675,7 @@ export default {
                     start_do: s.start_do,
                     finish_do: s.finish_do,
                     report: s.report,
+                    tipe_dinas: s.tipe_dinas
                 };
                 this.newDoing.push(todo);
             });
@@ -687,6 +692,7 @@ export default {
                     start_do: s.start_do,
                     finish_do: s.finish_do,
                     report: s.report,
+                    tipe_dinas: s.tipe_dinas
                 };
                 this.newDone.push(todo);
             });

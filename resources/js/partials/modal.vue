@@ -70,6 +70,17 @@
                         <input type="hidden" name="_token" :value="token" />
                         <input type="hidden" name="id" :value="taskData.id" />
                         <div class="modal-body pt-1">
+                            <LabelTitle title="Tipe Dinas" icon="fa-solid fa-object-ungroup"></LabelTitle>
+                            <div class="mb-3 input-text">
+                                <v-select
+                                    class="mt-2 text-capitalize"
+                                    :options="tipeDinas"
+                                    v-model="tipe"
+                                    label="tipe"
+                                    :disabled="taskData.status == 'doing'"
+                                    :placeholder="'Pilih tipe Dinas'"
+                                ></v-select>
+                            </div>
                             <LabelTitle
                                 title="ASN Terkait"
                                 icon="fa-solid fa-users"
@@ -178,13 +189,18 @@
                                 />
                             </div>
                             <LabelTitle
-                                v-if="status == 'doing' || status == 'done'"
+                                v-if="status == 'doing' || status == 'done' && tipe == 'dinas dalam'"
                                 title="Mulai mengerjakan"
+                                icon="fa-solid fa-stopwatch"
+                            ></LabelTitle>
+                            <LabelTitle
+                                v-if="tipe == 'dinas luar'"
+                                title="Tanggal Mulai Acara Kedinasan"
                                 icon="fa-solid fa-stopwatch"
                             ></LabelTitle>
                             <div
                                 class="mb-3 input-text"
-                                v-if="status == 'doing'"
+                                v-if="status == 'doing' || tipe == 'dinas luar'"
                             >
                                 <datetime
                                     class="form-control"
@@ -206,8 +222,13 @@
                                 />
                             </div>
                             <LabelTitle
-                                v-if="status == 'doing' || status == 'done'"
+                                v-if="status == 'doing' || status == 'done' && tipe == 'dinas dalam'"
                                 title="Selesai mengerjakan"
+                                icon="fa-solid fa-stopwatch"
+                            ></LabelTitle>
+                            <LabelTitle
+                                v-if="tipe == 'dinas luar'"
+                                title="Tanggal Selesai Acara Kedinasan"
                                 icon="fa-solid fa-stopwatch"
                             ></LabelTitle>
                             <div
@@ -224,7 +245,7 @@
 
                             <div
                                 class="mb-3 input-text"
-                                v-if="taskData.status == 'done'"
+                                v-if="taskData.status == 'done' || tipe == 'dinas luar'"
                             >
                                 <datetime
                                     class="form-control"
@@ -746,6 +767,10 @@ export default {
             dasarNew: [],
             start: null,
             options: [],
+            tipeDinas: [
+                "dinas luar", "dinas dalam"
+            ],
+            tipe: null,
             start_on: null,
             finish_on: null,
             newStat: null,
@@ -863,6 +888,7 @@ export default {
             // this.newStaff = this.taskData.staffs;
             this.start = this.taskData.start;
             this.dasarSpt = this.taskData.dasar;
+            this.tipe = this.taskData.tipe_dinas
         },
         updateSelectStaff(options, selected) {
             if (selected.length > 0) {
@@ -962,6 +988,7 @@ export default {
             var start_on = this.start_on;
             var finish_on = this.finish_on;
             var file = this.file;
+            var tipe = this.tipe;
             var fileName = this.fileName;
 
             if (dasar == undefined) {
@@ -978,12 +1005,19 @@ export default {
             formData.append("start_on", start_on);
             formData.append("finish_on", finish_on);
             formData.append("file", file);
+            formData.append("tipe_dinas", tipe);
 
-            console.log("file", file);
+            console.log("tipe", tipe, start_on);
 
             if (this.status == "todo") {
                 if (name == null || name == "") {
                     Vue.$toast.warning("Nama task tidak boleh kosong!!");
+                } else if(tipe == null){
+                    Vue.$toast.warning("Mohon pilih tipe dinas!!");
+                } else if(tipe == 'dinas luar' && start_on == ""){
+                    Vue.$toast.warning("Mohon isi tanggal mulai Dinas Luar!!");
+                }else if(tipe == 'dinas luar' && finish_on == ""){
+                    Vue.$toast.warning("Mohon isi tanggal selesai Dinas Luar!!");
                 } else if (description == null || description == "") {
                     Vue.$toast.warning("Mohon isi deskripsi task!!");
                 } else if (staf.length == 0) {
@@ -1005,6 +1039,7 @@ export default {
                                 description: description,
                                 start: start,
                                 dasar: dasar,
+                                tipe_dinas: tipe
                             },
                             this.config
                         )

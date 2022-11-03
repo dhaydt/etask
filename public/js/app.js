@@ -8924,7 +8924,8 @@ __webpack_require__.r(__webpack_exports__);
           created_at: s.created_at,
           updated: s.updated_at,
           start: s.start,
-          dasar: JSON.parse(s.spt_id)
+          dasar: JSON.parse(s.spt_id),
+          tipe_dinas: s.tipe_dinas
         };
 
         _this2.newTodos.push(todo);
@@ -8946,7 +8947,8 @@ __webpack_require__.r(__webpack_exports__);
           dasar: JSON.parse(s.spt_id),
           start_do: s.start_do,
           finish_do: s.finish_do,
-          report: s.report
+          report: s.report,
+          tipe_dinas: s.tipe_dinas
         };
 
         _this2.newDoing.push(todo);
@@ -8962,7 +8964,8 @@ __webpack_require__.r(__webpack_exports__);
           dasar: JSON.parse(s.spt_id),
           start_do: s.start_do,
           finish_do: s.finish_do,
-          report: s.report
+          report: s.report,
+          tipe_dinas: s.tipe_dinas
         };
 
         _this2.newDone.push(todo);
@@ -8987,7 +8990,8 @@ __webpack_require__.r(__webpack_exports__);
           status: s.status,
           description: s.description,
           start: s.start,
-          dasar: JSON.parse(s.spt_id)
+          dasar: JSON.parse(s.spt_id),
+          tipe_dinas: s.tipe_dinas
         };
 
         _this3.newTodos.push(todo);
@@ -9006,7 +9010,8 @@ __webpack_require__.r(__webpack_exports__);
           dasar: JSON.parse(s.spt_id),
           start_do: s.start_do,
           finish_do: s.finish_do,
-          report: s.report
+          report: s.report,
+          tipe_dinas: s.tipe_dinas
         };
 
         _this3.newDoing.push(todo);
@@ -9022,7 +9027,8 @@ __webpack_require__.r(__webpack_exports__);
           dasar: JSON.parse(s.spt_id),
           start_do: s.start_do,
           finish_do: s.finish_do,
-          report: s.report
+          report: s.report,
+          tipe_dinas: s.tipe_dinas
         };
 
         _this3.newDone.push(todo);
@@ -10426,6 +10432,27 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -10452,6 +10479,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       dasarNew: [],
       start: null,
       options: [],
+      tipeDinas: ["dinas luar", "dinas dalam"],
+      tipe: null,
       start_on: null,
       finish_on: null,
       newStat: null,
@@ -10572,6 +10601,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       // this.newStaff = this.taskData.staffs;
       this.start = this.taskData.start;
       this.dasarSpt = this.taskData.dasar;
+      this.tipe = this.taskData.tipe_dinas;
     },
     updateSelectStaff: function updateSelectStaff(options, selected) {
       if (selected.length > 0) {
@@ -10661,6 +10691,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var start_on = this.start_on;
       var finish_on = this.finish_on;
       var file = this.file;
+      var tipe = this.tipe;
       var fileName = this.fileName;
 
       if (dasar == undefined) {
@@ -10677,11 +10708,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       formData.append("start_on", start_on);
       formData.append("finish_on", finish_on);
       formData.append("file", file);
-      console.log("file", file);
+      formData.append("tipe_dinas", tipe);
+      console.log("tipe", tipe, start_on);
 
       if (this.status == "todo") {
         if (name == null || name == "") {
           Vue.$toast.warning("Nama task tidak boleh kosong!!");
+        } else if (tipe == null) {
+          Vue.$toast.warning("Mohon pilih tipe dinas!!");
+        } else if (tipe == 'dinas luar' && start_on == "") {
+          Vue.$toast.warning("Mohon isi tanggal mulai Dinas Luar!!");
+        } else if (tipe == 'dinas luar' && finish_on == "") {
+          Vue.$toast.warning("Mohon isi tanggal selesai Dinas Luar!!");
         } else if (description == null || description == "") {
           Vue.$toast.warning("Mohon isi deskripsi task!!");
         } else if (staf.length == 0) {
@@ -10697,7 +10735,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             staf: staf,
             description: description,
             start: start,
-            dasar: dasar
+            dasar: dasar,
+            tipe_dinas: tipe
           }, this.config).then(function (response) {
             that.sembunyi();
             that.$parent.splitAxios(response.data.original);
@@ -88535,6 +88574,37 @@ var render = function () {
                       [
                         _c("LabelTitle", {
                           attrs: {
+                            title: "Tipe Dinas",
+                            icon: "fa-solid fa-object-ungroup",
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "mb-3 input-text" },
+                          [
+                            _c("v-select", {
+                              staticClass: "mt-2 text-capitalize",
+                              attrs: {
+                                options: _vm.tipeDinas,
+                                label: "tipe",
+                                disabled: _vm.taskData.status == "doing",
+                                placeholder: "Pilih tipe Dinas",
+                              },
+                              model: {
+                                value: _vm.tipe,
+                                callback: function ($$v) {
+                                  _vm.tipe = $$v
+                                },
+                                expression: "tipe",
+                              },
+                            }),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("LabelTitle", {
+                          attrs: {
                             title: "ASN Terkait",
                             icon: "fa-solid fa-users",
                           },
@@ -88782,7 +88852,8 @@ var render = function () {
                               }),
                         ]),
                         _vm._v(" "),
-                        _vm.status == "doing" || _vm.status == "done"
+                        _vm.status == "doing" ||
+                        (_vm.status == "done" && _vm.tipe == "dinas dalam")
                           ? _c("LabelTitle", {
                               attrs: {
                                 title: "Mulai mengerjakan",
@@ -88791,7 +88862,16 @@ var render = function () {
                             })
                           : _vm._e(),
                         _vm._v(" "),
-                        _vm.status == "doing"
+                        _vm.tipe == "dinas luar"
+                          ? _c("LabelTitle", {
+                              attrs: {
+                                title: "Tanggal Mulai Acara Kedinasan",
+                                icon: "fa-solid fa-stopwatch",
+                              },
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.status == "doing" || _vm.tipe == "dinas luar"
                           ? _c(
                               "div",
                               { staticClass: "mb-3 input-text" },
@@ -88842,10 +88922,20 @@ var render = function () {
                             ])
                           : _vm._e(),
                         _vm._v(" "),
-                        _vm.status == "doing" || _vm.status == "done"
+                        _vm.status == "doing" ||
+                        (_vm.status == "done" && _vm.tipe == "dinas dalam")
                           ? _c("LabelTitle", {
                               attrs: {
                                 title: "Selesai mengerjakan",
+                                icon: "fa-solid fa-stopwatch",
+                              },
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.tipe == "dinas luar"
+                          ? _c("LabelTitle", {
+                              attrs: {
+                                title: "Tanggal Selesai Acara Kedinasan",
                                 icon: "fa-solid fa-stopwatch",
                               },
                             })
@@ -88872,7 +88962,8 @@ var render = function () {
                             )
                           : _vm._e(),
                         _vm._v(" "),
-                        _vm.taskData.status == "done"
+                        _vm.taskData.status == "done" ||
+                        _vm.tipe == "dinas luar"
                           ? _c(
                               "div",
                               { staticClass: "mb-3 input-text" },

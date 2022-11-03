@@ -45,8 +45,8 @@ class Controller extends BaseController
             'tempat_berangkat' => 'belum ada data',
             'tempat_tujuan' => 'belum ada data',
             'lama_perjalanan' => 'belum ada data',
-            'tgl_berangkat' => 'belum ada data',
-            'tgl_kembali' => 'belum ada data',
+            'tgl_berangkat' => Carbon::parse($task['start_do'])->isoFormat('dddd, D MMMM Y'),
+            'tgl_kembali' => Carbon::parse($task['finish_do'])->isoFormat('dddd, D MMMM Y'),
             'pengikut' => 'belum ada data',
             'instansi_pembebanan_anggaran' => 'belum ada data',
             'tiba_dikota_tujuan' => 'belum ada data',
@@ -514,6 +514,11 @@ class Controller extends BaseController
             $task->spt_id = json_decode($request->dasar, true);
             $task->start = $request->start;
             $task->staff = $staffOld;
+            $task->tipe_dinas = $request->tipe_dinas;
+            if ($request->tipe_dinas == 'dinas luar') {
+                $task->start_do = Carbon::parse($request->start_on)->addHours(7)->format('Y-m-d H:i:s');
+                $task->finish_do = Carbon::parse($request->finish_on)->addHours(7)->format('Y-m-d H:i:s');
+            }
         }
 
         if ($task->status == 'doing') {
