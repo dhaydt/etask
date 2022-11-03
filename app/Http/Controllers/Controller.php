@@ -32,9 +32,10 @@ class Controller extends BaseController
         $task = Task::find($task_id);
         $staf = AsnTerkait::where('nip_terkait', $staff_id)->first();
         // dd($staf);
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(public_path('/template/sppdTemplate.docx'));
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(public_path('/template/sppdTemplate2.docx'));
 
         $templateProcessor->setValues([
+            'pejabat_pemberi_perintah' => 'Kepala Dinas Komunikasi dan Informatika',
             'nama_pegawai' => $staf->nama,
             'nip_pegawai' => $staf->nip_terkait,
             'pangkat' => 'belum ada api',
@@ -48,9 +49,9 @@ class Controller extends BaseController
             'tgl_kembali' => 'belum ada data',
             'pengikut' => 'belum ada data',
             'instansi_pembebanan_anggaran' => 'belum ada data',
-            'tiba_di_kota_tujuan' => 'belum ada data',
-            'berangkat_dari_kota_tujuan' => 'belum ada data',
-            'tiba_di_kotas_asal' => 'belum ada data',
+            'tiba_dikota_tujuan' => 'belum ada data',
+            'berangkat_darikota_tujuan' => 'belum ada data',
+            'tiba_dikota_asal' => 'belum ada data',
             'keterangan' => 'belum ada data',
             'dikeluarkan_di' => 'belum ada data',
             'dikeluarkan_tanggal' => 'belum ada data',
