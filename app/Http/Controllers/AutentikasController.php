@@ -38,7 +38,7 @@ class AutentikasController extends Controller
             $token = Helpers::crypt(date('Y-m-d H:i:s'));
 
             $agent = Helpers::regexUserAgent($request->header('user-agent'));
-            $version = $agent['browser'].' '.$agent['version'] ? $agent['browser'].' '.$agent['version'] : 'Android';
+            $version = $agent['browser'] ? $agent['browser'].' '.$agent['version'] : 'Android';
 
             $loginLogs = LoginLogs::create([
                 'nip_user' => $user['nip'],
