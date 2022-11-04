@@ -516,7 +516,7 @@ class Controller extends BaseController
             $task->staff = $staffOld;
             $task->kendaraan = $request->kendaraan;
             $task->tipe_dinas = $request->tipe_dinas;
-            if ($request->tipe_dinas == 'dinas luar') {
+            if ($request->tipe_dinas == 'SPPD') {
                 $task->start_do = Carbon::parse($request->start_on)->addHours(7)->format('Y-m-d H:i:s');
                 $task->finish_do = Carbon::parse($request->finish_on)->addHours(7)->format('Y-m-d H:i:s');
             }

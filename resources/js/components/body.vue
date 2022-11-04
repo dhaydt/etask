@@ -52,6 +52,10 @@
                                     </button>
                                 </div>
                             </div>
+                            <div v-if="element.tipe_dinas !== null" class="d-flex position-relative">
+                                <span v-if="element.tipe_dinas == 'SPPD'" class="badge-tipe badge badge-light-success text-success ms-auto mb-2">{{ element.tipe_dinas }}</span>
+                                <span v-else class="badge-tipe badge badge-light-danger text-danger ms-auto mb-2">{{ element.tipe_dinas }}</span>
+                            </div>
                             <div
                                 v-if="element.description"
                                 class="description ps-2 mb-4"
@@ -78,7 +82,12 @@
                                             element.description !== null &&
                                             element.start !== null
                                         "
-                                        :href="'generate_sppd/' + element.id + '/' + staf.id"
+                                        :href="
+                                            'generate_sppd/' +
+                                            element.id +
+                                            '/' +
+                                            staf.id
+                                        "
                                         target="_blank"
                                         data-bs-toggle="tooltip"
                                         title="Cetak SPPD"
@@ -151,6 +160,30 @@
                                 ></i
                                 >Masukan Tanggal Mulai</span
                             >
+                            <span
+                                v-if="element.tipe_dinas == null"
+                                class="badge badge-light-warning mt-2 me-2"
+                                ><i
+                                    class="fa-solid fa-circle-exclamation me-2 text-danger"
+                                ></i
+                                >Pilih Tipe Dinas</span
+                            >
+                            <span
+                                v-if="element.staffs.tipe_dinas == 'SPPD' && element.start_do == null"
+                                class="badge badge-light-danger mt-2 me-2"
+                                ><i
+                                    class="fa-solid fa-circle-exclamation me-2 text-danger"
+                                ></i
+                                >Pilih Tanggal Mulai Kedinasan</span
+                            >
+                            <span
+                                v-if="element.staffs.tipe_dinas == 'SPPD' && element.finish_do == null"
+                                class="badge badge-light-danger mt-2 me-2"
+                                ><i
+                                    class="fa-solid fa-circle-exclamation me-2 text-danger"
+                                ></i
+                                >Pilih Tanggal Selesai Kedinasan</span
+                            >
                             <div class="separator my-3"></div>
                             <div
                                 class="created-at mt-3 d-flex justify-content-between"
@@ -185,7 +218,8 @@
                                             element.staffs.length !== 0 &&
                                             element.dasar.length !== 0 &&
                                             element.description !== null &&
-                                            element.start !== null
+                                            element.start !== null &&
+                                            element.tipe_dinas !== null
                                         "
                                         :href="'generate_spt/' + element.id"
                                         target="_blank"
@@ -203,7 +237,8 @@
                                             element.staffs.length !== 0 &&
                                             element.dasar.length !== 0 &&
                                             element.description !== null &&
-                                            element.start !== null
+                                            element.start !== null &&
+                                            element.tipe_dinas !== null
                                         "
                                         data-bs-toggle="tooltip"
                                         title="Mulai Task"
@@ -621,7 +656,7 @@ export default {
                     tipe_dinas: s.tipe_dinas,
                     kendaraan: s.kendaraan,
                     start_do: s.start_do,
-                    finish_do: s.finish_do
+                    finish_do: s.finish_do,
                 };
                 this.newTodos.push(todo);
             });
@@ -689,7 +724,7 @@ export default {
                     start: s.start,
                     dasar: JSON.parse(s.spt_id),
                     tipe_dinas: s.tipe_dinas,
-                    kendaraan: s.kendaraan
+                    kendaraan: s.kendaraan,
                 };
                 this.newTodos.push(todo);
             });
@@ -711,7 +746,7 @@ export default {
                     finish_do: s.finish_do,
                     report: s.report,
                     tipe_dinas: s.tipe_dinas,
-                    kendaraan: s.kendaraan
+                    kendaraan: s.kendaraan,
                 };
                 this.newDoing.push(todo);
             });
@@ -729,7 +764,7 @@ export default {
                     finish_do: s.finish_do,
                     report: s.report,
                     tipe_dinas: s.tipe_dinas,
-                    kendaraan: s.kendaraan
+                    kendaraan: s.kendaraan,
                 };
                 this.newDone.push(todo);
             });
@@ -923,5 +958,10 @@ export default {
 }
 .staff-list-stack:first-child {
     margin-left: 0;
+}
+.badge-tipe{
+    position: absolute;
+    top: -12px;
+    right: -6px;
 }
 </style>

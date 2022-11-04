@@ -8649,6 +8649,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -10799,22 +10834,20 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           Vue.$toast.warning("Nama task tidak boleh kosong!!");
         } else if (tipe == null) {
           Vue.$toast.warning("Mohon pilih tipe dinas!!");
-        } else if (kendaraan == null) {
-          Vue.$toast.warning("Mohon isi Alat Angkut!!");
-        } else if (tipe == "SPPD" && start_on == "") {
-          Vue.$toast.warning("Mohon isi tanggal mulai Dinas Luar!!");
-        } else if (tipe == "SPPD" && kendaraan == null) {
-          Vue.$toast.warning("Mohon isi kendaraan pengankut!!");
-        } else if (tipe == "SPPD" && finish_on == "") {
-          Vue.$toast.warning("Mohon isi tanggal selesai Dinas Luar!!");
-        } else if (description == null || description == "") {
-          Vue.$toast.warning("Mohon isi deskripsi task!!");
         } else if (JSON.parse(staf).length == 0) {
           Vue.$toast.warning("Mohon pilih staff!");
         } else if (JSON.parse(dasar).length == 0) {
           Vue.$toast.warning("Mohon pilih dasar SPT!");
+        } else if (description == null || description == "") {
+          Vue.$toast.warning("Mohon isi deskripsi / Maksud perjalanan dinas!!");
         } else if (start == null) {
           Vue.$toast.warning("Mohon masukan tanggal pengerjaan task!");
+        } else if (tipe == "SPPD" && kendaraan == null) {
+          Vue.$toast.warning("Mohon isi Alat Angkut!!");
+        } else if (tipe == "SPPD" && start_on == "") {
+          Vue.$toast.warning("Mohon isi tanggal mulai Dinas Luar!!");
+        } else if (tipe == "SPPD" && finish_on == "") {
+          Vue.$toast.warning("Mohon isi tanggal selesai Dinas Luar!!");
         } else {
           axios.post("/updateTask", {
             id: id,
@@ -17173,7 +17206,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* light stylings for the kanban columns */\n.staff-name {\n  font-size: 12px;\n  align-items: center;\n  width: 100%;\n  text-transform: capitalize;\n}\n.card-list {\n  margin-right: 20px;\n  background-color: rgba(239, 239, 239, 0.6117647059);\n  border-radius: 4px;\n  transition: 0.5s;\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);\n}\n.kanban-column {\n  min-height: 100px;\n}\n.overflow-hidden {\n  overflow: hidden;\n}\n.list-group-staff {\n  transition: 0.5s;\n}\n.list-group-staff:hover {\n  transform: translate(-5px, 0);\n}\n.list-group-item {\n  margin-bottom: 5px;\n  cursor: pointer;\n  transition: 0.5s;\n  border: unset;\n  border-radius: 4px;\n}\n.list-group-item h6 {\n  font-family: \"Acme\", sans-serif;\n}\n.list-group-item .card-headers {\n  margin: -6px 0 10px -13px;\n  background: #dedede;\n  width: 111%;\n  padding-left: 10px;\n}\n.list-group-item .description {\n  background-color: #efefef;\n  line-height: 1.2;\n  padding: 0 5px 5px 5px;\n  max-height: 45px;\n  overflow: hidden;\n  border-radius: 5px;\n  transition: 1s;\n}\n.list-group-item .description span {\n  font-size: 10px;\n  font-family: \"Noto Serif Gujarati\", serif;\n}\n.avatar {\n  border-radius: 50%;\n  padding: 3px;\n  overflow: hidden;\n  background: #ddd;\n  -o-object-position: 50px 30px;\n     object-position: 50px 30px;\n}\n.content-header h6 {\n  display: -webkit-box;\n  max-width: 100%;\n  -webkit-line-clamp: 4;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n}\n.btn-remove {\n  font-size: 10px;\n  right: -7px;\n  top: -7px;\n  z-index: 9;\n}\n.btn-remove i {\n  font-size: 10px;\n}\n.btn-print {\n  font-size: 10px;\n  right: 22px;\n  top: -7px;\n  z-index: 9;\n}\n.btn-print i {\n  font-size: 10px;\n}\n.delete-btn {\n  opacity: 0;\n  transition: 0.6s;\n}\n.list-group-item:hover .delete-btn {\n  opacity: 1;\n}\n.list-group-item:hover .delete-btn i {\n  color: red;\n}\n.description:hover {\n  height: 85px;\n  max-height: 85px;\n}\n.created-at span.badge {\n  font-size: 10px;\n}\n.loader {\n  position: absolute;\n  top: 30vh;\n  z-index: 99;\n}\n.task-repo {\n  background: rgba(212, 212, 212, 0.568627451);\n}\n.input-group #input-2 {\n  border-right: none;\n}\n.input-group span button {\n  border-radius: 0 10px 10px 0;\n}\n.staff-list-stack {\n  margin-left: -23px;\n}\n.staff-list-stack:first-child {\n  margin-left: 0;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* light stylings for the kanban columns */\n.staff-name {\n  font-size: 12px;\n  align-items: center;\n  width: 100%;\n  text-transform: capitalize;\n}\n.card-list {\n  margin-right: 20px;\n  background-color: rgba(239, 239, 239, 0.6117647059);\n  border-radius: 4px;\n  transition: 0.5s;\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);\n}\n.kanban-column {\n  min-height: 100px;\n}\n.overflow-hidden {\n  overflow: hidden;\n}\n.list-group-staff {\n  transition: 0.5s;\n}\n.list-group-staff:hover {\n  transform: translate(-5px, 0);\n}\n.list-group-item {\n  margin-bottom: 5px;\n  cursor: pointer;\n  transition: 0.5s;\n  border: unset;\n  border-radius: 4px;\n}\n.list-group-item h6 {\n  font-family: \"Acme\", sans-serif;\n}\n.list-group-item .card-headers {\n  margin: -6px 0 10px -13px;\n  background: #dedede;\n  width: 111%;\n  padding-left: 10px;\n}\n.list-group-item .description {\n  background-color: #efefef;\n  line-height: 1.2;\n  padding: 0 5px 5px 5px;\n  max-height: 45px;\n  overflow: hidden;\n  border-radius: 5px;\n  transition: 1s;\n}\n.list-group-item .description span {\n  font-size: 10px;\n  font-family: \"Noto Serif Gujarati\", serif;\n}\n.avatar {\n  border-radius: 50%;\n  padding: 3px;\n  overflow: hidden;\n  background: #ddd;\n  -o-object-position: 50px 30px;\n     object-position: 50px 30px;\n}\n.content-header h6 {\n  display: -webkit-box;\n  max-width: 100%;\n  -webkit-line-clamp: 4;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n}\n.btn-remove {\n  font-size: 10px;\n  right: -7px;\n  top: -7px;\n  z-index: 9;\n}\n.btn-remove i {\n  font-size: 10px;\n}\n.btn-print {\n  font-size: 10px;\n  right: 22px;\n  top: -7px;\n  z-index: 9;\n}\n.btn-print i {\n  font-size: 10px;\n}\n.delete-btn {\n  opacity: 0;\n  transition: 0.6s;\n}\n.list-group-item:hover .delete-btn {\n  opacity: 1;\n}\n.list-group-item:hover .delete-btn i {\n  color: red;\n}\n.description:hover {\n  height: 85px;\n  max-height: 85px;\n}\n.created-at span.badge {\n  font-size: 10px;\n}\n.loader {\n  position: absolute;\n  top: 30vh;\n  z-index: 99;\n}\n.task-repo {\n  background: rgba(212, 212, 212, 0.568627451);\n}\n.input-group #input-2 {\n  border-right: none;\n}\n.input-group span button {\n  border-radius: 0 10px 10px 0;\n}\n.staff-list-stack {\n  margin-left: -23px;\n}\n.staff-list-stack:first-child {\n  margin-left: 0;\n}\n.badge-tipe {\n  position: absolute;\n  top: -12px;\n  right: -6px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -87186,6 +87219,32 @@ var render = function () {
                             ),
                           ]),
                           _vm._v(" "),
+                          element.tipe_dinas !== null
+                            ? _c(
+                                "div",
+                                { staticClass: "d-flex position-relative" },
+                                [
+                                  element.tipe_dinas == "SPPD"
+                                    ? _c(
+                                        "span",
+                                        {
+                                          staticClass:
+                                            "badge-tipe badge badge-light-success text-success ms-auto mb-2",
+                                        },
+                                        [_vm._v(_vm._s(element.tipe_dinas))]
+                                      )
+                                    : _c(
+                                        "span",
+                                        {
+                                          staticClass:
+                                            "badge-tipe badge badge-light-danger text-danger ms-auto mb-2",
+                                        },
+                                        [_vm._v(_vm._s(element.tipe_dinas))]
+                                      ),
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
                           element.description
                             ? _c(
                                 "div",
@@ -87391,6 +87450,59 @@ var render = function () {
                               )
                             : _vm._e(),
                           _vm._v(" "),
+                          element.tipe_dinas == null
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "badge badge-light-warning mt-2 me-2",
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "fa-solid fa-circle-exclamation me-2 text-danger",
+                                  }),
+                                  _vm._v("Pilih Tipe Dinas"),
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          element.staffs.tipe_dinas == "SPPD" &&
+                          element.start_do == null
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "badge badge-light-danger mt-2 me-2",
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "fa-solid fa-circle-exclamation me-2 text-danger",
+                                  }),
+                                  _vm._v("Pilih Tanggal Mulai Kedinasan"),
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          element.staffs.tipe_dinas == "SPPD" &&
+                          element.finish_do == null
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "badge badge-light-danger mt-2 me-2",
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "fa-solid fa-circle-exclamation me-2 text-danger",
+                                  }),
+                                  _vm._v("Pilih Tanggal Selesai Kedinasan"),
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
                           _c("div", { staticClass: "separator my-3" }),
                           _vm._v(" "),
                           _c(
@@ -87456,7 +87568,8 @@ var render = function () {
                                 element.staffs.length !== 0 &&
                                 element.dasar.length !== 0 &&
                                 element.description !== null &&
-                                element.start !== null
+                                element.start !== null &&
+                                element.tipe_dinas !== null
                                   ? _c(
                                       "a",
                                       {
@@ -87486,7 +87599,8 @@ var render = function () {
                                 element.staffs.length !== 0 &&
                                 element.dasar.length !== 0 &&
                                 element.description !== null &&
-                                element.start !== null
+                                element.start !== null &&
+                                element.tipe_dinas !== null
                                   ? _c(
                                       "button",
                                       {

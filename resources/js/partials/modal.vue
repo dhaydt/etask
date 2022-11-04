@@ -1047,27 +1047,25 @@ export default {
                     Vue.$toast.warning("Nama task tidak boleh kosong!!");
                 } else if (tipe == null) {
                     Vue.$toast.warning("Mohon pilih tipe dinas!!");
-                } else if (kendaraan == null) {
-                    Vue.$toast.warning("Mohon isi Alat Angkut!!");
-                } else if (tipe == "SPPD" && start_on == "") {
-                    Vue.$toast.warning("Mohon isi tanggal mulai Dinas Luar!!");
-                } else if (tipe == "SPPD" && kendaraan == null) {
-                    Vue.$toast.warning("Mohon isi kendaraan pengankut!!");
-                } else if (tipe == "SPPD" && finish_on == "") {
-                    Vue.$toast.warning(
-                        "Mohon isi tanggal selesai Dinas Luar!!"
-                    );
-                } else if (description == null || description == "") {
-                    Vue.$toast.warning("Mohon isi deskripsi task!!");
                 } else if (JSON.parse(staf).length == 0) {
                     Vue.$toast.warning("Mohon pilih staff!");
                 } else if (JSON.parse(dasar).length == 0) {
                     Vue.$toast.warning("Mohon pilih dasar SPT!");
-                } else if (start == null) {
+                }else if (description == null || description == "") {
+                    Vue.$toast.warning("Mohon isi deskripsi / Maksud perjalanan dinas!!");
+                }else if (start == null) {
                     Vue.$toast.warning(
                         "Mohon masukan tanggal pengerjaan task!"
                     );
-                } else {
+                } else if (tipe == "SPPD" && kendaraan == null) {
+                    Vue.$toast.warning("Mohon isi Alat Angkut!!");
+                } else if (tipe == "SPPD" && start_on == "") {
+                    Vue.$toast.warning("Mohon isi tanggal mulai Dinas Luar!!");
+                } else if (tipe == "SPPD" && finish_on == "") {
+                    Vue.$toast.warning(
+                        "Mohon isi tanggal selesai Dinas Luar!!"
+                    );
+                }  else {
                     axios
                         .post(
                             "/updateTask",
