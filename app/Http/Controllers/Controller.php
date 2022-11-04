@@ -60,6 +60,8 @@ class Controller extends BaseController
             'nip_pejabat' => '196311301988031003',
         ]);
 
+        $templateProcessor->setImageValue('kop_surat', ['path' => public_path('img/kop-kominfo.png'), 'width' => 650, 'height' => 100, 'ratio' => false]);
+
         $name = 'SPPD-'.now();
 
         header('Content-Disposition: attachment; filename='.$name.'.docx');
