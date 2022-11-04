@@ -1080,6 +1080,8 @@ export default {
                                 dasar: dasar,
                                 tipe_dinas: tipe,
                                 kendaraan: kendaraan,
+                                start_on: start_on,
+                                finish_on: finish_on
                             },
                             this.config
                         )

@@ -10824,7 +10824,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             start: start,
             dasar: dasar,
             tipe_dinas: tipe,
-            kendaraan: kendaraan
+            kendaraan: kendaraan,
+            start_on: start_on,
+            finish_on: finish_on
           }, this.config).then(function (response) {
             that.sembunyi();
             that.$parent.splitAxios(response.data.original);
