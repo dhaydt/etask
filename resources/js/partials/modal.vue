@@ -69,15 +69,18 @@
                         <input type="hidden" name="_token" :value="token" />
                         <input type="hidden" name="id" :value="taskData.id" />
                         <div class="modal-body pt-1">
-                            <LabelTitle title="Tipe Dinas" icon="fa-solid fa-object-ungroup"></LabelTitle>
+                            <LabelTitle
+                                title="Tipe Dinas"
+                                icon="fa-solid fa-object-ungroup"
+                            ></LabelTitle>
                             <div class="mb-3 input-text">
                                 <v-select
                                     class="mt-2 text-capitalize"
                                     :options="tipeDinas"
                                     v-model="tipe"
-                                    label="tipe"
+                                    label="nama"
                                     :disabled="taskData.status == 'doing'"
-                                    :placeholder="'Pilih tipe Dinas'"
+                                    :placeholder="'Pilih tipe penugasan'"
                                 ></v-select>
                             </div>
                             <LabelTitle
@@ -144,7 +147,13 @@
                                 ></v-select>
                             </div>
                             <LabelTitle
+                                v-if="tipe == 'penugasan biasa'"
                                 title="Deskripsi"
+                                icon="fa-solid fa-align-justify"
+                            ></LabelTitle>
+                            <LabelTitle
+                                v-else
+                                title="Maksud Perjalanan Dinas"
                                 icon="fa-solid fa-align-justify"
                             ></LabelTitle>
                             <div class="mb-3 input-text">
@@ -188,70 +197,90 @@
                                 />
                             </div>
                             <LabelTitle
-                                v-if="status == 'doing' || status == 'done' && tipe == 'dinas dalam'"
-                                title="Mulai mengerjakan"
-                                icon="fa-solid fa-stopwatch"
+                                v-if="tipe == 'SPPD'"
+                                title="Alat Angkut"
+                                icon="fa-solid fa-helicopter"
                             ></LabelTitle>
-                            <LabelTitle
-                                v-if="tipe == 'dinas luar'"
-                                title="Tanggal Mulai Acara Kedinasan"
-                                icon="fa-solid fa-stopwatch"
-                            ></LabelTitle>
-                            <div
-                                class="mb-3 input-text"
-                                v-if="status == 'doing' || tipe == 'dinas luar'"
-                            >
-                                <datetime
-                                    class="form-control"
-                                    type="datetime"
-                                    v-model="start_on"
-                                    use24-hour
-                                ></datetime>
-                            </div>
-                            <div
-                                class="mb-3 input-text"
-                                v-if="status == 'done'"
-                            >
+                            <div v-if="tipe == 'SPPD'" class="mb-3 input-text">
                                 <input
-                                    class="form-control cursor-block"
                                     type="text"
-                                    disabled
-                                    v-model="start_on"
-                                    use24-hour
+                                    v-model="kendaraan"
+                                    name="kendaraan"
+                                    class="form-control disable cursor-block"
+                                    :disabled="taskData.status == 'doing'"
                                 />
-                            </div>
-                            <LabelTitle
-                                v-if="status == 'doing' || status == 'done' && tipe == 'dinas dalam'"
-                                title="Selesai mengerjakan"
-                                icon="fa-solid fa-stopwatch"
-                            ></LabelTitle>
-                            <LabelTitle
-                                v-if="tipe == 'dinas luar'"
-                                title="Tanggal Selesai Acara Kedinasan"
-                                icon="fa-solid fa-stopwatch"
-                            ></LabelTitle>
-                            <div
-                                class="mb-3 input-text"
-                                v-if="status == 'doing'"
-                            >
-                                <datetime
-                                    class="form-control"
-                                    type="datetime"
-                                    v-model="finish_on"
-                                    use24-hour
-                                ></datetime>
                             </div>
 
                             <div
-                                class="mb-3 input-text"
-                                v-if="taskData.status == 'done' || tipe == 'dinas luar'"
+                                v-if="
+                                    tipe == 'penugasan biasa' &&
+                                    taskData.status == 'doing'
+                                "
                             >
-                                <datetime
-                                    class="form-control"
-                                    type="datetime"
-                                    v-model="finish_on"
-                                    use24-hour
-                                ></datetime>
+                                <LabelTitle
+                                    title="Mulai mengerjakan"
+                                    icon="fa-solid fa-stopwatch"
+                                ></LabelTitle>
+                                <div
+                                    class="mb-3 input-text"
+                                >
+                                    <datetime
+                                        class="form-control"
+                                        type="datetime"
+                                        v-model="start_on"
+                                        use24-hour
+                                    ></datetime>
+                                </div>
+
+                                <LabelTitle
+                                    title="Selesai mengerjakan"
+                                    icon="fa-solid fa-stopwatch"
+                                ></LabelTitle>
+                                <div
+                                    class="mb-3 input-text"
+                                >
+                                    <datetime
+                                        class="form-control"
+                                        type="datetime"
+                                        v-model="finish_on"
+                                        use24-hour
+                                    ></datetime>
+                                </div>
+                            </div>
+                            <div
+                                v-if="
+                                    (taskData.status == 'doing' &&
+                                        tipe == 'SPPD') ||
+                                    tipe == 'SPPD'
+                                "
+                            >
+                            <LabelTitle
+                                    title="Tanggal mulai acara Kedinasan"
+                                    icon="fa-solid fa-stopwatch"
+                                ></LabelTitle>
+                                <div
+                                    class="mb-3 input-text"
+                                >
+                                    <datetime
+                                        class="form-control"
+                                        type="datetime"
+                                        v-model="start_on"
+                                        use24-hour
+                                    ></datetime>
+                                </div>
+                                <LabelTitle
+                                    title="Tanggal Selesai Acara Kedinasan"
+                                    icon="fa-solid fa-stopwatch"
+                                ></LabelTitle>
+
+                                <div class="mb-3 input-text">
+                                    <datetime
+                                        class="form-control"
+                                        type="datetime"
+                                        v-model="finish_on"
+                                        use24-hour
+                                    ></datetime>
+                                </div>
                             </div>
 
                             <div
@@ -266,7 +295,7 @@
                                     type="file"
                                     name="file"
                                     v-on:change="onFileChange"
-                                    accept="application/pdf,application/vnd.ms-excel,.docx, image/jpeg, .png, .jpg, .jpeg"
+                                    accept="image/jpeg, .png, .jpg, .jpeg"
                                     id="pilih_file"
                                     ref="fileReport"
                                     hidden
@@ -331,14 +360,12 @@
                                 class="btn btn-secondary"
                                 data-bs-dismiss="modal"
                             >
-                            <i class="fa-solid fa-times"></i>
+                                <i class="fa-solid fa-times"></i>
                                 Tutup
                             </button>
                             <button class="btn btn-primary" type="submit">
                                 <i class="fa-solid fa-save text-light"></i>
-                                <span>
-                                    Simpan Task
-                                </span>
+                                <span> Simpan Task </span>
                             </button>
                         </div>
                         <div
@@ -582,8 +609,12 @@
                                                                 class="image-input-wrapper w-500px p-2"
                                                             >
                                                                 <img
-                                                                    v-if="preview"
-                                                                    :src="preview"
+                                                                    v-if="
+                                                                        preview
+                                                                    "
+                                                                    :src="
+                                                                        preview
+                                                                    "
                                                                     alt=""
                                                                     height="auto"
                                                                     width="100%"
@@ -615,7 +646,9 @@
                                                                 <input
                                                                     type="file"
                                                                     name="avatar"
-                                                                    @change="onFileChange"
+                                                                    @change="
+                                                                        onFileChange
+                                                                    "
                                                                     accept=".png, .jpg, .jpeg"
                                                                 />
                                                                 <input
@@ -653,7 +686,17 @@
                                                             </span>
                                                             <!--end::Remove-->
                                                         </div>
-                                                        <button v-if="preview" data-bas-toggle="tooltip" title="Simpan Report" type="submit" class="btn btn-icon btn-success rounded"><i class="fa-solid fa-save"></i></button>
+                                                        <button
+                                                            v-if="preview"
+                                                            data-bas-toggle="tooltip"
+                                                            title="Simpan Report"
+                                                            type="submit"
+                                                            class="btn btn-icon btn-success rounded"
+                                                        >
+                                                            <i
+                                                                class="fa-solid fa-save"
+                                                            ></i>
+                                                        </button>
                                                     </div>
                                                     <!--end::Card body-->
                                                 </div>
@@ -766,12 +809,11 @@ export default {
             dasarNew: [],
             start: null,
             options: [],
-            tipeDinas: [
-                "dinas luar", "dinas dalam"
-            ],
+            tipeDinas: ["penugasan biasa", "SPPD"],
             tipe: null,
             start_on: null,
             finish_on: null,
+            kendaraan: null,
             newStat: null,
             spt: ["SURAT 1", "SURAT 2", "SURAT 3"],
             sptList: ["SURAT 1", "SURAT 2"],
@@ -816,14 +858,16 @@ export default {
         taskData() {
             console.log("modal.taskData", this.taskData);
             this.checkStaff();
-            if (this.status == "doing" || this.status == "done") {
-                if (this.taskData.start_do !== null) {
+            console.log('tipe',this.tipe);
+            if (this.status == "doing" || this.tipe == "SPPD") {
+                console.log('time',this.taskData)
+                if (this.taskData.start_do !== null || this.taskData.start_do !== '' || this.taskData.start_do !== undefined) {
                     this.start_on = new Date(
                         this.taskData.start_do
                     ).toISOString();
                 }
 
-                if (this.taskData.finish_do !== null) {
+                if (this.taskData.finish_do !== null || this.taskData.finish_do !== '' || this.taskData.finish_do !== undefined) {
                     this.finish_on = new Date(
                         this.taskData.finish_do
                     ).toISOString();
@@ -887,7 +931,8 @@ export default {
             // this.newStaff = this.taskData.staffs;
             this.start = this.taskData.start;
             this.dasarSpt = this.taskData.dasar;
-            this.tipe = this.taskData.tipe_dinas
+            this.tipe = this.taskData.tipe_dinas;
+            this.kendaraan = this.taskData.kendaraan;
         },
         updateSelectStaff(options, selected) {
             if (selected.length > 0) {
@@ -969,8 +1014,8 @@ export default {
         sembunyi() {
             this.$parent.hideModalTask();
         },
-        updateReport(){
-            console.log('report update')
+        updateReport() {
+            console.log("report update");
         },
         formSubmit(e) {
             e.preventDefault();
@@ -988,40 +1033,35 @@ export default {
             var finish_on = this.finish_on;
             var file = this.file;
             var tipe = this.tipe;
+            var kendaraan = this.kendaraan;
             var fileName = this.fileName;
 
             if (dasar == undefined) {
                 var dasar = [];
             }
 
-            formData.append("id", id);
-            formData.append("name", name);
-            formData.append("description", description);
-            formData.append("staf", staf);
-            formData.append("dasar", dasar);
-            formData.append("start", start);
-            formData.append("status", status);
-            formData.append("start_on", start_on);
-            formData.append("finish_on", finish_on);
-            formData.append("file", file);
-            formData.append("tipe_dinas", tipe);
-
-            console.log("tipe", tipe, start_on);
+            console.log("tipe", JSON.parse(staf).length, staf);
 
             if (this.status == "todo") {
                 if (name == null || name == "") {
                     Vue.$toast.warning("Nama task tidak boleh kosong!!");
-                } else if(tipe == null){
+                } else if (tipe == null) {
                     Vue.$toast.warning("Mohon pilih tipe dinas!!");
-                } else if(tipe == 'dinas luar' && start_on == ""){
+                } else if (kendaraan == null) {
+                    Vue.$toast.warning("Mohon isi Alat Angkut!!");
+                } else if (tipe == "SPPD" && start_on == "") {
                     Vue.$toast.warning("Mohon isi tanggal mulai Dinas Luar!!");
-                }else if(tipe == 'dinas luar' && finish_on == ""){
-                    Vue.$toast.warning("Mohon isi tanggal selesai Dinas Luar!!");
+                } else if (tipe == "SPPD" && kendaraan == null) {
+                    Vue.$toast.warning("Mohon isi kendaraan pengankut!!");
+                } else if (tipe == "SPPD" && finish_on == "") {
+                    Vue.$toast.warning(
+                        "Mohon isi tanggal selesai Dinas Luar!!"
+                    );
                 } else if (description == null || description == "") {
                     Vue.$toast.warning("Mohon isi deskripsi task!!");
-                } else if (staf.length == 0) {
+                } else if (JSON.parse(staf).length == 0) {
                     Vue.$toast.warning("Mohon pilih staff!");
-                } else if (dasar.length == 0) {
+                } else if (JSON.parse(dasar).length == 0) {
                     Vue.$toast.warning("Mohon pilih dasar SPT!");
                 } else if (start == null) {
                     Vue.$toast.warning(
@@ -1038,7 +1078,8 @@ export default {
                                 description: description,
                                 start: start,
                                 dasar: dasar,
-                                tipe_dinas: tipe
+                                tipe_dinas: tipe,
+                                kendaraan: kendaraan,
                             },
                             this.config
                         )
@@ -1063,6 +1104,17 @@ export default {
                         "Mohon upload foto atau dokumen laporan!"
                     );
                 } else {
+                    formData.append("id", id);
+                    formData.append("name", name);
+                    formData.append("description", description);
+                    formData.append("staf", staf);
+                    formData.append("dasar", dasar);
+                    formData.append("start", start);
+                    formData.append("status", status);
+                    formData.append("start_on", start_on);
+                    formData.append("finish_on", finish_on);
+                    formData.append("file", file);
+                    formData.append("tipe_dinas", tipe);
                     axios
                         .post("/updateTask", formData, this.config)
                         .then(function (response) {
@@ -1074,17 +1126,17 @@ export default {
                             Vue.$toast.error(err);
                         });
                 }
-            }else if(this.status == 'done'){
+            } else if (this.status == "done") {
                 axios
-                        .post("/updateTask", formData, this.config)
-                        .then(function (response) {
-                            that.sembunyi();
-                            that.$parent.splitAxios(response.data.original);
-                            Vue.$toast.success("Task Updated Successfully");
-                        })
-                        .catch(function (err) {
-                            Vue.$toast.error(err);
-                        });
+                    .post("/updateTask", formData, this.config)
+                    .then(function (response) {
+                        that.sembunyi();
+                        that.$parent.splitAxios(response.data.original);
+                        Vue.$toast.success("Task Updated Successfully");
+                    })
+                    .catch(function (err) {
+                        Vue.$toast.error(err);
+                    });
             }
         },
     },
@@ -1170,11 +1222,11 @@ input.form-control.header {
     height: unset;
     background-position-x: 1000px;
 }
-.btn.btn-icon.rounded{
+.btn.btn-icon.rounded {
     border-radius: 50% !important;
     position: absolute;
     bottom: 20px;
-    i{
+    i {
         font-size: 24px;
     }
 }

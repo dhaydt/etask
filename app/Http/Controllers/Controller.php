@@ -41,7 +41,7 @@ class Controller extends BaseController
             'pangkat' => 'belum ada api',
             'jabatan' => $staf->nama_jabatan,
             'maksud_sppd' => $task->name,
-            'alat_angkut' => 'belum ada data',
+            'alat_angkut' => $task->kendaraan,
             'tempat_berangkat' => 'belum ada data',
             'tempat_tujuan' => 'belum ada data',
             'lama_perjalanan' => 'belum ada data',
@@ -49,9 +49,7 @@ class Controller extends BaseController
             'tgl_kembali' => Carbon::parse($task['finish_do'])->isoFormat('dddd, D MMMM Y'),
             'pengikut' => 'belum ada data',
             'instansi_pembebanan_anggaran' => 'belum ada data',
-            'tiba_dikota_tujuan' => 'belum ada data',
             'berangkat_darikota_tujuan' => 'belum ada data',
-            'tiba_dikota_asal' => 'belum ada data',
             'keterangan' => 'belum ada data',
             'dikeluarkan_di' => 'belum ada data',
             'dikeluarkan_tanggal' => 'belum ada data',
@@ -516,6 +514,7 @@ class Controller extends BaseController
             $task->spt_id = json_decode($request->dasar, true);
             $task->start = $request->start;
             $task->staff = $staffOld;
+            $task->kendaraan = $request->kendaraan;
             $task->tipe_dinas = $request->tipe_dinas;
             if ($request->tipe_dinas == 'dinas luar') {
                 $task->start_do = Carbon::parse($request->start_on)->addHours(7)->format('Y-m-d H:i:s');

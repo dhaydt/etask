@@ -87,17 +87,28 @@
                         </div>
                     </div>
                 </draggable>
+                <div class="separator mb-2 mt-3"></div>
                 <div class="card-footer mt-2 d-flex justify-content-end">
+                    <button
+                        data-bs-toggle="tooltip"
+                        title="Kembalikan ke ToDo"
+                        class="btn btn-sm btn-primary btn-hover-rotate-start pe-3 ps-4 py-2 me-2"
+                        @click="backToDo(element.id, element.status)"
+                    >
+                        <i class="fa-solid fa-angles-left"></i>
+                    </button>
                     <button
                         v-if="
                             element.start_do !== null &&
                             element.finish_do !== null &&
                             element.report !== null
                         "
-                        class="btn btn-sm btn-light-warning"
+                        data-bs-toggle="tooltip"
+                        title="Selesaikan Task"
+                        class="btn btn-sm btn-primary text-dark btn-hover-rotate-end pe-3 ps-4 py-2"
                         @click="finishTask(element.id, element.status)"
                     >
-                        Selesaikan Task
+                    <i class="fa-regular fa-circle-check"></i>
                     </button>
                 </div>
             </div>
@@ -119,7 +130,7 @@ export default {
         dragOptions() {
             return {
                 animation: 800,
-                disabled: false,
+                disabled: true,
                 ghostClass: "ghost",
             };
         },
@@ -135,6 +146,9 @@ export default {
         },
     },
     methods: {
+        backToDo(id, status) {
+            this.$parent.backTask(id, status);
+        },
         finishTask(id, status) {
             event.stopPropagation();
             const that = this;

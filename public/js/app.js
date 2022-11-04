@@ -8648,6 +8648,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -8676,7 +8677,7 @@ __webpack_require__.r(__webpack_exports__);
     dragOptions: function dragOptions() {
       return {
         animation: 800,
-        disabled: false,
+        disabled: true,
         ghostClass: "ghost"
       };
     },
@@ -8698,6 +8699,7 @@ __webpack_require__.r(__webpack_exports__);
       newDone: [],
       newStaff: [],
       newDasarList: [],
+      kendaraan: null,
       taskTitle: null,
       taskDescription: null,
       taskStaff: [],
@@ -8749,6 +8751,27 @@ __webpack_require__.r(__webpack_exports__);
         window.alert(err);
       });
     },
+    backTask: function backTask(id, status) {
+      event.stopPropagation();
+      var that = this;
+
+      if (status == "doing") {
+        status = "todo";
+      } else {
+        status = "doing";
+      }
+
+      axios__WEBPACK_IMPORTED_MODULE_7___default().post("/taskStatus", {
+        id: id,
+        status: status
+      }, this.config).then(function (resp) {
+        that.splitAxios(resp.data.original);
+        that.hideModalTask();
+        Vue.$toast.success("Status task berhasil di update!");
+      })["catch"](function (err) {
+        window.alert(err);
+      });
+    },
     cardModal: function cardModal(data) {
       if (data.status == "todo" || data.status == "doing") {
         var modalTask = new bootstrap.Modal(document.getElementById("modalTask"), {
@@ -8763,6 +8786,7 @@ __webpack_require__.r(__webpack_exports__);
       this.taskData = data;
       this.status = data.status;
       this.selected = data.staffs;
+      this.kendaraan = data.kendaraan;
       this.refreshStaff();
       this.updateFlat = this.selected;
       modalTask.show();
@@ -8925,7 +8949,10 @@ __webpack_require__.r(__webpack_exports__);
           updated: s.updated_at,
           start: s.start,
           dasar: JSON.parse(s.spt_id),
-          tipe_dinas: s.tipe_dinas
+          tipe_dinas: s.tipe_dinas,
+          kendaraan: s.kendaraan,
+          start_do: s.start_do,
+          finish_do: s.finish_do
         };
 
         _this2.newTodos.push(todo);
@@ -8948,7 +8975,8 @@ __webpack_require__.r(__webpack_exports__);
           start_do: s.start_do,
           finish_do: s.finish_do,
           report: s.report,
-          tipe_dinas: s.tipe_dinas
+          tipe_dinas: s.tipe_dinas,
+          kendaraan: s.kendaraan
         };
 
         _this2.newDoing.push(todo);
@@ -8964,8 +8992,9 @@ __webpack_require__.r(__webpack_exports__);
           dasar: JSON.parse(s.spt_id),
           start_do: s.start_do,
           finish_do: s.finish_do,
+          tipe_dinas: s.tipe_dinas,
           report: s.report,
-          tipe_dinas: s.tipe_dinas
+          kendaraan: s.kendaraan
         };
 
         _this2.newDone.push(todo);
@@ -8991,7 +9020,8 @@ __webpack_require__.r(__webpack_exports__);
           description: s.description,
           start: s.start,
           dasar: JSON.parse(s.spt_id),
-          tipe_dinas: s.tipe_dinas
+          tipe_dinas: s.tipe_dinas,
+          kendaraan: s.kendaraan
         };
 
         _this3.newTodos.push(todo);
@@ -9011,7 +9041,8 @@ __webpack_require__.r(__webpack_exports__);
           start_do: s.start_do,
           finish_do: s.finish_do,
           report: s.report,
-          tipe_dinas: s.tipe_dinas
+          tipe_dinas: s.tipe_dinas,
+          kendaraan: s.kendaraan
         };
 
         _this3.newDoing.push(todo);
@@ -9028,7 +9059,8 @@ __webpack_require__.r(__webpack_exports__);
           start_do: s.start_do,
           finish_do: s.finish_do,
           report: s.report,
-          tipe_dinas: s.tipe_dinas
+          tipe_dinas: s.tipe_dinas,
+          kendaraan: s.kendaraan
         };
 
         _this3.newDone.push(todo);
@@ -9487,6 +9519,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     doing: Array
@@ -9500,7 +9543,7 @@ __webpack_require__.r(__webpack_exports__);
     dragOptions: function dragOptions() {
       return {
         animation: 800,
-        disabled: false,
+        disabled: true,
         ghostClass: "ghost"
       };
     },
@@ -9516,6 +9559,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    backToDo: function backToDo(id, status) {
+      this.$parent.backTask(id, status);
+    },
     finishTask: function finishTask(id, status) {
       event.stopPropagation();
       var that = this;
@@ -10452,6 +10498,49 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -10478,10 +10567,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       dasarNew: [],
       start: null,
       options: [],
-      tipeDinas: ["dinas luar", "dinas dalam"],
+      tipeDinas: ["penugasan biasa", "SPPD"],
       tipe: null,
       start_on: null,
       finish_on: null,
+      kendaraan: null,
       newStat: null,
       spt: ["SURAT 1", "SURAT 2", "SURAT 3"],
       sptList: ["SURAT 1", "SURAT 2"],
@@ -10523,13 +10613,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     taskData: function taskData() {
       console.log("modal.taskData", this.taskData);
       this.checkStaff();
+      console.log('tipe', this.tipe);
 
-      if (this.status == "doing" || this.status == "done") {
-        if (this.taskData.start_do !== null) {
+      if (this.status == "doing" || this.tipe == "SPPD") {
+        console.log('time', this.taskData);
+
+        if (this.taskData.start_do !== null || this.taskData.start_do !== '' || this.taskData.start_do !== undefined) {
           this.start_on = new Date(this.taskData.start_do).toISOString();
         }
 
-        if (this.taskData.finish_do !== null) {
+        if (this.taskData.finish_do !== null || this.taskData.finish_do !== '' || this.taskData.finish_do !== undefined) {
           this.finish_on = new Date(this.taskData.finish_do).toISOString();
         }
 
@@ -10601,6 +10694,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.start = this.taskData.start;
       this.dasarSpt = this.taskData.dasar;
       this.tipe = this.taskData.tipe_dinas;
+      this.kendaraan = this.taskData.kendaraan;
     },
     updateSelectStaff: function updateSelectStaff(options, selected) {
       if (selected.length > 0) {
@@ -10674,7 +10768,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.$parent.hideModalTask();
     },
     updateReport: function updateReport() {
-      console.log('report update');
+      console.log("report update");
     },
     formSubmit: function formSubmit(e) {
       e.preventDefault();
@@ -10691,39 +10785,33 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var finish_on = this.finish_on;
       var file = this.file;
       var tipe = this.tipe;
+      var kendaraan = this.kendaraan;
       var fileName = this.fileName;
 
       if (dasar == undefined) {
         var dasar = [];
       }
 
-      formData.append("id", id);
-      formData.append("name", name);
-      formData.append("description", description);
-      formData.append("staf", staf);
-      formData.append("dasar", dasar);
-      formData.append("start", start);
-      formData.append("status", status);
-      formData.append("start_on", start_on);
-      formData.append("finish_on", finish_on);
-      formData.append("file", file);
-      formData.append("tipe_dinas", tipe);
-      console.log("tipe", tipe, start_on);
+      console.log("tipe", JSON.parse(staf).length, staf);
 
       if (this.status == "todo") {
         if (name == null || name == "") {
           Vue.$toast.warning("Nama task tidak boleh kosong!!");
         } else if (tipe == null) {
           Vue.$toast.warning("Mohon pilih tipe dinas!!");
-        } else if (tipe == 'dinas luar' && start_on == "") {
+        } else if (kendaraan == null) {
+          Vue.$toast.warning("Mohon isi Alat Angkut!!");
+        } else if (tipe == "SPPD" && start_on == "") {
           Vue.$toast.warning("Mohon isi tanggal mulai Dinas Luar!!");
-        } else if (tipe == 'dinas luar' && finish_on == "") {
+        } else if (tipe == "SPPD" && kendaraan == null) {
+          Vue.$toast.warning("Mohon isi kendaraan pengankut!!");
+        } else if (tipe == "SPPD" && finish_on == "") {
           Vue.$toast.warning("Mohon isi tanggal selesai Dinas Luar!!");
         } else if (description == null || description == "") {
           Vue.$toast.warning("Mohon isi deskripsi task!!");
-        } else if (staf.length == 0) {
+        } else if (JSON.parse(staf).length == 0) {
           Vue.$toast.warning("Mohon pilih staff!");
-        } else if (dasar.length == 0) {
+        } else if (JSON.parse(dasar).length == 0) {
           Vue.$toast.warning("Mohon pilih dasar SPT!");
         } else if (start == null) {
           Vue.$toast.warning("Mohon masukan tanggal pengerjaan task!");
@@ -10735,7 +10823,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             description: description,
             start: start,
             dasar: dasar,
-            tipe_dinas: tipe
+            tipe_dinas: tipe,
+            kendaraan: kendaraan
           }, this.config).then(function (response) {
             that.sembunyi();
             that.$parent.splitAxios(response.data.original);
@@ -10752,6 +10841,17 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         } else if (file == null || file == "") {
           Vue.$toast.warning("Mohon upload foto atau dokumen laporan!");
         } else {
+          formData.append("id", id);
+          formData.append("name", name);
+          formData.append("description", description);
+          formData.append("staf", staf);
+          formData.append("dasar", dasar);
+          formData.append("start", start);
+          formData.append("status", status);
+          formData.append("start_on", start_on);
+          formData.append("finish_on", finish_on);
+          formData.append("file", file);
+          formData.append("tipe_dinas", tipe);
           axios.post("/updateTask", formData, this.config).then(function (response) {
             that.sembunyi();
             that.$parent.splitAxios(response.data.original);
@@ -10760,7 +10860,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             Vue.$toast.error(err);
           });
         }
-      } else if (this.status == 'done') {
+      } else if (this.status == "done") {
         axios.post("/updateTask", formData, this.config).then(function (response) {
           that.sembunyi();
           that.$parent.splitAxios(response.data.original);
@@ -87538,6 +87638,7 @@ var render = function () {
           staffs: _vm.newStaff,
           dasar: _vm.dasar,
           selected: _vm.selected,
+          kendaraan: _vm.kendaraan,
           updateFlat: _vm.updateFlat,
         },
       }),
@@ -88186,28 +88287,49 @@ var render = function () {
                 0
               ),
               _vm._v(" "),
+              _c("div", { staticClass: "separator mb-2 mt-3" }),
+              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "card-footer mt-2 d-flex justify-content-end" },
                 [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-primary btn-hover-rotate-start pe-3 ps-4 py-2 me-2",
+                      attrs: {
+                        "data-bs-toggle": "tooltip",
+                        title: "Kembalikan ke ToDo",
+                      },
+                      on: {
+                        click: function ($event) {
+                          return _vm.backToDo(element.id, element.status)
+                        },
+                      },
+                    },
+                    [_c("i", { staticClass: "fa-solid fa-angles-left" })]
+                  ),
+                  _vm._v(" "),
                   element.start_do !== null &&
                   element.finish_do !== null &&
                   element.report !== null
                     ? _c(
                         "button",
                         {
-                          staticClass: "btn btn-sm btn-light-warning",
+                          staticClass:
+                            "btn btn-sm btn-primary text-dark btn-hover-rotate-end pe-3 ps-4 py-2",
+                          attrs: {
+                            "data-bs-toggle": "tooltip",
+                            title: "Selesaikan Task",
+                          },
                           on: {
                             click: function ($event) {
                               return _vm.finishTask(element.id, element.status)
                             },
                           },
                         },
-                        [
-                          _vm._v(
-                            "\n                    Selesaikan Task\n                "
-                          ),
-                        ]
+                        [_c("i", { staticClass: "fa-regular fa-circle-check" })]
                       )
                     : _vm._e(),
                 ]
@@ -88582,9 +88704,9 @@ var render = function () {
                           staticClass: "mt-2 text-capitalize",
                           attrs: {
                             options: _vm.tipeDinas,
-                            label: "tipe",
+                            label: "nama",
                             disabled: _vm.taskData.status == "doing",
-                            placeholder: "Pilih tipe Dinas",
+                            placeholder: "Pilih tipe penugasan",
                           },
                           model: {
                             value: _vm.tipe,
@@ -88712,12 +88834,19 @@ var render = function () {
                       1
                     ),
                     _vm._v(" "),
-                    _c("LabelTitle", {
-                      attrs: {
-                        title: "Deskripsi",
-                        icon: "fa-solid fa-align-justify",
-                      },
-                    }),
+                    _vm.tipe == "penugasan biasa"
+                      ? _c("LabelTitle", {
+                          attrs: {
+                            title: "Deskripsi",
+                            icon: "fa-solid fa-align-justify",
+                          },
+                        })
+                      : _c("LabelTitle", {
+                          attrs: {
+                            title: "Maksud Perjalanan Dinas",
+                            icon: "fa-solid fa-align-justify",
+                          },
+                        }),
                     _vm._v(" "),
                     _c("div", { staticClass: "mb-3 input-text" }, [
                       _vm.taskData.status == "todo"
@@ -88836,132 +88965,162 @@ var render = function () {
                           }),
                     ]),
                     _vm._v(" "),
-                    _vm.status == "doing" ||
-                    (_vm.status == "done" && _vm.tipe == "dinas dalam")
+                    _vm.tipe == "SPPD"
                       ? _c("LabelTitle", {
                           attrs: {
-                            title: "Mulai mengerjakan",
-                            icon: "fa-solid fa-stopwatch",
+                            title: "Alat Angkut",
+                            icon: "fa-solid fa-helicopter",
                           },
                         })
                       : _vm._e(),
                     _vm._v(" "),
-                    _vm.tipe == "dinas luar"
-                      ? _c("LabelTitle", {
-                          attrs: {
-                            title: "Tanggal Mulai Acara Kedinasan",
-                            icon: "fa-solid fa-stopwatch",
-                          },
-                        })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.status == "doing" || _vm.tipe == "dinas luar"
-                      ? _c(
-                          "div",
-                          { staticClass: "mb-3 input-text" },
-                          [
-                            _c("datetime", {
-                              staticClass: "form-control",
-                              attrs: { type: "datetime", "use24-hour": "" },
-                              model: {
-                                value: _vm.start_on,
-                                callback: function ($$v) {
-                                  _vm.start_on = $$v
-                                },
-                                expression: "start_on",
-                              },
-                            }),
-                          ],
-                          1
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.status == "done"
+                    _vm.tipe == "SPPD"
                       ? _c("div", { staticClass: "mb-3 input-text" }, [
                           _c("input", {
                             directives: [
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.start_on,
-                                expression: "start_on",
+                                value: _vm.kendaraan,
+                                expression: "kendaraan",
                               },
                             ],
-                            staticClass: "form-control cursor-block",
+                            staticClass: "form-control disable cursor-block",
                             attrs: {
                               type: "text",
-                              disabled: "",
-                              "use24-hour": "",
+                              name: "kendaraan",
+                              disabled: _vm.taskData.status == "doing",
                             },
-                            domProps: { value: _vm.start_on },
+                            domProps: { value: _vm.kendaraan },
                             on: {
                               input: function ($event) {
                                 if ($event.target.composing) {
                                   return
                                 }
-                                _vm.start_on = $event.target.value
+                                _vm.kendaraan = $event.target.value
                               },
                             },
                           }),
                         ])
                       : _vm._e(),
                     _vm._v(" "),
-                    _vm.status == "doing" ||
-                    (_vm.status == "done" && _vm.tipe == "dinas dalam")
-                      ? _c("LabelTitle", {
-                          attrs: {
-                            title: "Selesai mengerjakan",
-                            icon: "fa-solid fa-stopwatch",
-                          },
-                        })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.tipe == "dinas luar"
-                      ? _c("LabelTitle", {
-                          attrs: {
-                            title: "Tanggal Selesai Acara Kedinasan",
-                            icon: "fa-solid fa-stopwatch",
-                          },
-                        })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.status == "doing"
+                    _vm.tipe == "penugasan biasa" &&
+                    _vm.taskData.status == "doing"
                       ? _c(
                           "div",
-                          { staticClass: "mb-3 input-text" },
                           [
-                            _c("datetime", {
-                              staticClass: "form-control",
-                              attrs: { type: "datetime", "use24-hour": "" },
-                              model: {
-                                value: _vm.finish_on,
-                                callback: function ($$v) {
-                                  _vm.finish_on = $$v
-                                },
-                                expression: "finish_on",
+                            _c("LabelTitle", {
+                              attrs: {
+                                title: "Mulai mengerjakan",
+                                icon: "fa-solid fa-stopwatch",
                               },
                             }),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "mb-3 input-text" },
+                              [
+                                _c("datetime", {
+                                  staticClass: "form-control",
+                                  attrs: { type: "datetime", "use24-hour": "" },
+                                  model: {
+                                    value: _vm.start_on,
+                                    callback: function ($$v) {
+                                      _vm.start_on = $$v
+                                    },
+                                    expression: "start_on",
+                                  },
+                                }),
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("LabelTitle", {
+                              attrs: {
+                                title: "Selesai mengerjakan",
+                                icon: "fa-solid fa-stopwatch",
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "mb-3 input-text" },
+                              [
+                                _c("datetime", {
+                                  staticClass: "form-control",
+                                  attrs: { type: "datetime", "use24-hour": "" },
+                                  model: {
+                                    value: _vm.finish_on,
+                                    callback: function ($$v) {
+                                      _vm.finish_on = $$v
+                                    },
+                                    expression: "finish_on",
+                                  },
+                                }),
+                              ],
+                              1
+                            ),
                           ],
                           1
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    _vm.taskData.status == "done" || _vm.tipe == "dinas luar"
+                    (_vm.taskData.status == "doing" && _vm.tipe == "SPPD") ||
+                    _vm.tipe == "SPPD"
                       ? _c(
                           "div",
-                          { staticClass: "mb-3 input-text" },
                           [
-                            _c("datetime", {
-                              staticClass: "form-control",
-                              attrs: { type: "datetime", "use24-hour": "" },
-                              model: {
-                                value: _vm.finish_on,
-                                callback: function ($$v) {
-                                  _vm.finish_on = $$v
-                                },
-                                expression: "finish_on",
+                            _c("LabelTitle", {
+                              attrs: {
+                                title: "Tanggal mulai acara Kedinasan",
+                                icon: "fa-solid fa-stopwatch",
                               },
                             }),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "mb-3 input-text" },
+                              [
+                                _c("datetime", {
+                                  staticClass: "form-control",
+                                  attrs: { type: "datetime", "use24-hour": "" },
+                                  model: {
+                                    value: _vm.start_on,
+                                    callback: function ($$v) {
+                                      _vm.start_on = $$v
+                                    },
+                                    expression: "start_on",
+                                  },
+                                }),
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("LabelTitle", {
+                              attrs: {
+                                title: "Tanggal Selesai Acara Kedinasan",
+                                icon: "fa-solid fa-stopwatch",
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "mb-3 input-text" },
+                              [
+                                _c("datetime", {
+                                  staticClass: "form-control",
+                                  attrs: { type: "datetime", "use24-hour": "" },
+                                  model: {
+                                    value: _vm.finish_on,
+                                    callback: function ($$v) {
+                                      _vm.finish_on = $$v
+                                    },
+                                    expression: "finish_on",
+                                  },
+                                }),
+                              ],
+                              1
+                            ),
                           ],
                           1
                         )
@@ -88984,8 +89143,7 @@ var render = function () {
                               attrs: {
                                 type: "file",
                                 name: "file",
-                                accept:
-                                  "application/pdf,application/vnd.ms-excel,.docx, image/jpeg, .png, .jpg, .jpeg",
+                                accept: "image/jpeg, .png, .jpg, .jpeg",
                                 id: "pilih_file",
                                 hidden: "",
                               },
@@ -89662,11 +89820,7 @@ var staticRenderFns = [
       [
         _c("i", { staticClass: "fa-solid fa-save text-light" }),
         _vm._v(" "),
-        _c("span", [
-          _vm._v(
-            "\n                                Simpan Task\n                            "
-          ),
-        ]),
+        _c("span", [_vm._v(" Simpan Task ")]),
       ]
     )
   },

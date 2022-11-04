@@ -267,6 +267,7 @@
             :staffs="newStaff"
             :dasar="dasar"
             :selected="selected"
+            :kendaraan="kendaraan"
             :updateFlat="updateFlat"
         ></Modal>
         <Loading v-if="loadingAsn"></Loading>
@@ -303,7 +304,7 @@ export default {
         dragOptions() {
             return {
                 animation: 800,
-                disabled: false,
+                disabled: true,
                 ghostClass: "ghost",
             };
         },
@@ -325,6 +326,7 @@ export default {
             newDone: [],
             newStaff: [],
             newDasarList: [],
+            kendaraan: null,
             taskTitle: null,
             taskDescription: null,
             taskStaff: [],
@@ -381,6 +383,32 @@ export default {
                     window.alert(err);
                 });
         },
+        backTask(id, status) {
+            event.stopPropagation();
+            const that = this;
+            if (status == "doing") {
+                status = "todo";
+            } else {
+                status = "doing";
+            }
+            axios
+                .post(
+                    "/taskStatus",
+                    {
+                        id: id,
+                        status: status,
+                    },
+                    this.config
+                )
+                .then(function (resp) {
+                    that.splitAxios(resp.data.original);
+                    that.hideModalTask();
+                    Vue.$toast.success("Status task berhasil di update!");
+                })
+                .catch(function (err) {
+                    window.alert(err);
+                });
+        },
         cardModal(data) {
             if (data.status == "todo" || data.status == "doing") {
                 var modalTask = new bootstrap.Modal(
@@ -400,6 +428,7 @@ export default {
             this.taskData = data;
             this.status = data.status;
             this.selected = data.staffs;
+            this.kendaraan = data.kendaraan;
             this.refreshStaff();
             this.updateFlat = this.selected;
             modalTask.show();
@@ -589,7 +618,10 @@ export default {
                     updated: s.updated_at,
                     start: s.start,
                     dasar: JSON.parse(s.spt_id),
-                    tipe_dinas: s.tipe_dinas
+                    tipe_dinas: s.tipe_dinas,
+                    kendaraan: s.kendaraan,
+                    start_do: s.start_do,
+                    finish_do: s.finish_do
                 };
                 this.newTodos.push(todo);
             });
@@ -614,7 +646,8 @@ export default {
                     start_do: s.start_do,
                     finish_do: s.finish_do,
                     report: s.report,
-                    tipe_dinas: s.tipe_dinas
+                    tipe_dinas: s.tipe_dinas,
+                    kendaraan: s.kendaraan,
                 };
                 this.newDoing.push(todo);
             });
@@ -630,8 +663,9 @@ export default {
                     dasar: JSON.parse(s.spt_id),
                     start_do: s.start_do,
                     finish_do: s.finish_do,
+                    tipe_dinas: s.tipe_dinas,
                     report: s.report,
-                    tipe_dinas: s.tipe_dinas
+                    kendaraan: s.kendaraan,
                 };
                 this.newDone.push(todo);
             });
@@ -654,7 +688,8 @@ export default {
                     description: s.description,
                     start: s.start,
                     dasar: JSON.parse(s.spt_id),
-                    tipe_dinas: s.tipe_dinas
+                    tipe_dinas: s.tipe_dinas,
+                    kendaraan: s.kendaraan
                 };
                 this.newTodos.push(todo);
             });
@@ -675,7 +710,8 @@ export default {
                     start_do: s.start_do,
                     finish_do: s.finish_do,
                     report: s.report,
-                    tipe_dinas: s.tipe_dinas
+                    tipe_dinas: s.tipe_dinas,
+                    kendaraan: s.kendaraan
                 };
                 this.newDoing.push(todo);
             });
@@ -692,7 +728,8 @@ export default {
                     start_do: s.start_do,
                     finish_do: s.finish_do,
                     report: s.report,
-                    tipe_dinas: s.tipe_dinas
+                    tipe_dinas: s.tipe_dinas,
+                    kendaraan: s.kendaraan
                 };
                 this.newDone.push(todo);
             });
