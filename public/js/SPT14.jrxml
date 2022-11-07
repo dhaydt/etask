@@ -124,7 +124,7 @@ WHERE
 					<font fontName="SansSerif" size="12"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Surat dari "+$P{pengirim}+ ". Nomor ${nomo_naskah}, pada hari" + $P{mulai} + ", Perihal "+ $P{perihal}+". " + $P{pemberi_tugas} +" dengan ini, memerintahkan kepada nama-nama yang tersebut dibawah ini:"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Surat dari "+$P{pengirim}+ ". Nomor ${nomo_naskah}, pada hari, " + $P{mulai} + ", Perihal "+ $P{perihal}+". " + $P{pemberi_tugas} +" dengan ini, memerintahkan kepada nama-nama yang tersebut dibawah ini:"]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="108" y="166" width="1" height="23" uuid="d90a9060-160f-4308-af58-43761b0f79b7">
