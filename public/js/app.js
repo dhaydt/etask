@@ -8987,7 +8987,12 @@ __webpack_require__.r(__webpack_exports__);
           tipe_dinas: s.tipe_dinas,
           kendaraan: s.kendaraan,
           start_do: s.start_do,
-          finish_do: s.finish_do
+          finish_do: s.finish_do,
+          instansi: JSON.parse(s.attribute).instansi_pembebanan_anggaran,
+          kota_berangkat: JSON.parse(s.attribute).kota_berangkat,
+          kota_tujuan: JSON.parse(s.attribute).kota_tujuan,
+          mata_anggaran: JSON.parse(s.attribute).mata_anggaran,
+          keterangan: JSON.parse(s.attribute).keterangan
         };
 
         _this2.newTodos.push(todo);
@@ -9011,7 +9016,12 @@ __webpack_require__.r(__webpack_exports__);
           finish_do: s.finish_do,
           report: s.report,
           tipe_dinas: s.tipe_dinas,
-          kendaraan: s.kendaraan
+          kendaraan: s.kendaraan,
+          instansi: JSON.parse(s.attribute).instansi_pembebanan_anggaran,
+          kota_berangkat: JSON.parse(s.attribute).kota_berangkat,
+          kota_tujuan: JSON.parse(s.attribute).kota_tujuan,
+          mata_anggaran: JSON.parse(s.attribute).mata_anggaran,
+          keterangan: JSON.parse(s.attribute).keterangan
         };
 
         _this2.newDoing.push(todo);
@@ -9029,7 +9039,12 @@ __webpack_require__.r(__webpack_exports__);
           finish_do: s.finish_do,
           tipe_dinas: s.tipe_dinas,
           report: s.report,
-          kendaraan: s.kendaraan
+          kendaraan: s.kendaraan,
+          instansi: JSON.parse(s.attribute).instansi_pembebanan_anggaran,
+          kota_berangkat: JSON.parse(s.attribute).kota_berangkat,
+          kota_tujuan: JSON.parse(s.attribute).kota_tujuan,
+          mata_anggaran: JSON.parse(s.attribute).mata_anggaran,
+          keterangan: JSON.parse(s.attribute).keterangan
         };
 
         _this2.newDone.push(todo);
@@ -9056,7 +9071,12 @@ __webpack_require__.r(__webpack_exports__);
           start: s.start,
           dasar: JSON.parse(s.spt_id),
           tipe_dinas: s.tipe_dinas,
-          kendaraan: s.kendaraan
+          kendaraan: s.kendaraan,
+          instansi: JSON.parse(s.attribute).instansi_pembebanan_anggaran,
+          kota_berangkat: JSON.parse(s.attribute).kota_berangkat,
+          kota_tujuan: JSON.parse(s.attribute).kota_tujuan,
+          mata_anggaran: JSON.parse(s.attribute).mata_anggaran,
+          keterangan: JSON.parse(s.attribute).keterangan
         };
 
         _this3.newTodos.push(todo);
@@ -9077,7 +9097,12 @@ __webpack_require__.r(__webpack_exports__);
           finish_do: s.finish_do,
           report: s.report,
           tipe_dinas: s.tipe_dinas,
-          kendaraan: s.kendaraan
+          kendaraan: s.kendaraan,
+          instansi: JSON.parse(s.attribute).instansi_pembebanan_anggaran,
+          kota_berangkat: JSON.parse(s.attribute).kota_berangkat,
+          kota_tujuan: JSON.parse(s.attribute).kota_tujuan,
+          mata_anggaran: JSON.parse(s.attribute).mata_anggaran,
+          keterangan: JSON.parse(s.attribute).keterangan
         };
 
         _this3.newDoing.push(todo);
@@ -9095,7 +9120,12 @@ __webpack_require__.r(__webpack_exports__);
           finish_do: s.finish_do,
           report: s.report,
           tipe_dinas: s.tipe_dinas,
-          kendaraan: s.kendaraan
+          kendaraan: s.kendaraan,
+          instansi: JSON.parse(s.attribute).instansi_pembebanan_anggaran,
+          kota_berangkat: JSON.parse(s.attribute).kota_berangkat,
+          kota_tujuan: JSON.parse(s.attribute).kota_tujuan,
+          mata_anggaran: JSON.parse(s.attribute).mata_anggaran,
+          keterangan: JSON.parse(s.attribute).keterangan
         };
 
         _this3.newDone.push(todo);
@@ -10576,6 +10606,80 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -10607,6 +10711,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       start_on: null,
       finish_on: null,
       kendaraan: null,
+      berangkat: null,
+      tujuan: null,
+      anggaran: null,
+      instansi: null,
+      keterangan: null,
       newStat: null,
       spt: ["SURAT 1", "SURAT 2", "SURAT 3"],
       sptList: ["SURAT 1", "SURAT 2"],
@@ -10648,16 +10757,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     taskData: function taskData() {
       console.log("modal.taskData", this.taskData);
       this.checkStaff();
-      console.log('tipe', this.tipe);
+      console.log("tipe", this.tipe);
 
       if (this.status == "doing" || this.tipe == "SPPD") {
-        console.log('time', this.taskData);
+        console.log("time", this.taskData);
 
-        if (this.taskData.start_do !== null || this.taskData.start_do !== '' || this.taskData.start_do !== undefined) {
+        if (this.taskData.start_do !== null || this.taskData.start_do !== "" || this.taskData.start_do !== undefined) {
           this.start_on = new Date(this.taskData.start_do).toISOString();
         }
 
-        if (this.taskData.finish_do !== null || this.taskData.finish_do !== '' || this.taskData.finish_do !== undefined) {
+        if (this.taskData.finish_do !== null || this.taskData.finish_do !== "" || this.taskData.finish_do !== undefined) {
           this.finish_on = new Date(this.taskData.finish_do).toISOString();
         }
 
@@ -10730,6 +10839,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.dasarSpt = this.taskData.dasar;
       this.tipe = this.taskData.tipe_dinas;
       this.kendaraan = this.taskData.kendaraan;
+      this.instansi = this.taskData.instansi;
+      this.berangkat = this.taskData.kota_berangkat;
+      this.tujuan = this.taskData.kota_tujuan;
+      this.anggaran = this.taskData.mata_anggaran;
+      this.keterangan = this.taskData.keterangan;
     },
     updateSelectStaff: function updateSelectStaff(options, selected) {
       if (selected.length > 0) {
@@ -10821,7 +10935,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var file = this.file;
       var tipe = this.tipe;
       var kendaraan = this.kendaraan;
-      var fileName = this.fileName;
+      var berangkat = this.berangkat;
+      var tujuan = this.tujuan;
+      var anggaran = this.anggaran;
+      var instansi = this.instansi;
+      var keterangan = this.keterangan;
 
       if (dasar == undefined) {
         var dasar = [];
@@ -10833,7 +10951,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         if (name == null || name == "") {
           Vue.$toast.warning("Nama task tidak boleh kosong!!");
         } else if (tipe == null) {
-          Vue.$toast.warning("Mohon pilih tipe dinas!!");
+          Vue.$toast.warning("Mohon pilih tipe penugasan!!");
         } else if (JSON.parse(staf).length == 0) {
           Vue.$toast.warning("Mohon pilih staff!");
         } else if (JSON.parse(dasar).length == 0) {
@@ -10842,12 +10960,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           Vue.$toast.warning("Mohon isi deskripsi / Maksud perjalanan dinas!!");
         } else if (start == null) {
           Vue.$toast.warning("Mohon masukan tanggal pengerjaan task!");
-        } else if (tipe == "SPPD" && kendaraan == null) {
-          Vue.$toast.warning("Mohon isi Alat Angkut!!");
+        } else if (tipe == "SPPD" && kendaraan == null || tipe == "SPPD" && kendaraan == "") {
+          Vue.$toast.warning("Mohon isi Alat Angkut Perjalanan Dinas!!");
+        } else if (tipe == "SPPD" && berangkat == null || tipe == "SPPD" && berangkat == "") {
+          Vue.$toast.warning("Mohon isi Kota Berangkat Perjalanan Dinas!!");
+        } else if (tipe == "SPPD" && tujuan == null || tipe == "SPPD" && tujuan == "") {
+          Vue.$toast.warning("Mohon isi Kota Tujuan Perjalanan Dinas!!");
+        } else if (tipe == "SPPD" && instansi == null || tipe == "SPPD" && instansi == "") {
+          Vue.$toast.warning("Mohon isi Instansi Pembebanan Anggaran Perjalanan Dinas!!");
         } else if (tipe == "SPPD" && start_on == "") {
-          Vue.$toast.warning("Mohon isi tanggal mulai Dinas Luar!!");
+          Vue.$toast.warning("Mohon isi tanggal mulai Perjalanan Dinas!!");
         } else if (tipe == "SPPD" && finish_on == "") {
-          Vue.$toast.warning("Mohon isi tanggal selesai Dinas Luar!!");
+          Vue.$toast.warning("Mohon isi tanggal selesai Perjalanan Dinas!!");
         } else {
           axios.post("/updateTask", {
             id: id,
@@ -10859,7 +10983,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             tipe_dinas: tipe,
             kendaraan: kendaraan,
             start_on: start_on,
-            finish_on: finish_on
+            finish_on: finish_on,
+            kota_berangkat: berangkat,
+            kota_tujuan: tujuan,
+            instansi_pembebanan_anggaran: instansi,
+            mata_anggaran: anggaran,
+            keterangan: keterangan
           }, this.config).then(function (response) {
             that.sembunyi();
             that.$parent.splitAxios(response.data.original);
@@ -88807,7 +88936,7 @@ var render = function () {
                   [
                     _c("LabelTitle", {
                       attrs: {
-                        title: "Tipe Dinas",
+                        title: "Tipe Penugasan",
                         icon: "fa-solid fa-object-ungroup",
                       },
                     }),
@@ -89082,42 +89211,259 @@ var render = function () {
                     ]),
                     _vm._v(" "),
                     _vm.tipe == "SPPD"
-                      ? _c("LabelTitle", {
-                          attrs: {
-                            title: "Alat Angkut",
-                            icon: "fa-solid fa-helicopter",
-                          },
-                        })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.tipe == "SPPD"
-                      ? _c("div", { staticClass: "mb-3 input-text" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.kendaraan,
-                                expression: "kendaraan",
+                      ? _c(
+                          "div",
+                          {},
+                          [
+                            _c("LabelTitle", {
+                              attrs: {
+                                title: "Alat Angkut",
+                                icon: "fa-solid fa-helicopter",
                               },
-                            ],
-                            staticClass: "form-control disable cursor-block",
-                            attrs: {
-                              type: "text",
-                              name: "kendaraan",
-                              disabled: _vm.taskData.status == "doing",
-                            },
-                            domProps: { value: _vm.kendaraan },
-                            on: {
-                              input: function ($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.kendaraan = $event.target.value
+                            }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "mb-3 input-text" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.kendaraan,
+                                    expression: "kendaraan",
+                                  },
+                                ],
+                                staticClass:
+                                  "form-control disable cursor-block",
+                                attrs: {
+                                  type: "text",
+                                  name: "kendaraan",
+                                  placeholder:
+                                    "Masukan Nomor Plat Kendaraan atau jenis angkutan yang digunakan",
+                                  disabled: _vm.taskData.status == "doing",
+                                },
+                                domProps: { value: _vm.kendaraan },
+                                on: {
+                                  input: function ($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.kendaraan = $event.target.value
+                                  },
+                                },
+                              }),
+                            ]),
+                            _vm._v(" "),
+                            _c("LabelTitle", {
+                              attrs: {
+                                title: "Tempat Berangkat",
+                                icon: "fa-solid fa-car",
                               },
-                            },
-                          }),
-                        ])
+                            }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "mb-3 input-text" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.berangkat,
+                                    expression: "berangkat",
+                                  },
+                                ],
+                                staticClass:
+                                  "form-control disable cursor-block",
+                                attrs: {
+                                  type: "text",
+                                  name: "berangkat",
+                                  placeholder:
+                                    "Kota Berangkat perjalanan dinas",
+                                  disabled: _vm.taskData.status == "doing",
+                                },
+                                domProps: { value: _vm.berangkat },
+                                on: {
+                                  input: function ($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.berangkat = $event.target.value
+                                  },
+                                },
+                              }),
+                            ]),
+                            _vm._v(" "),
+                            _c("LabelTitle", {
+                              attrs: {
+                                title: "Tempat Tujuan",
+                                icon: "fa-solid fa-signs-post",
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "mb-3 input-text" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.tujuan,
+                                    expression: "tujuan",
+                                  },
+                                ],
+                                staticClass:
+                                  "form-control disable cursor-block",
+                                attrs: {
+                                  type: "text",
+                                  placeholder: "Kota tujuan perjalanan dinas",
+                                  name: "tujuan",
+                                  disabled: _vm.taskData.status == "doing",
+                                },
+                                domProps: { value: _vm.tujuan },
+                                on: {
+                                  input: function ($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.tujuan = $event.target.value
+                                  },
+                                },
+                              }),
+                            ]),
+                            _vm._v(" "),
+                            _c("LabelTitle", {
+                              attrs: {
+                                title: "Pembebanan anggaran",
+                                icon: "fa-solid fa-sack-dollar",
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "ms-5 ps-3" },
+                              [
+                                _c("LabelTitle", {
+                                  attrs: {
+                                    title: "Instansi",
+                                    icon: "fa-solid fa-caret-right",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "mb-3 input-text ps-1" },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.instansi,
+                                          expression: "instansi",
+                                        },
+                                      ],
+                                      staticClass:
+                                        "form-control disable cursor-block",
+                                      attrs: {
+                                        type: "text",
+                                        name: "instansi",
+                                        placeholder:
+                                          "Instansi yang dibebankan anggaran",
+                                        disabled:
+                                          _vm.taskData.status == "doing",
+                                      },
+                                      domProps: { value: _vm.instansi },
+                                      on: {
+                                        input: function ($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.instansi = $event.target.value
+                                        },
+                                      },
+                                    }),
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("LabelTitle", {
+                                  attrs: {
+                                    title: "Mata Anggaran",
+                                    icon: "fas fa-caret-right",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "mb-3 input-text ps-1" },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.anggaran,
+                                          expression: "anggaran",
+                                        },
+                                      ],
+                                      staticClass:
+                                        "form-control disable cursor-block",
+                                      attrs: {
+                                        type: "text",
+                                        name: "anggaran",
+                                        disabled:
+                                          _vm.taskData.status == "doing",
+                                      },
+                                      domProps: { value: _vm.anggaran },
+                                      on: {
+                                        input: function ($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.anggaran = $event.target.value
+                                        },
+                                      },
+                                    }),
+                                  ]
+                                ),
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("LabelTitle", {
+                              attrs: {
+                                title: "Keterangan",
+                                icon: "fa-solid fa-circle-info",
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "mb-3 input-text" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.keterangan,
+                                    expression: "keterangan",
+                                  },
+                                ],
+                                staticClass:
+                                  "form-control disable cursor-block",
+                                attrs: {
+                                  type: "text",
+                                  name: "keterangan",
+                                  disabled: _vm.taskData.status == "doing",
+                                },
+                                domProps: { value: _vm.keterangan },
+                                on: {
+                                  input: function ($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.keterangan = $event.target.value
+                                  },
+                                },
+                              }),
+                            ]),
+                          ],
+                          1
+                        )
                       : _vm._e(),
                     _vm._v(" "),
                     _vm.tipe == "penugasan biasa" &&
@@ -90701,7 +91047,7 @@ var render = function () {
   return _c("div", { staticClass: "label-title d-flex align-items-center" }, [
     _c("i", { class: _vm.icon }),
     _vm._v(" "),
-    _c("label", { staticClass: "label-text ps-3" }, [
+    _c("label", { staticClass: "label-text ps-3 text-capitalize" }, [
       _vm._v(_vm._s(_vm.title)),
     ]),
   ])

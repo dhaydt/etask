@@ -657,6 +657,11 @@ export default {
                     kendaraan: s.kendaraan,
                     start_do: s.start_do,
                     finish_do: s.finish_do,
+                    instansi: JSON.parse(s.attribute).instansi_pembebanan_anggaran,
+                    kota_berangkat: JSON.parse(s.attribute).kota_berangkat,
+                    kota_tujuan: JSON.parse(s.attribute).kota_tujuan,
+                    mata_anggaran: JSON.parse(s.attribute).mata_anggaran,
+                    keterangan: JSON.parse(s.attribute).keterangan,
                 };
                 this.newTodos.push(todo);
             });
@@ -683,6 +688,11 @@ export default {
                     report: s.report,
                     tipe_dinas: s.tipe_dinas,
                     kendaraan: s.kendaraan,
+                    instansi: JSON.parse(s.attribute).instansi_pembebanan_anggaran,
+                    kota_berangkat: JSON.parse(s.attribute).kota_berangkat,
+                    kota_tujuan: JSON.parse(s.attribute).kota_tujuan,
+                    mata_anggaran: JSON.parse(s.attribute).mata_anggaran,
+                    keterangan: JSON.parse(s.attribute).keterangan,
                 };
                 this.newDoing.push(todo);
             });
@@ -701,6 +711,11 @@ export default {
                     tipe_dinas: s.tipe_dinas,
                     report: s.report,
                     kendaraan: s.kendaraan,
+                    instansi: JSON.parse(s.attribute).instansi_pembebanan_anggaran,
+                    kota_berangkat: JSON.parse(s.attribute).kota_berangkat,
+                    kota_tujuan: JSON.parse(s.attribute).kota_tujuan,
+                    mata_anggaran: JSON.parse(s.attribute).mata_anggaran,
+                    keterangan: JSON.parse(s.attribute).keterangan,
                 };
                 this.newDone.push(todo);
             });
@@ -725,6 +740,11 @@ export default {
                     dasar: JSON.parse(s.spt_id),
                     tipe_dinas: s.tipe_dinas,
                     kendaraan: s.kendaraan,
+                    instansi: JSON.parse(s.attribute).instansi_pembebanan_anggaran,
+                    kota_berangkat: JSON.parse(s.attribute).kota_berangkat,
+                    kota_tujuan: JSON.parse(s.attribute).kota_tujuan,
+                    mata_anggaran: JSON.parse(s.attribute).mata_anggaran,
+                    keterangan: JSON.parse(s.attribute).keterangan,
                 };
                 this.newTodos.push(todo);
             });
@@ -747,6 +767,11 @@ export default {
                     report: s.report,
                     tipe_dinas: s.tipe_dinas,
                     kendaraan: s.kendaraan,
+                    instansi: JSON.parse(s.attribute).instansi_pembebanan_anggaran,
+                    kota_berangkat: JSON.parse(s.attribute).kota_berangkat,
+                    kota_tujuan: JSON.parse(s.attribute).kota_tujuan,
+                    mata_anggaran: JSON.parse(s.attribute).mata_anggaran,
+                    keterangan: JSON.parse(s.attribute).keterangan,
                 };
                 this.newDoing.push(todo);
             });
@@ -765,6 +790,11 @@ export default {
                     report: s.report,
                     tipe_dinas: s.tipe_dinas,
                     kendaraan: s.kendaraan,
+                    instansi: JSON.parse(s.attribute).instansi_pembebanan_anggaran,
+                    kota_berangkat: JSON.parse(s.attribute).kota_berangkat,
+                    kota_tujuan: JSON.parse(s.attribute).kota_tujuan,
+                    mata_anggaran: JSON.parse(s.attribute).mata_anggaran,
+                    keterangan: JSON.parse(s.attribute).keterangan,
                 };
                 this.newDone.push(todo);
             });

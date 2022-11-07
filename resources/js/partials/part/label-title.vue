@@ -1,7 +1,7 @@
 <template>
     <div class="label-title d-flex align-items-center">
         <i :class="icon"></i>
-        <label class="label-text ps-3">{{ title }}</label>
+        <label class="label-text ps-3 text-capitalize">{{ title }}</label>
     </div>
 </template>
 

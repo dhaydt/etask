@@ -34,31 +34,32 @@ class Controller extends BaseController
         // dd($staf);
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(public_path('/template/sppdTemplate2.docx'));
 
+        $jarak = strtotime($task['finish_do']) - strtotime($task['start_do']);
+
+        $hari = $jarak / 60 / 60 / 24;
+
         $templateProcessor->setValues([
-            'pejabat_pemberi_perintah' => 'Kepala Dinas Komunikasi dan Informatika',
             'nama_pegawai' => $staf->nama,
             'pangkat' => 'belum ada api',
             'jabatan' => $staf->nama_jabatan,
             'tingkat_menurut_peraturan' => $staf->nama_jabatan,
             'maksud_sppd' => $task->description,
             'alat_angkut' => $task->kendaraan,
-            'tempat_berangkat' => 'belum ada data',
-            'tempat_tujuan' => 'belum ada data',
-            'lama_perjalanan' => 'belum ada data',
+            'tempat_berangkat' => json_decode($task->attribute)->kota_berangkat,
+            'tempat_tujuan' => json_decode($task->attribute)->kota_tujuan,
+            'lama_perjalanan' => $hari,
             'tgl_berangkat' => Carbon::parse($task['start_do'])->isoFormat('dddd, D MMMM Y'),
             'tgl_kembali' => Carbon::parse($task['finish_do'])->isoFormat('dddd, D MMMM Y'),
             'pengikut' => 'belum ada data',
-            'instansi_pembebanan_anggaran' => 'belum ada data',
-            'mata_anggaran' => 'belum ada data',
+            'instansi_pembebanan_anggaran' => json_decode($task->attribute)->instansi_pembebanan_anggaran,
+            'mata_anggaran' => json_decode($task->attribute)->mata_anggaran,
             'berangkat_darikota_tujuan' => Carbon::parse($task['finish_do'])->isoFormat('dddd, D MMMM Y'),
             'tiba_dikota_asal' => Carbon::parse($task['finish_do'])->isoFormat('dddd, D MMMM Y'),
-            'keterangan' => 'belum ada data',
+            'keterangan' => json_decode($task->attribute)->keterangan,
             'dikeluarkan_di' => 'Bukittinggi',
             'dikeluarkan_tanggal' => Carbon::parse($task['start_do'])->isoFormat('dddd, D MMMM Y'),
             'nip_pegawai' => $staf->nip_terkait,
-            'jabatan_tembusan' => 'KEPALA DINAS KOMUNIKASI DAN INFORMATIKA',
-            'nama_pejabat' => 'Drs, ERWIN UMAR, M.Pd',
-            'nip_pejabat' => '196311301988031003',
+            'jabatan_tembusan' => json_decode($task->attribute)->pemberi_perintah,
         ]);
 
         $templateProcessor->setImageValue('kop_surat', ['path' => public_path('kop/'.session()->get('id_skpd').'.png'), 'width' => 650, 'height' => 100, 'ratio' => false]);
@@ -522,6 +523,15 @@ class Controller extends BaseController
             if ($request->tipe_dinas == 'SPPD') {
                 $task->start_do = Carbon::parse($request->start_on)->addHours(7)->format('Y-m-d H:i:s');
                 $task->finish_do = Carbon::parse($request->finish_on)->addHours(7)->format('Y-m-d H:i:s');
+                $data = [
+                    'pemberi_perintah' => $request->pemberi_perintah,
+                    'kota_berangkat' => $request->kota_berangkat,
+                    'kota_tujuan' => $request->kota_tujuan,
+                    'instansi_pembebanan_anggaran' => $request->instansi_pembebanan_anggaran,
+                    'mata_anggaran' => $request->mata_anggaran,
+                    'keterangan' => $request->keterangan,
+                ];
+                $task->attribute = json_encode($data);
             }
         }
 
@@ -651,6 +661,7 @@ class Controller extends BaseController
         $staff = [];
         $spt = [];
         $report = [];
+        $attr = [];
         $user = Helpers::getAuthUser(session()->get('user_id'));
         if ($user->nip == 2) {
             $staff = [
@@ -667,6 +678,7 @@ class Controller extends BaseController
         $task->staff = json_encode($staff);
         $task->spt_id = json_encode($spt);
         $task->report = json_encode($report);
+        $task->attribute = json_encode($attr);
         $task->save();
 
         $this->history('add', $task->id, 'todo');

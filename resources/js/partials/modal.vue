@@ -70,7 +70,7 @@
                         <input type="hidden" name="id" :value="taskData.id" />
                         <div class="modal-body pt-1">
                             <LabelTitle
-                                title="Tipe Dinas"
+                                title="Tipe Penugasan"
                                 icon="fa-solid fa-object-ungroup"
                             ></LabelTitle>
                             <div class="mb-3 input-text">
@@ -196,19 +196,99 @@
                                     :disabled="taskData.status == 'doing'"
                                 />
                             </div>
-                            <LabelTitle
-                                v-if="tipe == 'SPPD'"
-                                title="Alat Angkut"
-                                icon="fa-solid fa-helicopter"
-                            ></LabelTitle>
-                            <div v-if="tipe == 'SPPD'" class="mb-3 input-text">
-                                <input
-                                    type="text"
-                                    v-model="kendaraan"
-                                    name="kendaraan"
-                                    class="form-control disable cursor-block"
-                                    :disabled="taskData.status == 'doing'"
-                                />
+                            <div class="" v-if="tipe == 'SPPD'">
+                                <LabelTitle
+                                    title="Alat Angkut"
+                                    icon="fa-solid fa-helicopter"
+                                ></LabelTitle>
+                                <div class="mb-3 input-text">
+                                    <input
+                                        type="text"
+                                        v-model="kendaraan"
+                                        name="kendaraan"
+                                        placeholder="Masukan Nomor Plat Kendaraan atau jenis angkutan yang digunakan"
+                                        class="form-control disable cursor-block"
+                                        :disabled="taskData.status == 'doing'"
+                                    />
+                                </div>
+
+                                <LabelTitle
+                                    title="Tempat Berangkat"
+                                    icon="fa-solid fa-car"
+                                ></LabelTitle>
+                                <div class="mb-3 input-text">
+                                    <input
+                                        type="text"
+                                        v-model="berangkat"
+                                        name="berangkat"
+                                        placeholder="Kota Berangkat perjalanan dinas"
+                                        class="form-control disable cursor-block"
+                                        :disabled="taskData.status == 'doing'"
+                                    />
+                                </div>
+
+                                <LabelTitle
+                                    title="Tempat Tujuan"
+                                    icon="fa-solid fa-signs-post"
+                                ></LabelTitle>
+                                <div class="mb-3 input-text">
+                                    <input
+                                        type="text"
+                                        v-model="tujuan"
+                                        placeholder="Kota tujuan perjalanan dinas"
+                                        name="tujuan"
+                                        class="form-control disable cursor-block"
+                                        :disabled="taskData.status == 'doing'"
+                                    />
+                                </div>
+
+                                <LabelTitle
+                                    title="Pembebanan anggaran"
+                                    icon="fa-solid fa-sack-dollar"
+                                ></LabelTitle>
+                                <div class="ms-5 ps-3">
+                                    <LabelTitle
+                                        title="Instansi"
+                                        icon="fa-solid fa-caret-right"
+                                    ></LabelTitle>
+                                    <div class="mb-3 input-text ps-1">
+                                        <input
+                                            type="text"
+                                            v-model="instansi"
+                                            name="instansi"
+                                            placeholder="Instansi yang dibebankan anggaran"
+                                            class="form-control disable cursor-block"
+                                            :disabled="taskData.status == 'doing'"
+                                        />
+                                    </div>
+
+                                    <LabelTitle
+                                        title="Mata Anggaran"
+                                        icon="fas fa-caret-right"
+                                    ></LabelTitle>
+                                    <div class="mb-3 input-text ps-1">
+                                        <input
+                                            type="text"
+                                            v-model="anggaran"
+                                            name="anggaran"
+                                            class="form-control disable cursor-block"
+                                            :disabled="taskData.status == 'doing'"
+                                        />
+                                    </div>
+                                </div>
+                                <LabelTitle
+                                    title="Keterangan"
+                                    icon="fa-solid fa-circle-info"
+                                ></LabelTitle>
+                                <div class="mb-3 input-text">
+                                    <input
+                                        type="text"
+                                        v-model="keterangan"
+                                        name="keterangan"
+                                        class="form-control disable cursor-block"
+                                        :disabled="taskData.status == 'doing'"
+                                    />
+                                </div>
                             </div>
 
                             <div
@@ -221,9 +301,7 @@
                                     title="Mulai mengerjakan"
                                     icon="fa-solid fa-stopwatch"
                                 ></LabelTitle>
-                                <div
-                                    class="mb-3 input-text"
-                                >
+                                <div class="mb-3 input-text">
                                     <datetime
                                         class="form-control"
                                         type="datetime"
@@ -236,9 +314,7 @@
                                     title="Selesai mengerjakan"
                                     icon="fa-solid fa-stopwatch"
                                 ></LabelTitle>
-                                <div
-                                    class="mb-3 input-text"
-                                >
+                                <div class="mb-3 input-text">
                                     <datetime
                                         class="form-control"
                                         type="datetime"
@@ -254,13 +330,11 @@
                                     tipe == 'SPPD'
                                 "
                             >
-                            <LabelTitle
+                                <LabelTitle
                                     title="Tanggal mulai acara Kedinasan"
                                     icon="fa-solid fa-stopwatch"
                                 ></LabelTitle>
-                                <div
-                                    class="mb-3 input-text"
-                                >
+                                <div class="mb-3 input-text">
                                     <datetime
                                         class="form-control"
                                         type="datetime"
@@ -814,6 +888,13 @@ export default {
             start_on: null,
             finish_on: null,
             kendaraan: null,
+
+            berangkat: null,
+            tujuan: null,
+            anggaran: null,
+            instansi: null,
+            keterangan: null,
+
             newStat: null,
             spt: ["SURAT 1", "SURAT 2", "SURAT 3"],
             sptList: ["SURAT 1", "SURAT 2"],
@@ -858,16 +939,24 @@ export default {
         taskData() {
             console.log("modal.taskData", this.taskData);
             this.checkStaff();
-            console.log('tipe',this.tipe);
+            console.log("tipe", this.tipe);
             if (this.status == "doing" || this.tipe == "SPPD") {
-                console.log('time',this.taskData)
-                if (this.taskData.start_do !== null || this.taskData.start_do !== '' || this.taskData.start_do !== undefined) {
+                console.log("time", this.taskData);
+                if (
+                    this.taskData.start_do !== null ||
+                    this.taskData.start_do !== "" ||
+                    this.taskData.start_do !== undefined
+                ) {
                     this.start_on = new Date(
                         this.taskData.start_do
                     ).toISOString();
                 }
 
-                if (this.taskData.finish_do !== null || this.taskData.finish_do !== '' || this.taskData.finish_do !== undefined) {
+                if (
+                    this.taskData.finish_do !== null ||
+                    this.taskData.finish_do !== "" ||
+                    this.taskData.finish_do !== undefined
+                ) {
                     this.finish_on = new Date(
                         this.taskData.finish_do
                     ).toISOString();
@@ -933,6 +1022,11 @@ export default {
             this.dasarSpt = this.taskData.dasar;
             this.tipe = this.taskData.tipe_dinas;
             this.kendaraan = this.taskData.kendaraan;
+            this.instansi = this.taskData.instansi;
+            this.berangkat = this.taskData.kota_berangkat;
+            this.tujuan = this.taskData.kota_tujuan;
+            this.anggaran = this.taskData.mata_anggaran;
+            this.keterangan = this.taskData.keterangan;
         },
         updateSelectStaff(options, selected) {
             if (selected.length > 0) {
@@ -1034,7 +1128,11 @@ export default {
             var file = this.file;
             var tipe = this.tipe;
             var kendaraan = this.kendaraan;
-            var fileName = this.fileName;
+            var berangkat = this.berangkat;
+            var tujuan = this.tujuan;
+            var anggaran = this.anggaran;
+            var instansi = this.instansi;
+            var keterangan = this.keterangan;
 
             if (dasar == undefined) {
                 var dasar = [];
@@ -1046,26 +1144,40 @@ export default {
                 if (name == null || name == "") {
                     Vue.$toast.warning("Nama task tidak boleh kosong!!");
                 } else if (tipe == null) {
-                    Vue.$toast.warning("Mohon pilih tipe dinas!!");
+                    Vue.$toast.warning("Mohon pilih tipe penugasan!!");
                 } else if (JSON.parse(staf).length == 0) {
                     Vue.$toast.warning("Mohon pilih staff!");
                 } else if (JSON.parse(dasar).length == 0) {
                     Vue.$toast.warning("Mohon pilih dasar SPT!");
-                }else if (description == null || description == "") {
-                    Vue.$toast.warning("Mohon isi deskripsi / Maksud perjalanan dinas!!");
-                }else if (start == null) {
+                } else if (description == null || description == "") {
+                    Vue.$toast.warning(
+                        "Mohon isi deskripsi / Maksud perjalanan dinas!!"
+                    );
+                } else if (start == null) {
                     Vue.$toast.warning(
                         "Mohon masukan tanggal pengerjaan task!"
                     );
-                } else if (tipe == "SPPD" && kendaraan == null) {
-                    Vue.$toast.warning("Mohon isi Alat Angkut!!");
-                } else if (tipe == "SPPD" && start_on == "") {
-                    Vue.$toast.warning("Mohon isi tanggal mulai Dinas Luar!!");
+                } else if (tipe == "SPPD" && kendaraan == null || tipe == "SPPD" && kendaraan == "") {
+                    Vue.$toast.warning("Mohon isi Alat Angkut Perjalanan Dinas!!");
+                } else if (tipe == "SPPD" && berangkat == null || tipe == "SPPD" && berangkat == "") {
+                    Vue.$toast.warning(
+                        "Mohon isi Kota Berangkat Perjalanan Dinas!!"
+                    );
+                } else if (tipe == "SPPD" && tujuan == null || tipe == "SPPD" && tujuan == "") {
+                    Vue.$toast.warning(
+                        "Mohon isi Kota Tujuan Perjalanan Dinas!!"
+                    );
+                } else if (tipe == "SPPD" && instansi == null || tipe == "SPPD" && instansi == "") {
+                    Vue.$toast.warning(
+                        "Mohon isi Instansi Pembebanan Anggaran Perjalanan Dinas!!"
+                    );
+                }else if (tipe == "SPPD" && start_on == "") {
+                    Vue.$toast.warning("Mohon isi tanggal mulai Perjalanan Dinas!!");
                 } else if (tipe == "SPPD" && finish_on == "") {
                     Vue.$toast.warning(
-                        "Mohon isi tanggal selesai Dinas Luar!!"
+                        "Mohon isi tanggal selesai Perjalanan Dinas!!"
                     );
-                }  else {
+                } else {
                     axios
                         .post(
                             "/updateTask",
@@ -1079,7 +1191,12 @@ export default {
                                 tipe_dinas: tipe,
                                 kendaraan: kendaraan,
                                 start_on: start_on,
-                                finish_on: finish_on
+                                finish_on: finish_on,
+                                kota_berangkat: berangkat,
+                                kota_tujuan: tujuan,
+                                instansi_pembebanan_anggaran: instansi,
+                                mata_anggaran: anggaran,
+                                keterangan: keterangan,
                             },
                             this.config
                         )
