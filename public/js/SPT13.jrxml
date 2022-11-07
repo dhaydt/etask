@@ -119,7 +119,7 @@ WHERE
 				<text><![CDATA[JABATAN]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="110" y="67" width="423" height="73" uuid="67e6cd13-7805-4a5c-8ba6-05879ef15345"/>
+				<reportElement x="110" y="67" width="423" height="93" uuid="67e6cd13-7805-4a5c-8ba6-05879ef15345"/>
 				<textElement textAlignment="Justified">
 					<font fontName="SansSerif" size="12"/>
 					<paragraph lineSpacing="1_1_2"/>
