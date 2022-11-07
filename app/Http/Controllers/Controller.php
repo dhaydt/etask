@@ -97,7 +97,7 @@ class Controller extends BaseController
         $pengirim = 'Kementrian Komunikasi dan Informatika RI';
         $perihal = 'Undangan Sosialisasi';
         $pemberi_tugas = 'Kepala Dinas Komunikasi dan Informatika';
-        $parameter = 'mulai="'.$date.'" spt_id='.$id.' tanggal_naskah="'.$naskah.'" pengirim='.$pengirim.' perihal='.$perihal.' pemberi_tugas='.$pemberi_tugas.'';
+        $parameter = 'mulai="'.$date.'" spt_id='.$id.' tanggal_naskah="'.$naskah.'" pengirim="'.$pengirim.'" perihal="'.$perihal.'" pemberi_tugas="'.$pemberi_tugas.'"';
         $database = 'mysql -H localhost -u c1_etask -p KhSh_Bx4 -n c1_etask';
 
         // dd("java -jar $jasperstarter pr $input -o $output -f docx -P $parameter");
