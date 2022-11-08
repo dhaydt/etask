@@ -34,30 +34,33 @@ class Controller extends BaseController
         // dd($staf);
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(public_path('/template/sppdTemplate2.docx'));
 
-        $jarak = strtotime($task['finish_do']) - strtotime($task['start_do']);
+        $jarak = strtotime($task['mulai_sppd']) - strtotime($task['selesai_sppd']);
 
         $hari = $jarak / 60 / 60 / 24;
+        $hari = $hari + 1;
+
+        $jabatan = strtolower($staf->nama_jabatan);
+        $jabatan = ucwords($jabatan);
 
         $templateProcessor->setValues([
             'nama_pegawai' => $staf->nama,
             'pangkat' => 'belum ada api',
-            'jabatan' => $staf->nama_jabatan,
-            'tingkat_menurut_peraturan' => $staf->nama_jabatan,
+            'Jabatan' => $jabatan,
             'maksud_sppd' => $task->description,
             'alat_angkut' => $task->kendaraan,
             'tempat_berangkat' => json_decode($task->attribute)->kota_berangkat,
             'tempat_tujuan' => json_decode($task->attribute)->kota_tujuan,
             'lama_perjalanan' => $hari,
-            'tgl_berangkat' => Carbon::parse($task['start_do'])->isoFormat('dddd, D MMMM Y'),
-            'tgl_kembali' => Carbon::parse($task['finish_do'])->isoFormat('dddd, D MMMM Y'),
+            'tgl_berangkat' => Carbon::parse($task['mulai_sppd'])->isoFormat('D MMMM Y'),
+            'tgl_kembali' => Carbon::parse($task['selesai_sppd'])->isoFormat('D MMMM Y'),
             'pengikut' => 'belum ada data',
             'instansi_pembebanan_anggaran' => json_decode($task->attribute)->instansi_pembebanan_anggaran,
-            'mata_anggaran' => json_decode($task->attribute)->mata_anggaran,
-            'berangkat_darikota_tujuan' => Carbon::parse($task['finish_do'])->isoFormat('dddd, D MMMM Y'),
-            'tiba_dikota_asal' => Carbon::parse($task['finish_do'])->isoFormat('dddd, D MMMM Y'),
+            'mata_anggaran' => '',
+            'berangkat_darikota_tujuan' => Carbon::parse($task['finish_do'])->isoFormat('D MMMM Y'),
+            'tiba_dikota_asal' => Carbon::parse($task['finish_do'])->isoFormat('D MMMM Y'),
             'keterangan' => json_decode($task->attribute)->keterangan,
             'dikeluarkan_di' => 'Bukittinggi',
-            'dikeluarkan_tanggal' => Carbon::parse($task['start_do'])->isoFormat('dddd, D MMMM Y'),
+            'dikeluarkan_tanggal' => Carbon::parse($task['start_do'])->isoFormat('D MMMM Y'),
             'nip_pegawai' => $staf->nip_terkait,
             'jabatan_tembusan' => json_decode($task->attribute)->pemberi_perintah,
         ]);
@@ -524,14 +527,13 @@ class Controller extends BaseController
             $task->kendaraan = $request->kendaraan;
             $task->tipe_dinas = $request->tipe_dinas;
             if ($request->tipe_dinas == 'SPPD') {
-                $task->start_do = Carbon::parse($request->start_on)->addHours(7)->format('Y-m-d H:i:s');
-                $task->finish_do = Carbon::parse($request->finish_on)->addHours(7)->format('Y-m-d H:i:s');
+                $task->mulai_sppd = Carbon::parse($request->mulai_sppd);
+                $task->selesai_sppd = Carbon::parse($request->selesai_sppd);
                 $data = [
                     'pemberi_perintah' => $request->pemberi_perintah,
                     'kota_berangkat' => $request->kota_berangkat,
                     'kota_tujuan' => $request->kota_tujuan,
                     'instansi_pembebanan_anggaran' => $request->instansi_pembebanan_anggaran,
-                    'mata_anggaran' => $request->mata_anggaran,
                     'keterangan' => $request->keterangan,
                 ];
                 $task->attribute = json_encode($data);

@@ -52,9 +52,20 @@
                                     </button>
                                 </div>
                             </div>
-                            <div v-if="element.tipe_dinas !== null" class="d-flex position-relative">
-                                <span v-if="element.tipe_dinas == 'SPPD'" class="badge-tipe badge badge-light-success text-success ms-auto mb-2">{{ element.tipe_dinas }}</span>
-                                <span v-else class="badge-tipe badge badge-light-danger text-danger ms-auto mb-2">{{ element.tipe_dinas }}</span>
+                            <div
+                                v-if="element.tipe_dinas !== null"
+                                class="d-flex position-relative"
+                            >
+                                <span
+                                    v-if="element.tipe_dinas == 'SPPD'"
+                                    class="badge-tipe badge badge-light-success text-success ms-auto mb-2"
+                                    >{{ element.tipe_dinas }}</span
+                                >
+                                <span
+                                    v-else
+                                    class="badge-tipe badge badge-light-danger text-danger ms-auto mb-2"
+                                    >{{ element.tipe_dinas }}</span
+                                >
                             </div>
                             <div
                                 v-if="element.description"
@@ -80,7 +91,8 @@
                                             element.staffs.length !== 0 &&
                                             element.dasar.length !== 0 &&
                                             element.description !== null &&
-                                            element.start !== null
+                                            element.start !== null &&
+                                            element.tipe_dinas == 'SPPD'
                                         "
                                         :href="
                                             'generate_sppd/' +
@@ -169,7 +181,10 @@
                                 >Pilih Tipe Dinas</span
                             >
                             <span
-                                v-if="element.staffs.tipe_dinas == 'SPPD' && element.start_do == null"
+                                v-if="
+                                    element.staffs.tipe_dinas == 'SPPD' &&
+                                    element.start_do == null
+                                "
                                 class="badge badge-light-danger mt-2 me-2"
                                 ><i
                                     class="fa-solid fa-circle-exclamation me-2 text-danger"
@@ -177,7 +192,10 @@
                                 >Pilih Tanggal Mulai Kedinasan</span
                             >
                             <span
-                                v-if="element.staffs.tipe_dinas == 'SPPD' && element.finish_do == null"
+                                v-if="
+                                    element.staffs.tipe_dinas == 'SPPD' &&
+                                    element.finish_do == null
+                                "
                                 class="badge badge-light-danger mt-2 me-2"
                                 ><i
                                     class="fa-solid fa-circle-exclamation me-2 text-danger"
@@ -657,7 +675,10 @@ export default {
                     kendaraan: s.kendaraan,
                     start_do: s.start_do,
                     finish_do: s.finish_do,
-                    instansi: JSON.parse(s.attribute).instansi_pembebanan_anggaran,
+                    mulai_sppd: s.mulai_sppd,
+                    selesai_sppd: s.selesai_sppd,
+                    instansi: JSON.parse(s.attribute)
+                        .instansi_pembebanan_anggaran,
                     kota_berangkat: JSON.parse(s.attribute).kota_berangkat,
                     kota_tujuan: JSON.parse(s.attribute).kota_tujuan,
                     mata_anggaran: JSON.parse(s.attribute).mata_anggaran,
@@ -685,10 +706,13 @@ export default {
                     dasar: JSON.parse(s.spt_id),
                     start_do: s.start_do,
                     finish_do: s.finish_do,
+                    mulai_sppd: s.mulai_sppd,
+                    selesai_sppd: s.selesai_sppd,
                     report: s.report,
                     tipe_dinas: s.tipe_dinas,
                     kendaraan: s.kendaraan,
-                    instansi: JSON.parse(s.attribute).instansi_pembebanan_anggaran,
+                    instansi: JSON.parse(s.attribute)
+                        .instansi_pembebanan_anggaran,
                     kota_berangkat: JSON.parse(s.attribute).kota_berangkat,
                     kota_tujuan: JSON.parse(s.attribute).kota_tujuan,
                     mata_anggaran: JSON.parse(s.attribute).mata_anggaran,
@@ -708,10 +732,13 @@ export default {
                     dasar: JSON.parse(s.spt_id),
                     start_do: s.start_do,
                     finish_do: s.finish_do,
+                    mulai_sppd: s.mulai_sppd,
+                    selesai_sppd: s.selesai_sppd,
                     tipe_dinas: s.tipe_dinas,
                     report: s.report,
                     kendaraan: s.kendaraan,
-                    instansi: JSON.parse(s.attribute).instansi_pembebanan_anggaran,
+                    instansi: JSON.parse(s.attribute)
+                        .instansi_pembebanan_anggaran,
                     kota_berangkat: JSON.parse(s.attribute).kota_berangkat,
                     kota_tujuan: JSON.parse(s.attribute).kota_tujuan,
                     mata_anggaran: JSON.parse(s.attribute).mata_anggaran,
@@ -740,11 +767,14 @@ export default {
                     dasar: JSON.parse(s.spt_id),
                     tipe_dinas: s.tipe_dinas,
                     kendaraan: s.kendaraan,
-                    instansi: JSON.parse(s.attribute).instansi_pembebanan_anggaran,
+                    instansi: JSON.parse(s.attribute)
+                        .instansi_pembebanan_anggaran,
                     kota_berangkat: JSON.parse(s.attribute).kota_berangkat,
                     kota_tujuan: JSON.parse(s.attribute).kota_tujuan,
                     mata_anggaran: JSON.parse(s.attribute).mata_anggaran,
                     keterangan: JSON.parse(s.attribute).keterangan,
+                    mulai_sppd: s.mulai_sppd,
+                    selesai_sppd: s.selesai_sppd,
                 };
                 this.newTodos.push(todo);
             });
@@ -767,11 +797,14 @@ export default {
                     report: s.report,
                     tipe_dinas: s.tipe_dinas,
                     kendaraan: s.kendaraan,
-                    instansi: JSON.parse(s.attribute).instansi_pembebanan_anggaran,
+                    instansi: JSON.parse(s.attribute)
+                        .instansi_pembebanan_anggaran,
                     kota_berangkat: JSON.parse(s.attribute).kota_berangkat,
                     kota_tujuan: JSON.parse(s.attribute).kota_tujuan,
                     mata_anggaran: JSON.parse(s.attribute).mata_anggaran,
                     keterangan: JSON.parse(s.attribute).keterangan,
+                    mulai_sppd: s.mulai_sppd,
+                    selesai_sppd: s.selesai_sppd,
                 };
                 this.newDoing.push(todo);
             });
@@ -790,11 +823,14 @@ export default {
                     report: s.report,
                     tipe_dinas: s.tipe_dinas,
                     kendaraan: s.kendaraan,
-                    instansi: JSON.parse(s.attribute).instansi_pembebanan_anggaran,
+                    instansi: JSON.parse(s.attribute)
+                        .instansi_pembebanan_anggaran,
                     kota_berangkat: JSON.parse(s.attribute).kota_berangkat,
                     kota_tujuan: JSON.parse(s.attribute).kota_tujuan,
                     mata_anggaran: JSON.parse(s.attribute).mata_anggaran,
                     keterangan: JSON.parse(s.attribute).keterangan,
+                    mulai_sppd: s.mulai_sppd,
+                    selesai_sppd: s.selesai_sppd,
                 };
                 this.newDone.push(todo);
             });
@@ -989,7 +1025,7 @@ export default {
 .staff-list-stack:first-child {
     margin-left: 0;
 }
-.badge-tipe{
+.badge-tipe {
     position: absolute;
     top: -12px;
     right: -6px;

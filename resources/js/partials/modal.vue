@@ -69,132 +69,142 @@
                         <input type="hidden" name="_token" :value="token" />
                         <input type="hidden" name="id" :value="taskData.id" />
                         <div class="modal-body pt-1">
-                            <LabelTitle
-                                title="Tipe Penugasan"
-                                icon="fa-solid fa-object-ungroup"
-                            ></LabelTitle>
-                            <div class="mb-3 input-text">
-                                <v-select
-                                    class="mt-2 text-capitalize"
-                                    :options="tipeDinas"
-                                    v-model="tipe"
-                                    label="nama"
-                                    :disabled="taskData.status == 'doing'"
-                                    :placeholder="'Pilih tipe penugasan'"
-                                ></v-select>
-                            </div>
-                            <LabelTitle
-                                title="ASN Terkait"
-                                icon="fa-solid fa-users"
-                            ></LabelTitle>
-                            <div class="mb-3 input-text">
-                                <div class="" v-if="newStaff.length < 1">
-                                    <span class="badge rounded-pill bg-danger"
-                                        >Belum ada ASN dipilih!</span
-                                    >
+                            <div class="tipe_dinas">
+                                <LabelTitle
+                                    title="Tipe Penugasan"
+                                    icon="fa-solid fa-object-ungroup"
+                                ></LabelTitle>
+                                <div class="mb-3 input-text">
+                                    <v-select
+                                        class="mt-2 text-capitalize"
+                                        :options="tipeDinas"
+                                        v-model="tipe"
+                                        label="nama"
+                                        :disabled="taskData.status == 'doing'"
+                                        :placeholder="'Pilih tipe penugasan'"
+                                    ></v-select>
                                 </div>
-                                <div
-                                    class="avatar-list flex-row row mt-2"
-                                    v-else
-                                >
-                                    <div
-                                        v-for="s in newStaff"
-                                        class="avatar-card d-flex col-12 col-md-6 align-items-center"
-                                        :key="s.nip_terkait"
-                                    >
-                                        <div class="avatar me-2">
-                                            <img
-                                                :src="s.foto"
-                                                @error="onErrorImg"
-                                                height="25"
-                                                alt=""
-                                            />
-                                        </div>
-                                        <label for="" class="text-capitalize">{{
-                                            s.nama
-                                        }}</label>
+                            </div>
+                            <div class="asn">
+                                <LabelTitle
+                                    title="ASN Terkait"
+                                    icon="fa-solid fa-users"
+                                ></LabelTitle>
+                                <div class="mb-3 input-text">
+                                    <div class="" v-if="newStaff.length < 1">
+                                        <span class="badge rounded-pill bg-danger"
+                                            >Belum ada ASN dipilih!</span
+                                        >
                                     </div>
+                                    <div
+                                        class="avatar-list flex-row row mt-2"
+                                        v-else
+                                    >
+                                        <div
+                                            v-for="s in newStaff"
+                                            class="avatar-card d-flex col-12 col-md-6 align-items-center"
+                                            :key="s.nip_terkait"
+                                        >
+                                            <div class="avatar me-2">
+                                                <img
+                                                    :src="s.foto"
+                                                    @error="onErrorImg"
+                                                    height="25"
+                                                    alt=""
+                                                />
+                                            </div>
+                                            <label for="" class="text-capitalize">{{
+                                                s.nama
+                                            }}</label>
+                                        </div>
+                                    </div>
+                                    <v-select
+                                        class="mt-2"
+                                        :options="options"
+                                        multiple
+                                        v-model="newStaff"
+                                        v-on:input="getId"
+                                        label="nama"
+                                        placeholder="Pilih Staff"
+                                        :disabled="taskData.status == 'done'"
+                                        :components="{ Deselect }"
+                                    ></v-select>
                                 </div>
-                                <v-select
-                                    class="mt-2"
-                                    :options="options"
-                                    multiple
-                                    v-model="newStaff"
-                                    v-on:input="getId"
-                                    label="nama"
-                                    placeholder="Pilih Staff"
-                                    :disabled="taskData.status == 'done'"
-                                    :components="{ Deselect }"
-                                ></v-select>
                             </div>
-                            <LabelTitle
-                                title="Dasar Surat Perintah Tugas"
-                                icon="fas fa-tasks"
-                            ></LabelTitle>
-                            <div class="mb-3 input-text">
-                                <v-select
-                                    class="mt-2"
-                                    :options="dasarNew"
-                                    multiple
-                                    v-model="dasarSpt"
-                                    label="dasar"
-                                    :disabled="
-                                        taskData.status == 'doing' ||
-                                        taskData.status == 'done'
-                                    "
-                                    placeholder="Pilih dasar SPT"
-                                    :components="{ Deselect }"
-                                ></v-select>
+                            <div class="dasar_spt">
+                                <LabelTitle
+                                    title="Dasar Surat Perintah Tugas"
+                                    icon="fas fa-tasks"
+                                ></LabelTitle>
+                                <div class="mb-3 input-text">
+                                    <v-select
+                                        class="mt-2"
+                                        :options="dasarNew"
+                                        multiple
+                                        v-model="dasarSpt"
+                                        label="dasar"
+                                        :disabled="
+                                            taskData.status == 'doing' ||
+                                            taskData.status == 'done'
+                                        "
+                                        placeholder="Pilih dasar SPT"
+                                        :components="{ Deselect }"
+                                    ></v-select>
+                                </div>
                             </div>
-                            <LabelTitle
-                                v-if="tipe == 'penugasan biasa'"
-                                title="Deskripsi"
-                                icon="fa-solid fa-align-justify"
-                            ></LabelTitle>
-                            <LabelTitle
-                                v-else
-                                title="Maksud Perjalanan Dinas"
-                                icon="fa-solid fa-align-justify"
-                            ></LabelTitle>
-                            <div class="mb-3 input-text">
-                                <textarea
-                                    v-if="taskData.status == 'todo'"
-                                    class="form-control"
-                                    id="description"
-                                    rows="5"
-                                    name="description"
-                                    v-model="taskData.description"
-                                ></textarea>
-                                <textarea
+                            <div class="deskripsi">
+                                <LabelTitle
+                                    v-if="tipe == 'penugasan biasa'"
+                                    title="Deskripsi"
+                                    icon="fa-solid fa-align-justify"
+                                ></LabelTitle>
+                                <LabelTitle
                                     v-else
-                                    disabled
-                                    class="form-control cursor-block"
-                                    id="description"
-                                    rows="5"
-                                    name="description"
-                                    v-model="taskData.description"
-                                ></textarea>
+                                    title="Maksud Perjalanan Dinas"
+                                    icon="fa-solid fa-align-justify"
+                                ></LabelTitle>
+                                <div class="mb-3 input-text">
+                                    <textarea
+                                        v-if="taskData.status == 'todo'"
+                                        class="form-control"
+                                        id="description"
+                                        rows="5"
+                                        name="description"
+                                        v-model="taskData.description"
+                                    ></textarea>
+                                    <textarea
+                                        v-else
+                                        disabled
+                                        class="form-control cursor-block"
+                                        id="description"
+                                        rows="5"
+                                        name="description"
+                                        v-model="taskData.description"
+                                    ></textarea>
+                                </div>
                             </div>
-                            <LabelTitle
-                                title="Mulai"
-                                icon="fas fa-calendar"
-                            ></LabelTitle>
-                            <div class="mb-3 input-text">
-                                <input
-                                    v-if="taskData.status == 'todo'"
-                                    type="date"
-                                    v-model="start"
-                                    name="start"
-                                    class="form-control"
-                                />
-                                <input
-                                    v-else
-                                    type="date"
-                                    v-model="start"
-                                    name="start"
-                                    class="form-control disable cursor-block"
-                                    :disabled="taskData.status == 'doing'"
-                                />
+                            <div class="mulai">
+                                <LabelTitle
+                                    title="Mulai"
+                                    icon="fas fa-calendar"
+                                ></LabelTitle>
+                                <div class="mb-3 input-text">
+                                    <input
+                                        v-if="taskData.status == 'todo'"
+                                        type="date"
+                                        v-model="start"
+                                        name="start"
+                                        class="form-control"
+                                    />
+                                    <input
+                                        v-else
+                                        type="date"
+                                        v-model="start"
+                                        name="start"
+                                        class="form-control disable cursor-block"
+                                        :disabled="taskData.status == 'doing'"
+                                    />
+                                </div>
                             </div>
                             <div class="" v-if="tipe == 'SPPD'">
                                 <LabelTitle
@@ -262,7 +272,7 @@
                                         />
                                     </div>
 
-                                    <LabelTitle
+                                    <!-- <LabelTitle
                                         title="Mata Anggaran"
                                         icon="fas fa-caret-right"
                                     ></LabelTitle>
@@ -274,7 +284,7 @@
                                             class="form-control disable cursor-block"
                                             :disabled="taskData.status == 'doing'"
                                         />
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <LabelTitle
                                     title="Keterangan"
@@ -335,12 +345,11 @@
                                     icon="fa-solid fa-stopwatch"
                                 ></LabelTitle>
                                 <div class="mb-3 input-text">
-                                    <datetime
+                                    <input
                                         class="form-control"
-                                        type="datetime"
-                                        v-model="start_on"
-                                        use24-hour
-                                    ></datetime>
+                                        type="date"
+                                        v-model="mulai_sppd"
+                                    >
                                 </div>
                                 <LabelTitle
                                     title="Tanggal Selesai Acara Kedinasan"
@@ -348,12 +357,11 @@
                                 ></LabelTitle>
 
                                 <div class="mb-3 input-text">
-                                    <datetime
+                                    <input
                                         class="form-control"
-                                        type="datetime"
-                                        v-model="finish_on"
-                                        use24-hour
-                                    ></datetime>
+                                        type="date"
+                                        v-model="selesai_sppd"
+                                    >
                                 </div>
                             </div>
 
@@ -887,11 +895,13 @@ export default {
             tipe: null,
             start_on: null,
             finish_on: null,
+            mulai_sppd: null,
+            selesai_sppd: null,
             kendaraan: null,
 
             berangkat: null,
             tujuan: null,
-            anggaran: null,
+            // anggaran: null,
             instansi: null,
             keterangan: null,
 
@@ -940,7 +950,7 @@ export default {
             console.log("modal.taskData", this.taskData);
             this.checkStaff();
             console.log("tipe", this.tipe);
-            if (this.status == "doing" || this.tipe == "SPPD") {
+            if (this.status == "doing") {
                 console.log("time", this.taskData);
                 if (
                     this.taskData.start_do !== null ||
@@ -1025,8 +1035,10 @@ export default {
             this.instansi = this.taskData.instansi;
             this.berangkat = this.taskData.kota_berangkat;
             this.tujuan = this.taskData.kota_tujuan;
-            this.anggaran = this.taskData.mata_anggaran;
+            // this.anggaran = this.taskData.mata_anggaran;
             this.keterangan = this.taskData.keterangan;
+            this.mulai_sppd = this.taskData.mulai_sppd;
+            this.selesai_sppd = this.taskData.selesai_sppd;
         },
         updateSelectStaff(options, selected) {
             if (selected.length > 0) {
@@ -1125,6 +1137,8 @@ export default {
             var start = this.start;
             var start_on = this.start_on;
             var finish_on = this.finish_on;
+            var mulai_sppd = this.mulai_sppd;
+            var selesai_sppd = this.selesai_sppd;
             var file = this.file;
             var tipe = this.tipe;
             var kendaraan = this.kendaraan;
@@ -1171,9 +1185,9 @@ export default {
                     Vue.$toast.warning(
                         "Mohon isi Instansi Pembebanan Anggaran Perjalanan Dinas!!"
                     );
-                }else if (tipe == "SPPD" && start_on == "") {
+                }else if (tipe == "SPPD" && mulai_sppd == "") {
                     Vue.$toast.warning("Mohon isi tanggal mulai Perjalanan Dinas!!");
-                } else if (tipe == "SPPD" && finish_on == "") {
+                } else if (tipe == "SPPD" && selesai_sppd == "") {
                     Vue.$toast.warning(
                         "Mohon isi tanggal selesai Perjalanan Dinas!!"
                     );
@@ -1190,12 +1204,14 @@ export default {
                                 dasar: dasar,
                                 tipe_dinas: tipe,
                                 kendaraan: kendaraan,
+                                mulai_sppd: mulai_sppd,
                                 start_on: start_on,
                                 finish_on: finish_on,
+                                selesai_sppd: selesai_sppd,
                                 kota_berangkat: berangkat,
                                 kota_tujuan: tujuan,
                                 instansi_pembebanan_anggaran: instansi,
-                                mata_anggaran: anggaran,
+                                // mata_anggaran: anggaran,
                                 keterangan: keterangan,
                             },
                             this.config
