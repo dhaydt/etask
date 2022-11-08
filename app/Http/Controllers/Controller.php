@@ -85,23 +85,31 @@ class Controller extends BaseController
             $spt = new sptGenerate();
             $spt->nip = $s->id;
             $spt->name = $s->nama;
-            $spt->jabatan = 'Undefined';
+
+            $findStaf = AsnTerkait::where('nip_terkait', $s->id)->first();
+
+            $spt->jabatan = ucwords(strtolower($findStaf->nama_jabatan));
             $spt->spt_id = $id;
             $spt->save();
         }
-        $input = public_path('js/SPT15.jrxml');
+        $input = public_path('js/SPT16.jrxml');
         $output = public_path('/storage/spt');
 
-        $dasar = 'dasar spt';
-        $naskah = Carbon::parse(now())->isoFormat('D MMMM Y');
-        // dd($naskah);
+        $dasar = '';
+        $spt = json_decode($task->spt_id);
+        if (count($spt) > 0) {
+            $dasar = $spt[0]->dasar;
+        }
+
+        $hari = Carbon::parse($task['mulai'])->isoFormat('dddd');
+        $tgl = Carbon::parse($task['selesai_sppd'])->isoFormat('D MMMM Y');
+        $tempat = json_decode($task['attribute']) ? json_decode($task['attribute'])->kota_tujuan : 'Belum ada data';
+
         // $jasperstarter = base_path('/vendor/cossou/jasperphp/src/JasperStarter/lib/jasperstarter.jar');
         $jasperstarter = base_path('/vendor/cossou/jasperphp/src/JasperStarter/lib/jasperstarter.jar');
-        $pengirim = 'Kementrian Komunikasi dan Informatika RI';
-        $perihal = 'Undangan Sosialisasi';
-        $pemberi_tugas = 'Kepala Dinas Komunikasi dan Informatika';
+
         // $parameter = 'dasar="'.$date.'" spt_id='.$id.' tanggal_naskah="'.$naskah.'" pengirim="'.$pengirim.'" perihal="'.$perihal.'" pemberi_tugas="'.$pemberi_tugas.'"';
-        $parameter = 'dasar="'.$dasar.'" spt_id='.$id.'';
+        $parameter = 'dasar="'.$dasar.'" spt_id='.$id.'hari="'.$hari.'" tgl="'.$tgl.'" tempat="'.$tempat.'"';
         $database = 'mysql -H localhost -u c1_etask -p KhSh_Bx4 -n c1_etask';
 
         // dd("java -jar $jasperstarter pr $input -o $output -f docx -P $parameter");
@@ -109,7 +117,7 @@ class Controller extends BaseController
 
         $this->removeTask($id);
 
-        return response()->file(public_path('storage/spt/SPT15.docx'));
+        return response()->file(public_path('storage/spt/SPT16.docx'));
     }
 
     public function removeTask($id)

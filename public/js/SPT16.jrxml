@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SPT" pageWidth="612" pageHeight="936" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f38d8ced-633b-4ae8-98ee-b7ad4ada40d0">
-	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[YzFfZXRhc2suc3B0X2dlbmVyYXRlcyAsMTUsMTUsNTEzMGQyNDQtNTYyMS00MDNkLWEyMTctOTg4
+NmNlZjUwMTY5Ow==]]>
+	</property>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -17,6 +20,18 @@
 	</parameter>
 	<parameter name="dasar" class="java.lang.String">
 		<parameterDescription><![CDATA[dasar_spt]]></parameterDescription>
+	</parameter>
+	<parameter name="task" class="java.lang.String">
+		<parameterDescription><![CDATA[judu task]]></parameterDescription>
+	</parameter>
+	<parameter name="hari" class="java.lang.String">
+		<parameterDescription><![CDATA[hari task]]></parameterDescription>
+	</parameter>
+	<parameter name="tgl" class="java.lang.String">
+		<parameterDescription><![CDATA[tgl task]]></parameterDescription>
+	</parameter>
+	<parameter name="tempat" class="java.lang.String">
+		<parameterDescription><![CDATA[tempat task]]></parameterDescription>
 	</parameter>
 	<queryString language="SQL">
 		<![CDATA[SELECT id,
@@ -60,7 +75,7 @@ WHERE
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="200" splitType="Stretch">
+		<band height="179" splitType="Stretch">
 			<staticText>
 				<reportElement x="253" y="5" width="97" height="20" uuid="27440c64-3881-40e7-937d-02357bf74996"/>
 				<textElement>
@@ -83,46 +98,58 @@ WHERE
 				<text><![CDATA[Dasar  :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="110" y="67" width="403" height="93" uuid="edbf0bd1-4d70-47d5-ad98-6f38939a7b8a"/>
+				<reportElement x="110" y="67" width="403" height="43" uuid="edbf0bd1-4d70-47d5-ad98-6f38939a7b8a"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dasar}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="223" y="170" width="145" height="30" uuid="f11f899b-67ec-4237-8de5-24467793b33d"/>
+				<reportElement x="214" y="110" width="145" height="30" uuid="f11f899b-67ec-4237-8de5-24467793b33d"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MEMERINTAHKAN :]]></text>
 			</staticText>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="90" splitType="Stretch">
 			<staticText>
-				<reportElement x="110" y="0" width="91" height="19" uuid="4a181a9f-97bd-415b-af25-1cdbfc445bc4"/>
+				<reportElement x="110" y="155" width="91" height="19" uuid="4a181a9f-97bd-415b-af25-1cdbfc445bc4"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Kepada 	:]]></text>
 			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="60" splitType="Stretch">
 			<textField>
-				<reportElement x="201" y="18" width="312" height="72" uuid="568f5339-2ddb-400f-8e76-2d6969c6bdb6"/>
+				<reportElement x="201" y="0" width="312" height="22" uuid="568f5339-2ddb-400f-8e76-2d6969c6bdb6"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[1.	+ "Nama		:" + $F{name} + 
-	"NIP.		:	" + $F{nip} +
-	"Jabatan 	: 	"
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}+" Nama		:" + $F{name}
 ]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="20" width="293" height="20" uuid="07e20f1a-49db-4535-af8c-66d93993fde8"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["NIP.		:	" + $F{nip}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="40" width="293" height="20" uuid="068416fd-7718-4c0d-a0bb-a2ed742df550"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Jabatan		:	" + $F{jabatan}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="217" splitType="Stretch">
+		<band height="305" splitType="Stretch">
 			<staticText>
-				<reportElement x="341" y="90" width="221" height="119" uuid="d0f3e6a5-cfca-457d-8bbb-3df130af7ef9"/>
+				<reportElement x="340" y="186" width="221" height="119" uuid="d0f3e6a5-cfca-457d-8bbb-3df130af7ef9"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
@@ -135,7 +162,7 @@ NIP. ${nip_pengirim}
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="341" y="40" width="220" height="58" uuid="98fcaa59-3538-4eca-a3a4-cc4a90e0a854"/>
+				<reportElement x="341" y="122" width="220" height="58" uuid="98fcaa59-3538-4eca-a3a4-cc4a90e0a854"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -143,12 +170,29 @@ NIP. ${nip_pengirim}
 Pada Tanggal	: ${tanggal_naskah}]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="110" y="0" width="403" height="40" uuid="7daad914-aab8-470f-a61c-a76aa094ef52"/>
+				<reportElement x="110" y="76" width="403" height="40" uuid="7daad914-aab8-470f-a61c-a76aa094ef52"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Demikian Surat  Tugas ini dibuat, untuk dapat dilaksanakan sebagaimana mestinya.]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="110" y="0" width="91" height="19" uuid="77cc963b-4449-4775-b128-1f0919c4c4c7"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Untuk		:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="201" y="1" width="312" height="70" uuid="c6caf903-e4a5-48cd-80bc-eb2d7dcbcdee"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{task}
++ "Hari	:" + $P{hari}
++ "Tanggal	:" + $P{tgl}
++ "Tempat :" + $P{tempat}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>
