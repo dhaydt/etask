@@ -30,7 +30,8 @@ class Controller extends BaseController
     public function generate_sppd($task_id, $staff_id)
     {
         $task = Task::find($task_id);
-        $staf = AsnTerkait::where('nip_terkait', $staff_id)->first();
+        $auth = session()->get('user_id');
+        $staf = AsnTerkait::where(['id_users' => $auth, 'nip_terkait' => $staff_id])->first();
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(public_path('/template/templateBalcon.docx'));
 
         $jarak = strtotime($task['selesai_sppd']) - strtotime($task['mulai_sppd']);
