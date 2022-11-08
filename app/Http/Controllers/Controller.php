@@ -92,7 +92,7 @@ class Controller extends BaseController
             $spt->spt_id = $id;
             $spt->save();
         }
-        $input = public_path('js/SPT17.jrxml');
+        $input = public_path('js/SPT18.jrxml');
         $output = public_path('/storage/spt');
 
         $dasar = '';
@@ -104,12 +104,13 @@ class Controller extends BaseController
         $hari = Carbon::parse($task['mulai'])->isoFormat('dddd');
         $tgl = Carbon::parse($task['mulai'])->isoFormat('D MMMM Y');
         $tempat = json_decode($task['attribute']) ? json_decode($task['attribute'])->kota_tujuan : 'Belum ada data';
+        $taskName = $task->name;
 
         // $jasperstarter = base_path('/vendor/cossou/jasperphp/src/JasperStarter/lib/jasperstarter.jar');
         $jasperstarter = base_path('/vendor/cossou/jasperphp/src/JasperStarter/lib/jasperstarter.jar');
 
         // $parameter = 'dasar="'.$date.'" spt_id='.$id.' tanggal_naskah="'.$naskah.'" pengirim="'.$pengirim.'" perihal="'.$perihal.'" pemberi_tugas="'.$pemberi_tugas.'"';
-        $parameter = 'dasar="'.$dasar.'" spt_id='.$id.'hari="'.$hari.'" tgl="'.$tgl.'" tempat="'.$tempat.'"';
+        $parameter = 'dasar="'.$dasar.'" spt_id='.$id.' hari="'.$hari.'" tgl="'.$tgl.'" tempat="'.$tempat.'" task="'.$taskName.'"';
         $database = 'mysql -H localhost -u c1_etask -p KhSh_Bx4 -n c1_etask';
 
         // dd("java -jar $jasperstarter pr $input -o $output -f docx -P $parameter");
@@ -117,7 +118,7 @@ class Controller extends BaseController
 
         $this->removeTask($id);
 
-        return response()->file(public_path('storage/spt/SPT17.docx'));
+        return response()->file(public_path('storage/spt/SPT18.docx'));
     }
 
     public function removeTask($id)
