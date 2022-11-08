@@ -89,10 +89,10 @@ class Controller extends BaseController
             $spt->spt_id = $id;
             $spt->save();
         }
-        $input = public_path('js/SPT14.jrxml');
+        $input = public_path('js/SPT15.jrxml');
         $output = public_path('/storage/spt');
 
-        $date = Carbon::parse($task['start'])->isoFormat('dddd, D MMMM Y');
+        $dasar = 'dasar spt';
         $naskah = Carbon::parse(now())->isoFormat('D MMMM Y');
         // dd($naskah);
         // $jasperstarter = base_path('/vendor/cossou/jasperphp/src/JasperStarter/lib/jasperstarter.jar');
@@ -100,7 +100,8 @@ class Controller extends BaseController
         $pengirim = 'Kementrian Komunikasi dan Informatika RI';
         $perihal = 'Undangan Sosialisasi';
         $pemberi_tugas = 'Kepala Dinas Komunikasi dan Informatika';
-        $parameter = 'mulai="'.$date.'" spt_id='.$id.' tanggal_naskah="'.$naskah.'" pengirim="'.$pengirim.'" perihal="'.$perihal.'" pemberi_tugas="'.$pemberi_tugas.'"';
+        // $parameter = 'dasar="'.$date.'" spt_id='.$id.' tanggal_naskah="'.$naskah.'" pengirim="'.$pengirim.'" perihal="'.$perihal.'" pemberi_tugas="'.$pemberi_tugas.'"';
+        $parameter = 'dasar="'.$dasar.'" spt_id='.$id.'';
         $database = 'mysql -H localhost -u c1_etask -p KhSh_Bx4 -n c1_etask';
 
         // dd("java -jar $jasperstarter pr $input -o $output -f docx -P $parameter");
@@ -108,7 +109,7 @@ class Controller extends BaseController
 
         $this->removeTask($id);
 
-        return response()->file(public_path('storage/spt/SPT14.docx'));
+        return response()->file(public_path('storage/spt/SPT15.docx'));
     }
 
     public function removeTask($id)
