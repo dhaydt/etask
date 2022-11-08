@@ -32,7 +32,7 @@ class Controller extends BaseController
         $task = Task::find($task_id);
         $staf = AsnTerkait::where('nip_terkait', $staff_id)->first();
         // dd($staf);
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(public_path('/template/sppdTemplate2.docx'));
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(public_path('/template/templateBalcon.docx'));
 
         $jarak = strtotime($task['selesai_sppd']) - strtotime($task['mulai_sppd']);
 
@@ -44,7 +44,7 @@ class Controller extends BaseController
 
         $templateProcessor->setValues([
             'nama_pegawai' => $staf->nama,
-            'pangkat' => 'belum ada api',
+            'pangkat' => $staf->pangkat,
             'Jabatan' => $jabatan,
             'maksud_sppd' => $task->description,
             'alat_angkut' => $task->kendaraan,
@@ -60,9 +60,13 @@ class Controller extends BaseController
             'tiba_dikota_asal' => Carbon::parse($task['selesai_sppd'])->isoFormat('D MMMM Y'),
             'keterangan' => json_decode($task->attribute)->keterangan,
             'dikeluarkan_di' => 'Bukittinggi',
-            // 'dikeluarkan_tanggal' => Carbon::parse($task['mulai'])->isoFormat('D MMMM Y'),
             'nip_pegawai' => $staf->nip_terkait,
             'jabatan_tembusan' => json_decode($task->attribute)->pemberi_perintah,
+            'nomor_naskah' => '094.3 /             /Diskominfo/2022',
+            'jabatan_pengirim' => 'Kepala Dinas Komunikasi dan Informatika',
+            'nip_pengirim' => '196311301988031003',
+            'tanggal_naskah' => Carbon::parse($task['mulai'])->isoFormat('D MMMM Y'),
+            'nama_pengirim' => 'Drs.ERWIN UMAR, M.Pd',
         ]);
 
         $templateProcessor->setImageValue('kop_surat', ['path' => public_path('kop/'.session()->get('id_skpd').'.png'), 'width' => 650, 'height' => 100, 'ratio' => false]);
@@ -310,6 +314,7 @@ class Controller extends BaseController
                 $staff->nama_jabatan = $data['nama_jabatan'];
                 $staff->id_sotk = $data['id_sotk'];
                 $staff->id_skpd = $data['id_skpd'];
+                $staff->pangkat = $data['pangkat'].'/ '.$data['golongan'];
                 $staff->available = 1;
                 $staff->save();
             }
