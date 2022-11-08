@@ -34,7 +34,7 @@ class Controller extends BaseController
         // dd($staf);
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(public_path('/template/sppdTemplate2.docx'));
 
-        $jarak = strtotime($task['mulai_sppd']) - strtotime($task['selesai_sppd']);
+        $jarak = strtotime($task['selesai_sppd']) - strtotime($task['mulai_sppd']);
 
         $hari = $jarak / 60 / 60 / 24;
         $hari = $hari + 1;
@@ -56,11 +56,11 @@ class Controller extends BaseController
             'pengikut' => 'belum ada data',
             'instansi_pembebanan_anggaran' => json_decode($task->attribute)->instansi_pembebanan_anggaran,
             'mata_anggaran' => '',
-            'berangkat_darikota_tujuan' => Carbon::parse($task['finish_do'])->isoFormat('D MMMM Y'),
-            'tiba_dikota_asal' => Carbon::parse($task['finish_do'])->isoFormat('D MMMM Y'),
+            'berangkat_darikota_tujuan' => Carbon::parse($task['selesai_sppd'])->isoFormat('D MMMM Y'),
+            'tiba_dikota_asal' => Carbon::parse($task['selesai_sppd'])->isoFormat('D MMMM Y'),
             'keterangan' => json_decode($task->attribute)->keterangan,
             'dikeluarkan_di' => 'Bukittinggi',
-            'dikeluarkan_tanggal' => Carbon::parse($task['start_do'])->isoFormat('D MMMM Y'),
+            // 'dikeluarkan_tanggal' => Carbon::parse($task['mulai'])->isoFormat('D MMMM Y'),
             'nip_pegawai' => $staf->nip_terkait,
             'jabatan_tembusan' => json_decode($task->attribute)->pemberi_perintah,
         ]);
