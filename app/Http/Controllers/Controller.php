@@ -268,7 +268,7 @@ class Controller extends BaseController
                 $user->nip = $data['nip'];
                 $user->name = $data['nama_pegawai'];
                 $user->password = Hash::make($data['nip']);
-                if ($data['nip'] == 1372010910920041 || $data['nip'] == 198611252010011009) {
+                if ($data['nip'] == 1372010910920041 || $data['nip'] == 198611252010011009 || $data['nip'] == 1375010903960003) {
                     $user->role = 1;
                 } else {
                     $user->role = 2;
