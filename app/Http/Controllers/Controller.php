@@ -92,7 +92,7 @@ class Controller extends BaseController
             $spt->spt_id = $id;
             $spt->save();
         }
-        $input = public_path('js/SPT16.jrxml');
+        $input = public_path('js/SPT17.jrxml');
         $output = public_path('/storage/spt');
 
         $dasar = '';
@@ -102,7 +102,7 @@ class Controller extends BaseController
         }
 
         $hari = Carbon::parse($task['mulai'])->isoFormat('dddd');
-        $tgl = Carbon::parse($task['selesai_sppd'])->isoFormat('D MMMM Y');
+        $tgl = Carbon::parse($task['mulai'])->isoFormat('D MMMM Y');
         $tempat = json_decode($task['attribute']) ? json_decode($task['attribute'])->kota_tujuan : 'Belum ada data';
 
         // $jasperstarter = base_path('/vendor/cossou/jasperphp/src/JasperStarter/lib/jasperstarter.jar');
@@ -117,7 +117,7 @@ class Controller extends BaseController
 
         $this->removeTask($id);
 
-        return response()->file(public_path('storage/spt/SPT16.docx'));
+        return response()->file(public_path('storage/spt/SPT17.docx'));
     }
 
     public function removeTask($id)
