@@ -31,7 +31,6 @@ class Controller extends BaseController
     {
         $task = Task::find($task_id);
         $staf = AsnTerkait::where('nip_terkait', $staff_id)->first();
-        // dd($staf);
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(public_path('/template/templateBalcon.docx'));
 
         $jarak = strtotime($task['selesai_sppd']) - strtotime($task['mulai_sppd']);
