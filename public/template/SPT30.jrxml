@@ -255,7 +255,7 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<textFieldExpression><![CDATA[$P{task} + ", pada :"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="310" y="45" width="232" height="17" uuid="13bdb6f2-f8d5-409d-a0f3-9f618b7c261f"/>
+				<reportElement x="297" y="45" width="232" height="17" uuid="13bdb6f2-f8d5-409d-a0f3-9f618b7c261f"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -285,7 +285,7 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<text><![CDATA[Hari]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="223" y="62" width="56" height="17" uuid="30544096-1e2b-4932-a7c9-92e19812211c">
+				<reportElement x="221" y="62" width="56" height="17" uuid="30544096-1e2b-4932-a7c9-92e19812211c">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -294,7 +294,7 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<text><![CDATA[Tanggal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="224" y="80" width="55" height="17" uuid="edbe9636-d381-4d0b-98e3-e2af4f9dc028">
+				<reportElement x="222" y="80" width="55" height="17" uuid="edbe9636-d381-4d0b-98e3-e2af4f9dc028">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
