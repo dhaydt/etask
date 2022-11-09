@@ -285,7 +285,7 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<text><![CDATA[Hari]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="222" y="62" width="56" height="17" uuid="30544096-1e2b-4932-a7c9-92e19812211c">
+				<reportElement x="223" y="62" width="56" height="17" uuid="30544096-1e2b-4932-a7c9-92e19812211c">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
