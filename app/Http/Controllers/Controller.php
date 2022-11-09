@@ -32,7 +32,7 @@ class Controller extends BaseController
         $task = Task::find($task_id);
         $auth = session()->get('user_id');
         $staf = AsnTerkait::where(['id_users' => $auth, 'nip_terkait' => $staff_id])->first();
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(public_path('/template/templateBalcon.docx'));
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(public_path('/template/sppdTemplate2.docx'));
 
         $jarak = strtotime($task['selesai_sppd']) - strtotime($task['mulai_sppd']);
 
@@ -69,13 +69,13 @@ class Controller extends BaseController
             'dikeluarkan_di' => 'Bukittinggi',
             'nip_pegawai' => $nip,
             'jabatan_tembusan' => json_decode($task->attribute)->pemberi_perintah,
-            'nomor_naskah' => '094.3 /             /Diskominfo/2022',
-            'pengirim' => 'Kepala Dinas Komunikasi dan Informatika',
-            'jabatan_pengirim' => 'KEPALA DINAS KOMUNIKASI DAN',
-            'jurusan' => 'INFORMATIKA',
-            'nip_pengirim' => '196311301988031003',
-            'tanggal_naskah' => Carbon::parse($task['start'])->isoFormat('D MMMM Y'),
-            'nama_pengirim' => 'Drs.ERWIN UMAR, M.Pd',
+            // 'nomor_naskah' => '094.3 /             /Diskominfo/2022',
+            // 'pengirim' => 'Kepala Dinas Komunikasi dan Informatika',
+            // 'jabatan_pengirim' => 'KEPALA DINAS KOMUNIKASI DAN',
+            // 'jurusan' => 'INFORMATIKA',
+            // 'nip_pengirim' => '196311301988031003',
+            // 'tanggal_naskah' => Carbon::parse($task['start'])->isoFormat('D MMMM Y'),
+            // 'nama_pengirim' => 'Drs.ERWIN UMAR, M.Pd',
         ]);
 
         $templateProcessor->setImageValue('kop_surat', ['path' => public_path('kop/'.session()->get('id_skpd').'.png'), 'width' => 650, 'height' => 100, 'ratio' => false]);
