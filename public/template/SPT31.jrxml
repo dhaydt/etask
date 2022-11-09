@@ -111,7 +111,7 @@ WHERE
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Kepada 	:]]></text>
+				<text><![CDATA[Kepada :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="369" y="215" width="13" height="17" uuid="b2a8d434-4f73-47eb-8f99-ca84fd6cd7e2">
@@ -276,7 +276,7 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<textFieldExpression><![CDATA[$P{tempat}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="223" y="44" width="56" height="17" uuid="6667f588-bc1e-43da-a55c-d4761b9bbc52">
+				<reportElement x="222" y="44" width="56" height="17" uuid="6667f588-bc1e-43da-a55c-d4761b9bbc52">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -285,7 +285,7 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<text><![CDATA[Hari]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="221" y="62" width="56" height="17" uuid="30544096-1e2b-4932-a7c9-92e19812211c">
+				<reportElement x="222" y="62" width="56" height="17" uuid="30544096-1e2b-4932-a7c9-92e19812211c">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -334,7 +334,7 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Untuk		:]]></text>
+				<text><![CDATA[Untuk	:]]></text>
 			</staticText>
 		</band>
 	</summary>

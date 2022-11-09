@@ -105,7 +105,7 @@ class Controller extends BaseController
             $spt->spt_id = $id;
             $spt->save();
         }
-        $input = public_path('template/SPT30.jrxml');
+        $input = public_path('template/SPT31.jrxml');
         $output = public_path('/storage/spt');
 
         $dasar = '';
@@ -131,7 +131,7 @@ class Controller extends BaseController
 
         $this->removeTask($id);
 
-        return response()->file(public_path('storage/spt/SPT30.docx'));
+        return response()->file(public_path('storage/spt/SPT31.docx'));
     }
 
     public function removeTask($id)
