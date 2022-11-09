@@ -103,7 +103,7 @@ class Controller extends BaseController
 
             $jabatan = ucwords(strtolower($findStaf->nama_jabatan));
             if ($jabatan == 'Kontrak') {
-                $jabatan = 'staf';
+                $jabatan = 'Staf';
             }
 
             $spt->jabatan = $jabatan;
