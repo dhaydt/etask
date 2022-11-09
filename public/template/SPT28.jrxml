@@ -65,57 +65,56 @@ WHERE
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<pageHeader>
-		<band height="262" splitType="Stretch">
-			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	<title>
+		<band height="262">
 			<image>
-				<reportElement x="59" y="5" width="483" height="83" uuid="d1941055-085b-470d-97d6-b66d16fdc056"/>
+				<reportElement x="59" y="5" width="483" height="83" uuid="2b3b39e9-ea74-4600-88d7-4d008cfebabd"/>
 				<imageExpression><![CDATA["/var/www/clients/client1/web32/web/public/img/kop-kominfo.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="260" y="100" width="97" height="20" uuid="8c50fc9d-c582-4711-a109-23f734154a48"/>
+				<reportElement x="260" y="100" width="97" height="20" uuid="9402adce-79bf-46fc-8a41-b015bd506675"/>
 				<textElement>
 					<font size="12" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[SURAT TUGAS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="187" y="125" width="250" height="30" uuid="fce54181-71b5-4503-9507-5eb8438aaab6"/>
+				<reportElement x="187" y="125" width="250" height="30" uuid="16668a9e-8b44-4078-8da0-9da0fe365dd6"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Nomor : ${nomor_naskah}]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="162" width="100" height="30" uuid="a66c50f7-a7ee-44a9-bf95-8e2d5f0d19ca"/>
+				<reportElement x="1" y="162" width="100" height="30" uuid="a3f19c74-56e3-46a0-85ab-d014b3e4f5a6"/>
 				<textElement textAlignment="Right">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Dasar  :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="117" y="162" width="403" height="43" uuid="3030c5af-93db-422c-8a1c-068cecebcdf5"/>
+				<reportElement x="117" y="162" width="403" height="43" uuid="0ad6c0bd-1ff1-4924-b9ff-b7b1c0b18e65"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dasar}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="240" y="215" width="127" height="20" uuid="5eaf82fa-e80e-442b-b962-ae74569be725"/>
+				<reportElement x="240" y="215" width="127" height="20" uuid="a7977313-fe18-4fbf-952d-e4c9ac7894c9"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MEMERINTAHKAN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="117" y="243" width="91" height="19" uuid="50321366-3433-4399-aa8f-3fc12c42836e"/>
+				<reportElement x="117" y="243" width="91" height="19" uuid="abd807e9-2a97-4845-8034-a38c58b78067"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Kepada 	:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="369" y="215" width="13" height="17" uuid="035e28f8-6750-42e2-9fff-37f584266fd6">
+				<reportElement x="369" y="215" width="13" height="17" uuid="b2a8d434-4f73-47eb-8f99-ca84fd6cd7e2">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -124,7 +123,7 @@ WHERE
 				<text><![CDATA[:]]></text>
 			</staticText>
 		</band>
-	</pageHeader>
+	</title>
 	<detail>
 		<band height="65" splitType="Stretch">
 			<textField>
@@ -217,10 +216,10 @@ WHERE
 			</staticText>
 		</band>
 	</detail>
-	<pageFooter>
-		<band height="259" splitType="Stretch">
+	<lastPageFooter>
+		<band height="312">
 			<staticText>
-				<reportElement x="298" y="179" width="187" height="80" uuid="27ae03d0-6ae7-48ca-8c06-b4cacd1c29a8"/>
+				<reportElement x="303" y="178" width="187" height="80" uuid="7b3d27a7-3980-44c3-be08-7af7fa919c6f"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
@@ -232,7 +231,7 @@ NIP. ${nip_pengirim}
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="299" y="135" width="248" height="40" uuid="b87aefdb-1751-4089-aa29-9d681a271d37"/>
+				<reportElement x="304" y="134" width="248" height="40" uuid="5080d017-a5f6-4cb5-89cb-e69653b1d612"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -240,14 +239,14 @@ NIP. ${nip_pengirim}
 Pada Tanggal	: ${tanggal_naskah}]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="114" y="100" width="407" height="32" uuid="6aea99f4-0114-4415-88e3-ceec61eda2a5"/>
+				<reportElement x="119" y="99" width="407" height="32" uuid="9430eccd-e552-4ae7-bb16-28dd60802a1b"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Demikian Surat  Tugas ini dibuat, untuk dapat dilaksanakan sebagaimana mestinya.]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="212" y="3" width="363" height="34" uuid="9d99c466-60a6-4748-b1ef-771b578f0c88">
+				<reportElement x="217" y="2" width="363" height="34" uuid="b477d2cd-bdf3-4de6-81ce-a8100492480a">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -256,28 +255,28 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<textFieldExpression><![CDATA[$P{task} + ", pada :"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="300" y="41" width="232" height="17" uuid="f81d59c1-1007-470e-8f4e-90d8e7692870"/>
+				<reportElement x="305" y="40" width="232" height="17" uuid="8f44c5ea-e667-419d-8233-c2d2aba3553e"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{hari}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="286" y="58" width="232" height="17" uuid="374b01b8-5836-4442-a20e-ae8c232dbc6a"/>
+				<reportElement x="291" y="57" width="232" height="17" uuid="54f561f5-4527-43f3-896a-563efb9ee531"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{tgl}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="286" y="76" width="232" height="17" uuid="b82bc0b6-4e95-4f28-882d-fe4af2aa2bab"/>
+				<reportElement x="291" y="75" width="232" height="17" uuid="8019f25d-b071-4383-b1bc-cf775d3f8fc6"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{tempat}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="213" y="40" width="56" height="17" uuid="acc8d7c1-1c5a-472a-8bfe-3b36b6ce639b">
+				<reportElement x="218" y="39" width="56" height="17" uuid="74455b98-05a5-4668-82e9-ea8249ab2854">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -286,7 +285,7 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<text><![CDATA[Hari]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="213" y="58" width="56" height="17" uuid="1a242769-7a39-4fb5-907f-ee5ffcd252f7">
+				<reportElement x="218" y="57" width="56" height="17" uuid="1e56d3c3-2ed2-4a5e-845c-4169854a4943">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -295,7 +294,7 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<text><![CDATA[Tanggal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="214" y="76" width="55" height="17" uuid="b0511153-4f5a-49d6-acb3-a5675c8d029d">
+				<reportElement x="219" y="75" width="55" height="17" uuid="87c904a0-06c9-4df8-a222-5e4b22091586">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -304,7 +303,7 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<text><![CDATA[Tempat]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="271" y="41" width="13" height="17" uuid="49ed7123-5768-4dc0-897d-32976628881d">
+				<reportElement x="276" y="40" width="13" height="17" uuid="27f58bd3-a7bb-4e28-8a5a-64bef73d9040">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -313,7 +312,7 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="271" y="58" width="13" height="17" uuid="c984921c-438e-4bed-9d08-c2adad95fd59">
+				<reportElement x="276" y="57" width="13" height="17" uuid="be7bae4d-b899-4b85-807e-629d81af514a">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -322,7 +321,7 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="271" y="79" width="13" height="17" uuid="92b69e2f-1915-4b18-a7f9-dc984bf93f1d">
+				<reportElement x="276" y="78" width="13" height="17" uuid="bcbf6bec-df95-4bb1-ba64-13762bf16291">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -331,12 +330,12 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="115" y="3" width="91" height="19" uuid="4f566bb2-b8cc-4ca2-bc9e-6f11daf5d217"/>
+				<reportElement x="120" y="2" width="91" height="19" uuid="db8c2c3a-cc58-4cbe-8eb4-5e8b113664c8"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Untuk		:]]></text>
 			</staticText>
 		</band>
-	</pageFooter>
+	</lastPageFooter>
 </jasperReport>
