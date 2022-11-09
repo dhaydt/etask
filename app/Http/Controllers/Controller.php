@@ -70,6 +70,7 @@ class Controller extends BaseController
             'nip_pegawai' => $nip,
             'jabatan_tembusan' => json_decode($task->attribute)->pemberi_perintah,
             'nomor_naskah' => '094.3 /             /Diskominfo/2022',
+            'pengirim' => 'Kepala Dinas Komunikasi dan Informatika',
             'jabatan_pengirim' => 'KEPALA DINAS KOMUNIKASI DAN',
             'jurusan' => 'INFORMATIKA',
             'nip_pengirim' => '196311301988031003',
