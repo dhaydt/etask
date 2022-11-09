@@ -105,9 +105,10 @@ class Controller extends BaseController
             $spt->spt_id = $id;
             $spt->save();
         }
-        $input = public_path('template/SPT33.jrxml');
         if (count($staff) > 3) {
             $input = public_path('template/SPTTable.jrxml');
+        } else {
+            $input = public_path('template/SPT33.jrxml');
         }
         $output = public_path('/storage/spt');
 
@@ -126,7 +127,11 @@ class Controller extends BaseController
         $jasperstarter = base_path('/vendor/cossou/jasperphp/src/JasperStarter/lib/jasperstarter.jar');
 
         // $parameter = 'dasar="'.$date.'" spt_id='.$id.' tanggal_naskah="'.$naskah.'" pengirim="'.$pengirim.'" perihal="'.$perihal.'" pemberi_tugas="'.$pemberi_tugas.'"';
-        $parameter = 'dasar="'.$dasar.'" spt_id='.$id.' hari="'.$hari.'" tgl="'.$tgl.'" tempat="'.$tempat.'" task="'.$taskName.'"';
+        if (count($staff) > 3) {
+            $parameter = 'dasar="'.$dasar.'" spt_id='.$id.'';
+        } else {
+            $parameter = 'dasar="'.$dasar.'" spt_id='.$id.' hari="'.$hari.'" tgl="'.$tgl.'" tempat="'.$tempat.'" task="'.$taskName.'"';
+        }
         $database = 'mysql -H localhost -u c1_etask -p KhSh_Bx4 -n c1_etask';
 
         // dd("java -jar $jasperstarter pr $input -o $output -f docx -P $parameter");
