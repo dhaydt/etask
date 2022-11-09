@@ -105,7 +105,10 @@ class Controller extends BaseController
             $spt->spt_id = $id;
             $spt->save();
         }
-        $input = public_path('template/SPT33.jrxml');
+        $input = public_path('template/SPTSingle.jrxml');
+        if (count($staff) > 3) {
+            $input = public_path('template/SPT33.jrxml');
+        }
         $output = public_path('/storage/spt');
 
         $dasar = '';
