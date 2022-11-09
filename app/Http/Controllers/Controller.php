@@ -65,7 +65,7 @@ class Controller extends BaseController
             'nomor_naskah' => '094.3 /             /Diskominfo/2022',
             'jabatan_pengirim' => 'Kepala Dinas Komunikasi dan Informatika',
             'nip_pengirim' => '196311301988031003',
-            'tanggal_naskah' => Carbon::parse($task['mulai'])->isoFormat('D MMMM Y'),
+            'tanggal_naskah' => Carbon::parse($task['start'])->isoFormat('D MMMM Y'),
             'nama_pengirim' => 'Drs.ERWIN UMAR, M.Pd',
         ]);
 
