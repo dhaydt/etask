@@ -163,7 +163,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{nip}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="95" y="-10" width="1" height="45" uuid="cdcb6207-4764-4829-8b80-cbf07871edde">
+				<reportElement x="95" y="0" width="1" height="35" uuid="cdcb6207-4764-4829-8b80-cbf07871edde">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 			</line>
