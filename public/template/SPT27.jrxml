@@ -134,8 +134,7 @@ WHERE
 				<textElement textAlignment="Right">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{REPORT_COUNT}
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="283" y="24" width="230" height="17" uuid="07e20f1a-49db-4535-af8c-66d93993fde8">
@@ -219,9 +218,9 @@ WHERE
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="265" splitType="Stretch">
+		<band height="259" splitType="Stretch">
 			<staticText>
-				<reportElement x="298" y="179" width="187" height="86" uuid="27ae03d0-6ae7-48ca-8c06-b4cacd1c29a8"/>
+				<reportElement x="298" y="179" width="187" height="80" uuid="27ae03d0-6ae7-48ca-8c06-b4cacd1c29a8"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
@@ -257,7 +256,7 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<textFieldExpression><![CDATA[$P{task} + ", pada :"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="286" y="40" width="232" height="17" uuid="f81d59c1-1007-470e-8f4e-90d8e7692870"/>
+				<reportElement x="300" y="41" width="232" height="17" uuid="f81d59c1-1007-470e-8f4e-90d8e7692870"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -340,7 +339,4 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 			</staticText>
 		</band>
 	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>
