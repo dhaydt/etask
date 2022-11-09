@@ -141,10 +141,11 @@ WHERE
 		</band>
 	</title>
 	<detail>
-		<band height="51" splitType="Stretch">
+		<band height="39" splitType="Stretch">
 			<textField>
-				<reportElement x="157" y="2" width="200" height="21" uuid="b3970986-39c7-4d47-8c66-96cb8abccfef">
+				<reportElement x="157" y="0" width="200" height="16" uuid="b3970986-39c7-4d47-8c66-96cb8abccfef">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8553365c-51b0-4f1e-aa05-e8833cc469b8"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="SansSerif" size="12" isUnderline="true"/>
@@ -152,8 +153,9 @@ WHERE
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="157" y="25" width="200" height="20" uuid="f29eb00e-b530-4433-8c1f-37432c9737eb">
+				<reportElement x="157" y="17" width="200" height="16" uuid="f29eb00e-b530-4433-8c1f-37432c9737eb">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1a7d931d-eebc-42a1-9625-1921dff36a47"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Justified">
 					<font fontName="SansSerif" size="12"/>
@@ -161,30 +163,46 @@ WHERE
 				<textFieldExpression><![CDATA[$F{nip}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="95" y="0" width="1" height="50" uuid="cdcb6207-4764-4829-8b80-cbf07871edde">
+				<reportElement x="95" y="0" width="1" height="35" uuid="cdcb6207-4764-4829-8b80-cbf07871edde">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 			</line>
 			<line>
-				<reportElement x="95" y="50" width="405" height="1" uuid="3e68d877-404b-4270-b1b2-14dacbff0513">
+				<reportElement x="95" y="34" width="405" height="1" uuid="3e68d877-404b-4270-b1b2-14dacbff0513">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 			</line>
 			<line>
-				<reportElement x="150" y="0" width="1" height="50" uuid="d2ddf985-c644-4fe4-b23e-5f33acf82e37">
+				<reportElement x="150" y="0" width="1" height="35" uuid="d2ddf985-c644-4fe4-b23e-5f33acf82e37">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 			</line>
 			<line>
-				<reportElement x="362" y="0" width="1" height="50" uuid="f32a805a-1a02-4e6c-b66e-21d74f08b6f8">
+				<reportElement x="362" y="0" width="1" height="35" uuid="f32a805a-1a02-4e6c-b66e-21d74f08b6f8">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 			</line>
 			<line>
-				<reportElement x="500" y="0" width="1" height="51" uuid="44eb2404-b15e-4b75-80aa-36ef0d60fb28">
+				<reportElement x="500" y="0" width="1" height="35" uuid="44eb2404-b15e-4b75-80aa-36ef0d60fb28">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 			</line>
+			<textField>
+				<reportElement x="100" y="7" width="46" height="16" uuid="d17b97d7-f3cd-40fd-b338-b2fb35680e25">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="367" y="2" width="130" height="30" uuid="0673c66d-d8d0-4061-986b-5765c0e5f826"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jabatan}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<summary>
