@@ -132,7 +132,7 @@ WHERE
 				<text><![CDATA[Dasar	:]]></text>
 			</staticText>
 			<textField>
-				<reportElement stretchType="RelativeToTallestObject" x="95" y="181" width="406" height="22" uuid="f3e234f0-26ef-4f25-8468-a9650ca779df"/>
+				<reportElement stretchType="ElementGroupHeight" x="95" y="181" width="406" height="22" uuid="f3e234f0-26ef-4f25-8468-a9650ca779df"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
