@@ -101,7 +101,12 @@ class Controller extends BaseController
 
             $findStaf = AsnTerkait::where('nip_terkait', $s->id)->first();
 
-            $spt->jabatan = ucwords(strtolower($findStaf->nama_jabatan));
+            $jabatan = ucwords(strtolower($findStaf->nama_jabatan));
+            if ($jabatan == 'Kontrak') {
+                $jabatan = 'staf';
+            }
+
+            $spt->jabatan = $jabatan;
             $spt->spt_id = $id;
             $spt->save();
         }
