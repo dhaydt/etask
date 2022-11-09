@@ -42,6 +42,13 @@ class Controller extends BaseController
         $jabatan = strtolower($staf->nama_jabatan);
         $jabatan = ucwords($jabatan);
 
+        $nip = $staf->nip_terkait;
+
+        if ($jabatan == 'Kontrak') {
+            $jabatan = 'Staf';
+            $nip = '-';
+        }
+
         $templateProcessor->setValues([
             'nama_pegawai' => $staf->nama,
             'pangkat' => $staf->pangkat,
@@ -60,7 +67,7 @@ class Controller extends BaseController
             'tiba_dikota_asal' => Carbon::parse($task['selesai_sppd'])->isoFormat('D MMMM Y'),
             'keterangan' => json_decode($task->attribute)->keterangan,
             'dikeluarkan_di' => 'Bukittinggi',
-            'nip_pegawai' => $staf->nip_terkait,
+            'nip_pegawai' => $nip,
             'jabatan_tembusan' => json_decode($task->attribute)->pemberi_perintah,
             'nomor_naskah' => '094.3 /             /Diskominfo/2022',
             'jabatan_pengirim' => 'KEPALA DINAS KOMUNIKASI DAN',
