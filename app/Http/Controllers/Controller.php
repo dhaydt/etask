@@ -111,7 +111,7 @@ class Controller extends BaseController
             $spt->save();
         }
         if (count($staff) > 3) {
-            $input = public_path('template/SPTTable23.jrxml');
+            $input = public_path('template/SPTTable24.jrxml');
         } else {
             $input = public_path('template/SPT33.jrxml');
         }
@@ -126,7 +126,7 @@ class Controller extends BaseController
         $hari = Carbon::parse($task['mulai'])->isoFormat('dddd');
         $tgl = Carbon::parse($task['mulai'])->isoFormat('D MMMM Y');
         $tempat = json_decode($task['attribute']) ? json_decode($task['attribute'])->kota_tujuan : 'Belum ada data';
-        $taskName = $task->name;
+        $taskName = $task->description;
 
         // $jasperstarter = base_path('/vendor/cossou/jasperphp/src/JasperStarter/lib/jasperstarter.jar');
         $jasperstarter = base_path('/vendor/cossou/jasperphp/src/JasperStarter/lib/jasperstarter.jar');
@@ -145,7 +145,7 @@ class Controller extends BaseController
         $this->removeTask($id);
 
         if (count($staff) > 3) {
-            return response()->file(public_path('storage/spt/SPTTable23.docx'));
+            return response()->file(public_path('storage/spt/SPTTable24.docx'));
         } else {
             return response()->file(public_path('storage/spt/SPT33.docx'));
         }
