@@ -133,7 +133,7 @@ class Controller extends BaseController
 
         // $parameter = 'dasar="'.$date.'" spt_id='.$id.' tanggal_naskah="'.$naskah.'" pengirim="'.$pengirim.'" perihal="'.$perihal.'" pemberi_tugas="'.$pemberi_tugas.'"';
         if (count($staff) > 3) {
-            $parameter = 'dasar="'.$dasar.'" spt_id='.$id.' task ="'.$taskName.'"';
+            $parameter = 'dasar="'.$dasar.'" spt_id='.$id.' task="'.$taskName.'"';
         } else {
             $parameter = 'dasar="'.$dasar.'" spt_id='.$id.' hari="'.$hari.'" tgl="'.$tgl.'" tempat="'.$tempat.'" task="'.$taskName.'"';
         }
