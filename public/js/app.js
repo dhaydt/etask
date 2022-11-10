@@ -8864,12 +8864,12 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (resp) {
         // console.log('bcrypt', resp.data)
         if (resp.data.code == 200) {
-          var dataSkpd = resp.data.data;
+          var dataSkpd = resp.data.dataMentah;
           var user = resp.data.user;
           var selected = [];
           localStorage.removeItem("semuaPegawaiSkpd");
-          localStorage.setItem("semuaPegawaiSkpd", JSON.stringify(dataSkpd));
-          console.log("user", user);
+          localStorage.setItem("semuaPegawaiSkpd", JSON.stringify(dataSkpd)); // console.log("skpd", resp.data);
+
           dataSkpd.forEach(function (item, i) {
             user.filter(function (u) {
               // return u.id.toString() === item.nip.toString();

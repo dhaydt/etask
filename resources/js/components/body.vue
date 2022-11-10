@@ -507,7 +507,7 @@ export default {
                 .then(function (resp) {
                     // console.log('bcrypt', resp.data)
                     if (resp.data.code == 200) {
-                        var dataSkpd = resp.data.data;
+                        var dataSkpd = resp.data.dataMentah;
                         var user = resp.data.user;
                         var selected = [];
                         localStorage.removeItem("semuaPegawaiSkpd");
@@ -515,7 +515,7 @@ export default {
                             "semuaPegawaiSkpd",
                             JSON.stringify(dataSkpd)
                         );
-                        console.log("user", user);
+                        // console.log("skpd", resp.data);
                         dataSkpd.forEach(function (item, i) {
                             user.filter((u) => {
                                 // return u.id.toString() === item.nip.toString();

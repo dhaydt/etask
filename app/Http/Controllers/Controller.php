@@ -260,6 +260,7 @@ class Controller extends BaseController
                         'code' => 200,
                         'data' => $dataSkpd,
                         'user' => $user,
+                        'dataMentah' => $dataMentah,
                     ];
 
                     return $data;
