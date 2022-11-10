@@ -8780,6 +8780,108 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    mountSkpd: function mountSkpd() {
+      // this.loadingAsn = true;
+      var id_skpd = localStorage.getItem("id_skpd");
+      var that = this;
+      axios__WEBPACK_IMPORTED_MODULE_7___default().post("pegawaiSkpd", {
+        id_skpd: id_skpd
+      }).then(function (resp) {
+        // console.log('bcrypt', resp.data)
+        if (resp.data.code == 200) {
+          var dataSkpd = resp.data.data;
+          var dataMentah = resp.data.dataMentah;
+          that.groupSkpd(dataMentah);
+          var user = resp.data.user;
+          var selected = [];
+          localStorage.removeItem("semuaPegawaiSkpd");
+          localStorage.setItem("semuaPegawaiSkpd", JSON.stringify(dataSkpd)); // console.log("skpd", resp.data);
+
+          dataSkpd.forEach(function (item, i) {
+            user.filter(function (u) {
+              // return u.id.toString() === item.nip.toString();
+              if (u.nip_terkait === item.nip) {
+                selected.push(item);
+              }
+            });
+          });
+          console.log("dataSkpd", selected);
+          that.loadingAsn = false;
+          Vue.$toast.success("Data ASN Terkait berhasil di update..");
+          that.$root.$emit("toggleAdd");
+          localStorage.setItem("asnTerdaftar", JSON.stringify(selected)); // that.dataPegawai = selected;
+
+          that.$root.$emit("updateDataPeg");
+          that.$root.$emit("getListSkpd");
+        }
+      })["catch"](function (err) {
+        console.log("err skpd", err);
+      });
+    },
+    groupSkpd: function groupSkpd(data) {
+      // var skpd = Object.keys(data);
+      localStorage.setItem('listSkpd', JSON.stringify(data));
+    },
+    arrayCheck: function arrayCheck(object) {
+      var stringConstructor = "test".constructor;
+      var arrayConstructor = [].constructor;
+      var objectConstructor = {}.constructor;
+
+      if (object === null) {
+        return "null";
+      }
+
+      if (object === undefined) {
+        return "undefined";
+      }
+
+      if (object.constructor === stringConstructor) {
+        return "String";
+      }
+
+      if (object.constructor === arrayConstructor) {
+        return "Array";
+      }
+
+      if (object.constructor === objectConstructor) {
+        return "Object";
+      }
+
+      {
+        return "don't know";
+      }
+    },
+    refreshSkpd: function refreshSkpd() {
+      var that = this;
+      axios__WEBPACK_IMPORTED_MODULE_7___default().get("staffList").then(function (resp) {
+        console.log("staffGet", resp);
+        localStorage.setItem("asnTerdaftar", JSON.stringify(resp.data));
+        console.log("staffList", resp.data);
+        var dataSkpd = JSON.parse(localStorage.getItem("semuaPegawaiSkpd"));
+        var selected = [];
+        var allStaff = [];
+        var user = resp.data;
+        console.log("user", user);
+        dataSkpd.forEach(function (item, i) {
+          user.filter(function (u) {
+            console.log("filter", u.nip_terkait === item.nip, u, item.nip);
+
+            if (u.nip_terkait === item.nip) {
+              selected.push(item);
+            }
+          });
+          allStaff.push(item);
+        });
+        console.log("selec", selected); // that.loadingAsn = false;
+        // Vue.$toast.success("Data ASN Terkait berhasil di update..");
+        // that.namaSkpd = selected[0].nama_skpd;
+
+        localStorage.setItem("semuaPegawaiSkpd", JSON.stringify(allStaff));
+        localStorage.setItem("asnTerdaftar", JSON.stringify(selected)); // that.$root.$emit("updateDataPeg");
+
+        that.$root.$emit("returnStaff");
+      });
+    },
     generateSpt: function generateSpt(id) {
       event.stopPropagation();
     },
@@ -8854,72 +8956,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     onErrorImg: function onErrorImg(e) {
       e.target.src = "img/user.png";
-    },
-    mountSkpd: function mountSkpd() {
-      // this.loadingAsn = true;
-      var id_skpd = localStorage.getItem("id_skpd");
-      var that = this;
-      axios__WEBPACK_IMPORTED_MODULE_7___default().post("pegawaiSkpd", {
-        id_skpd: id_skpd
-      }).then(function (resp) {
-        // console.log('bcrypt', resp.data)
-        if (resp.data.code == 200) {
-          var dataSkpd = resp.data.dataMentah;
-          var user = resp.data.user;
-          var selected = [];
-          localStorage.removeItem("semuaPegawaiSkpd");
-          localStorage.setItem("semuaPegawaiSkpd", JSON.stringify(dataSkpd)); // console.log("skpd", resp.data);
-
-          dataSkpd.forEach(function (item, i) {
-            user.filter(function (u) {
-              // return u.id.toString() === item.nip.toString();
-              if (u.nip_terkait === item.nip) {
-                selected.push(item);
-              }
-            });
-          });
-          console.log("dataSkpd", selected);
-          that.loadingAsn = false;
-          Vue.$toast.success("Data ASN Terkait berhasil di update..");
-          that.$root.$emit("toggleAdd");
-          localStorage.setItem("asnTerdaftar", JSON.stringify(selected)); // that.dataPegawai = selected;
-
-          that.$root.$emit("updateDataPeg");
-        }
-      })["catch"](function (err) {
-        console.log("err skpd", err);
-      });
-    },
-    refreshSkpd: function refreshSkpd() {
-      var that = this;
-      axios__WEBPACK_IMPORTED_MODULE_7___default().get("staffList").then(function (resp) {
-        console.log("staffGet", resp);
-        localStorage.setItem("asnTerdaftar", JSON.stringify(resp.data));
-        console.log("staffList", resp.data);
-        var dataSkpd = JSON.parse(localStorage.getItem("semuaPegawaiSkpd"));
-        var selected = [];
-        var allStaff = [];
-        var user = resp.data;
-        console.log("user", user);
-        dataSkpd.forEach(function (item, i) {
-          user.filter(function (u) {
-            console.log("filter", u.nip_terkait === item.nip, u, item.nip);
-
-            if (u.nip_terkait === item.nip) {
-              selected.push(item);
-            }
-          });
-          allStaff.push(item);
-        });
-        console.log("selec", selected); // that.loadingAsn = false;
-        // Vue.$toast.success("Data ASN Terkait berhasil di update..");
-        // that.namaSkpd = selected[0].nama_skpd;
-
-        localStorage.setItem("semuaPegawaiSkpd", JSON.stringify(allStaff));
-        localStorage.setItem("asnTerdaftar", JSON.stringify(selected)); // that.$root.$emit("updateDataPeg");
-
-        that.$root.$emit("returnStaff");
-      });
     },
     updateDasarStatus: function updateDasarStatus(data) {
       this.$parent.updateDasarStatus(data);
@@ -9019,6 +9055,8 @@ __webpack_require__.r(__webpack_exports__);
       });
       this.staffs.forEach(function (s) {
         _this2.newStaff.push(s);
+
+        localStorage.setItem('stafSkpdLain', JSON.stringify(_this2.newStaff));
       });
       console.log("staff-body", this.staffs);
       this.doing.forEach(function (s) {
@@ -9109,6 +9147,8 @@ __webpack_require__.r(__webpack_exports__);
       });
       data.staffs.forEach(function (s) {
         _this3.newStaff.push(s);
+
+        localStorage.setItem('stafSkpdLain', _this3.newStaff);
       });
       data.doing.forEach(function (s) {
         var todo = {
@@ -11099,6 +11139,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! querystring */ "./node_modules/querystring/index.js");
 /* harmony import */ var _label_title__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./label-title */ "./resources/js/partials/part/label-title.vue");
 /* harmony import */ var _pegawai_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pegawai.vue */ "./resources/js/partials/part/pegawai.vue");
+/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
+/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_3__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -11274,13 +11316,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     LabelTitle: _label_title__WEBPACK_IMPORTED_MODULE_1__["default"],
-    Pegawai: _pegawai_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    Pegawai: _pegawai_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    vSelect: (vue_select__WEBPACK_IMPORTED_MODULE_3___default())
   },
   data: function data() {
     return {
@@ -11291,7 +11348,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       status: false,
       dataPegawai: [],
       namaSkpd: null,
-      selected: []
+      selected: [],
+      listSkpd: [],
+      skpd: ''
     };
   },
   mounted: function mounted() {
@@ -11309,8 +11368,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.$root.$on('returnStaff', function () {
       _this.returnStaff();
     });
+    this.$root.$on('getListSkpd', function () {
+      _this.getListSkpd();
+    });
+  },
+  watch: {
+    skpd: function skpd() {
+      this.changeSkpd();
+    }
   },
   methods: {
+    changeSkpd: function changeSkpd() {
+      var list = JSON.parse(localStorage.getItem('listSkpd'));
+      var name = this.skpd;
+      this.selected = JSON.parse(localStorage.getItem('stafSkpdLain'));
+      this.dataPegawai = list[name];
+      console.log('skpd', this.dataPegawai);
+    },
+    getListSkpd: function getListSkpd() {
+      var list = JSON.parse(localStorage.getItem('listSkpd'));
+      console.log('list', list);
+      this.listSkpd = Object.keys(list);
+      this.skpd = localStorage.getItem('nama_skpd');
+    },
     returnStaff: function returnStaff() {
       console.log('returnStaff');
       this.dataPegawai = JSON.parse(localStorage.getItem('semuaPegawaiSkpd'));
@@ -11810,20 +11890,21 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     dasar: function dasar() {
-      this.updateActive();
       this.checkStatus(this.dasar.nip);
+      this.updateActive();
     },
     selected: function selected() {
-      this.updateActive();
       this.checkStatus(this.dasar.nip);
+      this.updateActive();
     }
   },
   methods: {
     checkStatus: function checkStatus(nip) {
       var checkId = function checkId(obj) {
-        return obj.nip === nip.toString();
-      }; // console.log('selectedPeg', this.selected.some(checkId), nip)
+        return obj.nip == nip.toString();
+      };
 
+      console.log('selectedPeg', this.selected.some(checkId), nip, this.selected);
 
       if (this.selected.some(checkId) == true) {
         this.show = false;
@@ -90473,7 +90554,34 @@ var render = function () {
       [
         _c("div", { staticClass: "modal-dialog modal-lg" }, [
           _c("div", { staticClass: "modal-content" }, [
-            _vm._m(0),
+            _c("div", { staticClass: "modal-header" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "skpd", staticStyle: { "min-width": "40%" } },
+                [
+                  _c("v-select", {
+                    staticClass: "mt-2 text-capitalize w-100",
+                    attrs: {
+                      options: _vm.listSkpd,
+                      label: "nama",
+                      placeholder: "Pilih dari SKPD Lain",
+                    },
+                    model: {
+                      value: _vm.skpd,
+                      callback: function ($$v) {
+                        _vm.skpd = $$v
+                      },
+                      expression: "skpd",
+                    },
+                  }),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._m(1),
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
               _c("div", { staticClass: "card-body py-3" }, [
@@ -90496,7 +90604,7 @@ var render = function () {
                               "table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4",
                           },
                           [
-                            _vm._m(1),
+                            _vm._m(2),
                             _vm._v(" "),
                             _c(
                               "tbody",
@@ -90538,7 +90646,7 @@ var render = function () {
       [
         _c("div", { staticClass: "modal-dialog" }, [
           _c("div", { staticClass: "modal-content" }, [
-            _vm._m(2),
+            _vm._m(3),
             _vm._v(" "),
             _c(
               "div",
@@ -90728,13 +90836,23 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
+    return _c("div", { staticClass: "title" }, [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "staticBackdropLabel" } },
-        [_vm._v("\n                        ASN Terkait\n                    ")]
+        [
+          _vm._v(
+            "\n                            ASN Terkait\n                        "
+          ),
+        ]
       ),
-      _vm._v(" "),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "close-btn" }, [
       _c("button", {
         staticClass: "btn-close",
         attrs: {

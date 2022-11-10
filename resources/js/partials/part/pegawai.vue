@@ -65,18 +65,18 @@ export default {
     },
     watch:{
         dasar(){
-            this.updateActive();
             this.checkStatus(this.dasar.nip);
+            this.updateActive();
         },
         selected(){
-            this.updateActive();
             this.checkStatus(this.dasar.nip);
+            this.updateActive();
         }
     },
     methods:{
         checkStatus(nip){
-            var checkId = obj => obj.nip === nip.toString();
-            // console.log('selectedPeg', this.selected.some(checkId), nip)
+            var checkId = obj => obj.nip == nip.toString();
+            console.log('selectedPeg', this.selected.some(checkId), nip, this.selected)
             if(this.selected.some(checkId) == true){
                 this.show = false;
             }else{

@@ -10,15 +10,28 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">
-                            ASN Terkait
-                        </h5>
-                        <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                        ></button>
+                        <div class="title">
+                            <h5 class="modal-title" id="staticBackdropLabel">
+                                ASN Terkait
+                            </h5>
+                        </div>
+                        <div class="skpd" style="min-width: 40%;">
+                            <v-select
+                                class="mt-2 text-capitalize w-100"
+                                :options="listSkpd"
+                                v-model="skpd"
+                                label="nama"
+                                :placeholder="`Pilih dari SKPD Lain`"
+                            ></v-select>
+                        </div>
+                        <div class="close-btn">
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
+                        </div>
                     </div>
                     <div class="modal-body">
                         <div class="card-body py-3">
@@ -171,8 +184,9 @@
 import { stringify } from "querystring";
 import LabelTitle from "./label-title";
 import Pegawai from "./pegawai.vue";
+import vSelect from "vue-select";
 export default {
-    components: { LabelTitle, Pegawai },
+    components: { LabelTitle, Pegawai, vSelect },
     data() {
         return {
             nip: null,
@@ -183,6 +197,8 @@ export default {
             dataPegawai: [],
             namaSkpd: null,
             selected: [],
+            listSkpd: [],
+            skpd: ''
         };
     },
     mounted(){
@@ -198,8 +214,30 @@ export default {
         this.$root.$on('returnStaff', () => {
             this.returnStaff();
         })
+        this.$root.$on('getListSkpd', () => {
+            this.getListSkpd();
+        })
+    },
+    watch:{
+        skpd(){
+            this.changeSkpd();
+        }
     },
     methods: {
+        changeSkpd(){
+            var list = JSON.parse(localStorage.getItem('listSkpd'));
+            var name = this.skpd;
+            this.selected = JSON.parse(localStorage.getItem('stafSkpdLain'));
+            this.dataPegawai = list[name];
+            console.log('skpd', this.dataPegawai)
+        },
+        getListSkpd(){
+            var list = JSON.parse(localStorage.getItem('listSkpd'));
+            console.log('list', list);
+            this.listSkpd = Object.keys(list);
+            this.skpd = localStorage.getItem('nama_skpd');
+
+        },
         returnStaff(){
             console.log('returnStaff');
             this.dataPegawai = JSON.parse(localStorage.getItem('semuaPegawaiSkpd'));

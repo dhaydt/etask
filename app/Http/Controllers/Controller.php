@@ -251,16 +251,30 @@ class Controller extends BaseController
                     $user = AsnTerkait::where('id_users', session()->get('user_id'))->get();
                     $dataMentah = json_decode($response->getBody())->data;
                     $dataSkpd = [];
+                    $grouped = [];
                     foreach ($dataMentah as $dm) {
                         if ($dm->id_skpd == $request->id_skpd) {
                             array_push($dataSkpd, $dm);
                         }
+
+                        /*
+                            * If the key in the new array does not exists, set it to a blank array.
+                        */
+                        if (!isset($grouped[$dm->nama_skpd])) {
+                            $grouped[$dm->nama_skpd] = [];
+                        }
+
+                        /*
+                            * Add a new item to the array, making shore it falls into the correct category / key
+                        */
+                        $grouped[$dm->nama_skpd][] = $dm;
                     }
+
                     $data = [
                         'code' => 200,
                         'data' => $dataSkpd,
                         'user' => $user,
-                        'dataMentah' => $dataMentah,
+                        'dataMentah' => $grouped,
                     ];
 
                     return $data;

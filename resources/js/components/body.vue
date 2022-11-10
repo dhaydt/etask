@@ -407,6 +407,131 @@ export default {
         },
     },
     methods: {
+        mountSkpd() {
+            // this.loadingAsn = true;
+            var id_skpd = localStorage.getItem("id_skpd");
+            var that = this;
+
+            axios
+                .post("pegawaiSkpd", {
+                    id_skpd: id_skpd,
+                })
+                .then(function (resp) {
+                    // console.log('bcrypt', resp.data)
+                    if (resp.data.code == 200) {
+                        var dataSkpd = resp.data.data;
+
+                        var dataMentah = resp.data.dataMentah;
+
+
+                        that.groupSkpd(dataMentah);
+
+                        var user = resp.data.user;
+                        var selected = [];
+                        localStorage.removeItem("semuaPegawaiSkpd");
+                        localStorage.setItem(
+                            "semuaPegawaiSkpd",
+                            JSON.stringify(dataSkpd)
+                        );
+                        // console.log("skpd", resp.data);
+                        dataSkpd.forEach(function (item, i) {
+                            user.filter((u) => {
+                                // return u.id.toString() === item.nip.toString();
+                                if (u.nip_terkait === item.nip) {
+                                    selected.push(item);
+                                }
+                            });
+                        });
+                        console.log("dataSkpd", selected);
+
+                        that.loadingAsn = false;
+                        Vue.$toast.success(
+                            "Data ASN Terkait berhasil di update.."
+                        );
+
+                        that.$root.$emit("toggleAdd");
+
+                        localStorage.setItem(
+                            "asnTerdaftar",
+                            JSON.stringify(selected)
+                        );
+                        // that.dataPegawai = selected;
+                        that.$root.$emit("updateDataPeg");
+                        that.$root.$emit("getListSkpd");
+                    }
+                })
+                .catch(function (err) {
+                    console.log("err skpd", err);
+                });
+        },
+        groupSkpd(data) {
+            // var skpd = Object.keys(data);
+            localStorage.setItem('listSkpd', JSON.stringify(data));
+        },
+        arrayCheck(object) {
+            var stringConstructor = "test".constructor;
+            var arrayConstructor = [].constructor;
+            var objectConstructor = ({}).constructor;
+            if (object === null) {
+                return "null";
+            }
+            if (object === undefined) {
+                return "undefined";
+            }
+            if (object.constructor === stringConstructor) {
+                return "String";
+            }
+            if (object.constructor === arrayConstructor) {
+                return "Array";
+            }
+            if (object.constructor === objectConstructor) {
+                return "Object";
+            }
+            {
+                return "don't know";
+            }
+        },
+        refreshSkpd() {
+            var that = this;
+            axios.get("staffList").then(function (resp) {
+                console.log("staffGet", resp);
+                localStorage.setItem("asnTerdaftar", JSON.stringify(resp.data));
+
+                console.log("staffList", resp.data);
+                var dataSkpd = JSON.parse(
+                    localStorage.getItem("semuaPegawaiSkpd")
+                );
+                var selected = [];
+                var allStaff = [];
+                var user = resp.data;
+                console.log("user", user);
+                dataSkpd.forEach(function (item, i) {
+                    user.filter((u) => {
+                        console.log(
+                            "filter",
+                            u.nip_terkait === item.nip,
+                            u,
+                            item.nip
+                        );
+                        if (u.nip_terkait === item.nip) {
+                            selected.push(item);
+                        }
+                    });
+                    allStaff.push(item);
+                });
+                console.log("selec", selected);
+                // that.loadingAsn = false;
+                // Vue.$toast.success("Data ASN Terkait berhasil di update..");
+                // that.namaSkpd = selected[0].nama_skpd;
+                localStorage.setItem(
+                    "semuaPegawaiSkpd",
+                    JSON.stringify(allStaff)
+                );
+                localStorage.setItem("asnTerdaftar", JSON.stringify(selected));
+                // that.$root.$emit("updateDataPeg");
+                that.$root.$emit("returnStaff");
+            });
+        },
         generateSpt(id) {
             event.stopPropagation();
         },
@@ -494,97 +619,6 @@ export default {
         },
         onErrorImg(e) {
             e.target.src = "img/user.png";
-        },
-        mountSkpd() {
-            // this.loadingAsn = true;
-            var id_skpd = localStorage.getItem("id_skpd");
-            var that = this;
-
-            axios
-                .post("pegawaiSkpd", {
-                    id_skpd: id_skpd,
-                })
-                .then(function (resp) {
-                    // console.log('bcrypt', resp.data)
-                    if (resp.data.code == 200) {
-                        var dataSkpd = resp.data.dataMentah;
-                        var user = resp.data.user;
-                        var selected = [];
-                        localStorage.removeItem("semuaPegawaiSkpd");
-                        localStorage.setItem(
-                            "semuaPegawaiSkpd",
-                            JSON.stringify(dataSkpd)
-                        );
-                        // console.log("skpd", resp.data);
-                        dataSkpd.forEach(function (item, i) {
-                            user.filter((u) => {
-                                // return u.id.toString() === item.nip.toString();
-                                if (u.nip_terkait === item.nip) {
-                                    selected.push(item);
-                                }
-                            });
-                        });
-                        console.log("dataSkpd", selected);
-
-                        that.loadingAsn = false;
-                        Vue.$toast.success(
-                            "Data ASN Terkait berhasil di update.."
-                        );
-
-                        that.$root.$emit("toggleAdd");
-
-                        localStorage.setItem(
-                            "asnTerdaftar",
-                            JSON.stringify(selected)
-                        );
-                        // that.dataPegawai = selected;
-                        that.$root.$emit("updateDataPeg");
-                    }
-                })
-                .catch(function (err) {
-                    console.log("err skpd", err);
-                });
-        },
-        refreshSkpd() {
-            var that = this;
-            axios.get("staffList").then(function (resp) {
-                console.log("staffGet", resp);
-                localStorage.setItem("asnTerdaftar", JSON.stringify(resp.data));
-
-                console.log("staffList", resp.data);
-                var dataSkpd = JSON.parse(
-                    localStorage.getItem("semuaPegawaiSkpd")
-                );
-                var selected = [];
-                var allStaff = [];
-                var user = resp.data;
-                console.log("user", user);
-                dataSkpd.forEach(function (item, i) {
-                    user.filter((u) => {
-                        console.log(
-                            "filter",
-                            u.nip_terkait === item.nip,
-                            u,
-                            item.nip
-                        );
-                        if (u.nip_terkait === item.nip) {
-                            selected.push(item);
-                        }
-                    });
-                    allStaff.push(item);
-                });
-                console.log("selec", selected);
-                // that.loadingAsn = false;
-                // Vue.$toast.success("Data ASN Terkait berhasil di update..");
-                // that.namaSkpd = selected[0].nama_skpd;
-                localStorage.setItem(
-                    "semuaPegawaiSkpd",
-                    JSON.stringify(allStaff)
-                );
-                localStorage.setItem("asnTerdaftar", JSON.stringify(selected));
-                // that.$root.$emit("updateDataPeg");
-                that.$root.$emit("returnStaff");
-            });
         },
         updateDasarStatus(data) {
             this.$parent.updateDasarStatus(data);
@@ -689,6 +723,7 @@ export default {
 
             this.staffs.forEach((s) => {
                 this.newStaff.push(s);
+                localStorage.setItem('stafSkpdLain', JSON.stringify(this.newStaff));
             });
 
             console.log("staff-body", this.staffs);
@@ -781,6 +816,7 @@ export default {
 
             data.staffs.forEach((s) => {
                 this.newStaff.push(s);
+                localStorage.setItem('stafSkpdLain', this.newStaff);
             });
 
             data.doing.forEach((s) => {
