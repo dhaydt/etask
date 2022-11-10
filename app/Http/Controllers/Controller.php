@@ -111,7 +111,7 @@ class Controller extends BaseController
             $spt->save();
         }
         if (count($staff) > 3) {
-            $input = public_path('template/SPTTable22.jrxml');
+            $input = public_path('template/SPTTable23.jrxml');
         } else {
             $input = public_path('template/SPT33.jrxml');
         }
@@ -133,7 +133,7 @@ class Controller extends BaseController
 
         // $parameter = 'dasar="'.$date.'" spt_id='.$id.' tanggal_naskah="'.$naskah.'" pengirim="'.$pengirim.'" perihal="'.$perihal.'" pemberi_tugas="'.$pemberi_tugas.'"';
         if (count($staff) > 3) {
-            $parameter = 'dasar="'.$dasar.'" spt_id='.$id.'';
+            $parameter = 'dasar="'.$dasar.'" spt_id='.$id.' task ="'.$taskName.'"';
         } else {
             $parameter = 'dasar="'.$dasar.'" spt_id='.$id.' hari="'.$hari.'" tgl="'.$tgl.'" tempat="'.$tempat.'" task="'.$taskName.'"';
         }
@@ -145,7 +145,7 @@ class Controller extends BaseController
         $this->removeTask($id);
 
         if (count($staff) > 3) {
-            return response()->file(public_path('storage/spt/SPTTable22.docx'));
+            return response()->file(public_path('storage/spt/SPTTable23.docx'));
         } else {
             return response()->file(public_path('storage/spt/SPT33.docx'));
         }
