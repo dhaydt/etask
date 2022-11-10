@@ -227,9 +227,18 @@ export default {
         changeSkpd(){
             var list = JSON.parse(localStorage.getItem('listSkpd'));
             var name = this.skpd;
-            this.selected = JSON.parse(localStorage.getItem('stafSkpdLain'));
             this.dataPegawai = list[name];
-            console.log('skpd', this.dataPegawai)
+            // var sel = [];
+            // var selected = JSON.parse(localStorage.getItem('stafSkpdLain'));
+            // console.log('selected addstaff', selected)
+            // this.dataPegawai.forEach(function(item, i){
+            //     console.log('dp', item);
+            //     var checkId = obj => obj == item.nip;
+            //     if(selected.some(checkId) == true){
+            //         sel.push(item);
+            //     }
+            // })
+            // console.log('sel', sel);
         },
         getListSkpd(){
             var list = JSON.parse(localStorage.getItem('listSkpd'));

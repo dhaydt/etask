@@ -11381,9 +11381,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     changeSkpd: function changeSkpd() {
       var list = JSON.parse(localStorage.getItem('listSkpd'));
       var name = this.skpd;
-      this.selected = JSON.parse(localStorage.getItem('stafSkpdLain'));
-      this.dataPegawai = list[name];
-      console.log('skpd', this.dataPegawai);
+      this.dataPegawai = list[name]; // var sel = [];
+      // var selected = JSON.parse(localStorage.getItem('stafSkpdLain'));
+      // console.log('selected addstaff', selected)
+      // this.dataPegawai.forEach(function(item, i){
+      //     console.log('dp', item);
+      //     var checkId = obj => obj == item.nip;
+      //     if(selected.some(checkId) == true){
+      //         sel.push(item);
+      //     }
+      // })
+      // console.log('sel', sel);
     },
     getListSkpd: function getListSkpd() {
       var list = JSON.parse(localStorage.getItem('listSkpd'));
@@ -11902,9 +11910,8 @@ __webpack_require__.r(__webpack_exports__);
     checkStatus: function checkStatus(nip) {
       var checkId = function checkId(obj) {
         return obj.nip == nip.toString();
-      };
+      }; // console.log('selectedPeg', this.selected.some(checkId), nip, this.selected)
 
-      console.log('selectedPeg', this.selected.some(checkId), nip, this.selected);
 
       if (this.selected.some(checkId) == true) {
         this.show = false;

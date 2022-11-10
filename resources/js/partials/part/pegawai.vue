@@ -76,7 +76,7 @@ export default {
     methods:{
         checkStatus(nip){
             var checkId = obj => obj.nip == nip.toString();
-            console.log('selectedPeg', this.selected.some(checkId), nip, this.selected)
+            // console.log('selectedPeg', this.selected.some(checkId), nip, this.selected)
             if(this.selected.some(checkId) == true){
                 this.show = false;
             }else{
