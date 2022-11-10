@@ -54,7 +54,7 @@ WHERE
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="237" splitType="Stretch">
+		<band height="306" splitType="Stretch">
 			<image>
 				<reportElement x="50" y="12" width="483" height="83" uuid="bb45cc4a-60dd-4531-b343-9382869372e6"/>
 				<imageExpression><![CDATA["/var/www/clients/client1/web32/web/public/img/kop-kominfo.png"]]></imageExpression>
@@ -74,53 +74,53 @@ WHERE
 				<text><![CDATA[Nomor : ${nomor_naskah}___________________________________]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="97" y="215" width="50" height="20" uuid="914d3fd9-f5c3-4edc-a8e2-77dfbe6d88b7"/>
+				<reportElement x="97" y="284" width="50" height="20" uuid="914d3fd9-f5c3-4edc-a8e2-77dfbe6d88b7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<text><![CDATA[NO.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="157" y="215" width="200" height="20" uuid="ed0dcb98-92c2-41b9-a759-93cb704c3260"/>
+				<reportElement x="157" y="284" width="200" height="20" uuid="ed0dcb98-92c2-41b9-a759-93cb704c3260"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<text><![CDATA[NAMA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="367" y="215" width="130" height="20" uuid="3c9c878c-e75f-47e3-9589-d3303f4a846d"/>
+				<reportElement x="367" y="284" width="130" height="20" uuid="3c9c878c-e75f-47e3-9589-d3303f4a846d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<text><![CDATA[JABATAN]]></text>
 			</staticText>
 			<line>
-				<reportElement x="95" y="213" width="1" height="23" uuid="6fd9826d-5499-41ac-9375-a0965d039805">
+				<reportElement x="95" y="282" width="1" height="23" uuid="6fd9826d-5499-41ac-9375-a0965d039805">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 			</line>
 			<line>
-				<reportElement x="95" y="236" width="405" height="1" uuid="75150cfc-9a3c-4ec4-9681-4e2b4bf3e4a9">
+				<reportElement x="95" y="305" width="405" height="1" uuid="75150cfc-9a3c-4ec4-9681-4e2b4bf3e4a9">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 			</line>
 			<line>
-				<reportElement x="500" y="213" width="1" height="24" uuid="991c195c-3b15-4291-b867-8eb93bcfb486">
+				<reportElement x="500" y="282" width="1" height="24" uuid="991c195c-3b15-4291-b867-8eb93bcfb486">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 			</line>
 			<line>
-				<reportElement x="95" y="212" width="405" height="1" uuid="a2478013-47ed-40a8-b8a5-bb4506df5dd4">
+				<reportElement x="95" y="281" width="405" height="1" uuid="a2478013-47ed-40a8-b8a5-bb4506df5dd4">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 			</line>
 			<line>
-				<reportElement x="150" y="213" width="1" height="23" uuid="11021dd9-9eff-4313-b8c8-83d68da71b6a">
+				<reportElement x="150" y="282" width="1" height="23" uuid="11021dd9-9eff-4313-b8c8-83d68da71b6a">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 			</line>
 			<line>
-				<reportElement x="362" y="213" width="1" height="23" uuid="aae7e78e-3525-41f6-b488-dc665b909bf1">
+				<reportElement x="362" y="282" width="1" height="23" uuid="aae7e78e-3525-41f6-b488-dc665b909bf1">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 			</line>
@@ -131,8 +131,8 @@ WHERE
 				</textElement>
 				<text><![CDATA[Dasar	:]]></text>
 			</staticText>
-			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="RelativeToTallestObject" x="95" y="181" width="406" height="22" uuid="f3e234f0-26ef-4f25-8468-a9650ca779df"/>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="95" y="181" width="406" height="88" uuid="f3e234f0-26ef-4f25-8468-a9650ca779df"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
