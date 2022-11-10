@@ -111,7 +111,7 @@ class Controller extends BaseController
             $spt->save();
         }
         if (count($staff) > 3) {
-            $input = public_path('template/SPTTable25.jrxml');
+            $input = public_path('template/SPTTable26.jrxml');
         } else {
             $input = public_path('template/SPT33.jrxml');
         }
@@ -145,7 +145,7 @@ class Controller extends BaseController
         $this->removeTask($id);
 
         if (count($staff) > 3) {
-            return response()->file(public_path('storage/spt/SPTTable25.docx'));
+            return response()->file(public_path('storage/spt/SPTTable26.docx'));
         } else {
             return response()->file(public_path('storage/spt/SPT33.docx'));
         }
