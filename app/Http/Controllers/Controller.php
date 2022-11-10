@@ -142,7 +142,7 @@ class Controller extends BaseController
         // dd("java -jar $jasperstarter pr $input -o $output -f docx -P $parameter");
         exec("java -jar $jasperstarter pr $input -o $output -f docx -P $parameter -t $database");
 
-        // $this->removeTask($id);
+        $this->removeTask($id);
 
         if (count($staff) > 3) {
             return response()->file(public_path('storage/spt/SPTTable20.docx'));
