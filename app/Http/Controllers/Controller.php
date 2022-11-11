@@ -112,7 +112,7 @@ class Controller extends BaseController
             }
 
             if ($findStaf->type == 'warga') {
-                $jabatan = $staf->nama_jabatan.' (Warga)';
+                $jabatan = $findStaf->nama_jabatan;
             }
 
             $spt->jabatan = $jabatan;
