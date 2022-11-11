@@ -11329,6 +11329,211 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -11348,27 +11553,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       status: false,
       dataPegawai: [],
       namaSkpd: null,
+      nik_warga: "",
+      nama_warga: "",
+      profesi_warga: "",
       selected: [],
       listSkpd: [],
-      skpd: ''
+      skpd: ""
     };
   },
   mounted: function mounted() {
     var _this = this;
 
-    this.$root.$on('addStaff', function () {
+    this.$root.$on("addStaff", function () {
       _this.addStaffModal();
     });
-    this.$root.$on('addDasar', function () {
+    this.$root.$on("addDasar", function () {
       _this.addStaffModal();
     });
-    this.$root.$on('updateDataPeg', function () {
+    this.$root.$on("updateDataPeg", function () {
       _this.updateDataPegawai();
     });
-    this.$root.$on('returnStaff', function () {
+    this.$root.$on("returnStaff", function () {
       _this.returnStaff();
     });
-    this.$root.$on('getListSkpd', function () {
+    this.$root.$on("getListSkpd", function () {
       _this.getListSkpd();
     });
   },
@@ -11378,8 +11586,54 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: {
+    simpanWarga: function simpanWarga() {
+      this.$parent.toggleLoading(true);
+      this.loading = true;
+      var nik = this.nik_warga;
+      var nama = this.nama_warga;
+      var profesi = this.profesi_warga;
+      console.log("form", nik, nama, profesi);
+      var that = this;
+      axios.post("addStaff", {
+        type: 'warga',
+        nik: nik,
+        nama: nama,
+        profesi: profesi
+      }).then(function (response) {
+        console.log("resp", response["data"]);
+
+        if (response["data"]["code"] == 403) {
+          Vue.$toast.info(response["data"]["message"]);
+          $("#addStaffModal").modal("hide");
+          $(".modal-backdrop").remove();
+          that.loading = false;
+        }
+
+        if (response["data"]["code"] == 404) {
+          Vue.$toast.warning(response["data"]["message"]);
+          $("#addStaffModal").modal("hide");
+          $(".modal-backdrop").remove();
+          that.loading = false;
+        }
+
+        if (response["data"]["code"] == 200) {
+          Vue.$toast.success(response["data"]["message"]);
+          that.$parent.splitAxios(response["data"]["data"].original);
+          $("#addStaffModal").modal("hide");
+          $(".modal-backdrop").remove();
+          that.loading = false;
+        }
+
+        that.nik_warga = null;
+        that.nama_warga = null;
+        that.profesi_warga = null;
+      })["catch"](function (err) {
+        console.log("err", err);
+      });
+      that.$parent.toggleLoading(false);
+    },
     changeSkpd: function changeSkpd() {
-      var list = JSON.parse(localStorage.getItem('listSkpd'));
+      var list = JSON.parse(localStorage.getItem("listSkpd"));
       var name = this.skpd;
       this.dataPegawai = list[name]; // var sel = [];
       // var selected = JSON.parse(localStorage.getItem('stafSkpdLain'));
@@ -11394,15 +11648,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       // console.log('sel', sel);
     },
     getListSkpd: function getListSkpd() {
-      var list = JSON.parse(localStorage.getItem('listSkpd'));
-      console.log('list', list);
+      var list = JSON.parse(localStorage.getItem("listSkpd"));
+      console.log("list", list);
       this.listSkpd = Object.keys(list);
-      this.skpd = localStorage.getItem('nama_skpd');
+      this.skpd = localStorage.getItem("nama_skpd");
     },
     returnStaff: function returnStaff() {
-      console.log('returnStaff');
-      this.dataPegawai = JSON.parse(localStorage.getItem('semuaPegawaiSkpd'));
-      this.selected = JSON.parse(localStorage.getItem('asnTerdaftar'));
+      console.log("returnStaff");
+      this.dataPegawai = JSON.parse(localStorage.getItem("semuaPegawaiSkpd"));
+      this.selected = JSON.parse(localStorage.getItem("asnTerdaftar"));
     },
     addStaffModal: function addStaffModal() {
       this.resetStaff();
@@ -11411,8 +11665,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.dataPegawai = allStaff;
       this.selected = selected;
       this.namaSkpd = allStaff[0].nama_skpd;
-      console.log('dataPeg', this.dataPegawai);
-      console.log('selected', this.selected);
+      console.log("dataPeg", this.dataPegawai);
+      console.log("selected", this.selected);
       $("#addStaffModal").modal("show");
     },
     resetStaff: function resetStaff() {
@@ -17589,7 +17843,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "h5.modal-title[data-v-52242a1c] {\n  font-family: \"Acme\", sans-serif;\n  font-size: 18px;\n}\n.addStaff[data-v-52242a1c] {\n  display: flex;\n  justify-content: right;\n  margin-top: -55px;\n  height: 20px;\n}\n.addStaff .btnAdd[data-v-52242a1c] {\n  border-radius: 4px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".skpd-label[data-v-52242a1c] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin-top: 6px;\n  padding: 0 10px 1px 10px;\n  border-radius: 4px;\n  background: #cdcdcd;\n  font-weight: 600;\n  border: 1px solid #cdcdcd;\n}\n.close-btn[data-v-52242a1c] {\n  position: absolute;\n  top: -13px;\n  right: -18px;\n  z-index: 2;\n  background: red;\n  border: 3px solid #fefefe;\n  border-radius: 50%;\n  justify-content: center;\n  align-items: center;\n  padding-right: 10px;\n  padding-top: 2px;\n}\n.close-btn button[data-v-52242a1c] {\n  color: #fff;\n  font-weight: 700;\n}\nh5.modal-title[data-v-52242a1c] {\n  font-family: \"Acme\", sans-serif;\n  font-size: 18px;\n}\n.addStaff[data-v-52242a1c] {\n  display: flex;\n  justify-content: right;\n  margin-top: -55px;\n  height: 20px;\n}\n.addStaff .btnAdd[data-v-52242a1c] {\n  border-radius: 4px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -90561,15 +90815,20 @@ var render = function () {
       [
         _c("div", { staticClass: "modal-dialog modal-lg" }, [
           _c("div", { staticClass: "modal-content" }, [
-            _c("div", { staticClass: "modal-header" }, [
+            _c("div", { staticClass: "modal-header position-relative" }, [
               _vm._m(0),
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "skpd", staticStyle: { "min-width": "40%" } },
+                {
+                  staticClass: "skpd d-flex flex-row",
+                  staticStyle: { "min-width": "40%" },
+                },
                 [
+                  _vm._m(1),
+                  _vm._v(" "),
                   _c("v-select", {
-                    staticClass: "mt-2 text-capitalize w-100",
+                    staticClass: "mt-2 text-capitalize w-100 me-2",
                     attrs: {
                       options: _vm.listSkpd,
                       label: "nama",
@@ -90587,51 +90846,407 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
-              _vm._m(1),
+              _vm._m(2),
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
               _c("div", { staticClass: "card-body py-3" }, [
-                _c("div", { staticClass: "tab-content" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "tab-pane fade show active",
-                      attrs: {
-                        id: "kt_table_widget_5_tab_1",
-                        role: "tabpanel",
-                      },
-                    },
-                    [
-                      _c("div", { staticClass: "table-responsive" }, [
-                        _c(
-                          "table",
-                          {
-                            staticClass:
-                              "table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4",
+                _c(
+                  "div",
+                  { staticClass: "accordion", attrs: { id: "kt_accordion_1" } },
+                  [
+                    _c("div", { staticClass: "accordion-item" }, [
+                      _c(
+                        "h2",
+                        {
+                          staticClass: "accordion-header",
+                          attrs: { id: "kt_accordion_1_header_2" },
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "accordion-button fs-4 fw-semibold collapsed",
+                              attrs: {
+                                type: "button",
+                                "data-bs-toggle": "collapse",
+                                "data-bs-target": "#kt_accordion_1_body_2",
+                                "aria-expanded": "false",
+                                "aria-controls": "kt_accordion_1_body_2",
+                              },
+                            },
+                            [
+                              _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "svg-icon toggle-off svg-icon-1 me-2",
+                                },
+                                [
+                                  _c(
+                                    "svg",
+                                    {
+                                      attrs: {
+                                        width: "24",
+                                        height: "24",
+                                        viewBox: "0 0 24 24",
+                                        fill: "none",
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                      },
+                                    },
+                                    [
+                                      _c("rect", {
+                                        attrs: {
+                                          opacity: "0.3",
+                                          x: "2",
+                                          y: "2",
+                                          width: "20",
+                                          height: "20",
+                                          rx: "5",
+                                          fill: "currentColor",
+                                        },
+                                      }),
+                                      _vm._v(" "),
+                                      _c("rect", {
+                                        attrs: {
+                                          x: "10.8891",
+                                          y: "17.8033",
+                                          width: "12",
+                                          height: "2",
+                                          rx: "1",
+                                          transform:
+                                            "rotate(-90 10.8891 17.8033)",
+                                          fill: "currentColor",
+                                        },
+                                      }),
+                                      _vm._v(" "),
+                                      _c("rect", {
+                                        attrs: {
+                                          x: "6.01041",
+                                          y: "10.9247",
+                                          width: "12",
+                                          height: "2",
+                                          rx: "1",
+                                          fill: "currentColor",
+                                        },
+                                      }),
+                                    ]
+                                  ),
+                                ]
+                              ),
+                              _vm._v(
+                                "\n                                        Masyarakat\n                                    "
+                              ),
+                            ]
+                          ),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "accordion-collapse collapse",
+                          attrs: {
+                            id: "kt_accordion_1_body_2",
+                            "aria-labelledby": "kt_accordion_1_header_2",
+                            "data-bs-parent": "#kt_accordion_1",
                           },
-                          [
-                            _vm._m(2),
-                            _vm._v(" "),
-                            _c(
-                              "tbody",
-                              _vm._l(_vm.dataPegawai, function (dasar) {
-                                return _c("Pegawai", {
-                                  key: dasar.id,
-                                  attrs: {
-                                    dasar: dasar,
-                                    selected: _vm.selected,
+                        },
+                        [
+                          _c("div", { staticClass: "accordion-body" }, [
+                            _c("div", { staticClass: "accordion-body" }, [
+                              _c("div", { staticClass: "input-group mb-5" }, [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "input-group-text",
+                                    attrs: { id: "basic-addon1" },
                                   },
-                                })
-                              }),
-                              1
+                                  [_vm._v("NIK")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.nik_warga,
+                                      expression: "nik_warga",
+                                    },
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "number",
+                                    placeholder: "Nomor Induk Keluarga",
+                                    "aria-label": "nik",
+                                    "aria-describedby": "basic-addon1",
+                                  },
+                                  domProps: { value: _vm.nik_warga },
+                                  on: {
+                                    input: function ($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.nik_warga = $event.target.value
+                                    },
+                                  },
+                                }),
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "input-group mb-5" }, [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "input-group-text",
+                                    attrs: { id: "basic-addon1" },
+                                  },
+                                  [_vm._v("Nama")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.nama_warga,
+                                      expression: "nama_warga",
+                                    },
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    placeholder: "Nama",
+                                    "aria-label": "nama",
+                                    "aria-describedby": "basic-addon1",
+                                  },
+                                  domProps: { value: _vm.nama_warga },
+                                  on: {
+                                    input: function ($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.nama_warga = $event.target.value
+                                    },
+                                  },
+                                }),
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "input-group mb-5" }, [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "input-group-text",
+                                    attrs: { id: "basic-addon1" },
+                                  },
+                                  [_vm._v("Profesi")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.profesi_warga,
+                                      expression: "profesi_warga",
+                                    },
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    placeholder: "Profesi",
+                                    "aria-label": "profesi",
+                                    "aria-describedby": "basic-addon1",
+                                  },
+                                  domProps: { value: _vm.profesi_warga },
+                                  on: {
+                                    input: function ($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.profesi_warga = $event.target.value
+                                    },
+                                  },
+                                }),
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "card-footer d-flex justify-content-end",
+                                },
+                                [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-sm btn-primary ms-auto btn-hover-rotate-end",
+                                      on: { click: _vm.simpanWarga },
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fa-solid fa-save",
+                                      }),
+                                      _vm._v(
+                                        "\n                                                    Simpan\n                                                "
+                                      ),
+                                    ]
+                                  ),
+                                ]
+                              ),
+                            ]),
+                          ]),
+                        ]
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "accordion-item" }, [
+                      _c(
+                        "h2",
+                        {
+                          staticClass: "accordion-header",
+                          attrs: { id: "kt_accordion_1_header_1" },
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "accordion-button fs-4 fw-semibold",
+                              attrs: {
+                                type: "button",
+                                "data-bs-toggle": "collapse",
+                                "data-bs-target": "#kt_accordion_1_body_1",
+                                "aria-expanded": "true",
+                                "aria-controls": "kt_accordion_1_body_1",
+                              },
+                            },
+                            [
+                              _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "svg-icon toggle-off svg-icon-1 me-2",
+                                },
+                                [
+                                  _c(
+                                    "svg",
+                                    {
+                                      attrs: {
+                                        width: "24",
+                                        height: "24",
+                                        viewBox: "0 0 24 24",
+                                        fill: "none",
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                      },
+                                    },
+                                    [
+                                      _c("rect", {
+                                        attrs: {
+                                          opacity: "0.3",
+                                          x: "2",
+                                          y: "2",
+                                          width: "20",
+                                          height: "20",
+                                          rx: "5",
+                                          fill: "currentColor",
+                                        },
+                                      }),
+                                      _vm._v(" "),
+                                      _c("rect", {
+                                        attrs: {
+                                          x: "10.8891",
+                                          y: "17.8033",
+                                          width: "12",
+                                          height: "2",
+                                          rx: "1",
+                                          transform:
+                                            "rotate(-90 10.8891 17.8033)",
+                                          fill: "currentColor",
+                                        },
+                                      }),
+                                      _vm._v(" "),
+                                      _c("rect", {
+                                        attrs: {
+                                          x: "6.01041",
+                                          y: "10.9247",
+                                          width: "12",
+                                          height: "2",
+                                          rx: "1",
+                                          fill: "currentColor",
+                                        },
+                                      }),
+                                    ]
+                                  ),
+                                ]
+                              ),
+                              _vm._v(
+                                "\n                                        Pegawai SKPD\n                                    "
+                              ),
+                            ]
+                          ),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "accordion-collapse collapse show",
+                          attrs: {
+                            id: "kt_accordion_1_body_1",
+                            "aria-labelledby": "kt_accordion_1_header_1",
+                            "data-bs-parent": "#kt_accordion_1",
+                          },
+                        },
+                        [
+                          _c("div", { staticClass: "tab-content" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "tab-pane fade show active",
+                                attrs: {
+                                  id: "kt_table_widget_5_tab_1",
+                                  role: "tabpanel",
+                                },
+                              },
+                              [
+                                _c("div", { staticClass: "table-responsive" }, [
+                                  _c(
+                                    "table",
+                                    {
+                                      staticClass:
+                                        "table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4",
+                                    },
+                                    [
+                                      _vm._m(3),
+                                      _vm._v(" "),
+                                      _c(
+                                        "tbody",
+                                        _vm._l(
+                                          _vm.dataPegawai,
+                                          function (dasar) {
+                                            return _c("Pegawai", {
+                                              key: dasar.id,
+                                              attrs: {
+                                                dasar: dasar,
+                                                selected: _vm.selected,
+                                              },
+                                            })
+                                          }
+                                        ),
+                                        1
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                              ]
                             ),
-                          ]
-                        ),
-                      ]),
-                    ]
-                  ),
-                ]),
+                          ]),
+                        ]
+                      ),
+                    ]),
+                  ]
+                ),
               ]),
             ]),
           ]),
@@ -90653,7 +91268,7 @@ var render = function () {
       [
         _c("div", { staticClass: "modal-dialog" }, [
           _c("div", { staticClass: "modal-content" }, [
-            _vm._m(3),
+            _vm._m(4),
             _vm._v(" "),
             _c(
               "div",
@@ -90853,6 +91468,14 @@ var staticRenderFns = [
           ),
         ]
       ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "skpd-label" }, [
+      _c("label", { attrs: { for: "" } }, [_vm._v("SKPD")]),
     ])
   },
   function () {

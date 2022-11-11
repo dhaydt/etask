@@ -49,6 +49,11 @@ class Controller extends BaseController
             $nip = '-';
         }
 
+        if ($staf->type == 'warga') {
+            $jabatan = $staf->nama_jabatan.' (Warga)';
+            $nip = '-';
+        }
+
         $templateProcessor->setValues([
             'nama_pegawai' => $staf->nama,
             'pangkat' => $staf->pangkat,
@@ -104,6 +109,10 @@ class Controller extends BaseController
             $jabatan = ucwords(strtolower($findStaf->nama_jabatan));
             if ($jabatan == 'Kontrak') {
                 $jabatan = 'Staf';
+            }
+
+            if ($findStaf->type == 'warga') {
+                $jabatan = $staf->nama_jabatan.' (Warga)';
             }
 
             $spt->jabatan = $jabatan;
@@ -317,73 +326,106 @@ class Controller extends BaseController
     {
         $data = $request['user'];
         $auth = session()->get('user_id');
-
-        $data = $request['user'];
-        if ($request['status'] == false) {
-            $check = User::where('nip', $data['nip'])->first();
-            if (!$check) {
-                $user = new User();
-                $user->nip = $data['nip'];
-                $user->name = $data['nama_pegawai'];
-                $user->password = Hash::make($data['nip']);
-                if ($data['nip'] == 1372010910920041 || $data['nip'] == 198611252010011009 || $data['nip'] == 1375010903960003) {
-                    $user->role = 1;
-                } else {
-                    $user->role = 2;
-                }
-                $user->id_skpd = $data['id_skpd'];
-                $user->created_at = now();
-                $user->updated_at = now();
-            }
-
-            $checkStaff = AsnTerkait::where(['id_users' => $auth, 'nip_terkait' => $data['nip']])->get();
+        if ($request->type == 'warga') {
+            $checkStaff = AsnTerkait::where(['id_users' => $auth, 'nip_terkait' => $request->nip])->get();
             if (count($checkStaff) < 1) {
                 $staff = new AsnTerkait();
                 $staff->id_users = $auth;
-                $staff->nip_terkait = $data['nip'];
-                $staff->nama = $data['nama_pegawai'];
+                $staff->nip_terkait = $request->nik;
+                $staff->nama = $request->nama;
                 $staff->gelar_depan = '';
                 $staff->gelar_belakang = '';
                 $staff->tempat_lahir = null;
-                $staff->foto = $data['foto'];
+                $staff->foto = '';
                 $staff->tanggal_lahir = null;
                 $staff->id_jenis_kelamin = null;
                 $staff->id_agama = null;
                 $staff->alamat = null;
-                $staff->no_hp = $data['no_hp'];
-                $staff->nik = null;
-                $staff->nama_jabatan = $data['nama_jabatan'];
-                $staff->id_sotk = $data['id_sotk'];
-                $staff->id_skpd = $data['id_skpd'];
-                $staff->pangkat = $data['pangkat'].'/ '.$data['golongan'];
+                $staff->no_hp = $request->phone;
+                $staff->nik = $request->nik;
+                $staff->nama_jabatan = $request->profesi;
+                $staff->id_sotk = 0;
+                $staff->id_skpd = session()->get('id_skpd');
+                $staff->pangkat = '-';
                 $staff->available = 1;
+                $staff->type = 'warga';
                 $staff->save();
             }
-
-            if (!$check) {
-                $user->save();
-            }
-
             $refresh = $this->refresh();
 
             return response()->json([
+                'code' => 200,
+                'message' => 'Berhasil menyimpan warga',
+                'data' => $refresh,
+        ]);
+        } else {
+            if ($request['status'] == false) {
+                $check = User::where('nip', $data['nip'])->first();
+                if (!$check) {
+                    $user = new User();
+                    $user->nip = $data['nip'];
+                    $user->name = $data['nama_pegawai'];
+                    $user->password = Hash::make($data['nip']);
+                    if ($data['nip'] == 1372010910920041 || $data['nip'] == 198611252010011009 || $data['nip'] == 1375010903960003) {
+                        $user->role = 1;
+                    } else {
+                        $user->role = 2;
+                    }
+                    $user->id_skpd = $data['id_skpd'];
+                    $user->created_at = now();
+                    $user->updated_at = now();
+                }
+
+                $checkStaff = AsnTerkait::where(['id_users' => $auth, 'nip_terkait' => $data['nip']])->get();
+                if (count($checkStaff) < 1) {
+                    $staff = new AsnTerkait();
+                    $staff->id_users = $auth;
+                    $staff->nip_terkait = $data['nip'];
+                    $staff->nama = $data['nama_pegawai'];
+                    $staff->gelar_depan = '';
+                    $staff->gelar_belakang = '';
+                    $staff->tempat_lahir = null;
+                    $staff->foto = $data['foto'];
+                    $staff->tanggal_lahir = null;
+                    $staff->id_jenis_kelamin = null;
+                    $staff->id_agama = null;
+                    $staff->alamat = null;
+                    $staff->no_hp = $data['no_hp'];
+                    $staff->nik = null;
+                    $staff->nama_jabatan = $data['nama_jabatan'];
+                    $staff->id_sotk = $data['id_sotk'];
+                    $staff->id_skpd = $data['id_skpd'];
+                    $staff->pangkat = $data['pangkat'].'/ '.$data['golongan'];
+                    $staff->available = 1;
+                    $staff->type = 'asn';
+                    $staff->save();
+                }
+
+                if (!$check) {
+                    $user->save();
+                }
+
+                $refresh = $this->refresh();
+
+                return response()->json([
                 'code' => 200,
                 'message' => 'Berhasil menyimpan ASN Terkait',
                 'data' => $refresh,
         ]);
-        } else {
-            $staff = AsnTerkait::where(['id_users' => session()->get('user_id'), 'nip_terkait' => $data['nip']])->first();
-            if ($staff) {
-                $staff->delete();
-            }
+            } else {
+                $staff = AsnTerkait::where(['id_users' => session()->get('user_id'), 'nip_terkait' => $data['nip']])->first();
+                if ($staff) {
+                    $staff->delete();
+                }
 
-            $refresh = $this->refresh();
+                $refresh = $this->refresh();
 
-            return response()->json([
+                return response()->json([
                 'code' => 200,
                 'message' => 'ASN Terkait berhasil dihilangkan.',
                 'data' => $refresh,
             ]);
+            }
         }
     }
 
