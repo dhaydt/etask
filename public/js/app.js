@@ -9023,6 +9023,12 @@ __webpack_require__.r(__webpack_exports__);
     generateSppd: function generateSppd() {
       event.stopPropagation();
     },
+    resetTask: function resetTask() {
+      this.newTodos = [];
+      this.newDone = [];
+      this.newDoing = [];
+      this.newStaff = [];
+    },
     splitData: function splitData() {
       var _this2 = this;
 
@@ -9112,12 +9118,6 @@ __webpack_require__.r(__webpack_exports__);
         _this2.newDone.push(todo);
       });
     },
-    resetTask: function resetTask() {
-      this.newTodos = [];
-      this.newDone = [];
-      this.newDoing = [];
-      this.newStaff = [];
-    },
     splitAxios: function splitAxios(data) {
       var _this3 = this;
 
@@ -9148,7 +9148,7 @@ __webpack_require__.r(__webpack_exports__);
       data.staffs.forEach(function (s) {
         _this3.newStaff.push(s);
 
-        localStorage.setItem('stafSkpdLain', _this3.newStaff);
+        localStorage.setItem('stafSkpdLain', JSON.stringify(_this3.newStaff));
       });
       data.doing.forEach(function (s) {
         var todo = {

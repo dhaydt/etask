@@ -692,6 +692,12 @@ export default {
         generateSppd() {
             event.stopPropagation();
         },
+        resetTask() {
+            this.newTodos = [];
+            this.newDone = [];
+            this.newDoing = [];
+            this.newStaff = [];
+        },
         splitData() {
             console.log("body1", this.todos);
             this.todos.forEach((s) => {
@@ -782,12 +788,7 @@ export default {
                 this.newDone.push(todo);
             });
         },
-        resetTask() {
-            this.newTodos = [];
-            this.newDone = [];
-            this.newDoing = [];
-            this.newStaff = [];
-        },
+
         splitAxios(data) {
             console.log("axios", data);
             this.resetTask();
@@ -816,7 +817,7 @@ export default {
 
             data.staffs.forEach((s) => {
                 this.newStaff.push(s);
-                localStorage.setItem('stafSkpdLain', this.newStaff);
+                localStorage.setItem('stafSkpdLain', JSON.stringify(this.newStaff));
             });
 
             data.doing.forEach((s) => {
