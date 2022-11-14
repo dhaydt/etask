@@ -99,16 +99,9 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form method="POST" action="{{ route('reg') }}" class="w-100">
-                        <input type="hidden" name="foto">
-                        <input type="hidden" name="active">
-                        <input type="hidden" name="gelarBlk">
-                        <input type="hidden" name="gelarDpn">
-                        <input type="hidden" name="id_agama">
-                        <input type="hidden" name="id_jabatan">
                         <input type="hidden" name="id_skpd">
-                        <input type="hidden" name="id_status">
+                        <input type="hidden" name="id_eselon">
                         <input type="hidden" name="nama_peg">
-                        <input type="hidden" name="no_hp">
                         <input type="hidden" name="nik">
                         @csrf
                         <div class="modal-body">
@@ -186,17 +179,10 @@
                         toastr.warning(data.message)
                         var responData = data.data
                         console.log('dataReg', responData)
-                        $('input[name="foto"]').val(responData.data.foto);
-                        $('input[name="acive"]').val(responData.data.active);
-                        $('input[name="gelarBlk"]').val(responData.data.gelarblk);
-                        $('input[name="gelarDpn"]').val(responData.data.gelardpn);
-                        $('input[name="id_agama"]').val(responData.data.id_agama);
-                        $('input[name="id_jabatan"]').val(responData.data.id_jabatan);
                         $('input[name="id_skpd"]').val(responData.data.id_skpd);
-                        $('input[name="id_status"]').val(responData.data.id_status);
+                        $('input[name="id_eselom"]').val(responData.data.idEselon);
                         $('input[name="nama_peg"]').val(responData.data.nama);
-                        $('input[name="nohp"]').val(responData.data.nohp);
-                        $('input[name="nik"]').val(responData.data.nik);
+                        $('input[name="nik"]').val(responData.data.userinfo_id);
                         $('#nipUserReg').val(String(data.nip))
                         $('#registerModal').modal('show');
                     }else{

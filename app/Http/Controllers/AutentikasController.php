@@ -73,7 +73,7 @@ class AutentikasController extends Controller
                 'data' => $user,
             ];
         } else {
-            $data = AuthHelpers::getStaff($id);
+            $data = AuthHelpers::getPresensi($id);
             $response = [
                 'code' => 404,
                 'message' => 'NIP tidak terdaftar, tapi tersedia di data kepegawaian kami. Silahkan daftarkan akun untuk E-Task anda!',
@@ -87,32 +87,26 @@ class AutentikasController extends Controller
 
     public function registerUser(Request $request)
     {
-        $presensi = AuthHelpers::getPresensi($request['nip']);
+        $user = new User();
+        $user->nip = $request['nip'];
+        $user->id_skpd = $request['id_skpd'];
+        $user->name = $request['name_peg'];
+        $user->id_eselon = $request['id_eselon'];
+        $user->password = Hash::make($request['password']);
 
-        if ($presensi['code'] == 200) {
-            $presensi = $presensi['data'];
-
-            $user = new User();
-            $name = $presensi->name;
-            $user->nip = $request['nip'];
-            $user->name = $name;
-            $user->id_eselon = $presensi->idEselon;
-            $user->password = Hash::make($request['password']);
-
-            if ($request['nip'] == 1372010910920041 || $request['nip'] == 198611252010011009 || $presensi->idEselon != 0) {
-                $user->role = 1;
-            } else {
-                $user->role = 2;
-            }
-
-            $user->id_skpd = $request['id_skpd'];
-            $user->created_at = now();
-            $user->updated_at = now();
-
-            $user->save();
-
-            return redirect()->back()->with('success', 'Akun E-Task anda berhasil didaftarkan! Silhakna login menggunakan NIP dan password yang didaftarkan');
+        if ($request['nip'] == 1372010910920041 || $request['nip'] == 198611252010011009 || $request['id_eselon'] != 0) {
+            $user->role = 1;
+        } else {
+            $user->role = 2;
         }
+
+        $user->id_skpd = $request['id_skpd'];
+        $user->created_at = now();
+        $user->updated_at = now();
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Akun E-Task anda berhasil didaftarkan! Silhakna login menggunakan NIP dan password yang didaftarkan');
     }
 
     public function logout()
