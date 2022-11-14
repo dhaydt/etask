@@ -34,6 +34,8 @@ Route::get('/add', function () {
 
 Route::post('postLogin', [AutentikasController::class, 'postLogin'])->name('postLogin');
 Route::post('keluar', [AutentikasController::class, 'logout'])->name('postLogout');
+Route::post('reg', [AutentikasController::class, 'registerUser'])->name('reg');
+Route::post('checkUser', [AutentikasController::class, 'checkUser'])->name('checkUser');
 
 Route::post('postTodo', [Controller::class, 'post']);
 Route::post('changeStatus', [Controller::class, 'status']);
@@ -46,8 +48,7 @@ Route::post('updateDasarStatus', [Controller::class, 'updateDasarStatus']);
 
 Route::post('pegawaiSkpd', [Controller::class, 'getSkpd']);
 Route::post('addStaff', [Controller::class, 'addStaff']);
-Route::post('reg', [Controller::class, 'reg'])->name('reg');
-Route::post('checkUser', [Controller::class, 'checkUser'])->name('checkUser');
+
 Route::get('generate_spt/{id}', [Controller::class, 'generate_spt'])->name('generate_spt');
 Route::get('generate_sppd/{task_id}/{staff_id}', [Controller::class, 'generate_sppd'])->name('generate_sppd');
 

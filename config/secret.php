@@ -13,4 +13,5 @@ return [
     |
     */
     'e-task' => '821b9ca567ec95bdef466799278277af',
+    'presensi' => '09b6e75ad96057a3e78f4b8d8d22aa4f',
 ];

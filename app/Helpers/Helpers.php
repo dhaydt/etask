@@ -11,6 +11,31 @@ use Illuminate\Support\Facades\Storage;
 
 class Helpers
 {
+    public static function getTokenPresensi()
+    {
+        $secret = config('secret.presensi');
+        $api = 'https://apidoc.bukittinggikota.go.id/presensi/public/api/get-token';
+
+        $client = new Client();
+
+        $body = [
+            'secret' => $secret,
+        ];
+
+        $response = $client->request('POST', $api, [
+            'form_params' => $body,
+        ]);
+
+        $status = $response->getStatusCode();
+        if ($status == 200) {
+            $token = json_decode($response->getBody()->getContents())->data->access_token;
+
+            return $token;
+        }
+
+        return response()->json('user not authorized');
+    }
+
     public static function dateChange($date)
     {
         $day = [

@@ -185,7 +185,7 @@
                     }else if(data.code == 404){
                         toastr.warning(data.message)
                         var responData = data.data
-                        console.log('dataReg', responData.data)
+                        console.log('dataReg', responData)
                         $('input[name="foto"]').val(responData.data.foto);
                         $('input[name="acive"]').val(responData.data.active);
                         $('input[name="gelarBlk"]').val(responData.data.gelarblk);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\AuthHelpers;
 use App\Helpers\Helpers;
 use App\Models\LoginLogs;
 use App\Models\User;
@@ -58,6 +59,59 @@ class AutentikasController extends Controller
             $request->session()->put('id_skpd', $user->id_skpd);
 
             return redirect()->route('dashboard')->with('success', 'Selamat datang '.$user['name']);
+        }
+    }
+
+    public function checkUser(Request $request)
+    {
+        $id = $request->nip;
+        $user = User::where('nip', $id)->first();
+        if ($user) {
+            $response = [
+                'code' => 200,
+                'message' => 'NIP sudah terdaftar, silahkan masukkan password!',
+                'data' => $user,
+            ];
+        } else {
+            $data = AuthHelpers::getStaff($id);
+            $response = [
+                'code' => 404,
+                'message' => 'NIP tidak terdaftar, tapi tersedia di data kepegawaian kami. Silahkan daftarkan akun untuk E-Task anda!',
+                'data' => $data,
+                'nip' => $id,
+            ];
+        }
+
+        return $response;
+    }
+
+    public function registerUser(Request $request)
+    {
+        $presensi = AuthHelpers::getPresensi($request['nip']);
+
+        if ($presensi['code'] == 200) {
+            $presensi = $presensi['data'];
+
+            $user = new User();
+            $name = $presensi->name;
+            $user->nip = $request['nip'];
+            $user->name = $name;
+            $user->id_eselon = $presensi->idEselon;
+            $user->password = Hash::make($request['password']);
+
+            if ($request['nip'] == 1372010910920041 || $request['nip'] == 198611252010011009 || $presensi->idEselon != 0) {
+                $user->role = 1;
+            } else {
+                $user->role = 2;
+            }
+
+            $user->id_skpd = $request['id_skpd'];
+            $user->created_at = now();
+            $user->updated_at = now();
+
+            $user->save();
+
+            return redirect()->back()->with('success', 'Akun E-Task anda berhasil didaftarkan! Silhakna login menggunakan NIP dan password yang didaftarkan');
         }
     }
 

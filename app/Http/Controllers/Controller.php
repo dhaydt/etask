@@ -177,49 +177,50 @@ class Controller extends BaseController
         return response()->json($staff);
     }
 
-    public function reg(Request $request)
-    {
-        $user = new User();
-        $name = $request['gelarDpn'].$request['nama_peg'].$request['gelarBlk'];
-        $user->nip = $request['nip'];
-        $user->name = $name;
-        $user->password = Hash::make($request['password']);
-        if ($request['nip'] == 1372010910920041 || $request['nip'] == 198611252010011009) {
-            $user->role = 1;
-        } else {
-            $user->role = 2;
-        }
-        $user->id_skpd = $request['id_skpd'];
-        $user->created_at = now();
-        $user->updated_at = now();
+    // public function reg(Request $request)
+    // {
+    //     $user = new User();
+    //     $name = $request['gelarDpn'].$request['nama_peg'].$request['gelarBlk'];
+    //     $user->nip = $request['nip'];
+    //     $user->name = $name;
+    //     $user->id_eselon = $request['id_eselon'];
+    //     $user->password = Hash::make($request['password']);
+    //     if ($request['nip'] == 1372010910920041 || $request['nip'] == 198611252010011009 || $request['id_eselon'] !== 0) {
+    //         $user->role = 1;
+    //     } else {
+    //         $user->role = 2;
+    //     }
+    //     $user->id_skpd = $request['id_skpd'];
+    //     $user->created_at = now();
+    //     $user->updated_at = now();
 
-        $user->save();
+    //     $user->save();
 
-        return redirect()->back()->with('success', 'Akun E-Task anda berhasil didaftarkan! Silhakna login menggunakan NIP dan password yang didaftarkan');
-    }
+    //     return redirect()->back()->with('success', 'Akun E-Task anda berhasil didaftarkan! Silhakna login menggunakan NIP dan password yang didaftarkan');
+    // }
 
-    public function checkUser(Request $request)
-    {
-        $id = $request->nip;
-        $user = User::where('nip', $id)->first();
-        if ($user) {
-            $response = [
-                'code' => 200,
-                'message' => 'NIP sudah terdaftar, silahkan masukkan password!',
-                'data' => $user,
-            ];
-        } else {
-            $data = $this->getStaff($id);
-            $response = [
-                'code' => 404,
-                'message' => 'NIP tidak terdaftar, tapi tersedia di data kepegawaian kami. Silahkan daftarkan akun untuk E-Task anda!',
-                'data' => $data,
-                'nip' => $id,
-            ];
-        }
+    // public function checkUser(Request $request)
+    // {
+    //     $id = $request->nip;
+    //     $user = User::where('nip', $id)->first();
+    //     if ($user) {
+    //         $response = [
+    //             'code' => 200,
+    //             'message' => 'NIP sudah terdaftar, silahkan masukkan password!',
+    //             'data' => $user,
+    //         ];
+    //     } else {
+    //         $data = $this->getStaff($id);
+    //         $response = [
+    //             'code' => 404,
+    //             'message' => 'NIP tidak terdaftar, tapi tersedia di data kepegawaian kami. Silahkan daftarkan akun untuk E-Task anda!',
+    //             'data' => $data,
+    //             'nip' => $id,
+    //         ];
+    //     }
 
-        return $response;
-    }
+    //     return $response;
+    // }
 
     public function getSkpd(Request $request)
     {
@@ -486,55 +487,6 @@ class Controller extends BaseController
         return response()->json($data);
     }
 
-    public function getStaff($nip)
-    {
-        $token = Helpers::getToken();
-        $key = $token;
-
-        $main_api = 'https://apidoc.bukittinggikota.go.id/simpeg/public/api';
-
-        $api = $main_api.'/data_pegawai';
-
-        $header = [
-            'Authorization' => 'Bearer'.$key,
-        ];
-
-        try {
-            $client = new Client();
-
-            $response = $client->request('POST', $api, [
-                'headers' => $header,
-                'form_params' => ['nip' => $nip],
-            ]);
-
-            $status = $response->getStatusCode();
-
-            session()->put('token', $key);
-
-            if ($status == 200) {
-                $resp = json_decode($response->getBody()->getContents())->api_status;
-
-                if ($resp == 0) {
-                    $data = [
-                        'code' => 404,
-                        'message' => 'Staff tidak ditemukan',
-                    ];
-
-                    return $data;
-                } else {
-                    $data = [
-                        'code' => 200,
-                        'data' => json_decode($response->getBody())->data,
-                    ];
-
-                    return $data;
-                }
-            }
-        } catch (ClientException $e) {
-            $this->getStaff($nip);
-        }
-    }
-
     public function history($action, $task_id, $status)
     {
         $history = new Task_history();
@@ -547,7 +499,6 @@ class Controller extends BaseController
 
     public function task()
     {
-        // $this->getStaff();
         $user = User::where('nip', session()->get('nip'))->first();
 
         if ($user['role'] == 1) {
