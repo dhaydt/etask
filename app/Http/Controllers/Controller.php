@@ -31,7 +31,7 @@ class Controller extends BaseController
     {
         $task = Task::find($task_id);
         $auth = session()->get('user_id');
-        $staf = AsnTerkait::where(['id_users' => $auth, 'nip_terkait' => $staff_id])->first();
+        $staf = AsnTerkait::where(['nip_terkait' => $staff_id])->first();
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(public_path('/template/sppdTemplate2.docx'));
 
         $jarak = strtotime($task['selesai_sppd']) - strtotime($task['mulai_sppd']);
