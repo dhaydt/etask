@@ -50,7 +50,7 @@ class Controller extends BaseController
         }
 
         if ($staf->type == 'warga') {
-            $jabatan = $staf->nama_jabatan.' (Warga)';
+            $jabatan = $staf->nama_jabatan;
             $nip = '-';
         }
 
