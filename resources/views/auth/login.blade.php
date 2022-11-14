@@ -180,8 +180,8 @@
                         var responData = data.data
                         console.log('dataReg', responData)
                         $('input[name="id_skpd"]').val(responData.data.id_skpd);
-                        $('input[name="id_eselom"]').val(responData.data.idEselon);
-                        $('input[name="nama_peg"]').val(responData.data.nama);
+                        $('input[name="id_eselon"]').val(responData.data.idEselon);
+                        $('input[name="nama_peg"]').val(responData.data.name);
                         $('input[name="nik"]').val(responData.data.userinfo_id);
                         $('#nipUserReg').val(String(data.nip))
                         $('#registerModal').modal('show');

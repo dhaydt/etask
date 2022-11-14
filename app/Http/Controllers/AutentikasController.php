@@ -90,7 +90,7 @@ class AutentikasController extends Controller
         $user = new User();
         $user->nip = $request['nip'];
         $user->id_skpd = $request['id_skpd'];
-        $user->name = $request['name_peg'];
+        $user->name = $request['nama_peg'];
         $user->id_eselon = $request['id_eselon'];
         $user->password = Hash::make($request['password']);
 
