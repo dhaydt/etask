@@ -73,7 +73,7 @@ class AutentikasController extends Controller
                 'data' => $user,
             ];
         } else {
-            $data = AuthHelpers::getPresensi($id);
+            $data = AuthHelpers::getStaff($id);
             $response = [
                 'code' => 404,
                 'message' => 'NIP tidak terdaftar, tapi tersedia di data kepegawaian kami. Silahkan daftarkan akun untuk E-Task anda!',
@@ -90,11 +90,13 @@ class AutentikasController extends Controller
         $user = new User();
         $user->nip = $request['nip'];
         $user->id_skpd = $request['id_skpd'];
-        $user->name = $request['nama_peg'];
+        $user->name = $request['gelar_dpn'].$request['nama_peg'].$request['gelar_blk'];
         $user->id_eselon = $request['id_eselon'];
         $user->password = Hash::make($request['password']);
 
-        if ($request['nip'] == 1372010910920041 || $request['nip'] == 198611252010011009 || $request['id_eselon'] != 0) {
+        $roles = $request['id_eselon'] + $request['id_subkoor'];
+
+        if ($request['nip'] == 1372010910920041 || $request['nip'] == 198611252010011009 || $roles != 0) {
             $user->role = 1;
         } else {
             $user->role = 2;

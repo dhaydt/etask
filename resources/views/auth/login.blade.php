@@ -100,7 +100,11 @@
                     </div>
                     <form method="POST" action="{{ route('reg') }}" class="w-100">
                         <input type="hidden" name="id_skpd">
+                        <input type="hidden" name="gelar_dpn">
+                        <input type="hidden" name="gelar_blk">
+                        <input type="hidden" name="id_skpd">
                         <input type="hidden" name="id_eselon">
+                        <input type="hidden" name="id_subkoor">
                         <input type="hidden" name="nama_peg">
                         <input type="hidden" name="nik">
                         @csrf
@@ -180,8 +184,11 @@
                         var responData = data.data
                         console.log('dataReg', responData)
                         $('input[name="id_skpd"]').val(responData.data.id_skpd);
-                        $('input[name="id_eselon"]').val(responData.data.idEselon);
-                        $('input[name="nama_peg"]').val(responData.data.name);
+                        $('input[name="id_eselon"]').val(responData.data.id_eselon);
+                        $('input[name="id_subkoor"]').val(responData.data.id_subkoor);
+                        $('input[name="gelar_dpn"]').val(responData.data.gelardpn);
+                        $('input[name="gelar_blk"]').val(responData.data.gelarblk);
+                        $('input[name="nama_peg"]').val(responData.data.nama);
                         $('input[name="nik"]').val(responData.data.userinfo_id);
                         $('#nipUserReg').val(String(data.nip))
                         $('#registerModal').modal('show');
