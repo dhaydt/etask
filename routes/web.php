@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AutentikasController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\GenerateController;
+use App\Http\Controllers\TaskController;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -32,30 +34,33 @@ Route::get('/add', function () {
     return redirect()->route('login');
 });
 
+Route::middleware(['auth.staff'])->group(function () {
+    Route::get('/dashboard', [TaskController::class, 'index'])->name('dashboard');
+
+    Route::get('staffList', [Controller::class, 'staffList']);
+});
+
 Route::post('postLogin', [AutentikasController::class, 'postLogin'])->name('postLogin');
 Route::post('keluar', [AutentikasController::class, 'logout'])->name('postLogout');
 Route::post('reg', [AutentikasController::class, 'registerUser'])->name('reg');
 Route::post('checkUser', [AutentikasController::class, 'checkUser'])->name('checkUser');
 
-Route::post('postTodo', [Controller::class, 'post']);
-Route::post('changeStatus', [Controller::class, 'status']);
-Route::post('updateStaff', [Controller::class, 'updateStaff']);
-Route::post('updateTask', [Controller::class, 'updateTask']);
-Route::post('taskStatus', [Controller::class, 'taskStatus']);
-Route::post('deleteTask', [Controller::class, 'deleteTask']);
+// TASK
+Route::post('postTodo', [TaskController::class, 'addTask']);
+Route::post('deleteTask', [TaskController::class, 'deleteTask']);
+Route::post('updateTask', [TaskController::class, 'updateTask']);
+Route::post('changeStatus', [TaskController::class, 'status']);
+Route::post('updateStaff', [TaskController::class, 'updateStaff']);
+Route::post('taskStatus', [TaskController::class, 'taskStatus']);
+
+// SPT
 Route::post('addSpt', [Controller::class, 'addSpt']);
 Route::post('updateDasarStatus', [Controller::class, 'updateDasarStatus']);
 
 Route::post('pegawaiSkpd', [Controller::class, 'getSkpd']);
 Route::post('addStaff', [Controller::class, 'addStaff']);
 
-Route::get('generate_spt/{id}', [Controller::class, 'generate_spt'])->name('generate_spt');
-Route::get('generate_sppd/{task_id}/{staff_id}', [Controller::class, 'generate_sppd'])->name('generate_sppd');
-
-Route::middleware(['auth.staff'])->group(function () {
-    Route::get('/dashboard', [Controller::class, 'task'])->name('dashboard');
-
-    Route::get('staffList', [Controller::class, 'staffList']);
-});
+Route::get('generate_spt/{id}', [GenerateController::class, 'generate_spt'])->name('generate_spt');
+Route::get('generate_sppd/{task_id}/{staff_id}', [GenerateController::class, 'generate_sppd'])->name('generate_sppd');
 
 require __DIR__.'/auth.php';
