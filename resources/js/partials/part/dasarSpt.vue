@@ -25,6 +25,13 @@
 
                     <div class="modal-body">
                         <div class="card-body py-3">
+                            <div class="row justify-content-end">
+                                <div class="col-md-4 d-flex justify-content-end">
+                                    <a href="/edit-spt" target="_blank" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-edit"></i> Kelola SPT
+                                    </a>
+                                </div>
+                            </div>
                             <div class="tab-content">
                                 <div
                                     class="tab-pane fade show active"
@@ -47,9 +54,9 @@
                                                     <th
                                                         class="p-0 min-w-110px"
                                                     ></th>
-                                                    <th
+                                                    <!-- <th
                                                         class="p-0 min-w-50px"
-                                                    ></th>
+                                                    ></th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -76,6 +83,7 @@
 
 <script>
 import ContentDasar from "./contentDasar";
+
 export default {
     components: { ContentDasar },
     props: {
@@ -84,6 +92,8 @@ export default {
     data() {
         return {
             dasarSpt: [],
+            newDasar: "",
+            newKet: "",
         };
     },
     watch: {
@@ -92,6 +102,7 @@ export default {
         },
     },
     methods: {
+        editSpt(data) {},
         updateDasar() {
             this.dasarSpt = this.dasar;
         },

@@ -11872,6 +11872,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    modalEdit: function modalEdit(data) {
+      $('#sptEdit').modal('show');
+    },
     updateDasar: function updateDasar(id) {
       var active = this.active;
       var that = this;
@@ -11995,6 +11998,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -12005,7 +12015,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      dasarSpt: []
+      dasarSpt: [],
+      newDasar: "",
+      newKet: ""
     };
   },
   watch: {
@@ -12014,6 +12026,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    editSpt: function editSpt(data) {},
     updateDasar: function updateDasar() {
       this.dasarSpt = this.dasar;
     },
@@ -91578,7 +91591,7 @@ var render = function () {
         "div",
         {
           staticClass:
-            "form-check form-switch form-check-custom form-check-solid",
+            "justify-content-end form-check form-switch form-check-custom form-check-solid",
         },
         [
           _c("input", {
@@ -91651,8 +91664,6 @@ var render = function () {
         ]
       ),
     ]),
-    _vm._v(" "),
-    _vm._m(1),
   ])
 }
 var staticRenderFns = [
@@ -91668,23 +91679,6 @@ var staticRenderFns = [
             staticStyle: { "font-size": "2rem" },
           }),
         ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "text-center" }, [
-      _c("div", { staticClass: "d-flex justify-content-center" }, [
-        _c(
-          "a",
-          {
-            staticClass: "btn btn-sm btn-light-success",
-            attrs: { href: "javascript:" },
-          },
-          [_c("i", { staticClass: "fa-solid fa-edit" })]
-        ),
       ]),
     ])
   },
@@ -91730,6 +91724,8 @@ var render = function () {
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
               _c("div", { staticClass: "card-body py-3" }, [
+                _vm._m(1),
+                _vm._v(" "),
                 _c("div", { staticClass: "tab-content" }, [
                   _c(
                     "div",
@@ -91749,7 +91745,7 @@ var render = function () {
                               "table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4",
                           },
                           [
-                            _vm._m(1),
+                            _vm._m(2),
                             _vm._v(" "),
                             _c(
                               "tbody",
@@ -91799,6 +91795,26 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row justify-content-end" }, [
+      _c("div", { staticClass: "col-md-4 d-flex justify-content-end" }, [
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-sm btn-primary",
+            attrs: { href: "/edit-spt", target: "_blank" },
+          },
+          [
+            _c("i", { staticClass: "fas fa-edit" }),
+            _vm._v(" Kelola SPT\n                                "),
+          ]
+        ),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", { staticClass: "border-0" }, [
         _c("th", { staticClass: "p-0 w-50px" }),
@@ -91808,8 +91824,6 @@ var staticRenderFns = [
         _c("th", { staticClass: "p-0 min-w-140px" }),
         _vm._v(" "),
         _c("th", { staticClass: "p-0 min-w-110px" }),
-        _vm._v(" "),
-        _c("th", { staticClass: "p-0 min-w-50px" }),
       ]),
     ])
   },

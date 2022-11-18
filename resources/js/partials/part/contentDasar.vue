@@ -22,7 +22,7 @@
         <td class="text-center text-muted fw-bold">{{ dasar.keterangan }}</td>
         <td class="text-center">
             <div
-                class="form-check form-switch form-check-custom form-check-solid"
+                class="justify-content-end form-check form-switch form-check-custom form-check-solid"
             >
                 <input
                     class="form-check-input h-20px w-30px"
@@ -43,13 +43,13 @@
                 </label>
             </div>
         </td>
-        <td class="text-center">
+        <!-- <td class="text-center">
             <div class="d-flex justify-content-center">
-                <a href="javascript:" class="btn btn-sm btn-light-success"
+                <button @click="modalEdit(dasar)" class="btn btn-sm btn-light-success"
                     ><i class="fa-solid fa-edit"></i
-                ></a>
+                ></button>
             </div>
-        </td>
+        </td> -->
     </tr>
 </template>
 
@@ -79,6 +79,9 @@ export default {
         }
     },
     methods:{
+        modalEdit(data){
+            $('#sptEdit').modal('show');
+        },
         updateDasar(id){
             var active = this.active;
             var that = this;

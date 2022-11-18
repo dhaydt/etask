@@ -15,12 +15,38 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Hash;
+use Yoeunes\Toastr\Facades\Toastr;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests;
     use DispatchesJobs;
     use ValidatesRequests;
+
+    public function editSpt()
+    {
+        $data['spt'] = Dasar::orderBy('created_at', 'desc')->get();
+
+        return view('spt.edit', $data);
+    }
+
+    public function updateSpt(Request $request)
+    {
+        $spt = Dasar::find($request['id']);
+        if (!$spt) {
+            Toastr::info('Surat Perintah Tugas Tidak Ditemukan');
+
+            return redirect()->back();
+        } else {
+            $spt->dasar = $request['dasar'];
+            $spt->keterangan = $request['keterangan'];
+            $spt->save();
+
+            Toastr::success('Surat Perintah Tugas Berhasil di Ubah!!');
+
+            return redirect()->back();
+        }
+    }
 
     public function staffList()
     {

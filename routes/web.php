@@ -55,7 +55,9 @@ Route::post('taskStatus', [TaskController::class, 'taskStatus']);
 
 // SPT
 Route::post('addSpt', [Controller::class, 'addSpt']);
-Route::post('updateDasarStatus', [Controller::class, 'updateDasarStatus']);
+Route::post('updateDasarStatus', [Controller::class, 'updateDasarStatus'])->name('updateDasarStatus');
+Route::get('edit-spt', [Controller::class, 'editSpt']);
+Route::post('update-spt', [Controller::class, 'updateSpt'])->name('update.spt');
 
 Route::post('pegawaiSkpd', [Controller::class, 'getSkpd']);
 Route::post('addStaff', [Controller::class, 'addStaff']);
