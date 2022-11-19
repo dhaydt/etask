@@ -8,3 +8,13 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+config/app.php
+config/secret.php
+config/auth.php
+config/database.php
+config/filesystems.php
+config/hashing.php
+config/mail.php
+config/services.php
+config/session.php
+config/view.php
