@@ -290,7 +290,7 @@
                                                 <img src="{{ asset('img/order.webp') }}" alt="">
                                             </div>
                                             <div class="d-flex flex-column">
-                                                <a href="#" class="text-gray-900 text-hover-primary fs-6 fw-bold">{{ \App\Helpers\Helpers::getSkpd($s['user']['id_skpd']) }}</a>
+                                                <a href="javascript:" class="text-gray-900 text-hover-primary fs-6 fw-bold">{{ \App\Helpers\Helpers::getSkpd($s['user']['id_skpd']) }}</a>
                                                 <span class="text-gray-400 fw-bold fs-10px">Oleh: {{ $s['user']['name'] }}</span>
                                             </div>
                                         </div>
