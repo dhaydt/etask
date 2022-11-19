@@ -39,4 +39,6 @@ return array(
     'ec07570ca5a812141189b1fa81503674' => $vendorDir . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
     '101b35f72e0ccb1b5ef72aa86bba3ef9' => $vendorDir . '/yoeunes/toastr/src/helpers.php',
     '381c1f7485be5ec909ca0fe1ede4b928' => $baseDir . '/app/Helpers/Helpers.php',
+    '98cc420166cf471ac8b4ea27acedb49c' => $baseDir . '/app/Helpers/AuthHelpers.php',
+    'e659481ad977c557bdcd7c9063c17813' => $baseDir . '/app/Helpers/TaskHelpers.php',
 );

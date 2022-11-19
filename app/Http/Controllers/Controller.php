@@ -6,6 +6,7 @@ use App\Helpers\Helpers;
 use App\Helpers\TaskHelpers;
 use App\Models\AsnTerkait;
 use App\Models\Dasar;
+use App\Models\Skpd;
 use App\Models\User;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
@@ -23,11 +24,82 @@ class Controller extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
 
+    public function saveSkpd()
+    {
+        $token = Helpers::getToken();
+
+        $key = $token;
+
+        $main_api = 'https://apidoc.bukittinggikota.go.id/simpeg/public/api';
+
+        $api = $main_api.'/data_skpd';
+
+        $header = [
+            'Authorization' => 'Bearer'.$key,
+        ];
+
+        try {
+            $client = new Client();
+
+            $response = $client->request('POST', $api, [
+                'headers' => $header,
+            ]);
+
+            $status = $response->getStatusCode();
+
+            session()->put('token', $key);
+
+            if ($status == 200) {
+                $resp = json_decode($response->getBody()->getContents())->api_status;
+
+                if ($resp == 0) {
+                    $data = [
+                        'code' => 404,
+                        'message' => 'SKPD tidak ditemukan',
+                    ];
+
+                    return $data;
+                } else {
+                    $skpd = json_decode($response->getBody())->data;
+
+                    foreach ($skpd as $s) {
+                        $check = Skpd::where('id_skpd', $s->id_skpd)->first();
+                        if ($check) {
+                            $check->id_skpd = $s->id_skpd;
+                            $check->nmskpd = $s->nmskpd;
+                        } else {
+                            $check = new Skpd();
+                            $check->id_skpd = $s->id_skpd;
+                            $check->nmskpd = $s->nmskpd;
+                        }
+                        $check->save();
+                    }
+
+                    $data = [
+                        'code' => 200,
+                        'message' => 'Data SKPD berhasil diperbarui!!!',
+                    ];
+
+                    return $data;
+                }
+            }
+        } catch (ClientException $e) {
+            // $this->getSkpd($request);
+        }
+        // return response()->json(['code' => 200, 'message' => 'success']);
+    }
+
     public function editSpt()
     {
-        $data['spt'] = Dasar::orderBy('created_at', 'desc')->get();
+        $auth = session()->get('user_id');
+        if ($auth) {
+            $data['spt'] = Dasar::with('user')->orderBy('created_at', 'desc')->get();
+            $data['user'] = User::find($auth);
 
-        return view('spt.edit', $data);
+            return view('spt.edit', $data);
+        } else {
+            return response()->json('Not Authorized User!');
+        }
     }
 
     public function updateSpt(Request $request)

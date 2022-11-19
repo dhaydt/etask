@@ -16,4 +16,9 @@ class Dasar extends Model
         'keterangan',
         'status',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'add_by', 'nip');
+    }
 }

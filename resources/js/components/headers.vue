@@ -80,9 +80,14 @@
                                 v-else
                                 href="javascript:"
                                 class="menu-link px-3 fw-bold disabled"
-                                style="cursor:not-allowed"
+                                style="cursor: not-allowed"
                             >
-                                <img src="img/loading.svg" width="20px" style="margin-left: -5px;" class="me-2" />
+                                <img
+                                    src="img/loading.svg"
+                                    width="20px"
+                                    style="margin-left: -5px"
+                                    class="me-2"
+                                />
                                 Mengambil data
                             </a>
                         </div>
@@ -98,7 +103,7 @@
                             </a>
                         </div>
                     </div>
-                    <button
+                    <!-- <button
                         class="nav-items nav-global"
                         data-test-id="recently-viewed-boards-menu"
                         type="button"
@@ -109,8 +114,8 @@
                     >
                         <span class="nav-item-title me-2 text-light"
                             >Recent</span
-                        ></button
-                    ><button
+                        ></button> -->
+                    <button
                         class="nav-items nav-global"
                         data-test-id="starred-boards-menu"
                         type="button"
@@ -152,6 +157,7 @@
             <button
                 class="menu-seru main-right"
                 data-test-id="header-info-button"
+                @click="saveSkpd()"
                 type="button"
                 aria-label="Open information menu"
             >
@@ -233,6 +239,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
     data() {
         return {
@@ -242,15 +249,22 @@ export default {
             csrf: document
                 .querySelector('meta[name="csrf-token"]')
                 .getAttribute("content"),
+            config: {
+                headers: {
+                    header: document
+                        .querySelector('meta[name="csrf-token"]')
+                        .getAttribute("content"),
+                },
+            },
         };
     },
     props: {
         users: Array | Object,
     },
-    mounted(){
-        this.$root.$on('toggleAdd', () => {
+    mounted() {
+        this.$root.$on("toggleAdd", () => {
             this.toggleAdd();
-        })
+        });
     },
     watch: {
         users() {
@@ -258,8 +272,26 @@ export default {
         },
     },
     methods: {
-        toggleAdd(){
-            this.loaded = true
+        saveSkpd() {
+            axios
+                .post(
+                    "saveSkpd", this.config
+                )
+                .then(function (resp) {
+                    var data = resp.data;
+                    if (data.code == 200) {
+                        // that.$parent.splitAxios(data.data.original);
+                        Vue.$toast.success(data.message);
+                        console.log('respon',data);
+                    }
+                })
+                .catch(function (err) {
+                    console.log("err", err);
+                    // window.alert(err);
+                });
+        },
+        toggleAdd() {
+            this.loaded = true;
         },
         showModalAddStaff() {
             this.$root.$emit("addStaff");

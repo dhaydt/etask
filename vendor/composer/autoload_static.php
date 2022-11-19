@@ -40,6 +40,8 @@ class ComposerStaticInit4802bbe3954e2e3fca4642d71c77f0c8
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         '101b35f72e0ccb1b5ef72aa86bba3ef9' => __DIR__ . '/..' . '/yoeunes/toastr/src/helpers.php',
         '381c1f7485be5ec909ca0fe1ede4b928' => __DIR__ . '/../..' . '/app/Helpers/Helpers.php',
+        '98cc420166cf471ac8b4ea27acedb49c' => __DIR__ . '/../..' . '/app/Helpers/AuthHelpers.php',
+        'e659481ad977c557bdcd7c9063c17813' => __DIR__ . '/../..' . '/app/Helpers/TaskHelpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -577,7 +579,9 @@ class ComposerStaticInit4802bbe3954e2e3fca4642d71c77f0c8
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Helpers\\AuthHelpers' => __DIR__ . '/../..' . '/app/Helpers/AuthHelpers.php',
         'App\\Helpers\\Helpers' => __DIR__ . '/../..' . '/app/Helpers/Helpers.php',
+        'App\\Helpers\\TaskHelpers' => __DIR__ . '/../..' . '/app/Helpers/TaskHelpers.php',
         'App\\Http\\Controllers\\AutentikasController' => __DIR__ . '/../..' . '/app/Http/Controllers/AutentikasController.php',
         'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/AuthenticatedSessionController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmablePasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmablePasswordController.php',
@@ -588,6 +592,8 @@ class ComposerStaticInit4802bbe3954e2e3fca4642d71c77f0c8
         'App\\Http\\Controllers\\Auth\\RegisteredUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisteredUserController.php',
         'App\\Http\\Controllers\\Auth\\VerifyEmailController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerifyEmailController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\GenerateController' => __DIR__ . '/../..' . '/app/Http/Controllers/GenerateController.php',
+        'App\\Http\\Controllers\\TaskController' => __DIR__ . '/../..' . '/app/Http/Controllers/TaskController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\AuthStaff' => __DIR__ . '/../..' . '/app/Http/Middleware/AuthStaff.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -604,6 +610,7 @@ class ComposerStaticInit4802bbe3954e2e3fca4642d71c77f0c8
         'App\\Models\\Jabatan' => __DIR__ . '/../..' . '/app/Models/Jabatan.php',
         'App\\Models\\LoginLogs' => __DIR__ . '/../..' . '/app/Models/LoginLogs.php',
         'App\\Models\\Role' => __DIR__ . '/../..' . '/app/Models/Role.php',
+        'App\\Models\\Skpd' => __DIR__ . '/../..' . '/app/Models/Skpd.php',
         'App\\Models\\Staff' => __DIR__ . '/../..' . '/app/Models/Staff.php',
         'App\\Models\\StaffDetail' => __DIR__ . '/../..' . '/app/Models/StaffDetail.php',
         'App\\Models\\Task' => __DIR__ . '/../..' . '/app/Models/Task.php',

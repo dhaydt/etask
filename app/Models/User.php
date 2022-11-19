@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(AsnTerkait::class, 'id_users');
     }
+
+    public function skpd()
+    {
+        return $this->belongsTo(Skpd::class, 'id_skpd', 'id_skpd');
+    }
 }

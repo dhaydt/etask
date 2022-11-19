@@ -9263,6 +9263,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -9497,13 +9499,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       rule: null,
       loaded: false,
       user: [],
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+      config: {
+        headers: {
+          header: document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+        }
+      }
     };
   },
   props: {
@@ -9512,7 +9526,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    this.$root.$on('toggleAdd', function () {
+    this.$root.$on("toggleAdd", function () {
       _this.toggleAdd();
     });
   },
@@ -9522,6 +9536,19 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    saveSkpd: function saveSkpd() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post("saveSkpd", this.config).then(function (resp) {
+        var data = resp.data;
+
+        if (data.code == 200) {
+          // that.$parent.splitAxios(data.data.original);
+          Vue.$toast.success(data.message);
+          console.log('respon', data);
+        }
+      })["catch"](function (err) {
+        console.log("err", err); // window.alert(err);
+      });
+    },
     toggleAdd: function toggleAdd() {
       this.loaded = true;
     },
@@ -88468,7 +88495,6 @@ var render = function () {
             ),
             _vm._v(" "),
             _vm._m(2),
-            _vm._m(3),
             _vm._v(" "),
             _c(
               "button",
@@ -88491,7 +88517,7 @@ var render = function () {
             ),
           ]),
           _vm._v(" "),
-          _vm._m(4),
+          _vm._m(3),
         ]),
       ]),
       _vm._v(" "),
@@ -88504,6 +88530,11 @@ var render = function () {
               "data-test-id": "header-info-button",
               type: "button",
               "aria-label": "Open information menu",
+            },
+            on: {
+              click: function ($event) {
+                return _vm.saveSkpd()
+              },
             },
           },
           [
@@ -88613,7 +88644,7 @@ var render = function () {
                   domProps: { value: _vm.csrf },
                 }),
                 _vm._v(" "),
-                _vm._m(5),
+                _vm._m(4),
               ]),
             ]),
           ]
@@ -88669,30 +88700,6 @@ var staticRenderFns = [
         ]
       ),
     ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "nav-items nav-global",
-        attrs: {
-          "data-test-id": "recently-viewed-boards-menu",
-          type: "button",
-          "aria-haspopup": "true",
-          "aria-expanded": "false",
-          title: "Recent",
-          "aria-label": "Recent boards",
-        },
-      },
-      [
-        _c("span", { staticClass: "nav-item-title me-2 text-light" }, [
-          _vm._v("Recent"),
-        ]),
-      ]
-    )
   },
   function () {
     var _vm = this

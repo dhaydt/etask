@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Models\AsnTerkait;
+use App\Models\Skpd;
 use App\Models\Task;
 use App\Models\User;
 use Carbon\Carbon;
@@ -11,6 +12,13 @@ use Illuminate\Support\Facades\Storage;
 
 class Helpers
 {
+    public function getSkpd($id)
+    {
+        $skpd = Skpd::where('id_skpd', $id)->first();
+
+        return $skpd->nmskpd;
+    }
+
     public static function getTokenPresensi()
     {
         $secret = config('secret.presensi');

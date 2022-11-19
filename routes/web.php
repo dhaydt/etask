@@ -38,6 +38,8 @@ Route::middleware(['auth.staff'])->group(function () {
     Route::get('/dashboard', [TaskController::class, 'index'])->name('dashboard');
 
     Route::get('staffList', [Controller::class, 'staffList']);
+    Route::get('edit-spt', [Controller::class, 'editSpt']);
+    Route::post('saveSkpd', [Controller::class, 'saveSkpd']);
 });
 
 Route::post('postLogin', [AutentikasController::class, 'postLogin'])->name('postLogin');
@@ -56,7 +58,6 @@ Route::post('taskStatus', [TaskController::class, 'taskStatus']);
 // SPT
 Route::post('addSpt', [Controller::class, 'addSpt']);
 Route::post('updateDasarStatus', [Controller::class, 'updateDasarStatus'])->name('updateDasarStatus');
-Route::get('edit-spt', [Controller::class, 'editSpt']);
 Route::post('update-spt', [Controller::class, 'updateSpt'])->name('update.spt');
 
 Route::post('pegawaiSkpd', [Controller::class, 'getSkpd']);
