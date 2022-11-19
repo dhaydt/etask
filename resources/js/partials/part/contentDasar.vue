@@ -3,12 +3,12 @@
         <td>
             <div class="symbol symbol-45px me-2">
                 <span class="symbol-label">
-                    <!-- <img
-                        src="assets/media/svg/brand-logos/plurk.svg"
-                        class="h-50 align-self-center"
+                    <img
+                        src="img/order.webp"
+                        class="h-75 align-self-center"
                         alt=""
-                    /> -->
-                    <i class="fa-solid fa-book" style="font-size:2rem;"></i>
+                    />
+                    <!-- <i class="fa-solid fa-book" style="font-size:2rem;"></i> -->
                 </span>
             </div>
         </td>
@@ -24,23 +24,23 @@
             <div
                 class="justify-content-end form-check form-switch form-check-custom form-check-solid"
             >
+                <label
+                    v-if="active == false"
+                    class="form-check-label me-2"
+                    for="flexSwitchDefault"
+                >
+                    <span class="badge badge-light-danger">Non Active</span>
+                </label>
+                <label v-else class="form-check-label me-2" for="flexSwitchDefault">
+                    <span class="badge badge-light-success">Active</span>
+                </label>
                 <input
-                    class="form-check-input h-20px w-30px"
+                    class="form-check-input h-20px w-30px cursor-pointer"
                     v-model="active"
                     type="checkbox"
                     id="flexSwitchDefault"
                     @click="updateDasar(dasar.id)"
                 />
-                <label
-                    v-if="active == false"
-                    class="form-check-label"
-                    for="flexSwitchDefault"
-                >
-                    <span class="badge badge-light-danger">Non Active</span>
-                </label>
-                <label v-else class="form-check-label" for="flexSwitchDefault">
-                    <span class="badge badge-light-success">Active</span>
-                </label>
             </div>
         </td>
         <!-- <td class="text-center">

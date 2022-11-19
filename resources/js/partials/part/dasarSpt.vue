@@ -9,7 +9,7 @@
         >
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header shadow-sm">
                         <h3 class="modal-title">Dasar Surat Perintah Tugas</h3>
 
                         <!--begin::Close-->
@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="modal-body">
-                        <div class="card-body py-3">
+                        <div class="card-body pb-3">
                             <div class="row justify-content-end">
                                 <div class="col-md-4 d-flex justify-content-end">
                                     <a href="/edit-spt" target="_blank" class="btn btn-sm btn-primary">
@@ -113,4 +113,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.modal-body{
+    height: 75vh;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+}
+</style>
