@@ -51,7 +51,7 @@ class TaskController extends Controller
         $asn_terkait = $user->asn;
         $foto = '';
         if (count($asn_terkait) > 0) {
-            $foto = $asn_terkait->foto;
+            $foto = $asn_terkait[0]->foto;
         }
         if (session()->get('role_id') == 2) {
             $staff = [
