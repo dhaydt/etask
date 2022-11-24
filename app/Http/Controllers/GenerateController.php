@@ -96,10 +96,9 @@ class GenerateController extends Controller
                 if ($jabatan == 'Kontrak') {
                     $jabatan = 'Staf';
                 }
-            }
-
-            if ($findStaf->type == 'warga') {
-                $jabatan = $findStaf->nama_jabatan;
+                if ($findStaf->type == 'warga') {
+                    $jabatan = $findStaf->nama_jabatan;
+                }
             }
 
             $spt->jabatan = $jabatan;
