@@ -89,10 +89,13 @@ class GenerateController extends Controller
             $spt->name = $s->nama;
 
             $findStaf = AsnTerkait::where('nip_terkait', $s->id)->first();
+            $jabatan = 'Kesalahan data jabatan';
 
-            $jabatan = ucwords(strtolower($findStaf->nama_jabatan));
-            if ($jabatan == 'Kontrak') {
-                $jabatan = 'Staf';
+            if ($findStaf) {
+                $jabatan = ucwords(strtolower($findStaf->nama_jabatan));
+                if ($jabatan == 'Kontrak') {
+                    $jabatan = 'Staf';
+                }
             }
 
             if ($findStaf->type == 'warga') {
