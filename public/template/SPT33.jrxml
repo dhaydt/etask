@@ -66,7 +66,7 @@ WHERE
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="262">
+		<band height="304">
 			<image>
 				<reportElement x="59" y="5" width="483" height="83" uuid="2b3b39e9-ea74-4600-88d7-4d008cfebabd"/>
 				<imageExpression><![CDATA["/var/www/clients/client1/web32/web/public/img/kop-kominfo.png"]]></imageExpression>
@@ -93,28 +93,28 @@ WHERE
 				<text><![CDATA[Dasar  :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="117" y="162" width="403" height="43" uuid="0ad6c0bd-1ff1-4924-b9ff-b7b1c0b18e65"/>
+				<reportElement x="117" y="162" width="403" height="88" uuid="0ad6c0bd-1ff1-4924-b9ff-b7b1c0b18e65"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dasar}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="240" y="215" width="127" height="20" uuid="a7977313-fe18-4fbf-952d-e4c9ac7894c9"/>
+				<reportElement x="240" y="255" width="127" height="20" uuid="a7977313-fe18-4fbf-952d-e4c9ac7894c9"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MEMERINTAHKAN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="117" y="243" width="52" height="19" uuid="abd807e9-2a97-4845-8034-a38c58b78067"/>
+				<reportElement x="117" y="283" width="52" height="19" uuid="abd807e9-2a97-4845-8034-a38c58b78067"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Kepada :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="369" y="215" width="13" height="17" uuid="b2a8d434-4f73-47eb-8f99-ca84fd6cd7e2">
+				<reportElement x="370" y="256" width="13" height="17" uuid="b2a8d434-4f73-47eb-8f99-ca84fd6cd7e2">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
