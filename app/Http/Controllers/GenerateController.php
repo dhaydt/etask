@@ -118,8 +118,8 @@ class GenerateController extends Controller
             $dasar = $spt[0]->dasar;
         }
 
-        $hari = Carbon::parse($task['mulai'])->isoFormat('dddd');
-        $tgl = Carbon::parse($task['mulai'])->isoFormat('D MMMM Y');
+        $hari = Carbon::parse($task['start'])->isoFormat('dddd');
+        $tgl = Carbon::parse($task['start'])->isoFormat('D MMMM Y');
         $tempat = json_decode($task['attribute']) ? json_decode($task['attribute'])->kota_tujuan : 'Belum ada data';
         $taskName = $task->description;
 
