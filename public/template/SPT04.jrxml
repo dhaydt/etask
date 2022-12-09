@@ -125,7 +125,7 @@ WHERE
 		</band>
 	</title>
 	<detail>
-		<band height="77" splitType="Stretch">
+		<band height="65" splitType="Stretch">
 			<textField>
 				<reportElement x="46" y="3" width="123" height="17" uuid="568f5339-2ddb-400f-8e76-2d6969c6bdb6">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
