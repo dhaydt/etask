@@ -217,9 +217,9 @@ WHERE
 		</band>
 	</detail>
 	<summary>
-		<band height="263">
+		<band height="340">
 			<staticText>
-				<reportElement x="308" y="183" width="187" height="80" uuid="71abd8c4-fafc-4088-9d59-b87543692d81"/>
+				<reportElement x="308" y="235" width="187" height="80" uuid="71abd8c4-fafc-4088-9d59-b87543692d81"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
@@ -231,7 +231,7 @@ NIP. ${nip_pengirim}
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="309" y="139" width="248" height="40" uuid="95c17b7d-2a16-4afe-a962-e5d0ec9ac945"/>
+				<reportElement x="309" y="191" width="248" height="40" uuid="95c17b7d-2a16-4afe-a962-e5d0ec9ac945"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -239,14 +239,14 @@ NIP. ${nip_pengirim}
 Pada Tanggal	: ${tanggal_naskah}]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="124" y="104" width="407" height="32" uuid="538c62bc-cf4d-4229-ba4b-ec9860cf308e"/>
+				<reportElement x="124" y="156" width="407" height="32" uuid="538c62bc-cf4d-4229-ba4b-ec9860cf308e"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Demikian Surat  Tugas ini dibuat, untuk dapat dilaksanakan sebagaimana mestinya.]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="175" y="7" width="304" height="34" uuid="4e37b30a-eeb1-49fa-8a4a-de095dc17c59">
+				<reportElement x="175" y="7" width="304" height="83" uuid="4e37b30a-eeb1-49fa-8a4a-de095dc17c59">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -255,28 +255,28 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<textFieldExpression><![CDATA[$P{task} + ", pada :"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="250" y="45" width="232" height="17" uuid="13bdb6f2-f8d5-409d-a0f3-9f618b7c261f"/>
+				<reportElement x="250" y="97" width="232" height="17" uuid="13bdb6f2-f8d5-409d-a0f3-9f618b7c261f"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{hari}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="249" y="62" width="232" height="17" uuid="2f51992b-0049-4dec-b413-2d0142fe20bb"/>
+				<reportElement x="249" y="114" width="232" height="17" uuid="2f51992b-0049-4dec-b413-2d0142fe20bb"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{tgl}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="249" y="80" width="232" height="17" uuid="9281a203-4e76-4cf5-903b-9c7ad640c6dd"/>
+				<reportElement x="249" y="132" width="232" height="17" uuid="9281a203-4e76-4cf5-903b-9c7ad640c6dd"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{tempat}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="175" y="44" width="56" height="17" uuid="6667f588-bc1e-43da-a55c-d4761b9bbc52">
+				<reportElement x="175" y="96" width="56" height="17" uuid="6667f588-bc1e-43da-a55c-d4761b9bbc52">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -285,7 +285,7 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<text><![CDATA[Hari]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="176" y="62" width="56" height="17" uuid="30544096-1e2b-4932-a7c9-92e19812211c">
+				<reportElement x="176" y="114" width="56" height="17" uuid="30544096-1e2b-4932-a7c9-92e19812211c">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -294,7 +294,7 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<text><![CDATA[Tanggal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="176" y="80" width="55" height="17" uuid="edbe9636-d381-4d0b-98e3-e2af4f9dc028">
+				<reportElement x="176" y="132" width="55" height="17" uuid="edbe9636-d381-4d0b-98e3-e2af4f9dc028">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -303,7 +303,7 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<text><![CDATA[Tempat]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="234" y="44" width="13" height="17" uuid="2c4b5571-cd62-46a9-90c7-f655d5db19c0">
+				<reportElement x="234" y="96" width="13" height="17" uuid="2c4b5571-cd62-46a9-90c7-f655d5db19c0">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -312,7 +312,7 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="234" y="62" width="13" height="17" uuid="486b134b-c065-4e00-a5cf-30bf73014358">
+				<reportElement x="234" y="114" width="13" height="17" uuid="486b134b-c065-4e00-a5cf-30bf73014358">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -321,7 +321,7 @@ Pada Tanggal	: ${tanggal_naskah}]]></text>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="234" y="81" width="13" height="17" uuid="a5f340f3-5d89-4035-9fff-78f316cff0c0">
+				<reportElement x="234" y="133" width="13" height="17" uuid="a5f340f3-5d89-4035-9fff-78f316cff0c0">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
