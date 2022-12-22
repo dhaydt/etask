@@ -88466,7 +88466,7 @@ var render = function () {
                     staticClass:
                       "nav-item-title me-2 text-light text-capitalize",
                   },
-                  [_vm._v("Tambah data")]
+                  [_vm._v("Tambah data E-Task")]
                 ),
                 _vm._v(" "),
                 _c(
