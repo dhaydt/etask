@@ -33,7 +33,7 @@
                     >
                         <span
                             class="nav-item-title me-2 text-light text-capitalize"
-                            >Tambah data</span
+                            >Tambah data test</span
                         >
                         <span
                             class="nch-icon zb2xH7sIF-ak3S ttnK8PUoemc3bn yL4b0Ecr10JiXu frgVIeU5oJb3WB"
