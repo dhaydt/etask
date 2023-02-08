@@ -140,7 +140,7 @@ class GenerateController extends Controller
         TaskHelpers::removeTask($id);
 
         if (count($staff) > 3) {
-            return response()->file(public_path('storage/spt/SPTTable39.docx'));
+            return response()->file(public_path('storage/spt/SPTTable40.docx'));
         } else {
             return response()->file(public_path('storage/spt/SPT19.docx'));
         }
