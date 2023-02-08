@@ -106,7 +106,7 @@ class GenerateController extends Controller
             $spt->save();
         }
         if (count($staff) > 3) {
-            $input = public_path('template/SPTTable39.jrxml');
+            $input = public_path('template/SPTTable40.jrxml');
         } else {
             $input = public_path('template/SPT19.jrxml');
         }
