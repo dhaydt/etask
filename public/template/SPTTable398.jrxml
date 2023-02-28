@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SPT" pageWidth="612" pageHeight="936" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f38d8ced-633b-4ae8-98ee-b7ad4ada40d0">
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[YzFfZXRhc2suc3B0X2dlbmVyYXRlcyAsMTUsMTUsZTg5YjAyMDQtNWY1Yy00MzExLWFhOWMtMmE2
+YWY5NTlhNGU4Ow==]]>
+	</property>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="spt_id" class="java.lang.String">
+		<parameterDescription><![CDATA[spt_id]]></parameterDescription>
+	</parameter>
+	<parameter name="dasar" class="java.lang.String">
+		<parameterDescription><![CDATA[dasar spt]]></parameterDescription>
+	</parameter>
+	<parameter name="task" class="java.lang.String">
+		<parameterDescription><![CDATA[task]]></parameterDescription>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT id,
+	nip,
+	name,
+	jabatan,
+	spt_id
+FROM c1_etask.spt_generates
+WHERE 
+	 c1_etask.spt_generates.spt_id = $P{spt_id}]]>
+	</queryString>
+	<field name="id" class="java.math.BigInteger">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="asn_terkait"/>
+	</field>
+	<field name="nip" class="java.lang.String">
+		<fieldDescription><![CDATA[nip]]></fieldDescription>
+	</field>
+	<field name="jabatan" class="java.lang.String">
+		<fieldDescription><![CDATA[jabatan]]></fieldDescription>
+	</field>
+	<field name="spt_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[spt_id]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="net.sf.jasperreports.sql.field.column.name" value="name"/>
+		<property name="net.sf.jasperreports.sql.field.column.label" value="name"/>
+		<fieldDescription><![CDATA[name]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="212" splitType="Stretch">
+			<image>
+				<reportElement x="50" y="2" width="483" height="83" uuid="bb45cc4a-60dd-4531-b343-9382869372e6"/>
+				<imageExpression><![CDATA["/var/www/clients/client1/web32/web/public/img/kop-kominfo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="252" y="88" width="97" height="16" uuid="df9d10f7-64a7-459c-90d2-128afc69d2e4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[SURAT TUGAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="153" y="106" width="250" height="20" uuid="f647ce1b-9825-46ca-9e38-a22e5f076e41"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Nomor : ${nomor_naskah}___________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="101" y="190" width="33" height="20" uuid="914d3fd9-f5c3-4edc-a8e2-77dfbe6d88b7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11"/>
+				</textElement>
+				<text><![CDATA[NO.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="142" y="190" width="192" height="20" uuid="ed0dcb98-92c2-41b9-a759-93cb704c3260"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11"/>
+				</textElement>
+				<text><![CDATA[NAMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="190" width="159" height="20" uuid="3c9c878c-e75f-47e3-9589-d3303f4a846d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11"/>
+				</textElement>
+				<text><![CDATA[JABATAN]]></text>
+			</staticText>
+			<line>
+				<reportElement x="95" y="188" width="1" height="23" uuid="6fd9826d-5499-41ac-9375-a0965d039805">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="95" y="211" width="405" height="1" uuid="75150cfc-9a3c-4ec4-9681-4e2b4bf3e4a9">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="500" y="188" width="1" height="24" uuid="991c195c-3b15-4291-b867-8eb93bcfb486">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="95" y="187" width="405" height="1" uuid="a2478013-47ed-40a8-b8a5-bb4506df5dd4">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="139" y="188" width="1" height="23" uuid="11021dd9-9eff-4313-b8c8-83d68da71b6a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="336" y="188" width="1" height="23" uuid="aae7e78e-3525-41f6-b488-dc665b909bf1">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="30" y="134" width="53" height="15" uuid="d2a09637-6c13-4d73-8d69-8aa0de6cb7e5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Dasar	:]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont" evaluationTime="Auto" isBlankWhenNull="false">
+				<reportElement stretchType="RelativeToTallestObject" x="95" y="134" width="406" height="14" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="f3e234f0-26ef-4f25-8468-a9650ca779df"/>
+				<textElement textAlignment="Justified">
+					<font size="11"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dasar}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="95" y="148" width="406" height="39" uuid="922482f6-15c4-4321-a7a7-97de58a6ef5f"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="11"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[Kepala Dinas Komunikasi dan Informatika Kota Bukittinggi dengan ini, memerintahkan kepada nama-nama yang tersebut dibawah ini:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="142" y="0" width="192" height="16" uuid="b3970986-39c7-4d47-8c66-96cb8abccfef">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8553365c-51b0-4f1e-aa05-e8833cc469b8"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="11" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="142" y="17" width="192" height="16" uuid="f29eb00e-b530-4433-8c1f-37432c9737eb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1a7d931d-eebc-42a1-9625-1921dff36a47"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Justified">
+					<font fontName="SansSerif" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["NIP. "+$F{nip}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="95" y="0" width="1" height="35" uuid="cdcb6207-4764-4829-8b80-cbf07871edde">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="95" y="35" width="405" height="1" uuid="3e68d877-404b-4270-b1b2-14dacbff0513">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="139" y="0" width="1" height="35" uuid="d2ddf985-c644-4fe4-b23e-5f33acf82e37">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="336" y="0" width="1" height="35" uuid="f32a805a-1a02-4e6c-b66e-21d74f08b6f8">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="500" y="0" width="1" height="35" uuid="44eb2404-b15e-4b75-80aa-36ef0d60fb28">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<textField>
+				<reportElement x="101" y="7" width="33" height="16" uuid="d17b97d7-f3cd-40fd-b338-b2fb35680e25">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="339" y="2" width="159" height="30" uuid="0673c66d-d8d0-4061-986b-5765c0e5f826"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jabatan}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="367" splitType="Stretch">
+			<staticText>
+				<reportElement x="309" y="118" width="248" height="33" uuid="a75c6c13-7e4b-435d-ae3b-fef93775ae69">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Dibuat di	: Bukittinggi
+Pada Tanggal	: ${tanggal_naskah}]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="199" width="169" height="76" uuid="eddf978a-f861-43ba-8ea7-8ba19865ab84">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[${ttd_pengirim}]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="295" width="169" height="16" uuid="4502396a-aed4-4dbb-a513-4abec715a2d8">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Pembina Utama Muda-IV/c]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="277" width="169" height="16" uuid="2b8cde7b-e722-46e0-ba0a-0c7c1f6b462c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[${nama_pengirim}]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="313" width="169" height="16" uuid="4be66b47-3591-4dc1-b0b3-e1495b3ebea5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[NIP. ${nip_pengirim}]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="93" y="84" width="407" height="32" uuid="cbdd67c5-293f-41d9-a1fc-5491c54aa854"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Demikian Surat  Tugas ini dibuat, untuk dapat dilaksanakan sebagaimana mestinya.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="95" y="7" width="403" height="74" uuid="81d64d95-2be9-4425-bccc-ae726f315e75"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="11"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Untuk "+$P{task}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="238" y="153" width="291" height="37" uuid="25812a38-933a-4ca7-9b24-7cf7640da5d0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Kepala Dinas Komunikasi dan Informatika Kota Bukittinggi]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
