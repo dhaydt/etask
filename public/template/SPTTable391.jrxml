@@ -138,8 +138,8 @@ WHERE
 				</textElement>
 				<text><![CDATA[Dasar	:]]></text>
 			</staticText>
-			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="RelativeToTallestObject" x="95" y="134" width="406" height="14" uuid="f3e234f0-26ef-4f25-8468-a9650ca779df"/>
+			<textField>
+				<reportElement x="95" y="134" width="406" height="96" uuid="f3e234f0-26ef-4f25-8468-a9650ca779df"/>
 				<textElement textAlignment="Justified">
 					<font size="11"/>
 					<paragraph lineSpacing="1_1_2"/>
@@ -147,7 +147,7 @@ WHERE
 				<textFieldExpression><![CDATA[$P{dasar}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="95" y="148" width="406" height="39" uuid="922482f6-15c4-4321-a7a7-97de58a6ef5f"/>
+				<reportElement x="94" y="232" width="408" height="39" uuid="922482f6-15c4-4321-a7a7-97de58a6ef5f"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font size="11"/>
 					<paragraph lineSpacing="1_1_2"/>
