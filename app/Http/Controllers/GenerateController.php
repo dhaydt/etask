@@ -106,7 +106,7 @@ class GenerateController extends Controller
             $spt->save();
         }
         if (count($staff) > 3) {
-            $input = public_path('template/SPTTable40.jrxml');
+            $input = public_path('template/SPTTable42.jrxml');
         } else {
             $input = public_path('template/SPT22.jrxml');
         }
@@ -140,7 +140,7 @@ class GenerateController extends Controller
         TaskHelpers::removeTask($id);
 
         if (count($staff) > 3) {
-            return response()->file(public_path('storage/spt/SPTTable40.docx'));
+            return response()->file(public_path('storage/spt/SPTTable42.docx'));
         } else {
             return response()->file(public_path('storage/spt/SPT22.docx'));
         }
