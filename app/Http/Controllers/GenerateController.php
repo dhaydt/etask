@@ -134,7 +134,7 @@ class GenerateController extends Controller
         }
         $database = 'mysql -H localhost -u c1_etask -p KhSh_Bx4 -n c1_etask';
 
-        dd("java -jar $jasperstarter pr $input -o $output -f docx -P $parameter");
+        // dd("java -jar $jasperstarter pr $input -o $output -f docx -P $parameter");
         exec("java -jar $jasperstarter pr $input -o $output -f docx -P $parameter -t $database");
 
         TaskHelpers::removeTask($id);
