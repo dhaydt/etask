@@ -108,7 +108,7 @@ class GenerateController extends Controller
         if (count($staff) > 3) {
             $input = public_path('template/SPTTable40.jrxml');
         } else {
-            $input = public_path('template/SPT21.jrxml');
+            $input = public_path('template/SPT22.jrxml');
         }
         $output = public_path('/storage/spt');
 
@@ -142,7 +142,7 @@ class GenerateController extends Controller
         if (count($staff) > 3) {
             return response()->file(public_path('storage/spt/SPTTable40.docx'));
         } else {
-            return response()->file(public_path('storage/spt/SPT21.docx'));
+            return response()->file(public_path('storage/spt/SPT22.docx'));
         }
     }
 }
