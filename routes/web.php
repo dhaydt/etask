@@ -67,3 +67,4 @@ Route::get('generate_spt/{id}', [GenerateController::class, 'generate_spt'])->na
 Route::get('generate_sppd/{task_id}/{staff_id}', [GenerateController::class, 'generate_sppd'])->name('generate_sppd');
 
 require __DIR__.'/auth.php';
+// tester
